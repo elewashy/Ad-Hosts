@@ -2,3 +2,4 @@
 ||top-fwz1.mail.ru^
 ||covettunica.com^
 ||augailou.com^
+||cloudflareinsights.com^
