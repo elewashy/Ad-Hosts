@@ -1,16 +1,13 @@
-# قراءة محتويات ملف الهوستات
 with open('AdguardDNS.txt', 'r') as file:
     lines = file.readlines()
 
-# تحويل كل سطر إلى صيغة فلتر
 filters = []
 for line in lines:
-    line = line.strip()  # إزالة المسافات الزائدة
-    if line and not line.startswith("#"):  # تجاهل الأسطر الفارغة أو التعليقات
-        domain = line.split()[1]  # استخراج النطاق
+    line = line.strip()  
+    if line and not line.startswith("#"):  
+        domain = line.split()[1]  
         filters.append(f"||{domain}^")
 
-# كتابة الفلاتر إلى ملف جديد
 with open('filters.txt', 'w') as file:
     file.write("\n".join(filters))
 
