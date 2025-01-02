@@ -11,4 +11,4 @@ for line in lines:
 with open('filters.txt', 'w') as file:
     file.write("\n".join(filters))
 
-print("تم تحويل الهوستات إلى صيغة فلتر بنجاح!")
+print("done")
