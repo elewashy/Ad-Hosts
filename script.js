@@ -35,7 +35,19 @@
         myButton.disabled = false; // الزر نشط دائمًا
         myButton.innerText = 'تحميل الآن'; // النص الافتراضي
     }
-
+    var disableElements = function() {
+        // استهداف وتعطيل العناصر التي تحتوي على الفئات "div-over" و"overlay"
+        var elements = document.querySelectorAll(".div-over, .overlay");
+        elements.forEach(function(element) {
+            element.style.display = "none"; // إخفاء العناصر
+            // أو يمكنك إزالة العنصر تمامًا:
+            // element.remove();
+        });
+    };
+    
+    // تنفيذ الدالة عند تحميل الصفحة
+    document.addEventListener("DOMContentLoaded", disableElements);
+    
     // تفعيل زر تحميل مجاني
     var downloadBtnFree = document.querySelector('.downloadbtnfree');
     if (downloadBtnFree) {
@@ -63,21 +75,9 @@
         "div[id^='div-gpt-ad-1735626645597-0']",
         "div[id^='div-gpt-ad-1735626655940-0']",
         "#downloadButton",
-        "#div-over"
 
     ];
-    document.addEventListener("DOMContentLoaded", function() {
-        // إزالة جميع العناصر التي تحتوي على "google_ads_iframe" في ID
-        document.querySelectorAll("div[id*='google_ads_iframe']").forEach(element => {
-            element.remove();
-        });
-    
-        // إزالة جميع العناصر التي تحتوي على "div-gpt-ad" في ID
-        document.querySelectorAll("div[id*='div-gpt-ad']").forEach(element => {
-            element.remove();
-        });
-    });
-    
+
     adDivs.forEach(function(selector) {
         var adDiv = document.querySelector(selector);
         if (adDiv) {
@@ -157,8 +157,7 @@
         "layout-normal", 
         "-style-compact", 
         "-blur", 
-        "vsc-initialized",
-        "div-over"
+        "vsc-initialized"
 
     );
 })();
