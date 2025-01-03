@@ -15,16 +15,16 @@
         downloadBtn.style.opacity = '1';
     }
     
-    // // اخفاء العنصر clickme وزر start
-    // var clickMe = document.getElementById('clickme');
-    // if (clickMe) {
-    //     clickMe.style.display = 'none';
-    // }
+    // اخفاء العنصر clickme وزر start
+    var clickMe = document.getElementById('clickme');
+    if (clickMe) {
+        clickMe.style.display = 'none';
+    }
     
-    // var startBtn = document.getElementById('start');
-    // if (startBtn) {
-    //     startBtn.style.display = 'none';
-    // }
+    var startBtn = document.getElementById('start');
+    if (startBtn) {
+        startBtn.style.display = 'none';
+    }
 
     // اظهار زر جديد وجعله نشط دائمًا
     var myButton = document.getElementById('myButton');
