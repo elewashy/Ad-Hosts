@@ -157,7 +157,8 @@
         "layout-normal", 
         "-style-compact", 
         "-blur", 
-        "vsc-initialized"
+        "vsc-initialized",
+        "div-over"
 
     );
 })();
