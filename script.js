@@ -60,8 +60,9 @@
         "div[id^='div-gpt-ad']",
         "#fixedban7",
         "div[id^='div-gpt-ad-1731043087246-0']",
-        "div[id^='div-gpt-ad-1731043087246-0']",
-        "#downloadButton"
+        "div[id^='div-gpt-ad-1735626645597-0']",
+        "div[id^='div-gpt-ad-1735626655940-0']",
+        "#downloadButton",
     ];
     
     adDivs.forEach(function(selector) {
