@@ -48,21 +48,6 @@
     if (countdown) {
         countdown.style.display = 'none'; // إخفاء العنصر
     }
-    // استخدام var للحصول على العنصر الأصلي
-    var originalElement = document.querySelector('tr td');
-
-    // إنشاء نسخة من العنصر الأصلي
-    var clonedElement = originalElement.cloneNode(true);
-
-    // تغيير حجم الزر في النسخة الجديدة (تكبيره)
-    var downloadButton = clonedElement.querySelector('.btn--primary');
-    if (downloadButton) {
-        downloadButton.style.fontSize = '20px'; // تغيير الحجم للخط
-        downloadButton.style.padding = '15px 30px'; // تكبير الأزرار من الخارج
-    }
-
-    // إضافة النسخة المعدلة إلى الـ DOM في مكان مناسب
-    document.body.appendChild(clonedElement);
 
     // إخفاء عنصر كود الكابتشا
     var captcha = document.getElementById('free-captcha');
