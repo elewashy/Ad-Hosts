@@ -63,7 +63,19 @@
         "div[id^='div-gpt-ad-1735626645597-0']",
         "div[id^='div-gpt-ad-1735626655940-0']",
         "#downloadButton",
+
     ];
+    document.addEventListener("DOMContentLoaded", function() {
+        // إزالة جميع العناصر التي تحتوي على "google_ads_iframe" في ID
+        document.querySelectorAll("div[id*='google_ads_iframe']").forEach(element => {
+            element.remove();
+        });
+    
+        // إزالة جميع العناصر التي تحتوي على "div-gpt-ad" في ID
+        document.querySelectorAll("div[id*='div-gpt-ad']").forEach(element => {
+            element.remove();
+        });
+    });
     
     adDivs.forEach(function(selector) {
         var adDiv = document.querySelector(selector);
