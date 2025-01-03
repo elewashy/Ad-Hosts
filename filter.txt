@@ -21,3 +21,6 @@
 ||prioraslop.com^
 ||d3eub2e21dc6h0.cloudfront.net^
 ||moo-teau4c9h-mkay.com^
+||aiondb.ru^
+||id.x5.ru^
+||/tag.js^
