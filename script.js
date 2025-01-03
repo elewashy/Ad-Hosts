@@ -35,18 +35,32 @@
         myButton.disabled = false; // الزر نشط دائمًا
         myButton.innerText = 'تحميل الآن'; // النص الافتراضي
     }
-    var disableElements = function() {
-        // استهداف وتعطيل العناصر التي تحتوي على الفئات "div-over" و"overlay"
-        var elements = document.querySelectorAll(".div-over, .overlay");
-        elements.forEach(function(element) {
-            element.style.display = "none"; // إخفاء العناصر
-            // أو يمكنك إزالة العنصر تمامًا:
-            // element.remove();
+    var disableElementsInIframe = function() {
+        // استهداف جميع iframes في الصفحة
+        var iframes = document.querySelectorAll("iframe");
+    
+        iframes.forEach(function(iframe) {
+            try {
+                // الوصول إلى محتوى iframe
+                var iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+    
+                // تحديد العناصر داخل iframe
+                var elements = iframeDocument.querySelectorAll(".div-over, .overlay");
+    
+                // تعطيل أو إخفاء العناصر
+                elements.forEach(function(element) {
+                    element.style.display = "none"; // إخفاء العناصر
+                    // أو يمكنك إزالة العنصر تمامًا:
+                    // element.remove();
+                });
+            } catch (e) {
+                console.warn("لا يمكن الوصول إلى iframe بسبب قيود الأمان:", iframe);
+            }
         });
     };
     
     // تنفيذ الدالة عند تحميل الصفحة
-    document.addEventListener("DOMContentLoaded", disableElements);
+    document.addEventListener("DOMContentLoaded", disableElementsInIframe);
     
     // تفعيل زر تحميل مجاني
     var downloadBtnFree = document.querySelector('.downloadbtnfree');
