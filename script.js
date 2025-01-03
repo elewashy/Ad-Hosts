@@ -63,6 +63,7 @@
         "div[id^='div-gpt-ad-1735626645597-0']",
         "div[id^='div-gpt-ad-1735626655940-0']",
         "#downloadButton",
+        "#div-over"
 
     ];
     document.addEventListener("DOMContentLoaded", function() {
