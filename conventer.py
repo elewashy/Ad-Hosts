@@ -1,4 +1,4 @@
-with open('AdguardDNS.txt', 'r') as file:
+with open('unique_ad_domains.txt', 'r') as file:
     lines = file.readlines()
 
 filters = []
