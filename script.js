@@ -207,13 +207,15 @@
 
     );
 
-    var scripts = document.querySelectorAll("script");
-    scripts.forEach(function(script) {
-        if (script.innerHTML.includes("if (hab() || window.googleAd === undefined)")) {
-            script.remove();
-        }
+    document.addEventListener("DOMContentLoaded", function() {
+        var scripts = document.querySelectorAll("script");
+        scripts.forEach(function(script) {
+            if (script.innerHTML.includes("if (hab() || window.googleAd === undefined)")) {
+                script.remove();
+            }
+        });
     });
-    
+        
 })();
 
 (function() {
