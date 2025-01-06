@@ -19,3 +19,4 @@
 ||365scores.com^
 ||fontawesome.com^
 ||fonts.googleapis.com^
+||fonts.gstatic.com^
