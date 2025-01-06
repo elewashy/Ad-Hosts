@@ -26,7 +26,6 @@
         startBtn.style.display = 'none';
     }
 
-    // اظهار زر جديد وجعله نشط دائمًا
     var myButton = document.getElementById('myButton');
 
     if (myButton) {
@@ -37,12 +36,29 @@
         var newButton = document.createElement('button');
         newButton.id = 'newButton'; // تعيين معرف للزر الجديد
     
-        // نسخ نفس الاستايل والنص من الزر القديم
-        newButton.style.cssText = myButton.style.cssText; // نسخ جميع خصائص الـ CSS
-        newButton.className = myButton.className; // نسخ نفس الـ class إذا كان الزر يستخدم CSS خارجي
-        newButton.innerText = myButton.innerText; // نسخ نفس النص
+        // تطبيق استايل جذاب للزر الجديد
+        newButton.style.backgroundColor = '#007bff'; // لون الخلفية
+        newButton.style.color = '#fff'; // لون النص
+        newButton.style.border = 'none'; // إزالة الحدود
+        newButton.style.borderRadius = '5px'; // الزوايا الدائرية
+        newButton.style.padding = '10px 20px'; // الحواف الداخلية
+        newButton.style.fontSize = '16px'; // حجم الخط
+        newButton.style.cursor = 'pointer'; // مؤشر الفأرة
+        newButton.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)'; // تأثير الظل
+        newButton.style.transition = 'background-color 0.3s ease'; // تأثير الانتقال عند التمرير
     
-        // إضافة وظيفة للزر الجديد
+        // تغيير لون الخلفية عند التمرير
+        newButton.addEventListener('mouseover', function () {
+            newButton.style.backgroundColor = '#0056b3';
+        });
+        newButton.addEventListener('mouseout', function () {
+            newButton.style.backgroundColor = '#007bff';
+        });
+    
+        // إضافة النص
+        newButton.innerText = 'تحميل الآن';
+    
+        // إضافة وظيفة عند الضغط على الزر
         newButton.addEventListener('click', function () {
             alert('تم الضغط على الزر الجديد!');
         });
@@ -50,7 +66,7 @@
         // إضافة الزر الجديد إلى نفس المكان
         myButton.parentNode.appendChild(newButton);
     }
-
+        
     var alertElement = document.querySelector('.alert.alert-info');
     if (alertElement) {
         alertElement.style.display = 'none';
