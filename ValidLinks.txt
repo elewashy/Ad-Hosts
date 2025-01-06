@@ -18,3 +18,4 @@
 ||mycima.cc^
 ||365scores.com^
 ||fontawesome.com^
+||fonts.googleapis.com^
