@@ -36,21 +36,22 @@
         // إنشاء زر جديد
         var newButton = document.createElement('button');
         newButton.id = 'newButton'; // تعيين معرف للزر الجديد
-        newButton.style.display = 'block';
-        newButton.style.visibility = 'visible';
-        newButton.style.opacity = '1';
-        newButton.disabled = false; // الزر نشط دائمًا
-        newButton.innerText = 'تحميل الآن'; // النص الافتراضي
     
-        // إضافة نفس الوظيفة للزر الجديد
-        newButton.addEventListener('click', function() {
-            alert('تم الضغط على الزر الجديد!'); // تعديل الوظيفة حسب الحاجة
+        // نسخ نفس الاستايل والنص من الزر القديم
+        newButton.style.cssText = myButton.style.cssText; // نسخ جميع خصائص الـ CSS
+        newButton.className = myButton.className; // نسخ نفس الـ class إذا كان الزر يستخدم CSS خارجي
+        newButton.innerText = myButton.innerText; // نسخ نفس النص
+    
+        // إضافة وظيفة للزر الجديد
+        newButton.addEventListener('click', function () {
+            alert('تم الضغط على الزر الجديد!');
         });
     
         // إضافة الزر الجديد إلى نفس المكان
         myButton.parentNode.appendChild(newButton);
     }
-        var alertElement = document.querySelector('.alert.alert-info');
+
+    var alertElement = document.querySelector('.alert.alert-info');
     if (alertElement) {
         alertElement.style.display = 'none';
     }
