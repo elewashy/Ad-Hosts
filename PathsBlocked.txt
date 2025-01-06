@@ -1,0 +1,9 @@
+||/afu.php^
+||/?oo=^
+||/tag.js^
+||/adcgi^
+||/sw.js^
+||/tag.min.js^
+||/ad.js^
+||/btag.min.js^
+||/aas/r45d/vki^
