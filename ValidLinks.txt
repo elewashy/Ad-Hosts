@@ -26,3 +26,4 @@
 ||/recaptcha^
 ||gstatic.com^
 ||recaptcha.net^
+||d0o0d.com^
