@@ -20,3 +20,5 @@
 ||fontawesome.com^
 ||fonts.googleapis.com^
 ||fonts.gstatic.com^
+||google.com/recaptcha/api.js^
+||google.com/recaptcha^
