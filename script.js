@@ -29,23 +29,26 @@
     var myButton = document.getElementById('myButton');
 
     if (myButton) {
+        // حفظ وظيفة الزر القديم (إذا كانت موجودة)
+        var oldFunction = myButton.onclick;
+    
         // إخفاء الزر الحالي
         myButton.style.display = 'none';
     
         // إنشاء زر جديد
         var newButton = document.createElement('button');
-        newButton.id = 'newButton'; // تعيين معرف للزر الجديد
+        newButton.id = 'newButton';
     
-        // تطبيق استايل جذاب للزر الجديد
-        newButton.style.backgroundColor = '#007bff'; // لون الخلفية
-        newButton.style.color = '#fff'; // لون النص
-        newButton.style.border = 'none'; // إزالة الحدود
-        newButton.style.borderRadius = '5px'; // الزوايا الدائرية
-        newButton.style.padding = '10px 20px'; // الحواف الداخلية
-        newButton.style.fontSize = '16px'; // حجم الخط
-        newButton.style.cursor = 'pointer'; // مؤشر الفأرة
-        newButton.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)'; // تأثير الظل
-        newButton.style.transition = 'background-color 0.3s ease'; // تأثير الانتقال عند التمرير
+        // تصميم الزر الجديد
+        newButton.style.backgroundColor = '#007bff';
+        newButton.style.color = '#fff';
+        newButton.style.border = 'none';
+        newButton.style.borderRadius = '5px';
+        newButton.style.padding = '10px 20px';
+        newButton.style.fontSize = '16px';
+        newButton.style.cursor = 'pointer';
+        newButton.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
+        newButton.style.transition = 'background-color 0.3s ease';
     
         // تغيير لون الخلفية عند التمرير
         newButton.addEventListener('mouseover', function () {
@@ -55,13 +58,18 @@
             newButton.style.backgroundColor = '#007bff';
         });
     
-        // إضافة النص
+        // النص
         newButton.innerText = 'تحميل الآن';
     
-        // إضافة وظيفة عند الضغط على الزر
-        newButton.addEventListener('click', function () {
-            alert('تم الضغط على الزر الجديد!');
-        });
+        // تطبيق وظيفة الزر القديم على الزر الجديد
+        if (oldFunction) {
+            newButton.onclick = oldFunction;
+        } else {
+            // إذا لم يكن للزر القديم وظيفة، أضف وظيفة افتراضية
+            newButton.addEventListener('click', function () {
+                alert('تم الضغط على الزر الجديد!');
+            });
+        }
     
         // إضافة الزر الجديد إلى نفس المكان
         myButton.parentNode.appendChild(newButton);
