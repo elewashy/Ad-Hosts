@@ -206,6 +206,13 @@
         "vsc-initialized"
 
     );
+
+    document.querySelectorAll('script').forEach((script) => {
+        if (script.innerHTML.includes("if (hab() || window.googleAd === undefined)")) {
+            script.remove();  // حذف السكربت
+        }
+    });
+    
 })();
 
 (function() {
