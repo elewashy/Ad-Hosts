@@ -28,15 +28,29 @@
 
     // اظهار زر جديد وجعله نشط دائمًا
     var myButton = document.getElementById('myButton');
+
     if (myButton) {
-        myButton.style.display = 'block';
-        myButton.style.visibility = 'visible';
-        myButton.style.opacity = '1';
-        myButton.disabled = false; // الزر نشط دائمًا
-        myButton.innerText = 'تحميل الآن'; // النص الافتراضي
-    }
+        // إخفاء الزر الحالي
+        myButton.style.display = 'none';
     
-    var alertElement = document.querySelector('.alert.alert-info');
+        // إنشاء زر جديد
+        var newButton = document.createElement('button');
+        newButton.id = 'newButton'; // تعيين معرف للزر الجديد
+        newButton.style.display = 'block';
+        newButton.style.visibility = 'visible';
+        newButton.style.opacity = '1';
+        newButton.disabled = false; // الزر نشط دائمًا
+        newButton.innerText = 'تحميل الآن'; // النص الافتراضي
+    
+        // إضافة نفس الوظيفة للزر الجديد
+        newButton.addEventListener('click', function() {
+            alert('تم الضغط على الزر الجديد!'); // تعديل الوظيفة حسب الحاجة
+        });
+    
+        // إضافة الزر الجديد إلى نفس المكان
+        myButton.parentNode.appendChild(newButton);
+    }
+        var alertElement = document.querySelector('.alert.alert-info');
     if (alertElement) {
         alertElement.style.display = 'none';
     }
