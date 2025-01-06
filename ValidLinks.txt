@@ -22,3 +22,5 @@
 ||fonts.gstatic.com^
 ||google.com/recaptcha/api.js^
 ||google.com/recaptcha^
+||google.com/recaptcha/api2^
+||/recaptcha^
