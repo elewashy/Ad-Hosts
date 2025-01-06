@@ -231,12 +231,4 @@
     if (parentDiv) {
         parentDiv.appendChild(newButton); // إضافة الزرار في نفس المكان
     }
-    var scripts = document.getElementsByTagName('script');
-    for (var i = 0; i < scripts.length; i++) {
-        var script = scripts[i];
-        if (script.innerHTML.includes('hab()') || script.innerHTML.includes('window.googleAd === undefined')) {
-            script.parentNode.removeChild(script); // إزالة السكربت المزعج
-        }
-    }
-
 })();
