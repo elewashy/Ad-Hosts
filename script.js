@@ -232,15 +232,3 @@
         parentDiv.appendChild(newButton); // إضافة الزرار في نفس المكان
     }
 })();
-(function() {
-    let iframes = document.querySelectorAll('iframe');
-    iframes.forEach(function(iframe) {
-        try {
-            if (iframe.contentWindow.document.querySelector('iframe')) {
-                iframe.style.display = 'none'; // إخفاء الـ iframe المضمن
-            }
-        } catch (e) {
-            console.error('Error checking iframe:', e);
-        }
-    });
-})();

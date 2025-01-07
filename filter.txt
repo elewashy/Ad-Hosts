@@ -109,3 +109,7 @@
 ||ads-twitter.com^
 ||imasdk.googleapis.com^
 ||uqqmj868.xyz^
+||brr-55bsolwf-moo.com^
+||mbidstorage.com^
+||uuidksinc.net^
+||betweendigital.com^
