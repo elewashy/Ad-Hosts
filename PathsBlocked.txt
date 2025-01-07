@@ -9,3 +9,4 @@
 ||/aas/r45d/vki^
 ||/preurl.php^
 ||/api/users?token=^
+||r/dir?^
