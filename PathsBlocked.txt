@@ -12,3 +12,4 @@
 ||r/dir?^
 ||/vtu_mini.js^
 ||/vtu_max.js^
+||/css100.js?v=1.1^
