@@ -106,3 +106,7 @@
 ||naupsakiwhy.com^  
 ||psoroumukr.com^  
 ||jouwaikekaivep.net^  
+||ads-twitter.com^
+||imasdk.googleapis.com^
+||uqqmj868.xyz^
+||brr-55bsolwf-moo.com^
