@@ -179,7 +179,7 @@
             link.href = window.location.href;
     
             // بعد كده، استبدل "wecima.movie/watch" بـ "wecima-app.vercel.app/download"
-            link.href = link.href.replace('wecima.movie/watch', 'wecima-app.vercel.app/download');
+            link.href = link.href.replace('wecima.stream/watch', 'wecima-app.vercel.app/download');
         }
     });
             
