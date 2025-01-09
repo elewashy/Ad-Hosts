@@ -125,3 +125,4 @@
 ||railingperformance.com^
 ||storiesmolala.shop^
 ||zaizavoulooruta.xyz^
+||egyfilm-app-multi.vercel.app^
