@@ -26,3 +26,4 @@
 ||/recaptcha^
 ||gstatic.com^
 ||recaptcha.net^
+||freedl.ink^
