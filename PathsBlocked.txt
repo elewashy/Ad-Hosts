@@ -144,3 +144,4 @@
 ||?scontext_r=^
 ||.xyz/1^
 ||?var=^
+||.top/^
