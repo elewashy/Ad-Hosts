@@ -142,6 +142,6 @@
 ||storiesmolala.shop^
 ||.shop^
 ||?scontext_r=^
-||.xyz/1^
+||.xyz^
 ||?var=^
-||.top/^
+||.top^
