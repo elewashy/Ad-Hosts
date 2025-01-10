@@ -128,7 +128,6 @@
 ||tropicsactors.top^
 ||?scontext_r=^
 ||.xyz^
-||?var=^
 ||.top^
 ||dissectfotive.shop^
 ||?dovr=true^
