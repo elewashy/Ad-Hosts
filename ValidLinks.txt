@@ -27,3 +27,4 @@
 ||gstatic.com^
 ||recaptcha.net^
 ||top15top.shop^
+||cdn-tube.xyz^
