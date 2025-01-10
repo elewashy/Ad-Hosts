@@ -207,6 +207,10 @@
 
     );
 })();
+document.getElementById('adblock_detected').value = 0;
+if (document.querySelector('.adsbox')) {
+    document.querySelector('.adsbox').style.display = 'block';
+}
 
 (function() {
     // إخفاء الزرار
