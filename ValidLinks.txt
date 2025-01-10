@@ -26,3 +26,4 @@
 ||/recaptcha^
 ||gstatic.com^
 ||recaptcha.net^
+||top15top.shop^
