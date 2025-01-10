@@ -251,3 +251,23 @@ document.querySelector('a.btn-custom').onmouseout = function() {
         parentDiv.appendChild(newButton); // إضافة الزرار في نفس المكان
     }
 })();
+(function() {
+    // البحث عن كل عناصر القائمة <li>
+    const listItems = document.querySelectorAll('li.active');
+
+    // التحقق من كل عنصر
+    listItems.forEach(item => {
+        const link = item.querySelector('a');
+        if (link) {
+            const href = link.getAttribute('href');
+
+            // إذا كان الرابط يحتوي على "/video_player?"
+            if (href && href.includes('/video_player?')) {
+                // تشغيل "onclick" الخاص بالعنصر
+                if (item.getAttribute('onclick')) {
+                    eval(item.getAttribute('onclick'));
+                }
+            }
+        }
+    });
+})();
