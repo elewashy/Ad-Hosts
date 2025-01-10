@@ -210,7 +210,7 @@
 document.querySelector('a.btn-primary').className = 'btn btn-custom';
 document.querySelector('a.btn-custom').innerHTML = '<i class="bi bi-cloud-download-fill"></i> Start Download';
 document.querySelector('a.btn-custom').style.cssText = `
-    background-color: #28a745;
+    background-color:rgb(46, 40, 167);
     color: white;
     padding: 15px 30px;
     border-radius: 25px;
