@@ -131,7 +131,7 @@
 ||?var=^
 ||.top^
 ||dissectfotive.shop^
-||dovr=true^
+||?dovr=true^
 ||shounsirgie.net^
 ||octavechicles.com^
 ||shop/cx^
@@ -144,3 +144,5 @@
 ||net/7/^
 ||net/8/^
 ||net/9/^
+||oobensepseglop.net^
+||regretshansom.shop^
