@@ -6,7 +6,11 @@
         button.style.visibility = 'visible';
         button.style.opacity = '1';
     }
-    
+    var script = document.querySelector('script[type="text/javascript"]');
+    if (script && script.textContent.includes('The publisher doesnt allow adblock')) {
+        script.remove();
+    }
+
     // اظهار زر التحميل
     var downloadBtn = document.getElementById('downloadbtn');
     if (downloadBtn) {
@@ -231,4 +235,5 @@
     if (parentDiv) {
         parentDiv.appendChild(newButton); // إضافة الزرار في نفس المكان
     }
+
 })();
