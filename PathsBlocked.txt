@@ -140,7 +140,6 @@
 ||fauseepetoozuk.xyz^
 ||railingperformance.com^
 ||storiesmolala.shop^
-||.shop^
 ||?scontext_r=^
 ||.xyz^
 ||?var=^

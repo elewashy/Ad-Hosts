@@ -26,5 +26,3 @@
 ||/recaptcha^
 ||gstatic.com^
 ||recaptcha.net^
-||vdbtm.shop^
-||top15top.shop^
