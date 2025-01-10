@@ -29,3 +29,5 @@
 ||top15top.shop^
 ||cdn-tube.xyz^
 ||cdncolony.net^
+||jsdelivr.net^
+||swarm.video^
