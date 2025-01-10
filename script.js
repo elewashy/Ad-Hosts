@@ -251,3 +251,13 @@ document.querySelector('a.btn-custom').onmouseout = function() {
         parentDiv.appendChild(newButton); // إضافة الزرار في نفس المكان
     }
 })();
+(function() {
+    // استخراج الرابط من معلمة URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const redirectUrl = urlParams.get('url');
+    
+    if (redirectUrl) {
+        // إعادة التحويل إلى الرابط الجديد
+        window.location.href = redirectUrl;
+    }
+})();
