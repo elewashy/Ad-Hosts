@@ -144,3 +144,5 @@
 ||.xyz^
 ||?var=^
 ||.top^
+||?dovr=true^
+||shounsirgie.net^
