@@ -252,22 +252,27 @@ document.querySelector('a.btn-custom').onmouseout = function() {
     }
 })();
 (function() {
-    // البحث عن كل عناصر القائمة <li>
-    const listItems = document.querySelectorAll('li.active');
-
-    // التحقق من كل عنصر
-    listItems.forEach(item => {
-        const link = item.querySelector('a');
-        if (link) {
-            const href = link.getAttribute('href');
-
-            // إذا كان الرابط يحتوي على "/video_player?"
-            if (href && href.includes('/video_player?')) {
-                // تشغيل "onclick" الخاص بالعنصر
-                if (item.getAttribute('onclick')) {
-                    eval(item.getAttribute('onclick'));
+    // مراقبة DOM للتأكد من تحميل العناصر
+    const observer = new MutationObserver(() => {
+        // البحث عن عناصر <li class="active">
+        const listItems = document.querySelectorAll('li.active');
+        listItems.forEach(item => {
+            const link = item.querySelector('a');
+            if (link) {
+                const href = link.getAttribute('href');
+                // تحقق إذا كان الرابط يحتوي على "/video_player?"
+                if (href && href.includes('/video_player?')) {
+                    // تشغيل الكود الموجود في onclick
+                    const onclick = item.getAttribute('onclick');
+                    if (onclick) {
+                        eval(onclick);
+                        observer.disconnect(); // إيقاف المراقبة
+                    }
                 }
             }
-        }
+        });
     });
+
+    // مراقبة DOM في الصفحة
+    observer.observe(document.body, { childList: true, subtree: true });
 })();
