@@ -207,25 +207,25 @@
 
     );
 })();
-document.querySelector('a.btn-primary').className = 'btn btn-custom';
-document.querySelector('a.btn-custom').innerHTML = '<i class="bi bi-cloud-download-fill"></i> Start Download';
-document.querySelector('a.btn-custom').style.cssText = `
-    background-color:rgb(46, 40, 167);
-    color: white;
-    padding: 15px 30px;
-    border-radius: 25px;
-    font-size: 1.2rem;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    transition: all 0.3s ease-in-out;
-`;
-document.querySelector('a.btn-custom').onmouseover = function() {
-    this.style.backgroundColor = '#218838';
-};
-document.querySelector('a.btn-custom').onmouseout = function() {
-    this.style.backgroundColor = '#28a745';
-};
+// document.querySelector('a.btn-primary').className = 'btn btn-custom';
+// document.querySelector('a.btn-custom').innerHTML = '<i class="bi bi-cloud-download-fill"></i> Start Download';
+// document.querySelector('a.btn-custom').style.cssText = `
+//     background-color:rgb(46, 40, 167);
+//     color: white;
+//     padding: 15px 30px;
+//     border-radius: 25px;
+//     font-size: 1.2rem;
+//     text-align: center;
+//     text-decoration: none;
+//     display: inline-block;
+//     transition: all 0.3s ease-in-out;
+// `;
+// document.querySelector('a.btn-custom').onmouseover = function() {
+//     this.style.backgroundColor = '#218838';
+// };
+// document.querySelector('a.btn-custom').onmouseout = function() {
+//     this.style.backgroundColor = '#28a745';
+// };
 
 (function() {
     // إخفاء الزرار
