@@ -156,3 +156,4 @@
 ||.net/9/^
 ||xads.js^
 ||inc.js^
+||post=^
