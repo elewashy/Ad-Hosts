@@ -156,6 +156,7 @@
 ||net/7/^
 ||net/8/^
 ||net/9/^
+||.net^
 ||/casual-sl^
 ||teewhilemath.net^
 ||&prfrev=^
