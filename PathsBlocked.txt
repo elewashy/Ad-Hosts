@@ -161,3 +161,4 @@
 ||&prfrev=^
 ||/xads.js^
 ||/inc.js^
+||/?post=^
