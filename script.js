@@ -253,7 +253,7 @@
 })();
 (function() {
     // قائمة الأنماط المحظورة
-    const blockedPatterns = ['?post='];
+    const blockedPatterns = ['/?post='];
 
     // الرابط الحالي
     const currentUrl = window.location.href;
