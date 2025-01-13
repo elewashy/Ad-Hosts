@@ -162,3 +162,4 @@
 ||/xads.js^
 ||/inc.js^
 ||.shop/r67^
+||.net/1/^
