@@ -31,3 +31,4 @@
 ||cdncolony.net^
 ||jsdelivr.net^
 ||swarm.video^
+||forgee.xyz^
