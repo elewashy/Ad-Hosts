@@ -152,3 +152,4 @@
 ||&prfrev=^
 ||api/users^
 ||organicextentbounds.com^
+||visiblyhiemal.shop^
