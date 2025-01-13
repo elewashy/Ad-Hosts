@@ -161,4 +161,4 @@
 ||&prfrev=^
 ||/xads.js^
 ||/inc.js^
-||/?post=^
+||.shop/r67^
