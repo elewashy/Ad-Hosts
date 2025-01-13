@@ -144,3 +144,4 @@
 ||api/users^
 ||organicextentbounds.com^
 ||visiblyhiemal.shop^
+||.net^

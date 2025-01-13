@@ -159,4 +159,3 @@
 ||/casual-sl^
 ||teewhilemath.net^
 ||&prfrev=^
-||.net^
