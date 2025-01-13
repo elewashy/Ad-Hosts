@@ -32,3 +32,4 @@
 ||jsdelivr.net^
 ||swarm.video^
 ||forgee.xyz^
+||tapecontent.net^
