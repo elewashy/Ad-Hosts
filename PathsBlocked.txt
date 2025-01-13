@@ -159,4 +159,6 @@
 ||/casual-sl^
 ||teewhilemath.net^
 ||&prfrev=^
+||/xads.js^
+||/inc.js^
 ||?post=^
