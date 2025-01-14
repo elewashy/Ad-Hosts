@@ -149,3 +149,5 @@
 ||.net^
 ||.show^
 ||qwikln.com^
+||xads.js^
+||inc.js^
