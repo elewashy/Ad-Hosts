@@ -149,4 +149,3 @@
 ||.net^
 ||.show^
 ||qwikln.com^
-||LionzTv5^
