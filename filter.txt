@@ -60,7 +60,7 @@
 ||graushauls.xyz^
 ||dalysv.com^
 ||chemicalssmuglyuntying.com^
-||/assets/jquery/app100.js^
+||app100.js^
 ||whouphesaussums.net^
 ||daly2024.com^
 ||outwingullom.com^
