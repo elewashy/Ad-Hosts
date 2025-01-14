@@ -146,4 +146,4 @@
 ||.net^
 ||.show^
 ||qwikln.com^
-||post^
+||latest1^
