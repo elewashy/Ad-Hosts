@@ -144,5 +144,6 @@
 ||api/users^
 ||organicextentbounds.com^
 ||visiblyhiemal.shop^
-||.net^
-||.show^
+||dood.ws^
+||doodstream.com^
+||d0o0d.com^
