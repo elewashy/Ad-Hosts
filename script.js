@@ -268,9 +268,3 @@
         }
     }
 })();
-let scripts = document.querySelectorAll('script');
-scripts.forEach(script => {
-    if (script.innerHTML.includes('getElementsByTagName(\'video\')[0].addEventListener')) {
-        script.innerHTML = ''; // إفراغ السكربت
-    }
-});
