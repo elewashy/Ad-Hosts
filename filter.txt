@@ -146,3 +146,5 @@
 ||blearspellaea.shop^
 ||bullionglidingscuttle.com^
 ||dood.to^
+||.net^
+||.show^
