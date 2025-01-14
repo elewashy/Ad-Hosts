@@ -6,7 +6,7 @@
 ||tag.min.js^
 ||ad.js^
 ||btag.min.js^
-||/aas/r45d/vki^
+||aas/r45d/vki^
 ||preurl.php^
 ||api/users?token=^
 ||r/dir?^
