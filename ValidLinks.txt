@@ -42,3 +42,4 @@
 ||guardstorage.net^
 ||cdnborder.net^
 ||browncrossing.net^
+||mga-news.xyz^
