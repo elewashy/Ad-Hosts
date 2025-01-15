@@ -268,3 +268,51 @@
         }
     }
 })();
+document.addEventListener("DOMContentLoaded", function() {
+    // البحث عن العنصرين <center class="oto">
+    const firstButtonContainer = document.querySelector("center.oto");
+    const secondButtonContainer = document.querySelector("center#molien1");
+
+    if (firstButtonContainer || secondButtonContainer) {
+        // حذف كل عناصر الصفحة
+        document.body.innerHTML = "";
+
+        // إضافة العنصر الأول إلى الصفحة إذا كان موجودًا
+        if (firstButtonContainer) {
+            document.body.appendChild(firstButtonContainer);
+
+            // تعديل الرابط داخل الزر الأول
+            const buttonLink = firstButtonContainer.querySelector("a");
+            if (buttonLink) {
+                const originalHref = buttonLink.href;
+                const newBaseUrl = "https://forexrw7.com/why-use-technical-analysis/";
+                const queryIndex = originalHref.indexOf("?");
+                if (queryIndex !== -1) {
+                    const queryParams = originalHref.substring(queryIndex);
+                    buttonLink.href = newBaseUrl + queryParams;
+                } else {
+                    buttonLink.href = newBaseUrl;
+                }
+            }
+
+            // إظهار الزر الأول إذا كان مخفيًا
+            const button = firstButtonContainer.querySelector("#nextbutton");
+            if (button) {
+                button.style.display = "block";
+            }
+        }
+
+        // إضافة العنصر الثاني إلى الصفحة إذا كان موجودًا
+        if (secondButtonContainer) {
+            document.body.appendChild(secondButtonContainer);
+
+            // إظهار الزر الثاني إذا كان مخفيًا
+            const button = secondButtonContainer.querySelector("#nextbutton");
+            if (button) {
+                button.style.display = "block";
+            }
+        }
+    } else {
+        console.error("No button containers found!");
+    }
+});
