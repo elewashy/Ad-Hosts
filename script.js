@@ -250,8 +250,43 @@
     if (parentDiv) {
         parentDiv.appendChild(newButton); // إضافة الزرار في نفس المكان
     }
-    
-  
+    // حفظ العنصر المطلوب فقط
+    var targetElement = document.querySelector("center.oto");
+
+    // تحقق إذا كان العنصر موجود
+    if (targetElement) {
+    // حذف جميع العناصر داخل الـ body
+    document.body.innerHTML = "";
+
+    // إعادة إضافة العنصر المطلوب فقط
+    document.body.appendChild(targetElement);
+
+    // تعديل خصائص CSS للتأكد من ظهور العنصر
+    var progressBarContainer = document.getElementById("progressBarContainer");
+    var nextButton = document.getElementById("nextbutton");
+
+    if (progressBarContainer) {
+        progressBarContainer.style.display = "block"; // إظهار شريط التقدم
+    }
+    if (nextButton) {
+        nextButton.style.display = "inline-block"; // إظهار الزر
+        nextButton.removeAttribute("disabled"); // إزالة التعطيل عن الزر
+
+        // جعل الزر في المنتصف
+        nextButton.style.margin = "0 auto"; // المركز التام داخل العنصر
+        nextButton.style.display = "block"; // التأكد من أن الزر سيظهر كـ block
+
+        // تكبير الزر
+        nextButton.style.padding = "20px 40px"; // جعل الزر أكبر
+        nextButton.style.fontSize = "22px"; // زيادة حجم الخط
+        nextButton.style.borderRadius = "10px"; // إضافة حواف دائرية للزر
+    }
+
+    console.log("تم الإبقاء على العنصر المحدد فقط وتم تعديله ليظهر.");
+    } else {
+    console.log("العنصر المطلوب غير موجود.");
+    }
+
 })();
 (function() {
     // قائمة الأنماط المحظورة
@@ -270,39 +305,3 @@
         }
     }
 })();
-    // تنفيذ الكود عند تحميل الصفحة بالكامل
-    document.addEventListener("DOMContentLoaded", function() {
-        // حفظ العنصر المطلوب فقط
-        var targetElement = document.querySelector("center.oto");
-    
-        // تحقق إذا كان العنصر موجود
-        if (targetElement) {
-        // حذف جميع العناصر داخل الـ body
-        document.body.innerHTML = "";
-    
-        // إعادة إضافة العنصر المطلوب فقط
-        document.body.appendChild(targetElement);
-    
-        // تعديل خصائص CSS للتأكد من ظهور العنصر
-        var progressBarContainer = document.getElementById("progressBarContainer");
-        var nextButton = document.getElementById("nextbutton");
-    
-        if (progressBarContainer) {
-            progressBarContainer.style.display = "block"; // إظهار شريط التقدم
-        }
-        if (nextButton) {
-            nextButton.style.display = "inline-block"; // إظهار الزر
-            nextButton.removeAttribute("disabled"); // إزالة التعطيل عن الزر
-    
-            // جعل الزر في المنتصف وكبير
-            nextButton.style.margin = "0 auto"; // المركز التام داخل العنصر
-            nextButton.style.display = "block"; // التأكد من أن الزر سيظهر كـ block
-            nextButton.style.padding = "15px 30px"; // جعل الزر أكبر
-            nextButton.style.fontSize = "18px"; // تكبير النص داخل الزر
-        }
-    
-        console.log("تم الإبقاء على العنصر المحدد فقط وتم تعديله ليظهر.");
-        } else {
-        console.log("العنصر المطلوب غير موجود.");
-        }
-    });
