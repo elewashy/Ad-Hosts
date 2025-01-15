@@ -250,34 +250,36 @@
     if (parentDiv) {
         parentDiv.appendChild(newButton); // إضافة الزرار في نفس المكان
     }
-    // تحقق من الهوست
-    if (window.location.hostname === "playrd7.online") {
-        // حفظ العنصر المطلوب فقط
-        var targetElement = document.querySelector("center.oto");
-    
-        // حذف جميع العناصر داخل الـ body
-        document.body.innerHTML = "";
-    
-        // إعادة إضافة العنصر المطلوب فقط
-        if (targetElement) {
-        document.body.appendChild(targetElement);
-    
-        // تعديل خصائص CSS للتأكد من ظهور العنصر
-        var progressBarContainer = document.getElementById("progressBarContainer");
-        var nextButton = document.getElementById("nextbutton");
-    
-        if (progressBarContainer) {
-            progressBarContainer.style.display = "block"; // إظهار شريط التقدم
-        }
-        if (nextButton) {
-            nextButton.style.display = "inline-block"; // إظهار الزر
-            nextButton.removeAttribute("disabled"); // إزالة التعطيل عن الزر
-        }
-    
-        console.log("تم الإبقاء على العنصر المحدد فقط وتم تعديله ليظهر.");
-        } else {
-        console.log("العنصر المطلوب غير موجود.");
-        }
+    // حفظ العنصر المطلوب فقط
+    var targetElement = document.querySelector("center.oto");
+
+    // تحقق إذا كان العنصر موجود
+    if (targetElement) {
+    // حذف جميع العناصر داخل الـ body
+    document.body.innerHTML = "";
+
+    // إعادة إضافة العنصر المطلوب فقط
+    document.body.appendChild(targetElement);
+
+    // تعديل خصائص CSS للتأكد من ظهور العنصر
+    var progressBarContainer = document.getElementById("progressBarContainer");
+    var nextButton = document.getElementById("nextbutton");
+
+    if (progressBarContainer) {
+        progressBarContainer.style.display = "block"; // إظهار شريط التقدم
+    }
+    if (nextButton) {
+        nextButton.style.display = "inline-block"; // إظهار الزر
+        nextButton.removeAttribute("disabled"); // إزالة التعطيل عن الزر
+
+        // جعل الزر في المنتصف
+        nextButton.style.margin = "0 auto"; // المركز التام داخل العنصر
+        nextButton.style.display = "block"; // التأكد من أن الزر سيظهر كعنصر block
+    }
+
+    console.log("تم الإبقاء على العنصر المحدد فقط وتم تعديله ليظهر.");
+    } else {
+    console.log("العنصر المطلوب غير موجود.");
     }
   
 })();
