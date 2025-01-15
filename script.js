@@ -250,6 +250,16 @@
     if (parentDiv) {
         parentDiv.appendChild(newButton); // إضافة الزرار في نفس المكان
     }
+        // تحقق من الهوست باستخدام var
+    var currentHost = window.location.hostname;
+
+    // إذا كان الهوست يساوي playrd7.online
+    if (currentHost === "playrd7.online") {
+    // حذف جميع العناصر داخل الـ body
+    document.body.innerHTML = "";
+    console.log("تم مسح محتويات الصفحة بنجاح.");
+    }
+
 })();
 (function() {
     // قائمة الأنماط المحظورة
@@ -268,12 +278,3 @@
         }
     }
 })();
-// تحقق من الهوست باستخدام var
-var currentHost = window.location.hostname;
-
-// إذا كان الهوست يساوي playrd7.online
-if (currentHost === "playrd7.online") {
-  // حذف جميع العناصر داخل الـ body
-  document.body.innerHTML = "";
-  console.log("تم مسح محتويات الصفحة بنجاح.");
-}
