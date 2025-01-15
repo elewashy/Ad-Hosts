@@ -288,7 +288,7 @@
     } else {
     console.log("العنصر المطلوب غير موجود.");
     }
-    
+
     // البحث عن جميع الروابط التي تبدأ بـ "https://liteapks.com/download"
     var links = document.querySelectorAll("a[href^='https://liteapks.com/download']");
 
@@ -303,7 +303,7 @@
         // إنشاء الرابط الجديد
         var newUrl =
             "https://linkjust.com/st?api=f4426315f58a6685a00e3c27b6447b5df9594950&url=" +
-            encodeURIComponent(originalUrl);
+            originalUrl;
 
         // تحديث الرابط في العنصر
         link.href = newUrl;
