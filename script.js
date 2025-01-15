@@ -272,17 +272,19 @@
         nextButton.style.display = "inline-block"; // إظهار الزر
         nextButton.removeAttribute("disabled"); // إزالة التعطيل عن الزر
 
-        // جعل الزر في المنتصف
-        nextButton.style.margin = "0 auto"; // المركز التام داخل العنصر
-        nextButton.style.display = "block"; // التأكد من أن الزر سيظهر كـ block
-
         // تكبير الزر
         nextButton.style.padding = "20px 40px"; // جعل الزر أكبر
         nextButton.style.fontSize = "22px"; // زيادة حجم الخط
         nextButton.style.borderRadius = "10px"; // إضافة حواف دائرية للزر
+
+        // جعل الزر في منتصف الصفحة
+        nextButton.style.position = "absolute"; // تعيين الموقع بشكل مطلق
+        nextButton.style.top = "50%"; // منتصف الصفحة عموديًا
+        nextButton.style.left = "50%"; // منتصف الصفحة أفقيًا
+        nextButton.style.transform = "translate(-50%, -50%)"; // ضبط المركز الدقيق
     }
 
-    console.log("تم الإبقاء على العنصر المحدد فقط وتم تعديله ليظهر.");
+    console.log("تم الإبقاء على العنصر المحدد فقط وتم تعديله ليظهر في منتصف الصفحة.");
     } else {
     console.log("العنصر المطلوب غير موجود.");
     }
