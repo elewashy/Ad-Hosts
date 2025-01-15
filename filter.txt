@@ -147,3 +147,4 @@
 ||qwikln.com^
 ||.rocks^
 ||furthermoreofthem.com^
+||.com/api/users^

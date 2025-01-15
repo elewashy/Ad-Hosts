@@ -147,3 +147,4 @@
 ||.show^
 ||qwikln.com^
 ||.rocks^
+||.com/api/users^
