@@ -288,6 +288,32 @@
     } else {
     console.log("العنصر المطلوب غير موجود.");
     }
+    
+    // البحث عن جميع الروابط التي تبدأ بـ "https://liteapks.com/download"
+    var links = document.querySelectorAll("a[href^='https://liteapks.com/download']");
+
+    // التحقق إذا كانت هناك روابط تطابق الشرط
+    if (links.length > 0) {
+    links.forEach(function (link) {
+        // الحصول على الرابط الأصلي
+        var originalUrl = link.href;
+
+        // التحقق إذا كان الرابط ينتهي بـ "/رقم"
+        if (/\/\d+$/.test(originalUrl)) {
+        // إنشاء الرابط الجديد
+        var newUrl =
+            "https://linkjust.com/st?api=f4426315f58a6685a00e3c27b6447b5df9594950&url=" +
+            encodeURIComponent(originalUrl);
+
+        // تحديث الرابط في العنصر
+        link.href = newUrl;
+
+        console.log("تم تعديل الرابط:", originalUrl, "إلى", newUrl);
+        }
+    });
+    } else {
+    console.log("لم يتم العثور على روابط تبدأ بـ 'https://liteapks.com/download'.");
+    }
 
 })();
 (function() {
