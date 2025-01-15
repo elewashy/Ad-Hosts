@@ -250,6 +250,26 @@
     if (parentDiv) {
         parentDiv.appendChild(newButton); // إضافة الزرار في نفس المكان
     }
+    
+  
+})();
+(function() {
+    // قائمة الأنماط المحظورة
+    const blockedPatterns = ['/xads.js', '/inc.js'];
+
+    // الرابط الحالي
+    const currentUrl = window.location.href;
+
+    // التحقق إذا كان الرابط يحتوي على أي من الأنماط المحظورة
+    for (const pattern of blockedPatterns) {
+        if (currentUrl.includes(pattern)) {
+            // منع الصفحة من العمل
+            document.body.innerHTML = ''; // حذف المحتوى
+            window.stop(); // إيقاف تحميل الصفحة
+            return; // الخروج من السكربت
+        }
+    }
+})();
     // تنفيذ الكود عند تحميل الصفحة بالكامل
     document.addEventListener("DOMContentLoaded", function() {
         // حفظ العنصر المطلوب فقط
@@ -286,23 +306,3 @@
         console.log("العنصر المطلوب غير موجود.");
         }
     });
-    
-  
-})();
-(function() {
-    // قائمة الأنماط المحظورة
-    const blockedPatterns = ['/xads.js', '/inc.js'];
-
-    // الرابط الحالي
-    const currentUrl = window.location.href;
-
-    // التحقق إذا كان الرابط يحتوي على أي من الأنماط المحظورة
-    for (const pattern of blockedPatterns) {
-        if (currentUrl.includes(pattern)) {
-            // منع الصفحة من العمل
-            document.body.innerHTML = ''; // حذف المحتوى
-            window.stop(); // إيقاف تحميل الصفحة
-            return; // الخروج من السكربت
-        }
-    }
-})();
