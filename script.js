@@ -261,7 +261,20 @@
         // إعادة إضافة العنصر المطلوب فقط
         if (targetElement) {
         document.body.appendChild(targetElement);
-        console.log("تم الإبقاء على العنصر المحدد فقط.");
+    
+        // تعديل خصائص CSS للتأكد من ظهور العنصر
+        var progressBarContainer = document.getElementById("progressBarContainer");
+        var nextButton = document.getElementById("nextbutton");
+    
+        if (progressBarContainer) {
+            progressBarContainer.style.display = "block"; // إظهار شريط التقدم
+        }
+        if (nextButton) {
+            nextButton.style.display = "inline-block"; // إظهار الزر
+            nextButton.removeAttribute("disabled"); // إزالة التعطيل عن الزر
+        }
+    
+        console.log("تم الإبقاء على العنصر المحدد فقط وتم تعديله ليظهر.");
         } else {
         console.log("العنصر المطلوب غير موجود.");
         }
