@@ -366,6 +366,10 @@
     } else {
         console.error("لم يتم العثور على العنصر wpsafe-link!");
     }
+    const banners = document.querySelectorAll('.banner, .ad');
+    banners.forEach(function(banner) {
+        banner.remove();
+    });
 
 })();
 (function() {
