@@ -250,6 +250,7 @@
     if (parentDiv) {
         parentDiv.appendChild(newButton); // إضافة الزرار في نفس المكان
     }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // حفظ العنصر المطلوب فقط
     var targetElement = document.querySelector("center.oto");
 
@@ -288,7 +289,7 @@
     } else {
     console.log("العنصر المطلوب غير موجود.");
     }
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // البحث عن جميع الروابط التي تبدأ بـ "https://liteapks.com/download"
     var links = document.querySelectorAll("a[href^='https://liteapks.com/download']");
 
@@ -314,7 +315,7 @@
     } else {
     console.log("لم يتم العثور على روابط تبدأ بـ 'https://liteapks.com/download'.");
     }
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////                                               
     // البحث عن الزر المطلوب
     var targetForm = document.querySelector("#wpsafelink-landing");
     var targetButton = document.querySelector("#wpsafelinkhuman");
@@ -342,8 +343,8 @@
     } else {
     console.log("لم يتم العثور على الفورم أو الزر المطلوب.");
     }
-    
-    // احتفظ فقط بالعنصر الذي يحتوي على ID = wpsafe-link
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     const safeLink = document.getElementById("wpsafe-link");
 
     if (safeLink) {
@@ -353,9 +354,14 @@
         // إضافة زر wpsafe-link مرة أخرى
         document.body.appendChild(safeLink);
 
-        // ضبط الأنماط لجعلها مناسبة إذا لزم الأمر
+        // ضبط الأنماط لجعل الزر في منتصف الصفحة
+        document.body.style.display = "flex";
+        document.body.style.justifyContent = "center";
+        document.body.style.alignItems = "center";
+        document.body.style.height = "100vh"; // ارتفاع الصفحة بالكامل
+        document.body.style.margin = "0"; // إزالة الهوامش الافتراضية
+
         safeLink.style.display = "block";
-        safeLink.style.margin = "20px auto";
         safeLink.style.textAlign = "center";
     } else {
         console.error("لم يتم العثور على العنصر wpsafe-link!");
