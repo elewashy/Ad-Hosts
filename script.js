@@ -342,6 +342,24 @@
     } else {
     console.log("لم يتم العثور على الفورم أو الزر المطلوب.");
     }
+    
+    // احتفظ فقط بالعنصر الذي يحتوي على ID = wpsafe-link
+    const safeLink = document.getElementById("wpsafe-link");
+
+    if (safeLink) {
+        // إزالة جميع العناصر في الصفحة
+        document.body.innerHTML = "";
+
+        // إضافة زر wpsafe-link مرة أخرى
+        document.body.appendChild(safeLink);
+
+        // ضبط الأنماط لجعلها مناسبة إذا لزم الأمر
+        safeLink.style.display = "block";
+        safeLink.style.margin = "20px auto";
+        safeLink.style.textAlign = "center";
+    } else {
+        console.error("لم يتم العثور على العنصر wpsafe-link!");
+    }
 
 })();
 (function() {
