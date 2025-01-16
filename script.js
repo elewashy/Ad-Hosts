@@ -315,6 +315,39 @@
     console.log("لم يتم العثور على روابط تبدأ بـ 'https://liteapks.com/download'.");
     }
 
+    // البحث عن الزر المطلوب
+    var targetButton = document.querySelector("#wpsafelinkhuman");
+
+    // التحقق إذا كان الزر موجودًا
+    if (targetButton) {
+    // حذف جميع العناصر داخل الـ body
+    document.body.innerHTML = "";
+
+    // إنشاء عنصر form جديد يحتوي على الزر المطلوب فقط
+    var newForm = document.createElement("form");
+    newForm.id = "wpsafelink-landing";
+    newForm.name = "dsb";
+    newForm.action = targetButton.closest("form").action; // نسخ الـ action من النموذج الأصلي
+    newForm.method = "post";
+
+    // نسخ الزر وإضافته داخل الـ form الجديد
+    var newButton = targetButton.cloneNode(true);
+    newForm.appendChild(newButton);
+
+    // إضافة النموذج الجديد إلى الـ body
+    document.body.appendChild(newForm);
+
+    // تعديل خصائص CSS لضمان أن الزر في المنتصف
+    newForm.style.display = "flex";
+    newForm.style.justifyContent = "center";
+    newForm.style.alignItems = "center";
+    newForm.style.height = "100vh"; // ملء الشاشة عموديًا
+
+    console.log("تم الإبقاء على الزر فقط وإزالة باقي المحتويات.");
+    } else {
+    console.log("لم يتم العثور على الزر المطلوب.");
+    }
+
 })();
 (function() {
     // قائمة الأنماط المحظورة
