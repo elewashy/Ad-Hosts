@@ -148,3 +148,4 @@
 ||qwikln.com^
 ||.rocks^
 ||.com/api/users^
+||Magic_1st^
