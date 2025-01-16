@@ -316,36 +316,31 @@
     }
 
     // البحث عن الزر المطلوب
+    var targetForm = document.querySelector("#wpsafelink-landing");
     var targetButton = document.querySelector("#wpsafelinkhuman");
 
-    // التحقق إذا كان الزر موجودًا
-    if (targetButton) {
+    // التحقق إذا كان الفورم والزر موجودين
+    if (targetForm && targetButton) {
     // حذف جميع العناصر داخل الـ body
     document.body.innerHTML = "";
 
-    // إنشاء عنصر form جديد يحتوي على الزر المطلوب فقط
-    var newForm = document.createElement("form");
-    newForm.id = "wpsafelink-landing";
-    newForm.name = "dsb";
-    newForm.action = targetButton.closest("form").action; // نسخ الـ action من النموذج الأصلي
-    newForm.method = "post";
+    // إعادة إضافة الفورم بالكامل مع محتوياته
+    document.body.appendChild(targetForm);
 
-    // نسخ الزر وإضافته داخل الـ form الجديد
-    var newButton = targetButton.cloneNode(true);
-    newForm.appendChild(newButton);
+    // تعديل خصائص CSS للتوسيط
+    targetForm.style.display = "flex";
+    targetForm.style.flexDirection = "column";
+    targetForm.style.justifyContent = "center";
+    targetForm.style.alignItems = "center";
+    targetForm.style.height = "100vh"; // ملء الشاشة عموديًا
 
-    // إضافة النموذج الجديد إلى الـ body
-    document.body.appendChild(newForm);
+    // التأكد من أن الزر يظهر في منتصف الصفحة
+    targetButton.style.display = "block";
+    targetButton.style.margin = "0 auto"; // للتوسيط الأفقي
 
-    // تعديل خصائص CSS لضمان أن الزر في المنتصف
-    newForm.style.display = "flex";
-    newForm.style.justifyContent = "center";
-    newForm.style.alignItems = "center";
-    newForm.style.height = "100vh"; // ملء الشاشة عموديًا
-
-    console.log("تم الإبقاء على الزر فقط وإزالة باقي المحتويات.");
+    console.log("تم الإبقاء على النموذج والزر المطلوب فقط.");
     } else {
-    console.log("لم يتم العثور على الزر المطلوب.");
+    console.log("لم يتم العثور على الفورم أو الزر المطلوب.");
     }
 
 })();
