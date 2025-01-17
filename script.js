@@ -207,25 +207,6 @@
 
     );
 })();
-// document.querySelector('a.btn-primary').className = 'btn btn-custom';
-// document.querySelector('a.btn-custom').innerHTML = '<i class="bi bi-cloud-download-fill"></i> Start Download';
-// document.querySelector('a.btn-custom').style.cssText = `
-//     background-color:rgb(46, 40, 167);
-//     color: white;
-//     padding: 15px 30px;
-//     border-radius: 25px;
-//     font-size: 1.2rem;
-//     text-align: center;
-//     text-decoration: none;
-//     display: inline-block;
-//     transition: all 0.3s ease-in-out;
-// `;
-// document.querySelector('a.btn-custom').onmouseover = function() {
-//     this.style.backgroundColor = '#218838';
-// };
-// document.querySelector('a.btn-custom').onmouseout = function() {
-//     this.style.backgroundColor = '#28a745';
-// };
 
 (function() {
     // إخفاء الزرار
@@ -425,22 +406,60 @@
     } else {
         console.error("العنصر الذي يحمل id='go_down' غير موجود!");
     }
+///////////////////////////////////////////////////////////////////////
+    // البحث عن العناصر المطلوبة
+    const loadingScreen = document.getElementById("loading-screen");
+    const getLinkButton = document.querySelector("a#yuidea-btmbtn");
 
-})();
-(function() {
-    // قائمة الأنماط المحظورة
-    const blockedPatterns = ['/xads.js', '/inc.js'];
+    // التحقق من وجود الرابط في العناصر
+    const hasLinkInLoadingScreen = loadingScreen && loadingScreen.querySelector("button[onclick]");
+    const hasLinkInGetLinkButton = getLinkButton && getLinkButton.href;
 
-    // الرابط الحالي
-    const currentUrl = window.location.href;
+    // إذا وجدنا الروابط، نعرض العناصر ونزيل الباقي
+    if (hasLinkInLoadingScreen || hasLinkInGetLinkButton) {
+        // إزالة كل محتوى الصفحة
+        document.body.innerHTML = "";
 
-    // التحقق إذا كان الرابط يحتوي على أي من الأنماط المحظورة
-    for (const pattern of blockedPatterns) {
-        if (currentUrl.includes(pattern)) {
-            // منع الصفحة من العمل
-            document.body.innerHTML = ''; // حذف المحتوى
-            window.stop(); // إيقاف تحميل الصفحة
-            return; // الخروج من السكربت
+        // إضافة العناصر المطلوبة فقط
+        if (hasLinkInLoadingScreen) {
+            document.body.appendChild(loadingScreen);
         }
+
+        if (hasLinkInGetLinkButton) {
+            document.body.appendChild(getLinkButton);
+        }
+
+        // ضبط التنسيقات لجعل المحتوى يظهر بشكل صحيح في منتصف الصفحة
+        document.body.style.display = "flex";
+        document.body.style.flexDirection = "column";
+        document.body.style.justifyContent = "center";
+        document.body.style.alignItems = "center";
+        document.body.style.height = "100vh"; // ملء الصفحة عموديًا
+        document.body.style.margin = "0"; // إزالة الهوامش الافتراضية
+        document.body.style.backgroundColor = "#f9f9f9"; // لون خلفية افتراضي
+
+        // إضافة تنسيقات لتحسين مظهر زر "Get Link"
+        if (getLinkButton) {
+            const button = getLinkButton.querySelector("button");
+            if (button) {
+                button.style.padding = "10px 20px";
+                button.style.borderRadius = "5px";
+                button.style.fontSize = "16px";
+                button.style.fontWeight = "bold";
+                button.style.boxShadow = "0 4px 6px rgba(0, 0, 0, 0.1)";
+                button.style.cursor = "pointer";
+
+                // تأثير عند تمرير الماوس على الزر
+                button.onmouseover = function () {
+                    button.style.backgroundColor = "#0056b3"; // لون أزرق أغمق عند التمرير
+                };
+                button.onmouseout = function () {
+                    button.style.backgroundColor = "#007bff"; // إعادة اللون الأصلي عند الخروج
+                };
+            }
+        }
+    } else {
+        console.error("لا توجد روابط صالحة في العناصر المحددة!");
     }
+
 })();
