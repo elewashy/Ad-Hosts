@@ -371,7 +371,7 @@
         banner.remove();
     });
 ///////////////////////////////////////////////////////////////////////
-    // الحصول على العنصر الذي يحتوي على id = go_down
+// الحصول على العنصر الذي يحتوي على id = go_down
     const goDown = document.getElementById("go_down");
 
     if (goDown) {
@@ -389,7 +389,20 @@
         document.body.style.margin = "0"; // إزالة الهوامش الافتراضية
         document.body.style.backgroundColor = "#f9f9f9"; // لون خلفية افتراضي
 
-        goDown.style.display = "block"; // تأكيد عرض العنصر
+        // التأكد من عرض شريط التحميل وزر "Next - تخطي"
+        const loadingBarContainer = document.getElementById("loadingBarContainer");
+        const goD = document.getElementById("go_d");
+
+        if (loadingBarContainer) {
+            loadingBarContainer.style.display = "block"; // عرض شريط التحميل
+        }
+
+        if (goD) {
+            goD.style.display = "block"; // عرض الزر
+        }
+
+        // إضافة تنسيق إضافي إذا لزم
+        goDown.style.textAlign = "center"; // ضبط المحاذاة إلى المنتصف
     } else {
         console.error("العنصر الذي يحمل id='go_down' غير موجود!");
     }
