@@ -150,3 +150,5 @@
 ||.com/api/users^
 ||Magic_1st^
 ||afu.php^
+||f8d65e63.js^
+||gtag^

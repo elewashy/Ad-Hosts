@@ -152,3 +152,5 @@
 ||Magic_1st^
 ||afu.php^
 ||misazbog.com^
+||f8d65e63.js^
+||gtag^
