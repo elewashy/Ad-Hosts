@@ -387,7 +387,6 @@
         document.body.style.alignItems = "center";
         document.body.style.height = "100vh"; // ملء ارتفاع الصفحة بالكامل
         document.body.style.margin = "0"; // إزالة الهوامش الافتراضية
-        document.body.style.backgroundColor = "#f9f9f9"; // لون خلفية افتراضي
 
         // التأكد من عرض شريط التحميل وزر "Next - تخطي"
         const loadingBarContainer = document.getElementById("loadingBarContainer");
