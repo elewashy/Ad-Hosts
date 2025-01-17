@@ -371,7 +371,7 @@
         banner.remove();
     });
 ///////////////////////////////////////////////////////////////////////
-// الحصول على العنصر الذي يحتوي على id = go_down
+    // الحصول على العنصر الذي يحتوي على id = go_down
     const goDown = document.getElementById("go_down");
 
     if (goDown) {
@@ -387,6 +387,7 @@
         document.body.style.alignItems = "center";
         document.body.style.height = "100vh"; // ملء ارتفاع الصفحة بالكامل
         document.body.style.margin = "0"; // إزالة الهوامش الافتراضية
+        document.body.style.backgroundColor = "#f9f9f9"; // لون خلفية افتراضي
 
         // التأكد من عرض شريط التحميل وزر "Next - تخطي"
         const loadingBarContainer = document.getElementById("loadingBarContainer");
@@ -398,6 +399,25 @@
 
         if (goD) {
             goD.style.display = "block"; // عرض الزر
+
+            // تطبيق تنسيقات جديدة على الزر
+            goD.style.backgroundColor = "#007bff"; // لون أزرق جذاب
+            goD.style.color = "#fff"; // لون النص أبيض
+            goD.style.padding = "10px 20px"; // مساحة داخلية مريحة
+            goD.style.border = "none"; // إزالة الحدود
+            goD.style.borderRadius = "5px"; // جعل الزر مستدير الزوايا
+            goD.style.fontSize = "16px"; // حجم الخط
+            goD.style.fontWeight = "bold"; // خط عريض
+            goD.style.cursor = "pointer"; // مؤشر الفأرة يصبح يدًا عند المرور
+            goD.style.boxShadow = "0 4px 6px rgba(0, 0, 0, 0.1)"; // تأثير ظل خفيف
+
+            // تأثير عند تمرير الماوس على الزر
+            goD.onmouseover = function () {
+                goD.style.backgroundColor = "#0056b3"; // لون أزرق أغمق عند التمرير
+            };
+            goD.onmouseout = function () {
+                goD.style.backgroundColor = "#007bff"; // إعادة اللون الأصلي عند الخروج
+            };
         }
 
         // إضافة تنسيق إضافي إذا لزم
