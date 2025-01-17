@@ -448,11 +448,43 @@
                     continueButton.style.backgroundColor = "#28a745"; // إعادة اللون الأصلي
                     continueButton.style.transform = "scale(1)"; // إعادة الحجم الأصلي
                 };
+
+                // عند الضغط على الزر، إخفاء الزر وإظهار الرابط
+                continueButton.onclick = function () {
+                    continueButton.style.display = "none"; // إخفاء الزر
+                    if (getLinkButton) {
+                        getLinkButton.style.display = "block"; // عرض الرابط
+                    }
+                };
             }
         }
 
         if (hasLinkInGetLinkButton) {
             document.body.appendChild(getLinkButton);
+            // تحسين مظهر الزر "Destination Page"
+            const destinationButton = getLinkButton.querySelector("button");
+            if (destinationButton) {
+                destinationButton.style.padding = "15px 30px";
+                destinationButton.style.borderRadius = "8px";
+                destinationButton.style.fontSize = "18px";
+                destinationButton.style.fontWeight = "bold";
+                destinationButton.style.backgroundColor = "#007bff"; // اللون الأزرق
+                destinationButton.style.color = "#fff";
+                destinationButton.style.border = "none";
+                destinationButton.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
+                destinationButton.style.cursor = "pointer";
+                destinationButton.style.transition = "background-color 0.3s, transform 0.2s";
+
+                // تأثير عند تمرير الماوس
+                destinationButton.onmouseover = function () {
+                    destinationButton.style.backgroundColor = "#0056b3"; // لون أزرق أغمق عند التمرير
+                    destinationButton.style.transform = "scale(1.05)"; // تكبير الزر قليلاً
+                };
+                destinationButton.onmouseout = function () {
+                    destinationButton.style.backgroundColor = "#007bff"; // إعادة اللون الأصلي
+                    destinationButton.style.transform = "scale(1)"; // إعادة الحجم الأصلي
+                };
+            }
         }
 
         // ضبط التنسيقات لجعل المحتوى يظهر بشكل صحيح في منتصف الصفحة
