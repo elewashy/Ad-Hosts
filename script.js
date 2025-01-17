@@ -465,5 +465,21 @@
     } else {
         console.error("لا توجد روابط صالحة في العناصر المحددة!");
     }
-
+    const loadingMessage = document.querySelector(".loading-message");
+    const progressBarContainer = document.querySelector(".progress-bar-container");
+    const continueButton = document.getElementById("continue-button");
+    
+    // إخفاء العناصر إذا كانت موجودة
+    if (loadingMessage) {
+        loadingMessage.style.display = "none";
+    }
+    
+    if (progressBarContainer) {
+        progressBarContainer.style.display = "none";
+    }
+    
+    if (continueButton) {
+        continueButton.style.display = "none";
+    }
+    
 })();
