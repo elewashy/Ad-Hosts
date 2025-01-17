@@ -151,3 +151,4 @@
 ||lbx.to^
 ||Magic_1st^
 ||afu.php^
+||misazbog.com^
