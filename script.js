@@ -465,5 +465,31 @@
     } else {
         console.error("لا توجد روابط صالحة في العناصر المحددة!");
     }
+    // الرابط المطلوب البحث عنه
+    const targetLink = "https://telegram.org/faq";
+
+    // الرابط الذي سيتم عرضه في iframe
+    const iframeLink = "https://t.me/EgyFilm_code/18?embed=1&mode=tme";
+
+    // التحقق من وجود الرابط في الصفحة
+    if (document.body.innerHTML.includes(targetLink)) {
+        // إزالة محتوى الصفحة بالكامل
+        document.body.innerHTML = "";
+
+        // إنشاء iframe وإضافته للصفحة
+        const iframe = document.createElement("iframe");
+        iframe.src = iframeLink; // تحديد الرابط داخل iframe
+        iframe.style.width = "100vw"; // عرض كامل الشاشة
+        iframe.style.height = "100vh"; // ارتفاع كامل الشاشة
+        iframe.style.border = "none"; // إزالة الحدود
+
+        // إضافة iframe إلى الصفحة
+        document.body.appendChild(iframe);
+
+        // ضبط تنسيقات الصفحة
+        document.body.style.margin = "0";
+        document.body.style.padding = "0";
+        document.body.style.overflow = "hidden"; // منع التمرير
+    }
 
 })();
