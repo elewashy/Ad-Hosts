@@ -411,7 +411,7 @@
     const loadingScreen = document.getElementById("loading-screen");
     const getLinkButton = document.querySelector("a#yuidea-btmbtn");
 
-    // التحقق من وجود الرابط في العناصر
+    // التحقق من وجود الروابط في العناصر
     const hasLinkInLoadingScreen = loadingScreen && loadingScreen.querySelector("button[onclick]");
     const hasLinkInGetLinkButton = getLinkButton && getLinkButton.href;
 
@@ -420,12 +420,16 @@
         // إزالة كل محتوى الصفحة
         document.body.innerHTML = "";
 
-        // إضافة العناصر المطلوبة فقط
+        // عرض العناصر المطلوبة فقط
         if (hasLinkInLoadingScreen) {
+            // إزالة الإخفاء (style.display: none)
+            loadingScreen.style.display = "block";
             document.body.appendChild(loadingScreen);
         }
 
         if (hasLinkInGetLinkButton) {
+            // إزالة الإخفاء (style.display: none)
+            getLinkButton.style.display = "block";
             document.body.appendChild(getLinkButton);
         }
 
@@ -438,7 +442,7 @@
         document.body.style.margin = "0"; // إزالة الهوامش الافتراضية
         document.body.style.backgroundColor = "#f9f9f9"; // لون خلفية افتراضي
 
-        // إضافة تنسيقات لتحسين مظهر زر "Get Link"
+        // تحسين مظهر الزر داخل الرابط
         if (getLinkButton) {
             const button = getLinkButton.querySelector("button");
             if (button) {
