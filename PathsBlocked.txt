@@ -149,3 +149,4 @@
 ||.rocks^
 ||.com/api/users^
 ||Magic_1st^
+||afu.php^
