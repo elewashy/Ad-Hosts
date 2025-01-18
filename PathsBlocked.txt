@@ -143,6 +143,7 @@
 ||.xyz^
 ||.top^
 ||shounsirgie.net^
+||.net^
 ||.show^
 ||qwikln.com^
 ||.rocks^
@@ -152,4 +153,3 @@
 ||f8d65e63.js^
 ||gtag^
 ||tag^
-||.net/1^
