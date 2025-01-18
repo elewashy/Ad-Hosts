@@ -351,7 +351,7 @@
     banners.forEach(function(banner) {
         banner.remove();
     });
-///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
     // الحصول على العنصر الذي يحتوي على id = go_down
     const goDown = document.getElementById("go_down");
 
@@ -406,7 +406,7 @@
     } else {
         console.error("العنصر الذي يحمل id='go_down' غير موجود!");
     }
-///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
     // البحث عن العناصر المطلوبة
     const loadingScreen = document.getElementById("loading-screen");
     const getLinkButton = document.querySelector("a#yuidea-btmbtn");
@@ -533,7 +533,7 @@
         newButton.style.cssText = `
             display: inline-block;
             padding: 10px 20px;
-            background-color:rgb(6, 42, 109);
+            background-color:rgb(4, 65, 178);
             color: white;
             border: none;
             border-radius: 5px;
@@ -551,5 +551,5 @@
     } else {
         console.error('لم يتم العثور على الزر القديم downloadbtn!');
     }
-
+/////////////////////////////////////////////////////////////////////////////////////
 })();
