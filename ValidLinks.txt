@@ -54,3 +54,5 @@
 ||jquery.min.js^
 ||deb.js^
 ||cdnstruggle.net^
+||cdnbye.com^
+||plyr.io^
