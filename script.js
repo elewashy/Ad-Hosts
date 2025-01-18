@@ -552,9 +552,20 @@
         console.error('لم يتم العثور على الزر القديم downloadbtn!');
     }
 /////////////////////////////////////////////////////////////////////////////////////
-    window.StartPlay = function() {
-        console.log('تم تعطيل سكربت StartPlay');
-        // هنا لا نضيف أي شيء، وبذلك نمنع تنفيذ السكربت
-    };
+    // إلغاء تعريف الدالة hab إذا كانت موجودة
+    if (typeof hab === 'function') {
+        window.hab = function() {
+            return false; // إرجاع false لتعطيل الدالة
+        };
+    }
+
+    // تعطيل فحص if
+    window.googleAd = {}; // التأكد من أن الشرط يتحقق دون تشغيل السكربت
+
+    // تعطيل الحدث 'timeupdate' إذا كان قد تم إضافته
+    var originalDsPlayer = window.dsplayer;
+    if (originalDsPlayer && originalDsPlayer.off) {
+        originalDsPlayer.off('timeupdate');
+    }
 
 })();
