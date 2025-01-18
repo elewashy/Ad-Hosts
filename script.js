@@ -522,9 +522,13 @@
 /////////////////////////////////////////////////////////////////////////////////////
     const downloadButton = document.getElementById('downloadbtn');
     if (downloadButton) {
-        downloadButton.removeAttribute('disabled'); // إزالة خاصية التعطيل
+        downloadButton.disabled = false; // تفعيل الزر
+        downloadButton.classList.remove('disabled'); // إزالة كلاس التعطيل
         const countdown = document.getElementById('countdown');
-        if (countdown) countdown.style.display = 'none'; // إخفاء العداد إذا كان موجودًا
+        if (countdown) countdown.style.display = 'none'; // إخفاء العد التنازلي
+        console.log('زر التحميل مفعّل الآن!');
+    } else {
+        console.error('لم يتم العثور على الزر downloadbtn!');
     }
 
 })();
