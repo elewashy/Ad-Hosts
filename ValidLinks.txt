@@ -48,3 +48,4 @@
 ||gold-24.net^
 ||abda3.xyz^
 ||mobytec.xyz^
+||yalla-live.xyz^
