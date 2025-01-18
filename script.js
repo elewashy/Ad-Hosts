@@ -552,19 +552,9 @@
         console.error('لم يتم العثور على الزر القديم downloadbtn!');
     }
 /////////////////////////////////////////////////////////////////////////////////////
-    const form = document.getElementById('userForm');
-
-    // إذا كان الفورم يحتوي على hCaptcha
-    if (form && form.querySelector('.h-captcha')) {
-        // استبدال الكود بـ الفورم الجديد
-        form.innerHTML = `
-            <input type="hidden" name="no-recaptcha-noresponse" value="true">
-            <button style="display: none;" onclick="helloSweetie()" class="pfbutton-primary">Next article</button>
-            <button class="pfbutton-primary" style="margin-top: 5px; font-size:18px!important;" onclick="formulaSend(event)" onmouseover="isHoverDone = true;" id="cbt" type="submit">Next article</button>
-        `;
-        console.log('تم استبدال الفورم بنجاح!');
-    } else {
-        console.log('لم يتم العثور على hCaptcha في الفورم');
-    }
+    window.StartPlay = function() {
+        console.log('تم تعطيل سكربت StartPlay');
+        // هنا لا نضيف أي شيء، وبذلك نمنع تنفيذ السكربت
+    };
 
 })();
