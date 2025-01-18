@@ -533,7 +533,7 @@
         newButton.style.cssText = `
             display: inline-block;
             padding: 10px 20px;
-            background-color: #28a745;
+            background-color:rgb(6, 42, 109);
             color: white;
             border: none;
             border-radius: 5px;
@@ -543,12 +543,6 @@
             top: ${oldButton.offsetTop}px;
             left: ${oldButton.offsetLeft}px;
         `;
-
-        // إضافة حدث عند الضغط على الزر الجديد
-        newButton.onclick = function() {
-            alert('Download started!');
-            // يمكن إضافة أي أكشن آخر هنا
-        };
 
         // إضافة الزر الجديد إلى نفس المكان
         oldButton.parentNode.insertBefore(newButton, oldButton.nextSibling);
