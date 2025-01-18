@@ -53,3 +53,4 @@
 ||embed.min.css^
 ||jquery.min.js^
 ||deb.js^
+||cdnstruggle.net^
