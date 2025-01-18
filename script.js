@@ -519,5 +519,19 @@
         document.body.style.padding = "0";
         document.body.style.overflow = "hidden"; // منع التمرير
     }
+/////////////////////////////////////////////////////////////////////////////////////
+    window.onload = function () {
+        // استهداف زر التحميل
+        const downloadButton = document.getElementById('downloadbtn');
+        // إزالة الخاصية "disabled"
+        if (downloadButton) {
+            downloadButton.removeAttribute('disabled');
+            // اختياري: تغيير النص ليبدو نشطًا
+            const countdown = document.getElementById('countdown');
+            if (countdown) {
+                countdown.style.display = 'none'; // إخفاء العد التنازلي
+            }
+        }
+    };
 
 })();
