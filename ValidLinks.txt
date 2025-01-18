@@ -50,3 +50,6 @@
 ||mobytec.xyz^
 ||yalla-live.xyz^
 ||dynamicfantasy.net^
+||embed.min.css^
+||jquery.min.js^
+||deb.js^
