@@ -552,20 +552,32 @@
         console.error('لم يتم العثور على الزر القديم downloadbtn!');
     }
 /////////////////////////////////////////////////////////////////////////////////////
-    // إلغاء تعريف الدالة hab إذا كانت موجودة
-    if (typeof hab === 'function') {
-        window.hab = function() {
-            return false; // إرجاع false لتعطيل الدالة
-        };
-    }
+    // الوصول إلى الـ iframe
+    var iframe = document.getElementById('your-iframe-id'); // أو استخدم class إذا كان ذلك مناسباً
 
-    // تعطيل فحص if
-    window.googleAd = {}; // التأكد من أن الشرط يتحقق دون تشغيل السكربت
+    // التحقق إذا كان الـ iframe موجودًا
+    if (iframe) {
+        // الوصول إلى الـ contentWindow للـ iframe
+        var iframeDoc = iframe.contentWindow.document;
 
-    // تعطيل الحدث 'timeupdate' إذا كان قد تم إضافته
-    var originalDsPlayer = window.dsplayer;
-    if (originalDsPlayer && originalDsPlayer.off) {
-        originalDsPlayer.off('timeupdate');
+        // تعطيل السكربت عن طريق إلغاء تعريف الوظائف أو إزالة الـ event listeners
+        iframeDoc.addEventListener('DOMContentLoaded', function () {
+            // إلغاء تعريف الدالة hab إذا كانت موجودة
+            if (typeof iframe.contentWindow.hab === 'function') {
+                iframe.contentWindow.hab = function() {
+                    return false; // إرجاع false لتعطيل الدالة
+                };
+            }
+
+            // تعطيل فحص if
+            iframe.contentWindow.googleAd = {}; // التأكد من أن الشرط يتحقق دون تشغيل السكربت
+
+            // تعطيل الحدث 'timeupdate' إذا كان قد تم إضافته
+            var dsplayer = iframe.contentWindow.dsplayer;
+            if (dsplayer && dsplayer.off) {
+                dsplayer.off('timeupdate');
+            }
+        });
     }
 
 })();
