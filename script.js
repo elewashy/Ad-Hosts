@@ -520,15 +520,42 @@
         document.body.style.overflow = "hidden"; // منع التمرير
     }
 /////////////////////////////////////////////////////////////////////////////////////
-    const downloadButton = document.getElementById('downloadbtn');
-    if (downloadButton) {
-        downloadButton.disabled = false; // تفعيل الزر
-        downloadButton.classList.remove('disabled'); // إزالة كلاس التعطيل
-        const countdown = document.getElementById('countdown');
-        if (countdown) countdown.style.display = 'none'; // إخفاء العد التنازلي
-        console.log('زر التحميل مفعّل الآن!');
+    const oldButton = document.getElementById('downloadbtn');
+        
+    if (oldButton) {
+        // إخفاء الزر القديم
+        oldButton.style.display = 'none';
+
+        // إنشاء زر جديد
+        const newButton = document.createElement('button');
+        newButton.id = 'newDownloadBtn';
+        newButton.textContent = 'Download Now'; // النص داخل الزر الجديد
+        newButton.style.cssText = `
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            position: ${getComputedStyle(oldButton).position};
+            top: ${oldButton.offsetTop}px;
+            left: ${oldButton.offsetLeft}px;
+        `;
+
+        // إضافة حدث عند الضغط على الزر الجديد
+        newButton.onclick = function() {
+            alert('Download started!');
+            // يمكن إضافة أي أكشن آخر هنا
+        };
+
+        // إضافة الزر الجديد إلى نفس المكان
+        oldButton.parentNode.insertBefore(newButton, oldButton.nextSibling);
+
+        console.log('زر جديد تم إنشاؤه بنجاح!');
     } else {
-        console.error('لم يتم العثور على الزر downloadbtn!');
+        console.error('لم يتم العثور على الزر القديم downloadbtn!');
     }
 
 })();
