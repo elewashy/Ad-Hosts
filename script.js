@@ -411,7 +411,7 @@
     const loadingScreen = document.getElementById("loading-screen");
     const getLinkButton = document.querySelector("a#yuidea-btmbtn");
     const buttonLink = document.querySelector("#yuidea-btmbtn");
-    const button = document.getElementById("yuidea-btn-before");
+    const buttonContainer = document.getElementById("yuidea-btn");
 
     // التحقق من وجود الرابط في العناصر
     const hasLinkInLoadingScreen = loadingScreen && loadingScreen.querySelector("button[onclick]");
@@ -425,10 +425,10 @@
             // إظهاره إذا كان مخفي
             buttonLink.style.display = "block";
         }
-        if (button) {
-            button.style.display = "block"; // إظهار الزر
+        if (buttonContainer) {
+            buttonContainer.style.display = "block"; // إظهار الزر
         }
-        
+                
         // إضافة العناصر المطلوبة فقط
         if (hasLinkInLoadingScreen) {
             document.body.appendChild(loadingScreen);
