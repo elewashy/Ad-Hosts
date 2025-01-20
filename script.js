@@ -418,16 +418,29 @@
         // إظهار الرابط
         getLinkButton.style.display = "block"; 
         
-        // تحسين مظهر الزر داخل الرابط
-        const button = getLinkButton.querySelector("button");
-        if (button) {
-            button.style.padding = "20px 40px"; // زيادة حجم الزر
-            button.style.fontSize = "20px"; // تكبير النص
-            button.style.borderRadius = "12px"; // جعل الزر بزاوية دائرية
-            button.style.fontWeight = "bold"; // جعل النص أكثر سمكًا
-            button.style.backgroundColor = "#28a745"; // تغيير اللون إلى أخضر
-            button.style.borderColor = "#28a745"; // تغيير اللون للحدود
-        }
+        // إضافة عداد تنازلي
+        let countdown = 20; // المدة بالثواني
+        const countdownDisplay = document.createElement('div');
+        countdownDisplay.style.fontSize = '24px';
+        countdownDisplay.style.fontWeight = 'bold';
+        countdownDisplay.style.marginTop = '20px';
+        countdownDisplay.textContent = `سيظهر الرابط بعد: ${countdown} ثانية`;
+        document.body.appendChild(countdownDisplay);
+    
+        const countdownInterval = setInterval(() => {
+            countdown--;
+            countdownDisplay.textContent = `سيظهر الرابط بعد: ${countdown} ثانية`;
+    
+            // عندما يصل العداد إلى صفر، قم بإخفاء الرابط
+            if (countdown <= 0) {
+                clearInterval(countdownInterval);
+                getLinkButton.style.display = "none"; // إخفاء الرابط
+                setTimeout(() => {
+                    getLinkButton.style.display = "block"; // إظهار الرابط بعد 20 ثانية
+                    countdownDisplay.textContent = "الرابط الآن ظاهر!";
+                }, 2000); // إبقاء الرابط مرئيًا لبضع ثوان بعد 20 ثانية
+            }
+        }, 1000); // تحديث العداد كل ثانية
     } else {
         console.error("الرابط غير موجود!");
     }
