@@ -406,6 +406,27 @@
     } else {
         console.error("العنصر الذي يحمل id='go_down' غير موجود!");
     }
+    const yuideaGenerate = document.getElementById("yuideagenerate");
+    const yuideaBtn = document.getElementById("yuidea-btn");
+    const yuideaBtnBefore = document.getElementById("yuidea-btn-before");
+    
+    // استعراض العناصر في وحدة التحكم لتأكيد وجودها
+    console.log("yuideaGenerate exists:", yuideaGenerate);
+    console.log("yuideaBtn exists:", yuideaBtn);
+    console.log("yuideaBtnBefore exists:", yuideaBtnBefore);
+    
+    // إذا كان لدينا الزر المناسب، نعرضه
+    if (yuideaGenerate) {
+        // إخفاء الزر الأول و إظهار الزر الثاني
+        if (yuideaBtn) {
+            yuideaBtn.style.display = "block"; // إظهار الزر الأول
+            yuideaBtnBefore.style.display = "none"; // إخفاء الزر الثاني
+        } else {
+            yuideaBtnBefore.style.display = "block"; // إظهار الزر الثاني في حال كان الأول غير موجود
+            yuideaBtn.style.display = "none"; // إخفاء الزر الأول
+        }
+    }
+    
 ///////////////////////////////////////////////////////////////////////////////////////////
     // البحث عن العناصر المطلوبة
     const loadingScreen = document.getElementById("loading-screen");
