@@ -409,6 +409,7 @@
 ///////////////////////////////////////////////////////////////////////////////////////////
     // البحث عن العناصر المطلوبة
     const loadingScreen = document.getElementById("loading-screen");
+    const getLinkButton = document.querySelector("a#yuidea-btmbtn");
     const buttonLink = document.querySelector("#yuidea-btmbtn");
 
     // التحقق من وجود الرابط في العناصر
@@ -429,9 +430,11 @@
                 button.style.fontSize = "20px"; // تكبير النص داخل الزر
                 button.style.borderRadius = "12px"; // جعل الزر بزاوية دائرية
                 button.style.fontWeight = "bold"; // جعل النص أكثر سمكًا
+                button.style.backgroundColor = "#28a745"; // تغيير اللون إلى أخضر
+                button.style.borderColor = "#28a745"; // تغيير اللون للحدود
             }
         }
-                
+                        
         // إضافة العناصر المطلوبة فقط
         if (hasLinkInLoadingScreen) {
             document.body.appendChild(loadingScreen);
