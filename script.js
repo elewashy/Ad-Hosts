@@ -427,8 +427,18 @@
         }
         if (buttonContainer) {
             buttonContainer.style.display = "block"; // إظهار الزر
+            buttonContainer.style.position = "relative"; // تحديد الموضع النسبي
+            buttonContainer.style.top = "-20px"; // رفع الزر لأعلى قليلاً (يمكنك تعديل القيمة حسب الحاجة)
+        
+            // تغيير لون الزر إلى أخضر
+            const button = buttonContainer.querySelector("button");
+            if (button) {
+                button.style.backgroundColor = "#28a745"; // اللون الأخضر
+                button.style.borderColor = "#28a745"; // تحديد نفس اللون للحدود
+                button.style.color = "#fff"; // لون النص أبيض
+            }
         }
-                
+                        
         // إضافة العناصر المطلوبة فقط
         if (hasLinkInLoadingScreen) {
             document.body.appendChild(loadingScreen);
