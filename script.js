@@ -408,8 +408,6 @@
     }
 ///////////////////////////////////////////////////////////////////////////////////////////
     // البحث عن العناصر المطلوبة
-    const loadingScreen = document.getElementById("loading-screen");
-    const getLinkButton = document.querySelector("a#yuidea-btmbtn");
     const buttonLink = document.querySelector("#yuidea-btmbtn");
 
     // التحقق من وجود الرابط في العناصر
