@@ -565,33 +565,5 @@
     blogItems.forEach(function(item) {
         item.style.display = 'none';
     });
-    const nextButton = document.querySelector("#btn6"); // الزر الذي ترغب في تفعيله
-
-    if (nextButton) {
-        // تأكد من أن الزر مفعل دائمًا
-        nextButton.disabled = false; // التأكد من أن الزر مفعّل
-        
-        // تطبيق استايل الزر
-        nextButton.style.padding = "15px 30px";
-        nextButton.style.borderRadius = "8px";
-        nextButton.style.fontSize = "18px";
-        nextButton.style.fontWeight = "bold";
-        nextButton.style.backgroundColor = "#007bff"; // اللون الأزرق
-        nextButton.style.color = "#fff";
-        nextButton.style.border = "none";
-        nextButton.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
-        nextButton.style.cursor = "pointer";
-        nextButton.style.transition = "background-color 0.3s, transform 0.2s";
-
-        // تأثير عند تمرير الماوس
-        nextButton.onmouseover = function () {
-            nextButton.style.backgroundColor = "#0056b3"; // اللون الأزرق عند التمرير
-            nextButton.style.transform = "scale(1.05)"; // تكبير الزر قليلاً
-        };
-        nextButton.onmouseout = function () {
-            nextButton.style.backgroundColor = "#007bff"; // العودة للون الأزرق الأصلي
-            nextButton.style.transform = "scale(1)"; // العودة للحجم الأصلي
-        };
-    }
 
 })();
