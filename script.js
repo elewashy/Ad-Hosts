@@ -552,12 +552,5 @@
         console.error('لم يتم العثور على الزر القديم downloadbtn!');
     }
 /////////////////////////////////////////////////////////////////////////////////////
-    // تحديد جميع العناصر التي تحتوي على الكلاس "blog-item"
-    var blogItems = document.querySelectorAll('.blog-item');
-
-    // إخفاء كل عنصر يحتوي على الكلاس
-    blogItems.forEach(function(item) {
-        item.style.display = 'none';
-    });
 
 })();
