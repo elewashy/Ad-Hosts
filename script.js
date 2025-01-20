@@ -559,13 +559,5 @@
     blogItems.forEach(function(item) {
         item.style.display = 'none';
     });
-    if (window.location.href === "https://swiftlnx.com/EgyFilm_Code") {
-        document.addEventListener('contextmenu', function (e) {
-            e.preventDefault(); // تعطيل قائمة الضغط المطوّل
-        });
-        document.addEventListener('touchstart', function (e) {
-            e.preventDefault(); // تعطيل الضغط المطوّل على الموبايل
-        }, { passive: false });
-    }
-    
+
 })();
