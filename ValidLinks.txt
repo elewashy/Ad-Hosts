@@ -60,3 +60,4 @@
 ||cdnembox.net^
 ||cdnexpansion.net^
 ||.cdn^
+||ovospringer.ink^
