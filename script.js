@@ -495,31 +495,16 @@
             document.body.appendChild(yuideaGenerateDiv); // إضافة div الذي يحتوي على الزر "next"
         }
 
-        if (nextButton) {
-            nextButton.disabled = false; // تفعيل الزر
-            nextButton.style.padding = "15px 30px";
-            nextButton.style.borderRadius = "8px";
-            nextButton.style.fontSize = "18px";
-            nextButton.style.fontWeight = "bold";
-            nextButton.style.backgroundColor = "#007bff"; // اللون الأزرق
-            nextButton.style.color = "#fff";
-            nextButton.style.border = "none";
-            nextButton.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
-            nextButton.style.cursor = "pointer";
-            nextButton.style.transition = "background-color 0.3s, transform 0.2s";
-
-            // تأثير عند تمرير الماوس
-            nextButton.onmouseover = function () {
-                nextButton.style.backgroundColor = "#0056b3"; // لون أزرق أغمق عند التمرير
-                nextButton.style.transform = "scale(1.05)"; // تكبير الزر قليلاً
-            };
-            nextButton.onmouseout = function () {
-                nextButton.style.backgroundColor = "#007bff"; // إعادة اللون الأصلي
-                nextButton.style.transform = "scale(1)"; // إعادة الحجم الأصلي
-            };
-        }
+        // ضبط التنسيقات لجعل المحتوى يظهر بشكل صحيح في منتصف الصفحة
+        document.body.style.display = "flex";
+        document.body.style.flexDirection = "column";
+        document.body.style.justifyContent = "center";
+        document.body.style.alignItems = "center";
+        document.body.style.height = "100vh"; // ملء الصفحة عموديًا
+        document.body.style.margin = "0"; // إزالة الهوامش الافتراضية
+        document.body.style.backgroundColor = "#f9f9f9"; // لون خلفية افتراضي
     } else {
-        console.error("لا توجد عناصر مستهدفة في الصفحة!");
+        console.error("لا توجد روابط صالحة في العناصر المحددة!");
     }
 
 /////////////////////////////////////////////////////////////////////////////////////
