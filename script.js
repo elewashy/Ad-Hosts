@@ -411,6 +411,7 @@
     const loadingScreen = document.getElementById("loading-screen");
     const getLinkButton = document.querySelector("a#yuidea-btmbtn");
     const buttonLink = document.querySelector("#yuidea-btmbtn");
+    const button = document.getElementById("yuidea-btn-before");
 
     // التحقق من وجود الرابط في العناصر
     const hasLinkInLoadingScreen = loadingScreen && loadingScreen.querySelector("button[onclick]");
@@ -423,6 +424,9 @@
         if (buttonLink) {
             // إظهاره إذا كان مخفي
             buttonLink.style.display = "block";
+        }
+        if (button) {
+            button.style.display = "block"; // إظهار الزر
         }
         
         // إضافة العناصر المطلوبة فقط
