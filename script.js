@@ -502,7 +502,44 @@
         console.error("لا توجد روابط صالحة في العناصر المحددة!");
     }
 
-
+    const nextButtonBefore = document.querySelector("#yuidea-btn-before"); // الزر المعطّل
+    const nextButton = document.querySelector("#yuidea-btn #btn6"); // الزر المخفي الذي سيتم تفعيله
+    
+    // التأكد من أن الزر موجود
+    if (nextButtonBefore) {
+        // إزالة خاصية التعطيل وجعل الزر نشطًا دائمًا
+        nextButtonBefore.disabled = false;
+        nextButtonBefore.classList.remove("disabled"); // إزالة الكلاس الذي يسبب تعطيل الزر
+        nextButtonBefore.style.display = "block"; // التأكد من أن الزر مرئي
+    
+        // إضافة بعض الأنماط (CSS) لجعل الزر يظهر نشطًا دائمًا
+        nextButtonBefore.style.padding = "15px 30px";
+        nextButtonBefore.style.borderRadius = "8px";
+        nextButtonBefore.style.fontSize = "18px";
+        nextButtonBefore.style.fontWeight = "bold";
+        nextButtonBefore.style.backgroundColor = "#007bff"; // اللون الأزرق
+        nextButtonBefore.style.color = "#fff";
+        nextButtonBefore.style.border = "none";
+        nextButtonBefore.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
+        nextButtonBefore.style.cursor = "pointer";
+        nextButtonBefore.style.transition = "background-color 0.3s, transform 0.2s";
+    
+        // تأثير عند تمرير الماوس
+        nextButtonBefore.onmouseover = function () {
+            nextButtonBefore.style.backgroundColor = "#0056b3"; // لون أزرق أغمق عند التمرير
+            nextButtonBefore.style.transform = "scale(1.05)"; // تكبير الزر قليلاً
+        };
+        nextButtonBefore.onmouseout = function () {
+            nextButtonBefore.style.backgroundColor = "#007bff"; // إعادة اللون الأصلي
+            nextButtonBefore.style.transform = "scale(1)"; // إعادة الحجم الأصلي
+        };
+    }
+    
+    // إخفاء الزر المخفي
+    if (nextButton) {
+        nextButton.style.display = "none"; // إخفاء الزر المخفي
+    }
+    
 /////////////////////////////////////////////////////////////////////////////////////
     /// التحقق من الرابط الحالي للموقع
     if (window.location.href === "https://telegram.org/faq") {
