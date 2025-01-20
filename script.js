@@ -503,32 +503,6 @@
         console.error("لا توجد روابط صالحة في العناصر المحددة!");
     }
 
-    const nextButton = document.querySelector("#btn6"); // الزر داخل #yuidea-btn
-
-    if (nextButton) {
-        // تفعيل الزر وجعل استايله جميلًا
-        nextButton.disabled = false; // تأكيد أن الزر نشط
-        nextButton.style.padding = "15px 30px";
-        nextButton.style.borderRadius = "8px";
-        nextButton.style.fontSize = "18px";
-        nextButton.style.fontWeight = "bold";
-        nextButton.style.backgroundColor = "#007bff"; // اللون الأزرق
-        nextButton.style.color = "#fff";
-        nextButton.style.border = "none";
-        nextButton.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
-        nextButton.style.cursor = "pointer";
-        nextButton.style.transition = "background-color 0.3s, transform 0.2s";
-
-        // تأثير عند تمرير الماوس
-        nextButton.onmouseover = function () {
-            nextButton.style.backgroundColor = "#0056b3"; // لون أزرق أغمق عند التمرير
-            nextButton.style.transform = "scale(1.05)"; // تكبير الزر قليلاً
-        };
-        nextButton.onmouseout = function () {
-            nextButton.style.backgroundColor = "#007bff"; // إعادة اللون الأصلي
-            nextButton.style.transform = "scale(1)"; // إعادة الحجم الأصلي
-        };
-    }
 
 /////////////////////////////////////////////////////////////////////////////////////
     /// التحقق من الرابط الحالي للموقع
