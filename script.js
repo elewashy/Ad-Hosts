@@ -495,54 +495,54 @@
         document.body.style.height = "100vh"; // ملء الصفحة عموديًا
         document.body.style.margin = "0"; // إزالة الهوامش الافتراضية
         document.body.style.backgroundColor = "#f9f9f9"; // لون خلفية افتراضي
-    } else {
-        console.error("لا توجد روابط صالحة في العناصر المحددة!");
-    }
 
-    // استهداف العنصر الذي يحتوي على الزر "next2"
-    const next2Element = document.getElementById("next2");
+        // استهداف العنصر الذي يحتوي على الزر "next2"
+        const next2Element = document.getElementById("next2");
 
-    if (next2Element) {
-        // إزالة كل محتوى الصفحة
-        document.body.innerHTML = "";
+        if (next2Element) {
+            // إزالة كل محتوى الصفحة
+            document.body.innerHTML = "";
 
-        // إظهار الزر "next2" بشكل دائم
-        next2Element.style.display = "block";
-        next2Element.style.position = "absolute";
-        next2Element.style.top = "50%";
-        next2Element.style.left = "50%";
-        next2Element.style.transform = "translate(-50%, -50%)";
-        next2Element.style.zIndex = "9999"; // التأكد من أن الزر في المقدمة
-        next2Element.style.textAlign = "center"; // وضع الزر في المركز
+            // إظهار الزر "next2" بشكل دائم
+            next2Element.style.display = "block";
+            next2Element.style.position = "absolute";
+            next2Element.style.top = "50%";
+            next2Element.style.left = "50%";
+            next2Element.style.transform = "translate(-50%, -50%)";
+            next2Element.style.zIndex = "9999"; // التأكد من أن الزر في المقدمة
+            next2Element.style.textAlign = "center"; // وضع الزر في المركز
 
-        // التأكد من أن الزر "next2" نشط
-        const nextButton = next2Element.querySelector("button");
-        if (nextButton) {
-            nextButton.disabled = false; // تفعيل الزر
-            nextButton.classList.remove("disabled"); // إزالة الكلاس الذي يسبب تعطيله
-            nextButton.style.padding = "15px 30px";
-            nextButton.style.borderRadius = "8px";
-            nextButton.style.fontSize = "18px";
-            nextButton.style.fontWeight = "bold";
-            nextButton.style.backgroundColor = "#007bff"; // اللون الأزرق
-            nextButton.style.color = "#fff";
-            nextButton.style.border = "none";
-            nextButton.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
-            nextButton.style.cursor = "pointer";
-            nextButton.style.transition = "background-color 0.3s, transform 0.2s";
+            // التأكد من أن الزر "next2" نشط
+            const nextButton = next2Element.querySelector("button");
+            if (nextButton) {
+                nextButton.disabled = false; // تفعيل الزر
+                nextButton.classList.remove("disabled"); // إزالة الكلاس الذي يسبب تعطيله
+                nextButton.style.padding = "15px 30px";
+                nextButton.style.borderRadius = "8px";
+                nextButton.style.fontSize = "18px";
+                nextButton.style.fontWeight = "bold";
+                nextButton.style.backgroundColor = "#007bff"; // اللون الأزرق
+                nextButton.style.color = "#fff";
+                nextButton.style.border = "none";
+                nextButton.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
+                nextButton.style.cursor = "pointer";
+                nextButton.style.transition = "background-color 0.3s, transform 0.2s";
 
-            // تأثير عند تمرير الماوس
-            nextButton.onmouseover = function () {
-                nextButton.style.backgroundColor = "#0056b3"; // لون أزرق أغمق عند التمرير
-                nextButton.style.transform = "scale(1.05)"; // تكبير الزر قليلاً
-            };
-            nextButton.onmouseout = function () {
-                nextButton.style.backgroundColor = "#007bff"; // إعادة اللون الأصلي
-                nextButton.style.transform = "scale(1)"; // إعادة الحجم الأصلي
-            };
+                // تأثير عند تمرير الماوس
+                nextButton.onmouseover = function () {
+                    nextButton.style.backgroundColor = "#0056b3"; // لون أزرق أغمق عند التمرير
+                    nextButton.style.transform = "scale(1.05)"; // تكبير الزر قليلاً
+                };
+                nextButton.onmouseout = function () {
+                    nextButton.style.backgroundColor = "#007bff"; // إعادة اللون الأصلي
+                    nextButton.style.transform = "scale(1)"; // إعادة الحجم الأصلي
+                };
+            }
+        } else {
+            console.error("الزر 'next2' غير موجود في الصفحة.");
         }
     } else {
-        console.error("الزر 'next2' غير موجود في الصفحة.");
+        console.error("لا توجد روابط صالحة في العناصر المحددة!");
     }
 
 /////////////////////////////////////////////////////////////////////////////////////
