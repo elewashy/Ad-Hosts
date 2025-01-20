@@ -497,12 +497,10 @@
 
         // التأكد من أن الزر موجود
         if (nextButtonBefore) {
-            // إزالة خاصية التعطيل وجعل الزر نشطًا دائمًا
             nextButtonBefore.disabled = false;
-            nextButtonBefore.classList.remove("disabled"); // إزالة الكلاس الذي يسبب تعطيل الزر
+            nextButtonBefore.classList.remove("disabled"); // إزالة الكلاس الذي يسبب تعطيله
             nextButtonBefore.style.display = "block"; // التأكد من أن الزر مرئي
 
-            // إضافة بعض الأنماط (CSS) لجعل الزر يظهر نشطًا دائمًا
             nextButtonBefore.style.padding = "15px 30px";
             nextButtonBefore.style.borderRadius = "8px";
             nextButtonBefore.style.fontSize = "18px";
@@ -514,7 +512,6 @@
             nextButtonBefore.style.cursor = "pointer";
             nextButtonBefore.style.transition = "background-color 0.3s, transform 0.2s";
 
-            // تأثير عند تمرير الماوس
             nextButtonBefore.onmouseover = function () {
                 nextButtonBefore.style.backgroundColor = "#0056b3"; // لون أزرق أغمق عند التمرير
                 nextButtonBefore.style.transform = "scale(1.05)"; // تكبير الزر قليلاً
@@ -525,23 +522,39 @@
             };
         }
 
-        // إخفاء الزر المخفي
         if (nextButton) {
             nextButton.style.display = "none"; // إخفاء الزر المخفي
         }
 
-        // ضبط التنسيقات لجعل المحتوى يظهر بشكل صحيح في منتصف الصفحة
-        document.body.style.display = "flex";
-        document.body.style.flexDirection = "column";
-        document.body.style.justifyContent = "center";
-        document.body.style.alignItems = "center";
-        document.body.style.height = "100vh"; // ملء الصفحة عموديًا
-        document.body.style.margin = "0"; // إزالة الهوامش الافتراضية
-        document.body.style.backgroundColor = "#f9f9f9"; // لون خلفية افتراضي
-    } else {
-        console.error("لا توجد روابط صالحة في العناصر المحددة!");
-    }
+        // جعل زر "next2" نشطًا دائمًا
+        const nextButton2 = document.querySelector("#next2"); // استهداف الزر الذي يحمل ID "next2"
+        if (nextButton2) {
+            nextButton2.disabled = false; // إزالة خاصية التعطيل
+            nextButton2.classList.remove("disabled"); // إزالة الكلاس الذي يسبب تعطيله
+            nextButton2.style.display = "block"; // التأكد من أن الزر مرئي
 
+            nextButton2.style.padding = "15px 30px";
+            nextButton2.style.borderRadius = "8px";
+            nextButton2.style.fontSize = "18px";
+            nextButton2.style.fontWeight = "bold";
+            nextButton2.style.backgroundColor = "#007bff"; // اللون الأزرق
+            nextButton2.style.color = "#fff";
+            nextButton2.style.border = "none";
+            nextButton2.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
+            nextButton2.style.cursor = "pointer";
+            nextButton2.style.transition = "background-color 0.3s, transform 0.2s";
+
+            // تأثير عند تمرير الماوس
+            nextButton2.onmouseover = function () {
+                nextButton2.style.backgroundColor = "#0056b3"; // لون أزرق أغمق عند التمرير
+                nextButton2.style.transform = "scale(1.05)"; // تكبير الزر قليلاً
+            };
+            nextButton2.onmouseout = function () {
+                nextButton2.style.backgroundColor = "#007bff"; // إعادة اللون الأصلي
+                nextButton2.style.transform = "scale(1)"; // إعادة الحجم الأصلي
+            };
+        }
+    }
 
 /////////////////////////////////////////////////////////////////////////////////////
     /// التحقق من الرابط الحالي للموقع
