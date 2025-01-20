@@ -427,7 +427,6 @@
             // تحسين زر "Click here to continue"
             const continueButton = loadingScreen.querySelector("#continue-button");
             if (continueButton) {
-                continueButton.disabled = false; // جعل الزر مفعلاً دائمًا
                 continueButton.style.padding = "15px 30px";
                 continueButton.style.borderRadius = "8px";
                 continueButton.style.fontSize = "18px";
