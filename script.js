@@ -410,17 +410,33 @@
     // البحث عن العناصر المطلوبة
     const loadingScreen = document.getElementById("loading-screen");
     const getLinkButton = document.querySelector("a#yuidea-btmbtn");
-    const buttonLink = document.querySelector("#yuidea-btmbtn");
 
     // التحقق من وجود الرابط في العناصر
     const hasLinkInLoadingScreen = loadingScreen && loadingScreen.querySelector("button[onclick]");
     const hasLinkInGetLinkButton = getLinkButton && getLinkButton.href;
-
+    if (getLinkButton) {
+        // إظهار الرابط
+        getLinkButton.style.display = "block"; 
+        
+        // تحسين مظهر الزر داخل الرابط
+        const button = getLinkButton.querySelector("button");
+        if (button) {
+            button.style.padding = "20px 40px"; // زيادة حجم الزر
+            button.style.fontSize = "20px"; // تكبير النص
+            button.style.borderRadius = "12px"; // جعل الزر بزاوية دائرية
+            button.style.fontWeight = "bold"; // جعل النص أكثر سمكًا
+            button.style.backgroundColor = "#28a745"; // تغيير اللون إلى أخضر
+            button.style.borderColor = "#28a745"; // تغيير اللون للحدود
+        }
+    } else {
+        console.error("الرابط غير موجود!");
+    }
+    
     // إذا وجدنا الروابط، نعرض العناصر ونزيل الباقي
     if (hasLinkInLoadingScreen || hasLinkInGetLinkButton) {
         // إزالة كل محتوى الصفحة
         document.body.innerHTML = "";
-                        
+
         // إضافة العناصر المطلوبة فقط
         if (hasLinkInLoadingScreen) {
             document.body.appendChild(loadingScreen);
@@ -457,20 +473,6 @@
                         getLinkButton.style.display = "block"; // عرض الرابط
                     }
                 };
-            }
-        }
-        if (buttonLink) {
-            buttonLink.style.display = "block"; // إظهار الزر
-        
-            // تغيير حجم الزر
-            const button = buttonLink.querySelector("button");
-            if (button) {
-                button.style.padding = "20px 40px"; // زيادة المسافة حول النص (حجم أكبر)
-                button.style.fontSize = "20px"; // تكبير النص داخل الزر
-                button.style.borderRadius = "12px"; // جعل الزر بزاوية دائرية
-                button.style.fontWeight = "bold"; // جعل النص أكثر سمكًا
-                button.style.backgroundColor = "#28a745"; // تغيير اللون إلى أخضر
-                button.style.borderColor = "#28a745"; // تغيير اللون للحدود
             }
         }
 
