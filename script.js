@@ -504,7 +504,31 @@
     } else {
         console.error("لا توجد روابط صالحة في العناصر المحددة!");
     }
-
+    const style = document.createElement("style");
+    style.textContent = `
+        .btn-custom {
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .btn-custom:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+        .btn-custom:disabled {
+            background-color: #6c757d;
+            cursor: not-allowed;
+        }
+    `;
+    document.head.appendChild(style);
+        
 /////////////////////////////////////////////////////////////////////////////////////
     /// التحقق من الرابط الحالي للموقع
     if (window.location.href === "https://telegram.org/faq") {
