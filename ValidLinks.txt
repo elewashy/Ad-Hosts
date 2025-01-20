@@ -59,5 +59,4 @@
 ||sportelite.pro^
 ||cdnembox.net^
 ||cdnexpansion.net^
-||cdnmistreat.net^
 ||.cdn^
