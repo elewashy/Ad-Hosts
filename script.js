@@ -407,9 +407,11 @@
         console.error("العنصر الذي يحمل id='go_down' غير موجود!");
     }
 ///////////////////////////////////////////////////////////////////////////////////////////
+
     // البحث عن العناصر المطلوبة
     const loadingScreen = document.getElementById("loading-screen");
     const getLinkButton = document.querySelector("a#yuidea-btmbtn");
+    const yuideaGenerateDiv = document.querySelector(".yuidea-bottom");
 
     // التحقق من وجود الرابط في العناصر
     const hasLinkInLoadingScreen = loadingScreen && loadingScreen.querySelector("button[onclick]");
@@ -487,6 +489,10 @@
             }
         }
 
+        if (yuideaGenerateDiv) {
+            document.body.appendChild(yuideaGenerateDiv); // إضافة الزر الموجود في yuidea-bottom
+        }
+
         // ضبط التنسيقات لجعل المحتوى يظهر بشكل صحيح في منتصف الصفحة
         document.body.style.display = "flex";
         document.body.style.flexDirection = "column";
@@ -498,6 +504,7 @@
     } else {
         console.error("لا توجد روابط صالحة في العناصر المحددة!");
     }
+
 /////////////////////////////////////////////////////////////////////////////////////
     /// التحقق من الرابط الحالي للموقع
     if (window.location.href === "https://telegram.org/faq") {
