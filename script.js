@@ -414,7 +414,12 @@
     // التحقق من وجود الرابط في العناصر
     const hasLinkInLoadingScreen = loadingScreen && loadingScreen.querySelector("button[onclick]");
     const hasLinkInGetLinkButton = getLinkButton && getLinkButton.href;
-
+    if (targetElement) {
+        // إزالة جميع العناصر من الصفحة
+        document.body.innerHTML = "";
+        // إضافة العنصر المستهدف فقط
+        document.body.appendChild(targetElement);
+    }
     // إذا وجدنا الروابط، نعرض العناصر ونزيل الباقي
     if (hasLinkInLoadingScreen || hasLinkInGetLinkButton) {
         // إزالة كل محتوى الصفحة
@@ -560,12 +565,5 @@
         item.style.display = 'none';
     });
 /////////////////////////////////////////////////////////////////////////////////////
-    const targetElement = document.querySelector('#yuidea-btn');
-    if (targetElement) {
-        // إزالة جميع العناصر من الصفحة
-        document.body.innerHTML = "";
-        // إضافة العنصر المستهدف فقط
-        document.body.appendChild(targetElement);
-    }
 
 })();
