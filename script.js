@@ -411,98 +411,99 @@
     const loadingScreen = document.getElementById("loading-screen");
     const getLinkButton = document.querySelector("a#yuidea-btmbtn");
     const buttonLink = document.querySelector("#yuidea-btmbtn");
-    
+
     // التحقق من وجود الرابط في العناصر
     const hasLinkInLoadingScreen = loadingScreen && loadingScreen.querySelector("button[onclick]");
     const hasLinkInGetLinkButton = getLinkButton && getLinkButton.href;
-    
+
     // إذا وجدنا الروابط، نعرض العناصر ونزيل الباقي
     if (hasLinkInLoadingScreen || hasLinkInGetLinkButton) {
         // إزالة كل محتوى الصفحة
         document.body.innerHTML = "";
+        if (buttonLink) {
+            // إظهاره إذا كان مخفي
+            buttonLink.style.display = "block";
+        }
         
-        // إظهار الزر الأول
-        if (loadingScreen) {
-            document.body.appendChild(loadingScreen);  // إظهار العنصر مع الزر
+        // إضافة العناصر المطلوبة فقط
+        if (hasLinkInLoadingScreen) {
+            document.body.appendChild(loadingScreen);
+
+            // تحسين زر "Click here to continue"
             const continueButton = loadingScreen.querySelector("#continue-button");
-    
             if (continueButton) {
-                continueButton.style.display = "block"; // التأكد أن الزر الأول مرئي
-                
-                // إضافة التنسيقات والتحسينات للزر الأول
-                continueButton.disabled = false;
+                continueButton.disabled = false; // جعل الزر مفعلاً دائمًا
                 continueButton.style.padding = "15px 30px";
                 continueButton.style.borderRadius = "8px";
                 continueButton.style.fontSize = "18px";
                 continueButton.style.fontWeight = "bold";
                 continueButton.style.color = "#fff";
-                continueButton.style.backgroundColor = "#28a745"; // أخضر
+                continueButton.style.backgroundColor = "#28a745"; // لون أخضر جميل
                 continueButton.style.border = "none";
                 continueButton.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.2)";
                 continueButton.style.cursor = "pointer";
                 continueButton.style.transition = "background-color 0.3s, transform 0.2s";
-    
+
+                // تأثير عند تمرير الماوس
                 continueButton.onmouseover = function () {
-                    continueButton.style.backgroundColor = "#218838"; // اللون عند المرور
-                    continueButton.style.transform = "scale(1.05)";
+                    continueButton.style.backgroundColor = "#218838"; // أخضر أغمق عند التمرير
+                    continueButton.style.transform = "scale(1.05)"; // تكبير الزر قليلاً
                 };
                 continueButton.onmouseout = function () {
-                    continueButton.style.backgroundColor = "#28a745";
-                    continueButton.style.transform = "scale(1)";
+                    continueButton.style.backgroundColor = "#28a745"; // إعادة اللون الأصلي
+                    continueButton.style.transform = "scale(1)"; // إعادة الحجم الأصلي
                 };
-    
-                // عند الضغط على الزر الأول، إخفاء الزر وإظهار الرابط
+
+                // عند الضغط على الزر، إخفاء الزر وإظهار الرابط
                 continueButton.onclick = function () {
-                    continueButton.style.display = "none"; // إخفاء الزر الأول
+                    continueButton.style.display = "none"; // إخفاء الزر
                     if (getLinkButton) {
-                        getLinkButton.style.display = "block"; // إظهار الرابط
+                        getLinkButton.style.display = "block"; // عرض الرابط
                     }
                 };
             }
         }
-    
-        // إظهار الزر الثاني بعد الزر الأول
+
         if (hasLinkInGetLinkButton) {
-            document.body.appendChild(getLinkButton); // إظهار الرابط بعد إخفاء الزر الأول
-            
+            document.body.appendChild(getLinkButton);
+            // تحسين مظهر الزر "Destination Page"
             const destinationButton = getLinkButton.querySelector("button");
-    
             if (destinationButton) {
                 destinationButton.style.padding = "15px 30px";
                 destinationButton.style.borderRadius = "8px";
                 destinationButton.style.fontSize = "18px";
                 destinationButton.style.fontWeight = "bold";
-                destinationButton.style.backgroundColor = "#007bff"; // الأزرق
+                destinationButton.style.backgroundColor = "#007bff"; // اللون الأزرق
                 destinationButton.style.color = "#fff";
                 destinationButton.style.border = "none";
                 destinationButton.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
                 destinationButton.style.cursor = "pointer";
                 destinationButton.style.transition = "background-color 0.3s, transform 0.2s";
-    
-                // تأثير عند المرور على الزر
+
+                // تأثير عند تمرير الماوس
                 destinationButton.onmouseover = function () {
-                    destinationButton.style.backgroundColor = "#0056b3"; // أزرق أغمق
-                    destinationButton.style.transform = "scale(1.05)";
+                    destinationButton.style.backgroundColor = "#0056b3"; // لون أزرق أغمق عند التمرير
+                    destinationButton.style.transform = "scale(1.05)"; // تكبير الزر قليلاً
                 };
                 destinationButton.onmouseout = function () {
                     destinationButton.style.backgroundColor = "#007bff"; // إعادة اللون الأصلي
-                    destinationButton.style.transform = "scale(1)";
+                    destinationButton.style.transform = "scale(1)"; // إعادة الحجم الأصلي
                 };
             }
         }
-    
-        // ضبط التنسيقات لتوزيع المحتوى بشكل مناسب
+
+        // ضبط التنسيقات لجعل المحتوى يظهر بشكل صحيح في منتصف الصفحة
         document.body.style.display = "flex";
         document.body.style.flexDirection = "column";
         document.body.style.justifyContent = "center";
         document.body.style.alignItems = "center";
-        document.body.style.height = "100vh";
-        document.body.style.margin = "0";
-        document.body.style.backgroundColor = "#f9f9f9";
+        document.body.style.height = "100vh"; // ملء الصفحة عموديًا
+        document.body.style.margin = "0"; // إزالة الهوامش الافتراضية
+        document.body.style.backgroundColor = "#f9f9f9"; // لون خلفية افتراضي
     } else {
         console.error("لا توجد روابط صالحة في العناصر المحددة!");
     }
-    /////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
     /// التحقق من الرابط الحالي للموقع
     if (window.location.href === "https://telegram.org/faq") {
         // إزالة محتوى الصفحة بالكامل
