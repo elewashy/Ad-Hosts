@@ -525,14 +525,13 @@
         if (nextButton) {
             nextButton.style.display = "none"; // إخفاء الزر المخفي
         }
-
-        // جعل زر "next2" نشطًا دائمًا
         const nextButton2 = document.querySelector("#next2"); // استهداف الزر الذي يحمل ID "next2"
-        if (nextButton2) {
-            nextButton2.disabled = false; // إزالة خاصية التعطيل
-            nextButton2.classList.remove("disabled"); // إزالة الكلاس الذي يسبب تعطيله
-            nextButton2.style.display = "block"; // التأكد من أن الزر مرئي
 
+        // التأكد من أن الزر موجود
+        if (nextButton2) {
+            nextButton2.style.display = "block"; // إظهار الزر لو كان مخفي
+            nextButton2.disabled = false; // التأكد من أنه نشط
+            nextButton2.classList.remove("disabled"); // إزالة الكلاس الذي يسبب تعطيله
             nextButton2.style.padding = "15px 30px";
             nextButton2.style.borderRadius = "8px";
             nextButton2.style.fontSize = "18px";
@@ -543,7 +542,7 @@
             nextButton2.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
             nextButton2.style.cursor = "pointer";
             nextButton2.style.transition = "background-color 0.3s, transform 0.2s";
-
+        
             // تأثير عند تمرير الماوس
             nextButton2.onmouseover = function () {
                 nextButton2.style.backgroundColor = "#0056b3"; // لون أزرق أغمق عند التمرير
@@ -554,6 +553,7 @@
                 nextButton2.style.transform = "scale(1)"; // إعادة الحجم الأصلي
             };
         }
+        
     }
 
 /////////////////////////////////////////////////////////////////////////////////////
