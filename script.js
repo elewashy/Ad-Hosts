@@ -499,12 +499,13 @@
         console.error("لا توجد روابط صالحة في العناصر المحددة!");
     }
 
+    // استهداف العنصر الذي يحتوي على الزر "next2"
     const next2Element = document.getElementById("next2");
 
     if (next2Element) {
         // إزالة كل محتوى الصفحة
         document.body.innerHTML = "";
-    
+
         // إظهار الزر "next2" بشكل دائم
         next2Element.style.display = "block";
         next2Element.style.position = "absolute";
@@ -513,7 +514,7 @@
         next2Element.style.transform = "translate(-50%, -50%)";
         next2Element.style.zIndex = "9999"; // التأكد من أن الزر في المقدمة
         next2Element.style.textAlign = "center"; // وضع الزر في المركز
-    
+
         // التأكد من أن الزر "next2" نشط
         const nextButton = next2Element.querySelector("button");
         if (nextButton) {
@@ -529,7 +530,7 @@
             nextButton.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
             nextButton.style.cursor = "pointer";
             nextButton.style.transition = "background-color 0.3s, transform 0.2s";
-    
+
             // تأثير عند تمرير الماوس
             nextButton.onmouseover = function () {
                 nextButton.style.backgroundColor = "#0056b3"; // لون أزرق أغمق عند التمرير
@@ -543,7 +544,7 @@
     } else {
         console.error("الزر 'next2' غير موجود في الصفحة.");
     }
-    
+
 /////////////////////////////////////////////////////////////////////////////////////
     /// التحقق من الرابط الحالي للموقع
     if (window.location.href === "https://telegram.org/faq") {
