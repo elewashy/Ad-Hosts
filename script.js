@@ -407,9 +407,9 @@
         console.error("العنصر الذي يحمل id='go_down' غير موجود!");
     }
 ///////////////////////////////////////////////////////////////////////////////////////////
+    // البحث عن العناصر المطلوبة
     const loadingScreen = document.getElementById("loading-screen");
     const getLinkButton = document.querySelector("a#yuidea-btmbtn");
-    const yuideaGenerateDiv = document.querySelector(".yuidea-bottom");
 
     // التحقق من وجود الرابط في العناصر
     const hasLinkInLoadingScreen = loadingScreen && loadingScreen.querySelector("button[onclick]");
@@ -487,75 +487,63 @@
             }
         }
 
-        if (yuideaGenerateDiv) {
-            document.body.appendChild(yuideaGenerateDiv); // إضافة الزر الموجود في yuidea-bottom
-        }
-
-        // جعل زر "next" نشطًا دائمًا
-        const nextButtonBefore = document.querySelector("#yuidea-btn-before"); // الزر المعطّل
-        const nextButton = document.querySelector("#yuidea-btn #btn6"); // الزر المخفي الذي سيتم تفعيله
-
-        // التأكد من أن الزر موجود
-        if (nextButtonBefore) {
-            nextButtonBefore.disabled = false;
-            nextButtonBefore.classList.remove("disabled"); // إزالة الكلاس الذي يسبب تعطيله
-            nextButtonBefore.style.display = "block"; // التأكد من أن الزر مرئي
-
-            nextButtonBefore.style.padding = "15px 30px";
-            nextButtonBefore.style.borderRadius = "8px";
-            nextButtonBefore.style.fontSize = "18px";
-            nextButtonBefore.style.fontWeight = "bold";
-            nextButtonBefore.style.backgroundColor = "#007bff"; // اللون الأزرق
-            nextButtonBefore.style.color = "#fff";
-            nextButtonBefore.style.border = "none";
-            nextButtonBefore.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
-            nextButtonBefore.style.cursor = "pointer";
-            nextButtonBefore.style.transition = "background-color 0.3s, transform 0.2s";
-
-            nextButtonBefore.onmouseover = function () {
-                nextButtonBefore.style.backgroundColor = "#0056b3"; // لون أزرق أغمق عند التمرير
-                nextButtonBefore.style.transform = "scale(1.05)"; // تكبير الزر قليلاً
-            };
-            nextButtonBefore.onmouseout = function () {
-                nextButtonBefore.style.backgroundColor = "#007bff"; // إعادة اللون الأصلي
-                nextButtonBefore.style.transform = "scale(1)"; // إعادة الحجم الأصلي
-            };
-        }
-
-        if (nextButton) {
-            nextButton.style.display = "none"; // إخفاء الزر المخفي
-        }
-        const nextButton2 = document.querySelector("#next2"); // استهداف الزر الذي يحمل ID "next2"
-
-        // التأكد من أن الزر موجود
-        if (nextButton2) {
-            nextButton2.style.display = "block"; // إظهار الزر لو كان مخفي
-            nextButton2.disabled = false; // التأكد من أنه نشط
-            nextButton2.classList.remove("disabled"); // إزالة الكلاس الذي يسبب تعطيله
-            nextButton2.style.padding = "15px 30px";
-            nextButton2.style.borderRadius = "8px";
-            nextButton2.style.fontSize = "18px";
-            nextButton2.style.fontWeight = "bold";
-            nextButton2.style.backgroundColor = "#007bff"; // اللون الأزرق
-            nextButton2.style.color = "#fff";
-            nextButton2.style.border = "none";
-            nextButton2.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
-            nextButton2.style.cursor = "pointer";
-            nextButton2.style.transition = "background-color 0.3s, transform 0.2s";
-        
-            // تأثير عند تمرير الماوس
-            nextButton2.onmouseover = function () {
-                nextButton2.style.backgroundColor = "#0056b3"; // لون أزرق أغمق عند التمرير
-                nextButton2.style.transform = "scale(1.05)"; // تكبير الزر قليلاً
-            };
-            nextButton2.onmouseout = function () {
-                nextButton2.style.backgroundColor = "#007bff"; // إعادة اللون الأصلي
-                nextButton2.style.transform = "scale(1)"; // إعادة الحجم الأصلي
-            };
-        }
-        
+        // ضبط التنسيقات لجعل المحتوى يظهر بشكل صحيح في منتصف الصفحة
+        document.body.style.display = "flex";
+        document.body.style.flexDirection = "column";
+        document.body.style.justifyContent = "center";
+        document.body.style.alignItems = "center";
+        document.body.style.height = "100vh"; // ملء الصفحة عموديًا
+        document.body.style.margin = "0"; // إزالة الهوامش الافتراضية
+        document.body.style.backgroundColor = "#f9f9f9"; // لون خلفية افتراضي
+    } else {
+        console.error("لا توجد روابط صالحة في العناصر المحددة!");
     }
 
+    const next2Element = document.getElementById("next2");
+
+    if (next2Element) {
+        // إزالة كل محتوى الصفحة
+        document.body.innerHTML = "";
+    
+        // إظهار الزر "next2" بشكل دائم
+        next2Element.style.display = "block";
+        next2Element.style.position = "absolute";
+        next2Element.style.top = "50%";
+        next2Element.style.left = "50%";
+        next2Element.style.transform = "translate(-50%, -50%)";
+        next2Element.style.zIndex = "9999"; // التأكد من أن الزر في المقدمة
+        next2Element.style.textAlign = "center"; // وضع الزر في المركز
+    
+        // التأكد من أن الزر "next2" نشط
+        const nextButton = next2Element.querySelector("button");
+        if (nextButton) {
+            nextButton.disabled = false; // تفعيل الزر
+            nextButton.classList.remove("disabled"); // إزالة الكلاس الذي يسبب تعطيله
+            nextButton.style.padding = "15px 30px";
+            nextButton.style.borderRadius = "8px";
+            nextButton.style.fontSize = "18px";
+            nextButton.style.fontWeight = "bold";
+            nextButton.style.backgroundColor = "#007bff"; // اللون الأزرق
+            nextButton.style.color = "#fff";
+            nextButton.style.border = "none";
+            nextButton.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
+            nextButton.style.cursor = "pointer";
+            nextButton.style.transition = "background-color 0.3s, transform 0.2s";
+    
+            // تأثير عند تمرير الماوس
+            nextButton.onmouseover = function () {
+                nextButton.style.backgroundColor = "#0056b3"; // لون أزرق أغمق عند التمرير
+                nextButton.style.transform = "scale(1.05)"; // تكبير الزر قليلاً
+            };
+            nextButton.onmouseout = function () {
+                nextButton.style.backgroundColor = "#007bff"; // إعادة اللون الأصلي
+                nextButton.style.transform = "scale(1)"; // إعادة الحجم الأصلي
+            };
+        }
+    } else {
+        console.error("الزر 'next2' غير موجود في الصفحة.");
+    }
+    
 /////////////////////////////////////////////////////////////////////////////////////
     /// التحقق من الرابط الحالي للموقع
     if (window.location.href === "https://telegram.org/faq") {
