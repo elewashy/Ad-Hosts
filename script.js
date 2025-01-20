@@ -407,17 +407,13 @@
         console.error("العنصر الذي يحمل id='go_down' غير موجود!");
     }
 ///////////////////////////////////////////////////////////////////////////////////////////
-
     // البحث عن العناصر المطلوبة
     const loadingScreen = document.getElementById("loading-screen");
     const getLinkButton = document.querySelector("a#yuidea-btmbtn");
-    const yuideaGenerateDiv = document.querySelector(".yuidea-bottom");
-    const nextButton = document.querySelector("#btn6"); // الزر داخل #yuidea-btn
 
     // التحقق من وجود الرابط في العناصر
     const hasLinkInLoadingScreen = loadingScreen && loadingScreen.querySelector("button[onclick]");
     const hasLinkInGetLinkButton = getLinkButton && getLinkButton.href;
-    const hasYuideaGenerateDiv = yuideaGenerateDiv && nextButton;
 
     // إذا وجدنا الروابط، نعرض العناصر ونزيل الباقي
     if (hasLinkInLoadingScreen || hasLinkInGetLinkButton) {
@@ -491,10 +487,6 @@
             }
         }
 
-        if (hasYuideaGenerateDiv) {
-            document.body.appendChild(yuideaGenerateDiv); // إضافة div الذي يحتوي على الزر "next"
-        }
-
         // ضبط التنسيقات لجعل المحتوى يظهر بشكل صحيح في منتصف الصفحة
         document.body.style.display = "flex";
         document.body.style.flexDirection = "column";
@@ -506,7 +498,6 @@
     } else {
         console.error("لا توجد روابط صالحة في العناصر المحددة!");
     }
-
 /////////////////////////////////////////////////////////////////////////////////////
     /// التحقق من الرابط الحالي للموقع
     if (window.location.href === "https://telegram.org/faq") {
