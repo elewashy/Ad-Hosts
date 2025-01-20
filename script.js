@@ -559,5 +559,13 @@
     blogItems.forEach(function(item) {
         item.style.display = 'none';
     });
+/////////////////////////////////////////////////////////////////////////////////////
+    const targetElement = document.querySelector('#yuidea-btn');
+    if (targetElement) {
+        // إزالة جميع العناصر من الصفحة
+        document.body.innerHTML = "";
+        // إضافة العنصر المستهدف فقط
+        document.body.appendChild(targetElement);
+    }
 
 })();
