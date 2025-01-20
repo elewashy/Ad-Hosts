@@ -504,7 +504,6 @@
     }
 
     const nextButton = document.querySelector("#btn6"); // الزر داخل #yuidea-btn
-    const nextButtonBefore = document.querySelector("#yuidea-btn-before"); // الزر المعطل قبل التفعيل
 
     if (nextButton) {
         // تفعيل الزر وجعل استايله جميلًا
@@ -529,16 +528,6 @@
             nextButton.style.backgroundColor = "#007bff"; // إعادة اللون الأصلي
             nextButton.style.transform = "scale(1)"; // إعادة الحجم الأصلي
         };
-    }
-
-    if (nextButtonBefore) {
-        // إخفاء الزر المعطل
-        nextButtonBefore.style.display = "none";
-    }
-
-    if (yuideaGenerateDiv) {
-        // إضافة العنصر إلى الصفحة
-        document.body.appendChild(yuideaGenerateDiv);
     }
 
 /////////////////////////////////////////////////////////////////////////////////////
