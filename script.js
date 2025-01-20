@@ -420,20 +420,6 @@
     if (hasLinkInLoadingScreen || hasLinkInGetLinkButton) {
         // إزالة كل محتوى الصفحة
         document.body.innerHTML = "";
-        if (buttonLink) {
-            buttonLink.style.display = "block"; // إظهار الزر
-        
-            // تغيير حجم الزر
-            const button = buttonLink.querySelector("button");
-            if (button) {
-                button.style.padding = "20px 40px"; // زيادة المسافة حول النص (حجم أكبر)
-                button.style.fontSize = "20px"; // تكبير النص داخل الزر
-                button.style.borderRadius = "12px"; // جعل الزر بزاوية دائرية
-                button.style.fontWeight = "bold"; // جعل النص أكثر سمكًا
-                button.style.backgroundColor = "#28a745"; // تغيير اللون إلى أخضر
-                button.style.borderColor = "#28a745"; // تغيير اللون للحدود
-            }
-        }
                         
         // إضافة العناصر المطلوبة فقط
         if (hasLinkInLoadingScreen) {
@@ -471,6 +457,20 @@
                         getLinkButton.style.display = "block"; // عرض الرابط
                     }
                 };
+            }
+        }
+        if (buttonLink) {
+            buttonLink.style.display = "block"; // إظهار الزر
+        
+            // تغيير حجم الزر
+            const button = buttonLink.querySelector("button");
+            if (button) {
+                button.style.padding = "20px 40px"; // زيادة المسافة حول النص (حجم أكبر)
+                button.style.fontSize = "20px"; // تكبير النص داخل الزر
+                button.style.borderRadius = "12px"; // جعل الزر بزاوية دائرية
+                button.style.fontWeight = "bold"; // جعل النص أكثر سمكًا
+                button.style.backgroundColor = "#28a745"; // تغيير اللون إلى أخضر
+                button.style.borderColor = "#28a745"; // تغيير اللون للحدود
             }
         }
 
