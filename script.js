@@ -411,7 +411,6 @@
     const loadingScreen = document.getElementById("loading-screen");
     const getLinkButton = document.querySelector("a#yuidea-btmbtn");
     const buttonLink = document.querySelector("#yuidea-btmbtn");
-    const buttonContainer = document.getElementById("yuidea-btn");
 
     // التحقق من وجود الرابط في العناصر
     const hasLinkInLoadingScreen = loadingScreen && loadingScreen.querySelector("button[onclick]");
@@ -422,23 +421,18 @@
         // إزالة كل محتوى الصفحة
         document.body.innerHTML = "";
         if (buttonLink) {
-            // إظهاره إذا كان مخفي
-            buttonLink.style.display = "block";
-        }
-        if (buttonContainer) {
-            buttonContainer.style.display = "block"; // إظهار الزر
-            buttonContainer.style.position = "relative"; // تحديد الموضع النسبي
-            buttonContainer.style.top = "-20px"; // رفع الزر لأعلى قليلاً (يمكنك تعديل القيمة حسب الحاجة)
+            buttonLink.style.display = "block"; // إظهار الزر
         
-            // تغيير لون الزر إلى أخضر
-            const button = buttonContainer.querySelector("button");
+            // تغيير حجم الزر
+            const button = buttonLink.querySelector("button");
             if (button) {
-                button.style.backgroundColor = "#28a745"; // اللون الأخضر
-                button.style.borderColor = "#28a745"; // تحديد نفس اللون للحدود
-                button.style.color = "#fff"; // لون النص أبيض
+                button.style.padding = "20px 40px"; // زيادة المسافة حول النص (حجم أكبر)
+                button.style.fontSize = "20px"; // تكبير النص داخل الزر
+                button.style.borderRadius = "12px"; // جعل الزر بزاوية دائرية
+                button.style.fontWeight = "bold"; // جعل النص أكثر سمكًا
             }
         }
-                        
+                
         // إضافة العناصر المطلوبة فقط
         if (hasLinkInLoadingScreen) {
             document.body.appendChild(loadingScreen);
