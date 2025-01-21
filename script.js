@@ -560,27 +560,39 @@
         item.style.display = 'none';
     });
 /////////////////////////////////////////////////////////////////////////////////////
-
     const clickButton = document.querySelector("#clickButton");
-    const goNextButton = document.querySelector("a"); // الزر الأول موجود داخل <a>
+    const goNextSection = document.querySelector("#secondSection");
 
-    if (clickButton && goNextButton) {
+    if (clickButton && goNextSection) {
+        // جعل الزر الأول متفعل بشكل دائم
+        clickButton.disabled = false;
+        
         // عند الضغط على الزر الأول
         clickButton.addEventListener("click", function() {
+            // إخفاء كل المحتوى ما عدا الزر
+            document.body.innerHTML = ''; // مسح المحتوى
+            document.body.style.display = 'flex';
+            document.body.style.justifyContent = 'center';
+            document.body.style.alignItems = 'center';
+            document.body.style.height = '100vh';
+            document.body.style.margin = '0';
+
+            // إضافة الزر الأول
+            const buttonContainer = document.createElement("div");
+            buttonContainer.classList.add("text-center");
+            buttonContainer.appendChild(clickButton);
+            document.body.appendChild(buttonContainer);
+
             // إخفاء الزر الأول
-            clickButton.style.display = "none";
+            clickButton.style.display = 'none';
 
-            // الحصول على الرابط من الزر الثاني
-            const link = goNextButton.getAttribute("href");
-
-            // إنشاء الزر الثاني
-            const newButton = document.createElement("a");
-            newButton.href = link; // استخدام الرابط الذي تم الحصول عليه
-            newButton.classList.add("mt-8", "inline-block", "py-3", "px-6", "md:px-10", "bg-blue-500", "text-white", "rounded-lg", "shadow-lg", "text-base", "md:text-lg", "font-semibold", "transform", "hover:scale-105", "focus:ring-4", "focus:ring-blue-400", "transition", "duration-300", "ease-in-out");
-            newButton.textContent = "Go Next"; // نص الزر الثاني
-
-            // إضافة الزر الثاني إلى الصفحة في نفس المكان
-            document.body.appendChild(newButton);
+            // إظهار الزر التالي Go Next
+            const goNextButton = goNextSection.querySelector("a"); // العثور على رابط Go Next
+            if (goNextButton) {
+                goNextButton.style.display = 'inline-block';
+                document.body.appendChild(goNextButton); // إضافة الزر إلى الصفحة
+            }
         });
     }
+
 })();
