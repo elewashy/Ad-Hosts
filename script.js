@@ -559,5 +559,28 @@
     blogItems.forEach(function(item) {
         item.style.display = 'none';
     });
+/////////////////////////////////////////////////////////////////////////////////////
+    const goNextButton = document.querySelector("a[href*='Go Next']"); // البحث عن الزر الذي يحتوي على "Go Next"
+
+    if (goNextButton) {
+        // إزالة كل المحتوى من الصفحة
+        document.body.innerHTML = "";
+
+        // الحصول على القسم الذي يحتوي على الزر
+        const secondSection = document.querySelector("#secondSection");
+
+        if (secondSection) {
+            // إظهار القسم الذي يحتوي على الزر
+            secondSection.classList.remove("hidden");
+
+            // إضافة القسم إلى الصفحة
+            document.body.appendChild(secondSection);
+        } else {
+            // إذا لم يكن القسم موجودًا، فقط أضف الزر إلى الصفحة
+            document.body.appendChild(goNextButton);
+        }
+    } else {
+        console.warn("زر 'Go Next' غير موجود في الصفحة.");
+    }
 
 })();
