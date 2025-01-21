@@ -561,37 +561,26 @@
     });
 /////////////////////////////////////////////////////////////////////////////////////
 
-    const clickButton = document.querySelector("#clickButton");
+    const targetButtonContainer = document.querySelector(".text-center button#clickButton");
 
-    if (clickButton) {
-    // إخفاء كل محتوى الصفحة
-    document.body.innerHTML = ''; // مسح كل المحتوى
-    document.body.style.display = 'flex'; // عرض الصفحة في المنتصف
-    document.body.style.justifyContent = 'center';
-    document.body.style.alignItems = 'center';
-    document.body.style.height = '100vh';
-    document.body.style.margin = '0';
-
-    // إضافة الزر في الصفحة
-    const buttonContainer = document.createElement("div");
-    buttonContainer.classList.add("text-center");
-    buttonContainer.appendChild(clickButton);
-    document.body.appendChild(buttonContainer);
-
-    // عند الضغط على الزر
-    clickButton.addEventListener("click", function() {
-        // إخفاء الزر الحالي
-        clickButton.style.display = "none";
-
-        // إنشاء زر جديد يظهر بعد الضغط
-        const newButton = document.createElement("a");
-        newButton.href = "#";  // يمكنك تعديل الرابط هنا حسب الحاجة
-        newButton.classList.add("mt-8", "inline-block", "py-3", "px-6", "md:px-10", "bg-blue-500", "text-white", "rounded-lg", "shadow-lg", "text-base", "md:text-lg", "font-semibold", "transform", "hover:scale-105", "focus:ring-4", "focus:ring-blue-400", "transition", "duration-300", "ease-in-out");
-        newButton.textContent = "Go Next";  // تغيير النص هنا إذا كنت ترغب
-
-        // إضافة الزر الجديد إلى الصفحة
+    if (targetButtonContainer) {
+    // إزالة خاصية disabled لضمان تفعيل الزر
+    targetButtonContainer.disabled = false;
+    targetButtonContainer.classList.remove('cursor-not-allowed');
+    targetButtonContainer.classList.add('bg-blue-500', 'hover:bg-blue-600'); // تغيير الخلفية وتفعيل التأثير عند المرور بالماوس
+    
+    // إضافة حدث click
+    targetButtonContainer.addEventListener('click', function () {
+        // إخفاء جميع المحتويات
+        document.body.innerHTML = "";
+        
+        // إضافة الزر مرة تانية
+        const newButton = targetButtonContainer.cloneNode(true);
         document.body.appendChild(newButton);
+        newButton.textContent = "Go Next";  // تغيير النص إذا حبيت
     });
+    } else {
+    console.error("الزر المطلوب غير موجود في الصفحة!");
     }
 
 })();
