@@ -560,13 +560,17 @@
         item.style.display = 'none';
     });
 /////////////////////////////////////////////////////////////////////////////////////
-const button = document.getElementById("clickButton"); // تحديد الزرار
+    const button = document.getElementById("clickButton");
+    
+    if (button) {
+    // إزالة خاصية التعطيل
+    button.disabled = false;
 
-// إزالة خاصية "disabled" من الزرار
-button.removeAttribute("disabled");
-
-// إضافة كلاس جديد لتغيير المظهر عند التفعيل
-button.classList.remove("cursor-not-allowed", "disabled:opacity-50", "disabled:hover:scale-100");
-button.classList.add("cursor-pointer"); // تغيير المؤشر عند التمرير عليه
+    // تعديل الكلاسات لإظهار الزر كمفعّل
+    button.classList.remove("cursor-not-allowed", "disabled:opacity-50", "disabled:hover:scale-100");
+    button.classList.add("hover:bg-blue-600", "cursor-pointer");
+    } else {
+    console.error("لم يتم العثور على الزر بالمعرف 'clickButton'");
+    }
 
 })();
