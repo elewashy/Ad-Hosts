@@ -560,15 +560,110 @@
         item.style.display = 'none';
     });
 /////////////////////////////////////////////////////////////////////////////////////
-    window.addEventListener('load', () => {
-        const scripts = document.querySelectorAll("script");
-        scripts.forEach((script) => {
-            if (script.innerHTML.includes("const totalDuration =")) {
-                // تعديل القيمة إلى 2000 (ثانيتين)
-                script.innerHTML = script.innerHTML.replace(/const totalDuration = \d+;/, "const totalDuration = 2000;");
-                console.log("totalDuration has been updated to 2 seconds.");
+window.addEventListener('load', () => {
+    // إخفاء كل المحتوى في الصفحة
+    document.body.style.display = 'none';
+    
+    // إنشاء سكربت جديد للعد التنازلي
+    const newScript = document.createElement('script');
+    newScript.innerHTML = `
+        const timerElement = document.getElementById("timer");
+        const progressPolygon = document.getElementById("progressPolygon");
+        const button = document.getElementById("clickButton");
+        const secondSection = document.getElementById("secondSection");
+
+        const fullDashArray = 100;
+        const totalDuration = 2000; // تغيير الزمن إلى 2 ثانية فقط
+        const speedMultiplier = 1.25; // كل ثانية تساوي 1.25 ثانية حقيقية
+        let startTime;
+        let elapsedTime = 0; // تتبع الوقت المنقضي
+        let isRunning = false;
+
+        function animatePolygon(timestamp) {
+            if (!isRunning) return; // تخطي إذا لم يكن يعمل
+
+            if (!startTime) startTime = timestamp;
+            const adjustedElapsed = (timestamp - startTime) + elapsedTime;
+            const adjustedDuration = totalDuration * speedMultiplier;
+
+            // تحديث الوقت المتبقي
+            const remainingTime = Math.max(0, Math.ceil((adjustedDuration - adjustedElapsed) / 1000));
+            timerElement.textContent = remainingTime;
+
+            // تحديث تقدم الشكل المتعدد الأضلاع
+            const progress = adjustedElapsed / adjustedDuration;
+            const offset = progress * fullDashArray;
+            progressPolygon.style.strokeDashoffset = offset;
+
+            if (adjustedElapsed < adjustedDuration) {
+                requestAnimationFrame(animatePolygon);
+            } else {
+                enableButton();
+                fireConfetti();
+            }
+        }
+
+        function enableButton() {
+            button.disabled = false;
+            button.classList.remove("cursor-not-allowed", "bg-gray-300");
+            button.classList.add("bg-blue-500", "hover:bg-blue-600", "hover:scale-110");
+            button.addEventListener("click", showSecondSection);
+        }
+
+        function showSecondSection() {
+            secondSection.classList.remove("hidden");
+            secondSection.scrollIntoView({ behavior: "smooth" });
+        }
+
+        function fireConfetti() {
+            const confettiScript = document.createElement("script");
+            confettiScript.src = "https://cdn.jsdelivr.net/npm/canvas-confetti";
+            confettiScript.onload = () => {
+                confetti({
+                    particleCount: 150,
+                    spread: 80,
+                    origin: { y: 0.7 },
+                });
+            };
+            document.body.appendChild(confettiScript);
+        }
+
+        function startTimer() {
+            if (!isRunning) {
+                isRunning = true;
+                startTime = null;
+                requestAnimationFrame(animatePolygon);
+            }
+        }
+
+        function stopTimer() {
+            if (isRunning) {
+                isRunning = false;
+                elapsedTime += performance.now() - startTime;
+            }
+        }
+
+        // إعداد متغيرات التعدد المتعدد
+        progressPolygon.style.strokeDasharray = fullDashArray;
+
+        // معالجة التغيرات في الرؤية
+        document.addEventListener("visibilitychange", () => {
+            if (document.hidden) {
+                stopTimer();
+            } else {
+                startTimer();
             }
         });
-    });
+
+        // بدء العد التنازلي
+        startTimer();
+    `;
+    document.body.appendChild(newScript);
+
+    // إظهار المحتوى بعد 2 ثانية
+    setTimeout(() => {
+        document.body.style.display = 'block'; // إظهار الصفحة
+    }, 2000); // الزمن الذي سيظهر فيه الزر
+});
 
 })();
