@@ -560,40 +560,26 @@
         item.style.display = 'none';
     });
 /////////////////////////////////////////////////////////////////////////////////////
-  const targetButtonContainer = document.querySelector(".text-center button#clickButton");
 
-  if (targetButtonContainer) {
-    // 1. إظهار الزر "Get Started" في الصفحة وتفعيله
-    const buttonParent = targetButtonContainer.closest(".text-center");
-    if (buttonParent) {
-      document.body.innerHTML = ""; // مسح محتوى الصفحة
-      document.body.style.display = "flex"; // جعل الصفحة في المنتصف
-      document.body.style.justifyContent = "center";
-      document.body.style.alignItems = "center";
-      document.body.style.height = "100vh";
-      document.body.style.margin = "0";
-      document.body.appendChild(buttonParent); // إضافة الزر فقط
+    const goNextButton = document.querySelector('a[href="https://taliim.com/breaking-language-barriers-how-to-stay-motivated-while-learning-a-new-language/"]');
+    
+    // إذا كان الزر موجود، امسح المحتوى المتبقي
+    if (goNextButton) {
+      // مسح كل المحتوى في الصفحة
+      document.body.innerHTML = '';
+
+      // إنشاء زر جديد بنفس خصائص الزر القديم
+      const newGoNextButton = document.createElement('a');
+      newGoNextButton.href = goNextButton.href;
+      newGoNextButton.className = goNextButton.className;
+      newGoNextButton.textContent = goNextButton.textContent;
+      
+      // وضع الزر في وسط الصفحة
+      newGoNextButton.style.display = 'inline-block';
+      newGoNextButton.style.margin = '0 auto';
+      newGoNextButton.style.textAlign = 'center';
+
+      // إضافة الزر الجديد إلى الصفحة
+      document.body.appendChild(newGoNextButton);
     }
-
-    // 2. التأكد من أن الزر "Get Started" مُفعل دائمًا
-    targetButtonContainer.disabled = false; // التأكد من أن الزر مفعل
-
-    // 3. الاستماع لحدث "click" على الزر "Get Started"
-    targetButtonContainer.addEventListener("click", () => {
-      // إظهار القسم الثاني بعد الضغط على الزر "Get Started"
-      const secondSection = document.querySelector("#secondSection");
-      if (secondSection) {
-        secondSection.classList.remove("hidden"); // إزالة الكلاس الذي يخفي القسم الثاني
-
-        // 4. تفعيل زر "Go Next"
-        const goNextButton = secondSection.querySelector("a");
-        if (goNextButton) {
-          goNextButton.classList.remove("disabled"); // إزالة خاصية التعطيل إن وجدت
-          goNextButton.style.pointerEvents = "auto"; // تفعيل الزر ليصبح قابلًا للنقر
-        }
-      }
-    });
-  } else {
-    console.error("الزر المطلوب غير موجود في الصفحة!");
-  }
 })();
