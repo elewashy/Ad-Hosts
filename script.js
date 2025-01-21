@@ -569,32 +569,6 @@
         clickButton.disabled = false; 
         clickButton.classList.remove("cursor-not-allowed", "disabled:opacity-50", "disabled:hover:scale-100");
 
-        // عند تحميل الصفحة، إخفاء كل المحتوى غير الزر الأول
-        // document.body.innerHTML = ''; // مسح المحتوى
-        document.body.style.display = 'flex';
-        document.body.style.justifyContent = 'center';
-        document.body.style.alignItems = 'center';
-        document.body.style.height = '100vh';
-        document.body.style.margin = '0';
-
-        // إضافة الزر الأول فقط للصفحة
-        const buttonContainer = document.createElement("div");
-        buttonContainer.classList.add("text-center");
-        buttonContainer.appendChild(clickButton);
-        document.body.appendChild(buttonContainer);
-
-        // عند الضغط على الزر الأول
-        clickButton.addEventListener("click", function() {
-            // إخفاء الزر الأول
-            clickButton.style.display = 'none';
-
-            // إظهار الزر الثاني Go Next
-            const goNextButton = goNextSection.querySelector("a"); // العثور على رابط Go Next
-            if (goNextButton) {
-                goNextButton.style.display = 'inline-block'; // جعل الزر يظهر
-                document.body.appendChild(goNextButton); // إضافة الزر الجديد إلى الصفحة
-            }
-        });
     }
 
 })();
