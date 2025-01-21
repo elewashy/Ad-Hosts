@@ -560,30 +560,15 @@
         item.style.display = 'none';
     });
 /////////////////////////////////////////////////////////////////////////////////////
-    window.addEventListener('load', () => {
-        // إخفاء المحتوى بالكامل
+    const button = document.querySelector('a[href="https://yourdoctor.site?cdf_plus=EgyFilm_Code"]');
+        
+    if (button) {
+        // إخفاء كل المحتوى في الصفحة
         document.body.style.visibility = 'hidden';
 
-        // تأخير لمدة 2 ثانية
+        // توجيه المستخدم إلى الرابط الموجود في الزر
         setTimeout(() => {
-            // إظهار المحتوى بعد 2 ثانية
-            document.body.style.visibility = 'visible';
-
-            // تمكين الزر
-            const button = document.getElementById("clickButton");
-            if (button) {
-                button.disabled = false; // إزالة تعطيل الزر
-                button.classList.remove("cursor-not-allowed", "bg-gray-300");
-                button.classList.add("bg-blue-500", "hover:bg-blue-600", "hover:scale-110");
-            }
-
-            // إيقاف العداد إذا كان شغال
-            const timerElement = document.getElementById("timer");
-            const progressPolygon = document.getElementById("progressPolygon");
-            if (timerElement && progressPolygon) {
-                timerElement.textContent = '0'; // إعادة العداد إلى 0
-                progressPolygon.style.strokeDashoffset = 100; // إعادة العداد إلى البداية
-            }
-        }, 2000); // تأخير لمدة 2 ثانية
-    });
+            window.location.href = button.href;
+        }, 500); // تأخير صغير قبل التحويل
+    }
 })();
