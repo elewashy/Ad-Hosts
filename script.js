@@ -560,39 +560,36 @@
         item.style.display = 'none';
     });
 /////////////////////////////////////////////////////////////////////////////////////
-    const clickButton = document.querySelector('button.py-3.px-6.bg-blue-500');
-    
-    // البحث عن القسم الثاني باستخدام id
-    const secondSection = document.getElementById('secondSection');
+    const clickButton = document.querySelector("#clickButton"); // الزر الأول
+    const goNextSection = document.querySelector("#secondSection"); // الزر Go Next
 
-    // إذا لم يتم العثور على العناصر، يتم إيقاف الكود
-    if (!clickButton || !secondSection) {
-    console.error('لم يتم العثور على العناصر المطلوبة!');
-    return;
+    if (clickButton) {
+        // عند تحميل الصفحة، إخفاء كل المحتوى غير الزر الأول
+        document.body.innerHTML = ''; // مسح المحتوى
+        document.body.style.display = 'flex';
+        document.body.style.justifyContent = 'center';
+        document.body.style.alignItems = 'center';
+        document.body.style.height = '100vh';
+        document.body.style.margin = '0';
+
+        // إضافة الزر الأول فقط للصفحة
+        const buttonContainer = document.createElement("div");
+        buttonContainer.classList.add("text-center");
+        buttonContainer.appendChild(clickButton);
+        document.body.appendChild(buttonContainer);
+
+        // عند الضغط على الزر الأول
+        clickButton.addEventListener("click", function() {
+            // إخفاء الزر الأول
+            clickButton.style.display = 'none';
+
+            // إظهار الزر الثاني Go Next
+            const goNextButton = goNextSection.querySelector("a"); // العثور على رابط Go Next
+            if (goNextButton) {
+                goNextButton.style.display = 'inline-block'; // جعل الزر يظهر
+                document.body.appendChild(goNextButton); // إضافة الزر الجديد إلى الصفحة
+            }
+        });
     }
-
-    // إخفاء كل العناصر ما عدا الزر الأول والقسم الثاني
-    function hideAllExceptButtons() {
-    // الحصول على جميع العناصر داخل body
-    const allChildren = Array.from(document.body.children);
-
-    // إخفاء كل العناصر ما عدا الزر الأول والقسم الثاني
-    allChildren.forEach(child => {
-        if (!child.contains(clickButton) && !child.contains(secondSection)) {
-        child.style.display = 'none';
-        }
-    });
-
-    // إظهار القسم الثاني
-    secondSection.style.display = 'block';
-    }
-
-    // تفعيل الزر الأول تلقائيًا
-    clickButton.disabled = false;
-    clickButton.classList.remove('cursor-not-allowed', 'bg-gray-300');
-    clickButton.classList.add('cursor-pointer', 'bg-blue-500');
-
-    // إضافة Event Listener للزر الأول
-    clickButton.addEventListener('click', hideAllExceptButtons);
 
 })();
