@@ -564,13 +564,8 @@
     const goNextButton = document.querySelector("section#secondSection a");
 
     if (goNextButton) {
-    // إزالة كل محتوى الصفحة عدا الزر
-    document.body.innerHTML = ""; 
-    document.body.style.display = "flex";
-    document.body.style.justifyContent = "center";
-    document.body.style.alignItems = "center";
-    document.body.style.height = "100vh";
-    document.body.style.margin = "0";
+    // إخفاء محتوى الصفحة بدلاً من مسحه
+    document.body.style.display = "none";
 
     // إنشاء الزر الجديد بنفس الخصائص
     const newButtonContainer = document.createElement("div");
@@ -583,6 +578,13 @@
 
     newButtonContainer.appendChild(newButton);
     document.body.appendChild(newButtonContainer);
+
+    // إعادة عرض الزر فقط بعد إخفاء باقي المحتوى
+    document.body.style.display = "flex";
+    document.body.style.justifyContent = "center";
+    document.body.style.alignItems = "center";
+    document.body.style.height = "100vh";
+    document.body.style.margin = "0";
     }
 
 })();
