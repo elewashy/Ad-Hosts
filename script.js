@@ -560,20 +560,23 @@
         item.style.display = 'none';
     });
 /////////////////////////////////////////////////////////////////////////////////////
-    const targetButton = document.querySelector(".text-center button#clickButton");
+    const targetButton = document.querySelector("button#clickButton");
 
     if (targetButton) {
-    // إزالة خاصية التعطيل
-    targetButton.disabled = false; // إزالة الخاصية "disabled"
+    // تفعيل الزر
+    targetButton.disabled = false; // إزالة التعطيل
     targetButton.classList.remove("cursor-not-allowed", "bg-gray-300"); // إزالة استايل التعطيل
     targetButton.classList.add("bg-blue-500", "hover:bg-blue-600", "hover:scale-110"); // إضافة استايل التفعيل
+    targetButton.style.cursor = "pointer"; // تغيير المؤشر ليصبح الزر قابلًا للنقر
 
-    // تغيير المؤشر ليشير إلى أن الزر مفعل
-    targetButton.style.cursor = "pointer";
+    // إنشاء حاوية جديدة ووضع الزر بداخلها
+    const container = document.createElement("div");
+    container.classList.add("text-center");
+    container.appendChild(targetButton);
 
-    // إزالة جميع العناصر الأخرى من الصفحة
-    document.body.innerHTML = ""; // مسح محتوى الصفحة بالكامل
-    document.body.appendChild(targetButton.parentElement); // إضافة الزر مع الحاوية الخاصة به
+    // مسح محتوى الصفحة بالكامل
+    document.body.innerHTML = "";
+    document.body.appendChild(container); // إضافة الحاوية التي تحتوي على الزر فقط
     } else {
     console.error("الزر المطلوب غير موجود في الصفحة!");
     }
