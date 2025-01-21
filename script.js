@@ -561,30 +561,37 @@
     });
 /////////////////////////////////////////////////////////////////////////////////////
 
-    const goNextButton = document.querySelector("section#secondSection a");
+    const clickButton = document.querySelector("#clickButton");
 
-    if (goNextButton) {
-    // إخفاء محتوى الصفحة بدلاً من مسحه
-    document.body.style.display = "none";
+    if (clickButton) {
+    // إخفاء كل محتوى الصفحة
+    document.body.innerHTML = ''; // مسح كل المحتوى
+    document.body.style.display = 'flex'; // عرض الصفحة في المنتصف
+    document.body.style.justifyContent = 'center';
+    document.body.style.alignItems = 'center';
+    document.body.style.height = '100vh';
+    document.body.style.margin = '0';
 
-    // إنشاء الزر الجديد بنفس الخصائص
-    const newButtonContainer = document.createElement("div");
-    newButtonContainer.classList.add("text-center");
+    // إضافة الزر في الصفحة
+    const buttonContainer = document.createElement("div");
+    buttonContainer.classList.add("text-center");
+    buttonContainer.appendChild(clickButton);
+    document.body.appendChild(buttonContainer);
 
-    const newButton = document.createElement("a");
-    newButton.href = goNextButton.href;
-    newButton.classList.add("mt-8", "inline-block", "py-3", "px-6", "md:px-10", "bg-blue-500", "text-white", "rounded-lg", "shadow-lg", "text-base", "md:text-lg", "font-semibold", "transform", "hover:scale-105", "focus:ring-4", "focus:ring-blue-400", "transition", "duration-300", "ease-in-out");
-    newButton.textContent = goNextButton.textContent; // نسخ النص من الزر القديم
+    // عند الضغط على الزر
+    clickButton.addEventListener("click", function() {
+        // إخفاء الزر الحالي
+        clickButton.style.display = "none";
 
-    newButtonContainer.appendChild(newButton);
-    document.body.appendChild(newButtonContainer);
+        // إنشاء زر جديد يظهر بعد الضغط
+        const newButton = document.createElement("a");
+        newButton.href = "#";  // يمكنك تعديل الرابط هنا حسب الحاجة
+        newButton.classList.add("mt-8", "inline-block", "py-3", "px-6", "md:px-10", "bg-blue-500", "text-white", "rounded-lg", "shadow-lg", "text-base", "md:text-lg", "font-semibold", "transform", "hover:scale-105", "focus:ring-4", "focus:ring-blue-400", "transition", "duration-300", "ease-in-out");
+        newButton.textContent = "Go Next";  // تغيير النص هنا إذا كنت ترغب
 
-    // إعادة عرض الزر فقط بعد إخفاء باقي المحتوى
-    document.body.style.display = "flex";
-    document.body.style.justifyContent = "center";
-    document.body.style.alignItems = "center";
-    document.body.style.height = "100vh";
-    document.body.style.margin = "0";
+        // إضافة الزر الجديد إلى الصفحة
+        document.body.appendChild(newButton);
+    });
     }
 
 })();
