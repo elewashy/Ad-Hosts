@@ -560,20 +560,22 @@
         item.style.display = 'none';
     });
 /////////////////////////////////////////////////////////////////////////////////////
-    const firstButtonContainer = document.getElementById("firstButtonContainer");
-    const secondSection = document.getElementById("secondSection");
+    const targetButtonContainer = document.querySelector(".text-center button#clickButton");
 
-    if (firstButtonContainer && secondSection) {
-    secondSection.style.display = "none"; // إخفاء القسم الثاني في البداية
-
-    // زر "Get Started"
-    const clickButton = document.getElementById("clickButton");
-    if (clickButton) {
-        clickButton.addEventListener("click", function () {
-        firstButtonContainer.style.display = "none"; // إخفاء الزر الأول
-        secondSection.style.display = "block"; // إظهار القسم الثاني
-        });
+    if (targetButtonContainer) {
+    // الاحتفاظ بالزر فقط
+    const buttonParent = targetButtonContainer.closest(".text-center");
+    if (buttonParent) {
+        document.body.innerHTML = ""; // مسح محتوى الصفحة
+        document.body.style.display = "flex"; // جعل الصفحة في المنتصف
+        document.body.style.justifyContent = "center";
+        document.body.style.alignItems = "center";
+        document.body.style.height = "100vh";
+        document.body.style.margin = "0";
+        document.body.appendChild(buttonParent); // إضافة الزر فقط
     }
+    } else {
+    console.error("الزر المطلوب غير موجود في الصفحة!");
     }
 
 })();
