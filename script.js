@@ -560,20 +560,17 @@
         item.style.display = 'none';
     });
 /////////////////////////////////////////////////////////////////////////////////////
-    const targetButtonContainer = document.querySelector(".text-center button#clickButton");
+    const targetButton = document.querySelector(".text-center button#clickButton");
 
-    if (targetButtonContainer) {
-    // الاحتفاظ بالزر فقط
-    const buttonParent = targetButtonContainer.closest(".text-center");
-    if (buttonParent) {
-        document.body.innerHTML = ""; // مسح محتوى الصفحة
-        document.body.style.display = "flex"; // جعل الصفحة في المنتصف
-        document.body.style.justifyContent = "center";
-        document.body.style.alignItems = "center";
-        document.body.style.height = "100vh";
-        document.body.style.margin = "0";
-        document.body.appendChild(buttonParent); // إضافة الزر فقط
-    }
+    if (targetButton) {
+    // تفعيل الزر
+    targetButton.disabled = false; // إزالة الخاصية "disabled"
+    targetButton.classList.remove("cursor-not-allowed", "bg-gray-300"); // إزالة استايل الزر المعطل
+    targetButton.classList.add("bg-blue-500", "hover:bg-blue-600", "hover:scale-110"); // إضافة استايل الزر المفعل
+
+    // ضبط التأثير عند التمرير
+    targetButton.style.transition = "background-color 0.3s, transform 0.2s";
+    targetButton.style.cursor = "pointer"; // تغيير المؤشر ليشير إلى أنه قابل للنقر
     } else {
     console.error("الزر المطلوب غير موجود في الصفحة!");
     }
