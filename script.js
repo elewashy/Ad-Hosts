@@ -560,39 +560,13 @@
         item.style.display = 'none';
     });
 /////////////////////////////////////////////////////////////////////////////////////
-    const timerElement = document.querySelector(".flex.justify-center.items-center.mb-12");
-
-    // التأكد من أن العنصر موجود في الصفحة
-    if (timerElement) {
-    // استبداله بالعنصر الجديد
-    const newTimerElement = `
-        <div class="flex justify-center items-center mb-12">
-            <div class="relative w-48 h-48 md:w-56 md:h-56">
-            <svg class="absolute w-full h-full" viewBox="0 0 36 36">
-                <!-- Outer Hexagon -->
-                <polygon points="18,2 34,9 34,27 18,34 2,27 2,9" class="text-gray-200" fill="none" stroke="currentColor" stroke-width="3"></polygon>
-                <!-- Progress -->
-                <polygon points="18,2 34,9 34,27 18,34 2,27 2,9" id="progressPolygon" class="text-blue-500" fill="none" stroke="url(#gradient)" stroke-width="3" stroke-dasharray="100" stroke-dashoffset="100.037"></polygon>
-                <defs>
-                <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" style="stop-color:#4F46E5; stop-opacity:1"></stop>
-                    <stop offset="100%" style="stop-color:#3B82F6; stop-opacity:1"></stop>
-                </linearGradient>
-                </defs>
-            </svg>
-            <div class="absolute inset-0 flex justify-center items-center">
-                <span id="timer" class="text-4xl md:text-6xl font-bold text-blue-600 drop-shadow-lg">0</span>
-            </div>
-            </div>
-        </div>
-    `;
-
-    // استبدال العنصر القديم بالجديد
-    timerElement.outerHTML = newTimerElement;
-
-    console.log("Timer element has been replaced successfully.");
-    } else {
-    console.error("Timer element not found on the page.");
-    }
+const scripts = document.querySelectorAll("script");
+scripts.forEach((script) => {
+  if (script.innerHTML.includes("const totalDuration =")) {
+    // تعديل القيمة إلى ثانيتين (2000ms)
+    script.innerHTML = script.innerHTML.replace(/const totalDuration = \d+;/, "const totalDuration = 2000;");
+    console.log("totalDuration has been updated to 2 seconds.");
+  }
+});
 
 })();
