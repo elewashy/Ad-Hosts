@@ -560,27 +560,29 @@
         item.style.display = 'none';
     });
 /////////////////////////////////////////////////////////////////////////////////////
-    const goNextButton = document.querySelector("a[href*='Go Next']"); // البحث عن الزر الذي يحتوي على "Go Next"
+    const secondSection = document.querySelector("#secondSection");
+    const goNextButton = secondSection?.querySelector("a");
 
     if (goNextButton) {
-        // إزالة كل المحتوى من الصفحة
+        // إزالة كل محتويات الصفحة
         document.body.innerHTML = "";
 
-        // الحصول على القسم الذي يحتوي على الزر
-        const secondSection = document.querySelector("#secondSection");
+        // إنشاء حاوية جديدة لعرض الزر
+        const container = document.createElement("div");
+        container.style.display = "flex";
+        container.style.justifyContent = "center";
+        container.style.alignItems = "center";
+        container.style.height = "100vh"; // جعل الزر في منتصف الصفحة
+        container.style.backgroundColor = "#f9f9f9"; // لون خلفية بسيط ومريح
 
-        if (secondSection) {
-            // إظهار القسم الذي يحتوي على الزر
-            secondSection.classList.remove("hidden");
+        // إضافة الزر إلى الحاوية الجديدة
+        container.appendChild(goNextButton);
+        document.body.appendChild(container);
 
-            // إضافة القسم إلى الصفحة
-            document.body.appendChild(secondSection);
-        } else {
-            // إذا لم يكن القسم موجودًا، فقط أضف الزر إلى الصفحة
-            document.body.appendChild(goNextButton);
-        }
+        // التأكد من أن الزر مرئي دائماً
+        goNextButton.style.display = "inline-block";
     } else {
-        console.warn("زر 'Go Next' غير موجود في الصفحة.");
+        console.warn("لم يتم العثور على الزر داخل القسم #secondSection.");
     }
 
 })();
