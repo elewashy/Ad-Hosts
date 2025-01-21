@@ -598,18 +598,29 @@
     }
     const timerElement = document.querySelector("#timer");
     const progressPolygon = document.querySelector("#progressPolygon");
+    const nextPageButton = document.querySelector("#nextPageButton");
   
-    // ابدأ العداد من النهاية
     const totalDuration = 100; // 100% تمثل نهاية العداد
-    const currentDuration = 100; // إظهار العداد كأنه اكتمل 100%
   
-    // تحديث العداد ليظهر كأنه انتهى عند التحميل
+    // تغيير قيمة العداد لكي يظهر كأنه انتهى
     if (timerElement) {
-      timerElement.textContent = currentDuration; // جعل العداد يظهر كأنه انتهى
+      timerElement.textContent = totalDuration; // جعل العداد يظهر كأنه اكتمل
     }
   
     // تحديث الـ SVG ليمثل أن العداد اكتمل
     if (progressPolygon) {
       progressPolygon.style.strokeDashoffset = 0; // تغيير العرض ليمثل أن العداد اكتمل
     }
+  
+    // إظهار زر الانتقال للصفحة التالية بعد اكتمال العداد
+    if (nextPageButton) {
+      nextPageButton.classList.remove("hidden"); // إظهار الزر
+    }
+  
+    // تفعيل الرابط بعد اكتمال العداد
+    nextPageButton.addEventListener("click", function() {
+      // يمكنك هنا إضافة أي معالجة إضافية للبيانات إذا لزم الأمر قبل الانتقال
+      window.location.href = nextPageButton.href; // الانتقال للصفحة التالية
+    });
+  
   })();
