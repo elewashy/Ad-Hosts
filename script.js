@@ -559,16 +559,14 @@
     blogItems.forEach(function(item) {
         item.style.display = 'none';
     });
-    
 /////////////////////////////////////////////////////////////////////////////////////
-    const clickButton = document.querySelector("#clickButton"); // الزر الأول
-    const goNextSection = document.querySelector("#secondSection"); // الزر Go Next
+const button = document.getElementById("clickButton"); // تحديد الزرار
 
-    if (clickButton) {
-        // جعل الزر الأول متاحًا دائمًا (إزالة خاصية disabled)
-        clickButton.disabled = false; 
-        clickButton.classList.remove("cursor-not-allowed", "disabled:opacity-50", "disabled:hover:scale-100");
+// إزالة خاصية "disabled" من الزرار
+button.removeAttribute("disabled");
 
-    }
+// إضافة كلاس جديد لتغيير المظهر عند التفعيل
+button.classList.remove("cursor-not-allowed", "disabled:opacity-50", "disabled:hover:scale-100");
+button.classList.add("cursor-pointer"); // تغيير المؤشر عند التمرير عليه
 
 })();
