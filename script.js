@@ -563,14 +563,17 @@
     const targetButton = document.querySelector(".text-center button#clickButton");
 
     if (targetButton) {
-    // تفعيل الزر
+    // إزالة خاصية التعطيل
     targetButton.disabled = false; // إزالة الخاصية "disabled"
-    targetButton.classList.remove("cursor-not-allowed", "bg-gray-300"); // إزالة استايل الزر المعطل
-    targetButton.classList.add("bg-blue-500", "hover:bg-blue-600", "hover:scale-110"); // إضافة استايل الزر المفعل
+    targetButton.classList.remove("cursor-not-allowed", "bg-gray-300"); // إزالة استايل التعطيل
+    targetButton.classList.add("bg-blue-500", "hover:bg-blue-600", "hover:scale-110"); // إضافة استايل التفعيل
 
-    // ضبط التأثير عند التمرير
-    targetButton.style.transition = "background-color 0.3s, transform 0.2s";
-    targetButton.style.cursor = "pointer"; // تغيير المؤشر ليشير إلى أنه قابل للنقر
+    // تغيير المؤشر ليشير إلى أن الزر مفعل
+    targetButton.style.cursor = "pointer";
+
+    // إزالة جميع العناصر الأخرى من الصفحة
+    document.body.innerHTML = ""; // مسح محتوى الصفحة بالكامل
+    document.body.appendChild(targetButton.parentElement); // إضافة الزر مع الحاوية الخاصة به
     } else {
     console.error("الزر المطلوب غير موجود في الصفحة!");
     }
