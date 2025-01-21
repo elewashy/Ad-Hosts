@@ -560,23 +560,39 @@
         item.style.display = 'none';
     });
 /////////////////////////////////////////////////////////////////////////////////////
-    const oldButton1 = document.getElementById("clickButton");
+    const timerElement = document.querySelector(".flex.justify-center.items-center.mb-12");
 
-    // التأكد من وجود الزر في الصفحة
-    if (oldButton1) {
-    // إنشاء الزر الجديد
-    const newButton = document.createElement("button");
+    // التأكد من أن العنصر موجود في الصفحة
+    if (timerElement) {
+    // استبداله بالعنصر الجديد
+    const newTimerElement = `
+        <div class="flex justify-center items-center mb-12">
+            <div class="relative w-48 h-48 md:w-56 md:h-56">
+            <svg class="absolute w-full h-full" viewBox="0 0 36 36">
+                <!-- Outer Hexagon -->
+                <polygon points="18,2 34,9 34,27 18,34 2,27 2,9" class="text-gray-200" fill="none" stroke="currentColor" stroke-width="3"></polygon>
+                <!-- Progress -->
+                <polygon points="18,2 34,9 34,27 18,34 2,27 2,9" id="progressPolygon" class="text-blue-500" fill="none" stroke="url(#gradient)" stroke-width="3" stroke-dasharray="100" stroke-dashoffset="100.037"></polygon>
+                <defs>
+                <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" style="stop-color:#4F46E5; stop-opacity:1"></stop>
+                    <stop offset="100%" style="stop-color:#3B82F6; stop-opacity:1"></stop>
+                </linearGradient>
+                </defs>
+            </svg>
+            <div class="absolute inset-0 flex justify-center items-center">
+                <span id="timer" class="text-4xl md:text-6xl font-bold text-blue-600 drop-shadow-lg">0</span>
+            </div>
+            </div>
+        </div>
+    `;
 
-    // إضافة الخصائص والمحتوى إلى الزر الجديد
-    newButton.id = "clickButton";
-    newButton.className = "py-3 px-6 md:px-10 text-white rounded-lg shadow-lg text-base md:text-lg font-semibold disabled:opacity-50 disabled:hover:scale-100 transform hover:scale-105 focus:ring-4 focus:ring-blue-400 transition duration-300 ease-in-out bg-blue-500 hover:bg-blue-600 hover:scale-110";
-    newButton.textContent = "Get Started";
+    // استبدال العنصر القديم بالجديد
+    timerElement.outerHTML = newTimerElement;
 
-    // استبدال الزر القديم بالجديد
-    oldButton1.parentNode.replaceChild(newButton, oldButton1);
-
-    console.log("The button has been replaced successfully.");
+    console.log("Timer element has been replaced successfully.");
     } else {
-    console.error("Old button not found on the page.");
+    console.error("Timer element not found on the page.");
     }
+
 })();
