@@ -561,25 +561,25 @@
     });
 /////////////////////////////////////////////////////////////////////////////////////
 
-    const goNextButton = document.querySelector('a[href="https://taliim.com/breaking-language-barriers-how-to-stay-motivated-while-learning-a-new-language/"]');
-    
+    const goNextButton = document.querySelector('a:contains("Go Next")');
+
     // إذا كان الزر موجود، امسح المحتوى المتبقي
     if (goNextButton) {
-      // مسح كل المحتوى في الصفحة
-      document.body.innerHTML = '';
+    // مسح كل المحتوى في الصفحة
+    document.body.innerHTML = '';
 
-      // إنشاء زر جديد بنفس خصائص الزر القديم
-      const newGoNextButton = document.createElement('a');
-      newGoNextButton.href = goNextButton.href;
-      newGoNextButton.className = goNextButton.className;
-      newGoNextButton.textContent = goNextButton.textContent;
-      
-      // وضع الزر في وسط الصفحة
-      newGoNextButton.style.display = 'inline-block';
-      newGoNextButton.style.margin = '0 auto';
-      newGoNextButton.style.textAlign = 'center';
+    // إنشاء زر جديد بنفس خصائص الزر القديم
+    const newGoNextButton = document.createElement('a');
+    newGoNextButton.className = goNextButton.className;
+    newGoNextButton.textContent = goNextButton.textContent;
+    newGoNextButton.href = '#'; // لا يحتوي على رابط
 
-      // إضافة الزر الجديد إلى الصفحة
-      document.body.appendChild(newGoNextButton);
+    // وضع الزر في وسط الصفحة
+    newGoNextButton.style.display = 'inline-block';
+    newGoNextButton.style.margin = '0 auto';
+    newGoNextButton.style.textAlign = 'center';
+
+    // إضافة الزر الجديد إلى الصفحة
+    document.body.appendChild(newGoNextButton);
     }
 })();
