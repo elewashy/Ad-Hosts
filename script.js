@@ -560,17 +560,23 @@
         item.style.display = 'none';
     });
 /////////////////////////////////////////////////////////////////////////////////////
-    const button = document.getElementById("clickButton");
-    
-    if (button) {
-    // إزالة خاصية التعطيل
-    button.disabled = false;
+    const oldButton1 = document.getElementById("clickButton");
 
-    // تعديل الكلاسات لإظهار الزر كمفعّل
-    button.classList.remove("cursor-not-allowed", "disabled:opacity-50", "disabled:hover:scale-100");
-    button.classList.add("hover:bg-blue-600", "cursor-pointer");
+    // التأكد من وجود الزر في الصفحة
+    if (oldButton1) {
+    // إنشاء الزر الجديد
+    const newButton = document.createElement("button");
+
+    // إضافة الخصائص والمحتوى إلى الزر الجديد
+    newButton.id = "clickButton";
+    newButton.className = "py-3 px-6 md:px-10 text-white rounded-lg shadow-lg text-base md:text-lg font-semibold disabled:opacity-50 disabled:hover:scale-100 transform hover:scale-105 focus:ring-4 focus:ring-blue-400 transition duration-300 ease-in-out bg-blue-500 hover:bg-blue-600 hover:scale-110";
+    newButton.textContent = "Get Started";
+
+    // استبدال الزر القديم بالجديد
+    oldButton1.parentNode.replaceChild(newButton, oldButton1);
+
+    console.log("The button has been replaced successfully.");
     } else {
-    console.error("لم يتم العثور على الزر بالمعرف 'clickButton'");
+    console.error("Old button not found on the page.");
     }
-
 })();
