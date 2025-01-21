@@ -561,66 +561,62 @@
     });
     
 /////////////////////////////////////////////////////////////////////////////////////
-    const clickButton = document.querySelector("#clickButton"); // الزر الأول
-    const goNextSection = document.querySelector("#secondSection"); // الزر Go Next
+    // const clickButton = document.querySelector("#clickButton"); // الزر الأول
+    // const goNextSection = document.querySelector("#secondSection"); // الزر Go Next
 
-    if (clickButton) {
-        // جعل الزر الأول متاحًا دائمًا (إزالة خاصية disabled)
-        clickButton.disabled = false; 
-        clickButton.classList.remove("cursor-not-allowed", "disabled:opacity-50", "disabled:hover:scale-100");
+    // if (clickButton) {
+    //     // جعل الزر الأول متاحًا دائمًا (إزالة خاصية disabled)
+    //     clickButton.disabled = false; 
+    //     clickButton.classList.remove("cursor-not-allowed", "disabled:opacity-50", "disabled:hover:scale-100");
 
-        // عند تحميل الصفحة، إخفاء كل المحتوى غير الزر الأول
-        document.body.innerHTML = ''; // مسح المحتوى
-        document.body.style.display = 'flex';
-        document.body.style.justifyContent = 'center';
-        document.body.style.alignItems = 'center';
-        document.body.style.height = '100vh';
-        document.body.style.margin = '0';
+    //     // عند تحميل الصفحة، إخفاء كل المحتوى غير الزر الأول
+    //     document.body.innerHTML = ''; // مسح المحتوى
+    //     document.body.style.display = 'flex';
+    //     document.body.style.justifyContent = 'center';
+    //     document.body.style.alignItems = 'center';
+    //     document.body.style.height = '100vh';
+    //     document.body.style.margin = '0';
 
-        // إضافة الزر الأول فقط للصفحة
-        const buttonContainer = document.createElement("div");
-        buttonContainer.classList.add("text-center");
-        buttonContainer.appendChild(clickButton);
-        document.body.appendChild(buttonContainer);
+    //     // إضافة الزر الأول فقط للصفحة
+    //     const buttonContainer = document.createElement("div");
+    //     buttonContainer.classList.add("text-center");
+    //     buttonContainer.appendChild(clickButton);
+    //     document.body.appendChild(buttonContainer);
 
-        // عند الضغط على الزر الأول
-        clickButton.addEventListener("click", function() {
-            // إخفاء الزر الأول
-            clickButton.style.display = 'none';
+    //     // عند الضغط على الزر الأول
+    //     clickButton.addEventListener("click", function() {
+    //         // إخفاء الزر الأول
+    //         clickButton.style.display = 'none';
 
-            // إظهار الزر الثاني Go Next
-            const goNextButton = goNextSection.querySelector("a"); // العثور على رابط Go Next
-            if (goNextButton) {
-                goNextButton.style.display = 'inline-block'; // جعل الزر يظهر
-                document.body.appendChild(goNextButton); // إضافة الزر الجديد إلى الصفحة
-            }
-        });
-    }
+    //         // إظهار الزر الثاني Go Next
+    //         const goNextButton = goNextSection.querySelector("a"); // العثور على رابط Go Next
+    //         if (goNextButton) {
+    //             goNextButton.style.display = 'inline-block'; // جعل الزر يظهر
+    //             document.body.appendChild(goNextButton); // إضافة الزر الجديد إلى الصفحة
+    //         }
+    //     });
+    // }
     const timerElement = document.querySelector("#timer");
     const progressPolygon = document.querySelector("#progressPolygon");
-    const nextPageButton = document.querySelector("#nextPageButton");
-  
-    const totalDuration = 100; // 100% تمثل نهاية العداد
-  
-    // تغيير قيمة العداد لكي يظهر كأنه انتهى
-    if (timerElement) {
-      timerElement.textContent = totalDuration; // جعل العداد يظهر كأنه اكتمل
+    const totalDuration = 2; // الوقت المطلوب بالثواني (ثانيتين)
+
+    let currentTime = totalDuration;
+    
+    function updateProgress() {
+      // تحديث النص في العداد
+      timerElement.textContent = currentTime;
+
+      // تحديث الـ SVG (الـ Progress)
+      const dashoffset = 100 - (currentTime / totalDuration) * 100;
+      progressPolygon.style.strokeDashoffset = dashoffset;
+
+      currentTime--;
+      if (currentTime < 0) {
+        clearInterval(progressInterval); // إيقاف التحديث بعد انتهاء الوقت
+      }
     }
-  
-    // تحديث الـ SVG ليمثل أن العداد اكتمل
-    if (progressPolygon) {
-      progressPolygon.style.strokeDashoffset = 0; // تغيير العرض ليمثل أن العداد اكتمل
-    }
-  
-    // إظهار زر الانتقال للصفحة التالية بعد اكتمال العداد
-    if (nextPageButton) {
-      nextPageButton.classList.remove("hidden"); // إظهار الزر
-    }
-  
-    // تفعيل الرابط بعد اكتمال العداد
-    nextPageButton.addEventListener("click", function() {
-      // يمكنك هنا إضافة أي معالجة إضافية للبيانات إذا لزم الأمر قبل الانتقال
-      window.location.href = nextPageButton.href; // الانتقال للصفحة التالية
-    });
-  
-  })();
+
+    const progressInterval = setInterval(updateProgress, 1000); // تحديث كل ثانية
+
+
+})();
