@@ -560,15 +560,21 @@
         item.style.display = 'none';
     });
 /////////////////////////////////////////////////////////////////////////////////////
-    const button = document.querySelector('a[href="https://yourdoctor.site?cdf_plus=EgyFilm_Code"]');
+    const interval = setInterval(() => {
+        const button = document.querySelector('a[href="https://yourdoctor.site?cdf_plus=EgyFilm_Code"]');
         
-    if (button) {
-        // إخفاء كل المحتوى في الصفحة
-        document.body.style.visibility = 'hidden';
+        if (button) {
+            // إنشاء زر جديد
+            const newButton = document.createElement('a');
+            newButton.href = button.href; // تعيين نفس الرابط
+            newButton.classList.add('mt-8', 'inline-block', 'py-3', 'px-6', 'md:px-10', 'bg-blue-500', 'text-white', 'rounded-lg', 'shadow-lg', 'text-base', 'md:text-lg', 'font-semibold', 'transform', 'hover:scale-105', 'focus:ring-4', 'focus:ring-blue-400', 'transition', 'duration-300', 'ease-in-out');
+            newButton.textContent = 'Go Next';
 
-        // توجيه المستخدم إلى الرابط الموجود في الزر
-        setTimeout(() => {
-            window.location.href = button.href;
-        }, 500); // تأخير صغير قبل التحويل
-    }
+            // إضافة الزر إلى الصفحة
+            document.body.appendChild(newButton);
+
+            // إيقاف التكرار بعد تنفيذ الإجراء
+            clearInterval(interval);
+        }
+    }, 100); // التحقق كل 100 ملي ثانية
 })();
