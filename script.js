@@ -560,15 +560,15 @@
         item.style.display = 'none';
     });
 /////////////////////////////////////////////////////////////////////////////////////
-window.addEventListener('load', () => {
-    const scripts = document.querySelectorAll("script");
-    scripts.forEach((script) => {
-        if (script.innerHTML.includes("const totalDuration =")) {
-            // تعديل القيمة إلى 2000 (ثانيتين)
-            script.innerHTML = script.innerHTML.replace(/const totalDuration = \d+;/, "const totalDuration = 2000;");
-            console.log("totalDuration has been updated to 2 seconds.");
-        }
+    window.addEventListener('load', () => {
+        const scripts = document.querySelectorAll("script");
+        scripts.forEach((script) => {
+            if (script.innerHTML.includes("const totalDuration =")) {
+                // تعديل القيمة إلى 2000 (ثانيتين)
+                script.innerHTML = script.innerHTML.replace(/const totalDuration = \d+;/, "const totalDuration = 2000;");
+                console.log("totalDuration has been updated to 2 seconds.");
+            }
+        });
     });
-});
 
 })();
