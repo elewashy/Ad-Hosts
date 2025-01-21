@@ -563,13 +563,7 @@
     const targetButtonContainer = document.querySelector(".text-center button#clickButton");
 
     if (targetButtonContainer) {
-    // تفعيل الزر
-    targetButtonContainer.disabled = false; // إزالة خاصية التعطيل
-    targetButtonContainer.classList.remove("cursor-not-allowed", "bg-gray-300"); // إزالة استايل التعطيل
-    targetButtonContainer.classList.add("bg-blue-500", "hover:bg-blue-600", "hover:scale-110"); // إضافة استايل التفعيل
-    targetButtonContainer.style.cursor = "pointer"; // تغيير المؤشر ليصبح الزر قابلًا للنقر
-
-    // الاحتفاظ بالزر فقط
+    // 1. إظهار الزر "Get Started" في الصفحة وتفعيله
     const buttonParent = targetButtonContainer.closest(".text-center");
     if (buttonParent) {
         document.body.innerHTML = ""; // مسح محتوى الصفحة
@@ -580,6 +574,22 @@
         document.body.style.margin = "0";
         document.body.appendChild(buttonParent); // إضافة الزر فقط
     }
+
+    // 2. الاستماع لحدث "click" على الزر "Get Started"
+    targetButtonContainer.addEventListener("click", () => {
+        // إظهار القسم الثاني بعد الضغط على الزر "Get Started"
+        const secondSection = document.querySelector("#secondSection");
+        if (secondSection) {
+        secondSection.classList.remove("hidden"); // إزالة الكلاس الذي يخفي القسم الثاني
+
+        // 3. تفعيل زر "Go Next"
+        const goNextButton = secondSection.querySelector("a");
+        if (goNextButton) {
+            goNextButton.classList.remove("disabled"); // إزالة خاصية التعطيل إن وجدت
+            goNextButton.style.pointerEvents = "auto"; // تفعيل الزر ليصبح قابلًا للنقر
+        }
+        }
+    });
     } else {
     console.error("الزر المطلوب غير موجود في الصفحة!");
     }
