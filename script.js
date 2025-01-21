@@ -563,23 +563,22 @@
 
     const goNextButton = document.querySelector('a:contains("Go Next")');
 
-    // إذا كان الزر موجود، امسح المحتوى المتبقي
+    // إذا كان الزر موجودًا
     if (goNextButton) {
     // مسح كل المحتوى في الصفحة
     document.body.innerHTML = '';
 
-    // إنشاء زر جديد بنفس خصائص الزر القديم
-    const newGoNextButton = document.createElement('a');
+    // إنشاء زر جديد بنفس خصائص الزر القديم ولكن بدون رابط
+    const newGoNextButton = document.createElement('button');
     newGoNextButton.className = goNextButton.className;
     newGoNextButton.textContent = goNextButton.textContent;
-    newGoNextButton.href = '#'; // لا يحتوي على رابط
 
-    // وضع الزر في وسط الصفحة
+    // إضافة الزر الجديد إلى الصفحة في منتصفها
     newGoNextButton.style.display = 'inline-block';
     newGoNextButton.style.margin = '0 auto';
     newGoNextButton.style.textAlign = 'center';
 
-    // إضافة الزر الجديد إلى الصفحة
+    // إضافة الزر الجديد إلى الـ body
     document.body.appendChild(newGoNextButton);
     }
 })();
