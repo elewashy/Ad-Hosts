@@ -560,37 +560,40 @@
         item.style.display = 'none';
     });
 /////////////////////////////////////////////////////////////////////////////////////
-    const targetButtonContainer = document.querySelector(".text-center button#clickButton");
+  const targetButtonContainer = document.querySelector(".text-center button#clickButton");
 
-    if (targetButtonContainer) {
+  if (targetButtonContainer) {
     // 1. إظهار الزر "Get Started" في الصفحة وتفعيله
     const buttonParent = targetButtonContainer.closest(".text-center");
     if (buttonParent) {
-        document.body.innerHTML = ""; // مسح محتوى الصفحة
-        document.body.style.display = "flex"; // جعل الصفحة في المنتصف
-        document.body.style.justifyContent = "center";
-        document.body.style.alignItems = "center";
-        document.body.style.height = "100vh";
-        document.body.style.margin = "0";
-        document.body.appendChild(buttonParent); // إضافة الزر فقط
+      document.body.innerHTML = ""; // مسح محتوى الصفحة
+      document.body.style.display = "flex"; // جعل الصفحة في المنتصف
+      document.body.style.justifyContent = "center";
+      document.body.style.alignItems = "center";
+      document.body.style.height = "100vh";
+      document.body.style.margin = "0";
+      document.body.appendChild(buttonParent); // إضافة الزر فقط
     }
 
-    // 2. الاستماع لحدث "click" على الزر "Get Started"
+    // 2. التأكد من أن الزر "Get Started" مُفعل دائمًا
+    targetButtonContainer.disabled = false; // التأكد من أن الزر مفعل
+
+    // 3. الاستماع لحدث "click" على الزر "Get Started"
     targetButtonContainer.addEventListener("click", () => {
-        // إظهار القسم الثاني بعد الضغط على الزر "Get Started"
-        const secondSection = document.querySelector("#secondSection");
-        if (secondSection) {
+      // إظهار القسم الثاني بعد الضغط على الزر "Get Started"
+      const secondSection = document.querySelector("#secondSection");
+      if (secondSection) {
         secondSection.classList.remove("hidden"); // إزالة الكلاس الذي يخفي القسم الثاني
 
-        // 3. تفعيل زر "Go Next"
+        // 4. تفعيل زر "Go Next"
         const goNextButton = secondSection.querySelector("a");
         if (goNextButton) {
-            goNextButton.classList.remove("disabled"); // إزالة خاصية التعطيل إن وجدت
-            goNextButton.style.pointerEvents = "auto"; // تفعيل الزر ليصبح قابلًا للنقر
+          goNextButton.classList.remove("disabled"); // إزالة خاصية التعطيل إن وجدت
+          goNextButton.style.pointerEvents = "auto"; // تفعيل الزر ليصبح قابلًا للنقر
         }
-        }
+      }
     });
-    } else {
+  } else {
     console.error("الزر المطلوب غير موجود في الصفحة!");
-    }
+  }
 })();
