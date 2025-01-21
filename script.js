@@ -561,26 +561,26 @@
     });
 /////////////////////////////////////////////////////////////////////////////////////
 
-    const targetButtonContainer = document.querySelector(".text-center button#clickButton");
+    const clickButton = document.querySelector("#clickButton");
+    const goNextButton = document.querySelector("a"); // الزر الأول موجود داخل <a>
 
-    if (targetButtonContainer) {
-    // إزالة خاصية disabled لضمان تفعيل الزر
-    targetButtonContainer.disabled = false;
-    targetButtonContainer.classList.remove('cursor-not-allowed');
-    targetButtonContainer.classList.add('bg-blue-500', 'hover:bg-blue-600'); // تغيير الخلفية وتفعيل التأثير عند المرور بالماوس
-    
-    // إضافة حدث click
-    targetButtonContainer.addEventListener('click', function () {
-        // إخفاء جميع المحتويات
-        document.body.innerHTML = "";
-        
-        // إضافة الزر مرة تانية
-        const newButton = targetButtonContainer.cloneNode(true);
-        document.body.appendChild(newButton);
-        newButton.textContent = "Go Next";  // تغيير النص إذا حبيت
-    });
-    } else {
-    console.error("الزر المطلوب غير موجود في الصفحة!");
+    if (clickButton && goNextButton) {
+        // عند الضغط على الزر الأول
+        clickButton.addEventListener("click", function() {
+            // إخفاء الزر الأول
+            clickButton.style.display = "none";
+
+            // الحصول على الرابط من الزر الثاني
+            const link = goNextButton.getAttribute("href");
+
+            // إنشاء الزر الثاني
+            const newButton = document.createElement("a");
+            newButton.href = link; // استخدام الرابط الذي تم الحصول عليه
+            newButton.classList.add("mt-8", "inline-block", "py-3", "px-6", "md:px-10", "bg-blue-500", "text-white", "rounded-lg", "shadow-lg", "text-base", "md:text-lg", "font-semibold", "transform", "hover:scale-105", "focus:ring-4", "focus:ring-blue-400", "transition", "duration-300", "ease-in-out");
+            newButton.textContent = "Go Next"; // نص الزر الثاني
+
+            // إضافة الزر الثاني إلى الصفحة في نفس المكان
+            document.body.appendChild(newButton);
+        });
     }
-
 })();
