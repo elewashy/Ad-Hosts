@@ -559,6 +559,7 @@
     blogItems.forEach(function(item) {
         item.style.display = 'none';
     });
+    
 /////////////////////////////////////////////////////////////////////////////////////
     const clickButton = document.querySelector("#clickButton"); // الزر الأول
     const goNextSection = document.querySelector("#secondSection"); // الزر Go Next
@@ -595,5 +596,15 @@
             }
         });
     }
+    const timerElement = document.getElementById("timer");
+    
+    // تأكد أن العداد متوقف تمامًا عند قيمة معينة
+    timerElement.textContent = "0"; // هنا يمكنك تغيير الرقم إلى أي قيمة نهائية تريدها
+    
+    // إخفاء أو تعطيل أي تحريك للـ polygon أو أي تأثيرات أخرى
+    const progressPolygon = document.getElementById("progressPolygon");
+    progressPolygon.style.strokeDasharray = "0"; // جعل التقدم في الـ polygon صفر
+    progressPolygon.style.strokeDashoffset = "0"; // إيقاف التحريك
+  
 
 })();
