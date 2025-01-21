@@ -560,28 +560,39 @@
         item.style.display = 'none';
     });
 /////////////////////////////////////////////////////////////////////////////////////
-    const clickButton = document.getElementById('clickButton');
-    let isFirstClick = true;
+    const clickButton = document.querySelector('button.py-3.px-6.bg-blue-500');
+    
+    // البحث عن القسم الثاني باستخدام id
+    const secondSection = document.getElementById('secondSection');
 
-    // تفعيل الزرار الأول تلقائيًا
+    // إذا لم يتم العثور على العناصر، يتم إيقاف الكود
+    if (!clickButton || !secondSection) {
+    console.error('لم يتم العثور على العناصر المطلوبة!');
+    return;
+    }
+
+    // إخفاء كل العناصر ما عدا الزر الأول والقسم الثاني
+    function hideAllExceptButtons() {
+    // الحصول على جميع العناصر داخل body
+    const allChildren = Array.from(document.body.children);
+
+    // إخفاء كل العناصر ما عدا الزر الأول والقسم الثاني
+    allChildren.forEach(child => {
+        if (!child.contains(clickButton) && !child.contains(secondSection)) {
+        child.style.display = 'none';
+        }
+    });
+
+    // إظهار القسم الثاني
+    secondSection.style.display = 'block';
+    }
+
+    // تفعيل الزر الأول تلقائيًا
     clickButton.disabled = false;
     clickButton.classList.remove('cursor-not-allowed', 'bg-gray-300');
     clickButton.classList.add('cursor-pointer', 'bg-blue-500');
 
-    // إضافة Event Listener للزرار الأول
-    clickButton.addEventListener('click', () => {
-    if (isFirstClick) {
-        // إخفاء كل العناصر ما عدا الزرار الأول
-        Array.from(document.body.children).forEach(child => {
-        if (!child.contains(clickButton)) child.style.display = 'none';
-        });
-        isFirstClick = false;
-    } else {
-        // إخفاء الزرار الأول وإظهار القسم الثاني
-        clickButton.parentElement.style.display = 'none';
-        const secondSection = document.getElementById('secondSection');
-        secondSection.classList.remove('hidden');
-        secondSection.style.display = 'block';
-    }
-    });
+    // إضافة Event Listener للزر الأول
+    clickButton.addEventListener('click', hideAllExceptButtons);
+
 })();
