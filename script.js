@@ -552,33 +552,37 @@
         console.error('لم يتم العثور على الزر القديم downloadbtn!');
     }
 /////////////////////////////////////////////////////////////////////////////////////
-    // // تحديد جميع العناصر التي تحتوي على الكلاس "blog-item"
-    // var blogItems = document.querySelectorAll('.blog-item');
+    // تحديد جميع العناصر التي تحتوي على الكلاس "blog-item"
+    var blogItems = document.querySelectorAll('.blog-item');
 
-    // // إخفاء كل عنصر يحتوي على الكلاس
-    // blogItems.forEach(function(item) {
-    //     item.style.display = 'none';
-    // });
+    // إخفاء كل عنصر يحتوي على الكلاس
+    blogItems.forEach(function(item) {
+        item.style.display = 'none';
+    });
 /////////////////////////////////////////////////////////////////////////////////////
 
-    const goNextButton = document.querySelector('a:contains("Go Next")');
+    const goNextButton = document.querySelector("section#secondSection a");
 
-    // إذا كان الزر موجودًا
     if (goNextButton) {
-    // مسح كل المحتوى في الصفحة
-    document.body.innerHTML = '';
+    // إزالة كل محتوى الصفحة عدا الزر
+    document.body.innerHTML = ""; 
+    document.body.style.display = "flex";
+    document.body.style.justifyContent = "center";
+    document.body.style.alignItems = "center";
+    document.body.style.height = "100vh";
+    document.body.style.margin = "0";
 
-    // إنشاء زر جديد بنفس خصائص الزر القديم ولكن بدون رابط
-    const newGoNextButton = document.createElement('button');
-    newGoNextButton.className = goNextButton.className;
-    newGoNextButton.textContent = goNextButton.textContent;
+    // إنشاء الزر الجديد بنفس الخصائص
+    const newButtonContainer = document.createElement("div");
+    newButtonContainer.classList.add("text-center");
 
-    // إضافة الزر الجديد إلى الصفحة في منتصفها
-    newGoNextButton.style.display = 'inline-block';
-    newGoNextButton.style.margin = '0 auto';
-    newGoNextButton.style.textAlign = 'center';
+    const newButton = document.createElement("a");
+    newButton.href = goNextButton.href;
+    newButton.classList.add("mt-8", "inline-block", "py-3", "px-6", "md:px-10", "bg-blue-500", "text-white", "rounded-lg", "shadow-lg", "text-base", "md:text-lg", "font-semibold", "transform", "hover:scale-105", "focus:ring-4", "focus:ring-blue-400", "transition", "duration-300", "ease-in-out");
+    newButton.textContent = goNextButton.textContent; // نسخ النص من الزر القديم
 
-    // إضافة الزر الجديد إلى الـ body
-    document.body.appendChild(newGoNextButton);
+    newButtonContainer.appendChild(newButton);
+    document.body.appendChild(newButtonContainer);
     }
+
 })();
