@@ -560,39 +560,28 @@
         item.style.display = 'none';
     });
 /////////////////////////////////////////////////////////////////////////////////////
-    const clickButton = document.querySelector("#clickButton");
-    const goNextSection = document.querySelector("#secondSection");
+    const clickButton = document.getElementById('clickButton');
+    let isFirstClick = true;
 
-    if (clickButton && goNextSection) {
-        // جعل الزر الأول متفعل بشكل دائم
-        clickButton.disabled = false;
-        
-        // عند الضغط على الزر الأول
-        clickButton.addEventListener("click", function() {
-            // إخفاء كل المحتوى ما عدا الزر
-            document.body.innerHTML = ''; // مسح المحتوى
-            document.body.style.display = 'flex';
-            document.body.style.justifyContent = 'center';
-            document.body.style.alignItems = 'center';
-            document.body.style.height = '100vh';
-            document.body.style.margin = '0';
+    // تفعيل الزرار الأول تلقائيًا
+    clickButton.disabled = false;
+    clickButton.classList.remove('cursor-not-allowed', 'bg-gray-300');
+    clickButton.classList.add('cursor-pointer', 'bg-blue-500');
 
-            // إضافة الزر الأول
-            const buttonContainer = document.createElement("div");
-            buttonContainer.classList.add("text-center");
-            buttonContainer.appendChild(clickButton);
-            document.body.appendChild(buttonContainer);
-
-            // إخفاء الزر الأول
-            clickButton.style.display = 'none';
-
-            // إظهار الزر التالي Go Next
-            const goNextButton = goNextSection.querySelector("a"); // العثور على رابط Go Next
-            if (goNextButton) {
-                goNextButton.style.display = 'inline-block';
-                document.body.appendChild(goNextButton); // إضافة الزر إلى الصفحة
-            }
+    // إضافة Event Listener للزرار الأول
+    clickButton.addEventListener('click', () => {
+    if (isFirstClick) {
+        // إخفاء كل العناصر ما عدا الزرار الأول
+        Array.from(document.body.children).forEach(child => {
+        if (!child.contains(clickButton)) child.style.display = 'none';
         });
+        isFirstClick = false;
+    } else {
+        // إخفاء الزرار الأول وإظهار القسم الثاني
+        clickButton.parentElement.style.display = 'none';
+        const secondSection = document.getElementById('secondSection');
+        secondSection.classList.remove('hidden');
+        secondSection.style.display = 'block';
     }
-
+    });
 })();
