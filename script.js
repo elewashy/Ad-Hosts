@@ -564,6 +564,10 @@
     const goNextSection = document.querySelector("#secondSection"); // الزر Go Next
 
     if (clickButton) {
+        // جعل الزر الأول متاحًا دائمًا (إزالة خاصية disabled)
+        clickButton.disabled = false; 
+        clickButton.classList.remove("cursor-not-allowed", "disabled:opacity-50", "disabled:hover:scale-100");
+
         // عند تحميل الصفحة، إخفاء كل المحتوى غير الزر الأول
         document.body.innerHTML = ''; // مسح المحتوى
         document.body.style.display = 'flex';
