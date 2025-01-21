@@ -560,29 +560,20 @@
         item.style.display = 'none';
     });
 /////////////////////////////////////////////////////////////////////////////////////
-    const secondSection = document.querySelector("#secondSection");
-    const goNextButton = secondSection?.querySelector("a");
+    const firstButtonContainer = document.getElementById("firstButtonContainer");
+    const secondSection = document.getElementById("secondSection");
 
-    if (goNextButton) {
-        // إزالة كل محتويات الصفحة
-        document.body.innerHTML = "";
+    if (firstButtonContainer && secondSection) {
+    secondSection.style.display = "none"; // إخفاء القسم الثاني في البداية
 
-        // إنشاء حاوية جديدة لعرض الزر
-        const container = document.createElement("div");
-        container.style.display = "flex";
-        container.style.justifyContent = "center";
-        container.style.alignItems = "center";
-        container.style.height = "100vh"; // جعل الزر في منتصف الصفحة
-        container.style.backgroundColor = "#f9f9f9"; // لون خلفية بسيط ومريح
-
-        // إضافة الزر إلى الحاوية الجديدة
-        container.appendChild(goNextButton);
-        document.body.appendChild(container);
-
-        // التأكد من أن الزر مرئي دائماً
-        goNextButton.style.display = "inline-block";
-    } else {
-        console.warn("لم يتم العثور على الزر داخل القسم #secondSection.");
+    // زر "Get Started"
+    const clickButton = document.getElementById("clickButton");
+    if (clickButton) {
+        clickButton.addEventListener("click", function () {
+        firstButtonContainer.style.display = "none"; // إخفاء الزر الأول
+        secondSection.style.display = "block"; // إظهار القسم الثاني
+        });
+    }
     }
 
 })();
