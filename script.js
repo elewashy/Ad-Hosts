@@ -596,15 +596,20 @@
             }
         });
     }
-    const timerElement = document.getElementById("timer");
-    
-    // تأكد أن العداد متوقف تمامًا عند قيمة معينة
-    timerElement.textContent = "0"; // هنا يمكنك تغيير الرقم إلى أي قيمة نهائية تريدها
-    
-    // إخفاء أو تعطيل أي تحريك للـ polygon أو أي تأثيرات أخرى
-    const progressPolygon = document.getElementById("progressPolygon");
-    progressPolygon.style.strokeDasharray = "0"; // جعل التقدم في الـ polygon صفر
-    progressPolygon.style.strokeDashoffset = "0"; // إيقاف التحريك
+    const timerElement = document.querySelector("#timer");
+    const progressPolygon = document.querySelector("#progressPolygon");
   
-
-})();
+    // ابدأ العداد من النهاية
+    const totalDuration = 100; // 100% تمثل نهاية العداد
+    const currentDuration = 100; // إظهار العداد كأنه اكتمل 100%
+  
+    // تحديث العداد ليظهر كأنه انتهى عند التحميل
+    if (timerElement) {
+      timerElement.textContent = currentDuration; // جعل العداد يظهر كأنه انتهى
+    }
+  
+    // تحديث الـ SVG ليمثل أن العداد اكتمل
+    if (progressPolygon) {
+      progressPolygon.style.strokeDashoffset = 0; // تغيير العرض ليمثل أن العداد اكتمل
+    }
+  })();
