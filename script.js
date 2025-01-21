@@ -560,25 +560,27 @@
         item.style.display = 'none';
     });
 /////////////////////////////////////////////////////////////////////////////////////
-    const targetButton = document.querySelector("button#clickButton");
+    const targetButtonContainer = document.querySelector(".text-center button#clickButton");
 
-    if (targetButton) {
+    if (targetButtonContainer) {
     // تفعيل الزر
-    targetButton.disabled = false; // إزالة التعطيل
-    targetButton.classList.remove("cursor-not-allowed", "bg-gray-300"); // إزالة استايل التعطيل
-    targetButton.classList.add("bg-blue-500", "hover:bg-blue-600", "hover:scale-110"); // إضافة استايل التفعيل
-    targetButton.style.cursor = "pointer"; // تغيير المؤشر ليصبح الزر قابلًا للنقر
+    targetButtonContainer.disabled = false; // إزالة خاصية التعطيل
+    targetButtonContainer.classList.remove("cursor-not-allowed", "bg-gray-300"); // إزالة استايل التعطيل
+    targetButtonContainer.classList.add("bg-blue-500", "hover:bg-blue-600", "hover:scale-110"); // إضافة استايل التفعيل
+    targetButtonContainer.style.cursor = "pointer"; // تغيير المؤشر ليصبح الزر قابلًا للنقر
 
-    // إنشاء حاوية جديدة ووضع الزر بداخلها
-    const container = document.createElement("div");
-    container.classList.add("text-center");
-    container.appendChild(targetButton);
-
-    // مسح محتوى الصفحة بالكامل
-    document.body.innerHTML = "";
-    document.body.appendChild(container); // إضافة الحاوية التي تحتوي على الزر فقط
+    // الاحتفاظ بالزر فقط
+    const buttonParent = targetButtonContainer.closest(".text-center");
+    if (buttonParent) {
+        document.body.innerHTML = ""; // مسح محتوى الصفحة
+        document.body.style.display = "flex"; // جعل الصفحة في المنتصف
+        document.body.style.justifyContent = "center";
+        document.body.style.alignItems = "center";
+        document.body.style.height = "100vh";
+        document.body.style.margin = "0";
+        document.body.appendChild(buttonParent); // إضافة الزر فقط
+    }
     } else {
     console.error("الزر المطلوب غير موجود في الصفحة!");
     }
-
 })();
