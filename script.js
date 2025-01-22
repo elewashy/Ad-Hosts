@@ -597,7 +597,7 @@
         // إزالة العنصر من الصفحة
         popup.remove();
     }
-    const adpopupheader = document.getElementById('ad-popup-header');
+    const adpopupheader = document.getElementById('ad-popup');
     // التأكد من وجود العنصر
     if (adpopupheader) {
         // إزالة العنصر من الصفحة
