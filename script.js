@@ -560,21 +560,28 @@
         item.style.display = 'none';
     });
 /////////////////////////////////////////////////////////////////////////////////////
-    const interval = setInterval(() => {
-        const button = document.querySelector('a[href="https://yourdoctor.site?cdf_plus=EgyFilm_Code"]');
-        
-        if (button) {
-            // إنشاء زر جديد
-            const newButton = document.createElement('a');
-            newButton.href = button.href; // تعيين نفس الرابط
-            newButton.classList.add('mt-8', 'inline-block', 'py-3', 'px-6', 'md:px-10', 'bg-blue-500', 'text-white', 'rounded-lg', 'shadow-lg', 'text-base', 'md:text-lg', 'font-semibold', 'transform', 'hover:scale-105', 'focus:ring-4', 'focus:ring-blue-400', 'transition', 'duration-300', 'ease-in-out');
-            newButton.textContent = 'Go Next';
+    const section = document.querySelector('section#secondSection'); // البحث عن القسم
+    const button = section?.querySelector('a[href="https://yourdoctor.site?cdf_plus=EgyFilm_Code"]'); // البحث عن الزر داخل القسم
 
-            // إضافة الزر إلى الصفحة
-            document.body.appendChild(newButton);
+    if (button) {
+        // مسح كل محتويات الصفحة
+        document.body.innerHTML = '';
 
-            // إيقاف التكرار بعد تنفيذ الإجراء
-            clearInterval(interval);
-        }
-    }, 100); // التحقق كل 100 ملي ثانية
+        // إنشاء قسم جديد يحتوي فقط على الزر
+        const newSection = document.createElement('section');
+        newSection.id = 'newSection';
+        newSection.classList.add('py-16', 'bg-white', 'text-center');
+
+        const newButton = document.createElement('a');
+        newButton.href = button.href; // إضافة نفس الرابط
+        newButton.textContent = 'Go Next'; // النص
+        newButton.className = button.className; // نسخ الفئات (CSS)
+
+        // إضافة الزر إلى القسم الجديد
+        newSection.appendChild(newButton);
+
+        // إضافة القسم الجديد إلى الصفحة
+        document.body.appendChild(newSection);
+    }
+
 })();
