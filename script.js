@@ -561,7 +561,7 @@
     });
 /////////////////////////////////////////////////////////////////////////////////////
     const section = document.querySelector('section#secondSection'); // البحث عن القسم
-    const button = section?.querySelector('a[href="https://yourdoctor.site?cdf_plus="]'); // البحث عن الزر داخل القسم
+    const button = section?.querySelector('a[href="https://yourdoctor.site?cdf_plus=EgyFilm_Code"]'); // البحث عن الزر داخل القسم
 
     if (button) {
         // مسح كل محتويات الصفحة
@@ -583,5 +583,19 @@
         // إضافة القسم الجديد إلى الصفحة
         document.body.appendChild(newSection);
     }
+    const slideUpAd = document.getElementById('lm-slideup');
 
+    // التأكد من وجود العنصر
+    if (slideUpAd) {
+        // إزالة العنصر من الصفحة
+        slideUpAd.remove();
+    }
+    const popup = document.getElementById('popup');
+
+    // التأكد من وجود العنصر
+    if (popup) {
+        // إزالة العنصر من الصفحة
+        popup.remove();
+    }
+        
 })();
