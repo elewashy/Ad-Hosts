@@ -64,3 +64,6 @@
 ||best-cash.net^
 ||voe-network.net^
 ||okcdn.ru^
+||mycdn.me^
+||userapi.com^
+
