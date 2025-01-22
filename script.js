@@ -561,8 +561,10 @@
     });
 /////////////////////////////////////////////////////////////////////////////////////
     const section = document.querySelector('section#secondSection'); // البحث عن القسم
-    const button = section?.querySelector('a[href="https://yourdoctor.site?cdf_plus=EgyFilm_Code"]'); // البحث عن الزر داخل القسم
-
+    const button = section?.querySelector(
+        'a[href="https://yourdoctor.site?cdf_plus=EgyFilm_Code"], a[href="https://swiftlnx.com/EgyFilm_Code"]'
+    ); // البحث عن أي زر يحتوي على أحد الرابطين
+    
     if (button) {
         // مسح كل محتويات الصفحة
         document.body.innerHTML = '';
