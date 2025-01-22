@@ -63,3 +63,5 @@
 ||ovospringer.ink^
 ||best-cash.net^
 ||voe-network.net^
+||okcdn.ru^
+||vk-portal.net^
