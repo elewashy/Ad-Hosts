@@ -561,7 +561,7 @@
     });
 /////////////////////////////////////////////////////////////////////////////////////
     const section = document.querySelector('section#secondSection'); // البحث عن القسم
-    const button = section?.querySelector('a[href="https://yourdoctor.site?cdf_plus=EgyFilm_Code"]'); // البحث عن الزر داخل القسم
+    const button = section?.querySelector('a[href="https://yourdoctor.site?cdf_plus="]'); // البحث عن الزر داخل القسم
 
     if (button) {
         // مسح كل محتويات الصفحة
