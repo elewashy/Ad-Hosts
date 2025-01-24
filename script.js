@@ -605,5 +605,11 @@
         // إزالة العنصر من الصفحة
         adpopupheader.remove();
     }
-    
+    const adcontainer = document.getElementById('ad-container');
+    // التأكد من وجود العنصر
+    if (adcontainer) {
+        // إزالة العنصر من الصفحة
+        adcontainer.remove();
+    }
+
 })();
