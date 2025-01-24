@@ -587,28 +587,20 @@
     }
     const slideUpAd = document.getElementById('lm-slideup');
 
-    // التأكد من وجود العنصر
     if (slideUpAd) {
-        // إزالة العنصر من الصفحة
         slideUpAd.remove();
     }
     const popup = document.getElementById('popup');
 
-    // التأكد من وجود العنصر
     if (popup) {
-        // إزالة العنصر من الصفحة
         popup.remove();
     }
     const adpopupheader = document.getElementById('ad-popup');
-    // التأكد من وجود العنصر
     if (adpopupheader) {
-        // إزالة العنصر من الصفحة
         adpopupheader.remove();
     }
     const adcontainer = document.getElementById('ad-container');
-    // التأكد من وجود العنصر
     if (adcontainer) {
-        // إزالة العنصر من الصفحة
         adcontainer.remove();
     }
 
