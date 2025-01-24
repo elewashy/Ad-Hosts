@@ -66,3 +66,4 @@
 ||okcdn.ru^
 ||mycdn.me^
 ||userapi.com^
+||listeamed.net^
