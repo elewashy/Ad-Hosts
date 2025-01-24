@@ -603,5 +603,12 @@
     if (adcontainer) {
         adcontainer.remove();
     }
+/////////////////////////////////////////////////////////////////////////////////////
+    const downloadContainer = document.querySelector('div[download-button]');
 
+    if (downloadContainer) {
+      // التأكد من أن العنصر ليس مخفيًا
+      downloadContainer.style.display = "block"; // التأكد من ظهور العنصر
+    }
+  
 })();
