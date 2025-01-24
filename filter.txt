@@ -177,6 +177,5 @@
 ||afrdtech.com^
 ||23.109.170.71^
 ||harrowliquid.com^
-||/0e/d5/91^
+||.com/0e/d5/91/^
 ||0ed591400877d316744c6353cd338f08.js^
-||edgypollnormandy.com^
