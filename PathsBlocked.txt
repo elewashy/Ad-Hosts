@@ -155,4 +155,3 @@
 ||tag^
 ||sapwc^
 ||lBacon.min.js^
-||vercel.app/main^

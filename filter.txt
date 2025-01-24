@@ -177,4 +177,3 @@
 ||afrdtech.com^
 ||23.109.170.71^
 ||harrowliquid.com^
-||vercel.app/main^
