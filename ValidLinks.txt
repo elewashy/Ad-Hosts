@@ -67,3 +67,4 @@
 ||mycdn.me^
 ||userapi.com^
 ||listeamed.net^
+||downet.net^
