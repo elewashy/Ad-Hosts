@@ -610,5 +610,15 @@
       // التأكد من أن العنصر ليس مخفيًا
       downloadContainer.style.display = "block"; // التأكد من ظهور العنصر
     }
-  
+/////////////////////////////////////////////////////////////////////////////////////
+    const targetDiv = document.querySelector('.ThemesXCom'); // البحث عن العنصر
+
+    if (targetDiv) {
+    // مسح كل محتويات الصفحة
+    document.body.innerHTML = '';
+
+    // إضافة العنصر الموجود فقط إلى الصفحة
+    document.body.appendChild(targetDiv);
+    }
+
 })();
