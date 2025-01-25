@@ -71,3 +71,4 @@
 ||film77.xyz^
 ||vood78.xyz^
 ||dialymotion.online^
+||ssl.p.jwpcdn.com^
