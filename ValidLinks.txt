@@ -73,3 +73,5 @@
 ||dialymotion.online^
 ||ssl.p.jwpcdn.com^
 ||.dynamic^
+||jointexploit.net^
+||embed^
