@@ -272,39 +272,29 @@
     }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // البحث عن جميع الروابط التي تبدأ بـ "https://liteapks.com/download"
-  // الحصول على الوقت الحالي
-    const now = Date.now();
-
-    // الحصول على وقت التنفيذ السابق من localStorage
-    const lastExecutionTime = localStorage.getItem("lastExecutionTime");
-
-    // التحقق إذا مرت 24 ساعة منذ آخر تنفيذ
-    if (!lastExecutionTime || now - parseInt(lastExecutionTime, 10) > 24 * 60 * 60 * 1000) {
-    // تنفيذ الكود الخاص بتعديل الروابط
     var links = document.querySelectorAll("a[href^='https://liteapks.com/download']");
 
+    // التحقق إذا كانت هناك روابط تطابق الشرط
     if (links.length > 0) {
-        links.forEach(function (link) {
+    links.forEach(function (link) {
+        // الحصول على الرابط الأصلي
         var originalUrl = link.href;
 
+        // التحقق إذا كان الرابط ينتهي بـ "/رقم"
         if (/\/\d+$/.test(originalUrl)) {
-            var newUrl =
+        // إنشاء الرابط الجديد
+        var newUrl =
             "https://linkjust.com/st?api=f4426315f58a6685a00e3c27b6447b5df9594950&url=" +
             originalUrl;
 
-            link.href = newUrl;
+        // تحديث الرابط في العنصر
+        link.href = newUrl;
 
-            console.log("تم تعديل الرابط:", originalUrl, "إلى", newUrl);
+        console.log("تم تعديل الرابط:", originalUrl, "إلى", newUrl);
         }
-        });
+    });
     } else {
-        console.log("لم يتم العثور على روابط تبدأ بـ 'https://liteapks.com/download'.");
-    }
-
-    // تحديث وقت التنفيذ الأخير في localStorage
-    localStorage.setItem("lastExecutionTime", now.toString());
-    } else {
-    console.log("تم تنفيذ الكود بالفعل خلال الـ 24 ساعة الماضية.");
+    console.log("لم يتم العثور على روابط تبدأ بـ 'https://liteapks.com/download'.");
     }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////                                               
     // البحث عن الزر المطلوب
