@@ -75,3 +75,5 @@
 ||.dynamic^
 ||jointexploit.net^
 ||embed^
+||laceaccept.net^
+||.net/embed^

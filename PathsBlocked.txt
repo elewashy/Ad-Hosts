@@ -159,3 +159,5 @@
 ||uwt.js^
 ||.com/0e/d5/91/^
 ||r679623c21cfbc^
+||embed^
+||.net/embed^
