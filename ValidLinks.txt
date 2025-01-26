@@ -72,3 +72,4 @@
 ||vood78.xyz^
 ||dialymotion.online^
 ||ssl.p.jwpcdn.com^
+||.dynamic^
