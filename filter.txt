@@ -209,3 +209,5 @@
 ||atgv2.js^
 ||intrn.js^
 ||ut.js^
+||nannyirrationalacquainted.com^
+||heelsteaching.com^

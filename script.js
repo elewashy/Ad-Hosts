@@ -520,37 +520,37 @@
         document.body.style.overflow = "hidden"; // منع التمرير
     }
 /////////////////////////////////////////////////////////////////////////////////////
-    const oldButton = document.getElementById('downloadbtn');
+    // const oldButton = document.getElementById('downloadbtn');
         
-    if (oldButton) {
-        // إخفاء الزر القديم
-        oldButton.style.display = 'none';
+    // if (oldButton) {
+    //     // إخفاء الزر القديم
+    //     oldButton.style.display = 'none';
 
-        // إنشاء زر جديد
-        const newButton = document.createElement('button');
-        newButton.id = 'newDownloadBtn';
-        newButton.textContent = 'Download Now'; // النص داخل الزر الجديد
-        newButton.style.cssText = `
-            display: inline-block;
-            padding: 10px 20px;
-            background-color:rgb(4, 65, 178);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            position: ${getComputedStyle(oldButton).position};
-            top: ${oldButton.offsetTop}px;
-            left: ${oldButton.offsetLeft}px;
-        `;
+    //     // إنشاء زر جديد
+    //     const newButton = document.createElement('button');
+    //     newButton.id = 'newDownloadBtn';
+    //     newButton.textContent = 'Download Now'; // النص داخل الزر الجديد
+    //     newButton.style.cssText = `
+    //         display: inline-block;
+    //         padding: 10px 20px;
+    //         background-color:rgb(4, 65, 178);
+    //         color: white;
+    //         border: none;
+    //         border-radius: 5px;
+    //         cursor: pointer;
+    //         font-size: 16px;
+    //         position: ${getComputedStyle(oldButton).position};
+    //         top: ${oldButton.offsetTop}px;
+    //         left: ${oldButton.offsetLeft}px;
+    //     `;
 
-        // إضافة الزر الجديد إلى نفس المكان
-        oldButton.parentNode.insertBefore(newButton, oldButton.nextSibling);
+    //     // إضافة الزر الجديد إلى نفس المكان
+    //     oldButton.parentNode.insertBefore(newButton, oldButton.nextSibling);
 
-        console.log('زر جديد تم إنشاؤه بنجاح!');
-    } else {
-        console.error('لم يتم العثور على الزر القديم downloadbtn!');
-    }
+    //     console.log('زر جديد تم إنشاؤه بنجاح!');
+    // } else {
+    //     console.error('لم يتم العثور على الزر القديم downloadbtn!');
+    // }
 /////////////////////////////////////////////////////////////////////////////////////
     // تحديد جميع العناصر التي تحتوي على الكلاس "blog-item"
     var blogItems = document.querySelectorAll('.blog-item');
