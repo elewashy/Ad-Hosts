@@ -77,3 +77,4 @@
 ||embed^
 ||laceaccept.net^
 ||.net/embed^
+||guardstorage.net^
