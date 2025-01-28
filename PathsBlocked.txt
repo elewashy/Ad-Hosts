@@ -167,3 +167,4 @@
 ||atgv2.js^
 ||intrn.js^
 ||ut.js^
+||.cfd^
