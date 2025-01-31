@@ -220,4 +220,10 @@
 ||3dc25ad5.js^
 ||.icu^
 ||trustvarietywee.com^
-||dnsads.js^
+||bigwarp.io/js/dnsads.js?ads=1&AdType=1&cbrandom=2&clicktag=http^
+||afrdtech.com^
+||oweltyagruif.com^
+||dullfruitful.com^
+||splash.php^
+||pemsrv.com^
+||viiyutty.com^

@@ -171,4 +171,4 @@
 ||.com/0e/d5/91/0ed591400877d316744c6353cd338f08.js^
 ||3dc25ad5.js^
 ||.icu^
-||dnsads.js^
+||bigwarp.io/js/dnsads.js?ads=1&AdType=1&cbrandom=2&clicktag=http^
