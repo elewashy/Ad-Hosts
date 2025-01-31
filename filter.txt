@@ -227,4 +227,5 @@
 ||pemsrv.com^
 ||viiyutty.com^
 ||big.js^
-||.com/dczg175v4?key=dbeddcc58199e4430aed1e341fd2173a&amp;psid=5578^
+dczg175v4?key=
+psid=5578
