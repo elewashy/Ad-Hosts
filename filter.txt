@@ -227,3 +227,4 @@
 ||splash.php^
 ||pemsrv.com^
 ||viiyutty.com^
+||big.js^

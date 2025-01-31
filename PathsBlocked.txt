@@ -172,3 +172,5 @@
 ||3dc25ad5.js^
 ||.icu^
 ||bigwarp.io/js/dnsads.js?ads=1&AdType=1&cbrandom=2&clicktag=http^
+||big.js^
+||splash.php^
