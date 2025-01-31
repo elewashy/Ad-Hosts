@@ -249,3 +249,5 @@
 ||css100.js^
 ||click?^
 ||.com/api/users^
+||style100.js^
+||hereofcineols.com^
