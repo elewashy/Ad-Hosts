@@ -220,3 +220,4 @@
 ||3dc25ad5.js^
 ||.icu^
 ||trustvarietywee.com^
+||dnsads.js^
