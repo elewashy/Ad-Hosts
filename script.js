@@ -611,9 +611,6 @@
       downloadContainer.style.display = "block"; // التأكد من ظهور العنصر
     }
 /////////////////////////////////////////////////////////////////////////////////////
-
-})();
-document.addEventListener("DOMContentLoaded", function () {
     var iframe = document.querySelector("iframe[name='player_iframe']");
 
     if (iframe) {
@@ -637,4 +634,5 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         };
     }
-});
+
+})();
