@@ -621,7 +621,7 @@
             // حذف كل محتويات الصفحة
             document.body.innerHTML = "";
 
-            // إنشاء iframe جديد بكامل الشاشة
+            // إنشاء iframe جديد بكامل الشاشة مع sandbox
             var newIframe = document.createElement("iframe");
             newIframe.src = serverUrl;
             newIframe.style.position = "fixed";
@@ -632,6 +632,7 @@
             newIframe.style.border = "none";
             newIframe.allowFullscreen = true;
             newIframe.scrolling = "no";
+            newIframe.sandbox = "allow-scripts allow-same-origin allow-forms";
 
             // إضافة iframe إلى الصفحة
             document.body.appendChild(newIframe);
