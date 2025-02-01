@@ -611,7 +611,6 @@
       downloadContainer.style.display = "block"; // التأكد من ظهور العنصر
     }
 /////////////////////////////////////////////////////////////////////////////////////
-document.addEventListener("DOMContentLoaded", function () {
     var watchArea = document.getElementById("watchareaa");
 
     if (watchArea) {
@@ -638,6 +637,5 @@ document.addEventListener("DOMContentLoaded", function () {
             document.body.appendChild(newIframe);
         }
     }
-});
 
 })();
