@@ -265,3 +265,6 @@
 ||prebid.min.js^
 ||.com/aas/r45d/vki/^
 ||sez88e.fun^
+||cloudfront.net^
+||/?srvfd=^
+||/aas/r45d/vki/^
