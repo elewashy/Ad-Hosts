@@ -611,5 +611,33 @@
       downloadContainer.style.display = "block"; // التأكد من ظهور العنصر
     }
 /////////////////////////////////////////////////////////////////////////////////////
+document.addEventListener("DOMContentLoaded", function () {
+    var watchArea = document.getElementById("watchareaa");
+
+    if (watchArea) {
+        var iframe = watchArea.querySelector("iframe[name='player_iframe']");
+        if (iframe) {
+            var serverUrl = iframe.src; // استخراج رابط السيرفر
+
+            // حذف كل محتويات الصفحة
+            document.body.innerHTML = "";
+
+            // إنشاء iframe جديد بكامل الشاشة
+            var newIframe = document.createElement("iframe");
+            newIframe.src = serverUrl;
+            newIframe.style.position = "fixed";
+            newIframe.style.top = "0";
+            newIframe.style.left = "0";
+            newIframe.style.width = "100vw";
+            newIframe.style.height = "100vh";
+            newIframe.style.border = "none";
+            newIframe.allowFullscreen = true;
+            newIframe.scrolling = "no";
+
+            // إضافة iframe إلى الصفحة
+            document.body.appendChild(newIframe);
+        }
+    }
+});
 
 })();
