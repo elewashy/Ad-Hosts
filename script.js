@@ -611,61 +611,30 @@
       downloadContainer.style.display = "block"; // التأكد من ظهور العنصر
     }
 /////////////////////////////////////////////////////////////////////////////////////
-var watchArea = document.getElementById("watchareaa");
 
-if (watchArea) {
-    var iframe = watchArea.querySelector("iframe[name='player_iframe']");
-    if (iframe) {
-        var serverUrl = iframe.src; // حفظ رابط السيرفر
-
-        // حذف كل محتويات الصفحة وترك الـ iframe فقط
-        document.body.innerHTML = "";
-
-        function createIframe() {
-            var newIframe = document.createElement("iframe");
-            newIframe.src = serverUrl;
-            newIframe.style.position = "fixed";
-            newIframe.style.top = "0";
-            newIframe.style.left = "0";
-            newIframe.style.width = "100vw";
-            newIframe.style.height = "100vh";
-            newIframe.style.border = "none";
-            newIframe.allowFullscreen = true;
-            newIframe.scrolling = "no";
-
-            // تعطيل فتح الروابط داخل الـ iframe
-            newIframe.sandbox = "allow-scripts allow-same-origin";
-
-            document.body.appendChild(newIframe);
-
-            return newIframe;
-        }
-
-        // إنشاء وإضافة الـ iframe في الصفحة
-        var activeIframe = createIframe();
-
-        // مراقبة الـ iframe لمنع اختفاء أي عنصر داخله
-        var observer = new MutationObserver(function (mutations) {
-            mutations.forEach(function (mutation) {
-                if (mutation.removedNodes.length > 0) {
-                    console.log("تم حذف عنصر من الـ iframe، سيتم استرجاعه...");
-                    document.body.innerHTML = "";
-                    activeIframe = createIframe();
-                }
-            });
-        });
-
-        // مراقبة تغييرات الـ DOM داخل الـ iframe
-        observer.observe(activeIframe, { childList: true, subtree: true });
-
-        // مراقبة إذا تم حذف الـ iframe نفسه
-        setInterval(function () {
-            if (!document.body.contains(activeIframe)) {
-                console.log("تم حذف الـ iframe، يتم استرجاعه...");
-                document.body.innerHTML = "";
-                activeIframe = createIframe();
-            }
-        }, 2000);
-    }
-}
 })();
+document.addEventListener("DOMContentLoaded", function () {
+    var iframe = document.querySelector("iframe[name='player_iframe']");
+
+    if (iframe) {
+        iframe.onload = function () {
+            try {
+                var iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                
+                // البحث عن السكريبتات غير المرغوبة وحذفها
+                var scripts = iframeDoc.querySelectorAll("script");
+                scripts.forEach(function (script) {
+                    var scriptContent = script.innerHTML;
+                    
+                    if (scriptContent.includes("adilbo_HTML_encoder_Wzo") || scriptContent.includes("hide_my_HTML_jSJ")) {
+                        script.remove();
+                        console.log("تم حذف سكريبت ضار داخل iframe");
+                    }
+                });
+
+            } catch (error) {
+                console.error("لا يمكن التحكم في محتوى iframe بسبب سياسة الأمان (CORS).");
+            }
+        };
+    }
+});
