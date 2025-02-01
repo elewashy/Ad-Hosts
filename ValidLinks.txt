@@ -79,3 +79,4 @@
 ||.net/embed^
 ||guardstorage.net^
 ||zobj.net^
+||updown.icu^
