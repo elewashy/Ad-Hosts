@@ -251,3 +251,6 @@
 ||.com/api/users^
 ||style100.js^
 ||hereofcineols.com^
+||dnsads.js^
+||=ppd&r=^
+||1b48?fc=^
