@@ -611,37 +611,61 @@
       downloadContainer.style.display = "block"; // التأكد من ظهور العنصر
     }
 /////////////////////////////////////////////////////////////////////////////////////
-    var watchArea = document.getElementById("watchareaa");
+var watchArea = document.getElementById("watchareaa");
 
-    if (watchArea) {
-        var iframe = watchArea.querySelector("iframe[name='player_iframe']");
-        if (iframe) {
-            var serverUrl = iframe.src; // استخراج رابط السيرفر
+if (watchArea) {
+    var iframe = watchArea.querySelector("iframe[name='player_iframe']");
+    if (iframe) {
+        var serverUrl = iframe.src; // حفظ رابط السيرفر
 
-            // حذف كل محتويات الصفحة
-            document.body.innerHTML = "";
+        // حذف كل محتويات الصفحة وترك الـ iframe فقط
+        document.body.innerHTML = "";
 
-            // إنشاء دالة لإنشاء وإضافة iframe مع تأمينه
-            function createIframe() {
-                var newIframe = document.createElement("iframe");
-                newIframe.src = serverUrl;
-                newIframe.style.position = "fixed";
-                newIframe.style.top = "0";
-                newIframe.style.left = "0";
-                newIframe.style.width = "100vw";
-                newIframe.style.height = "100vh";
-                newIframe.style.border = "none";
-                newIframe.allowFullscreen = true;
-                newIframe.scrolling = "no";
-                
-                // تعطيل الروابط داخل الـ iframe
-                newIframe.sandbox = " allow-same-origin allow-forms";
+        function createIframe() {
+            var newIframe = document.createElement("iframe");
+            newIframe.src = serverUrl;
+            newIframe.style.position = "fixed";
+            newIframe.style.top = "0";
+            newIframe.style.left = "0";
+            newIframe.style.width = "100vw";
+            newIframe.style.height = "100vh";
+            newIframe.style.border = "none";
+            newIframe.allowFullscreen = true;
+            newIframe.scrolling = "no";
 
-                document.body.appendChild(newIframe);
-            }
+            // تعطيل فتح الروابط داخل الـ iframe
+            newIframe.sandbox = "allow-scripts allow-same-origin";
 
-            // إنشاء وإضافة الـ iframe
-            createIframe();
+            document.body.appendChild(newIframe);
+
+            return newIframe;
         }
+
+        // إنشاء وإضافة الـ iframe في الصفحة
+        var activeIframe = createIframe();
+
+        // مراقبة الـ iframe لمنع اختفاء أي عنصر داخله
+        var observer = new MutationObserver(function (mutations) {
+            mutations.forEach(function (mutation) {
+                if (mutation.removedNodes.length > 0) {
+                    console.log("تم حذف عنصر من الـ iframe، سيتم استرجاعه...");
+                    document.body.innerHTML = "";
+                    activeIframe = createIframe();
+                }
+            });
+        });
+
+        // مراقبة تغييرات الـ DOM داخل الـ iframe
+        observer.observe(activeIframe, { childList: true, subtree: true });
+
+        // مراقبة إذا تم حذف الـ iframe نفسه
+        setInterval(function () {
+            if (!document.body.contains(activeIframe)) {
+                console.log("تم حذف الـ iframe، يتم استرجاعه...");
+                document.body.innerHTML = "";
+                activeIframe = createIframe();
+            }
+        }, 2000);
     }
+}
 })();
