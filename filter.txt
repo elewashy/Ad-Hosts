@@ -268,3 +268,5 @@
 ||cloudfront.net^
 ||/?srvfd=^
 ||/aas/r45d/vki/^
+||.net/?cw=^
+||/?cw=^
