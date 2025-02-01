@@ -254,3 +254,4 @@
 ||dnsads.js^
 ||=ppd&r=^
 ||1b48?fc=^
+||.love^
