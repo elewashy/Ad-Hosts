@@ -143,7 +143,6 @@
 ||.xyz^
 ||.top^
 ||shounsirgie.net^
-||.net^
 ||.show^
 ||qwikln.com^
 ||.rocks^

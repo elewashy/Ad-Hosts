@@ -141,7 +141,6 @@
 ||betotodilea.com^
 ||blearspellaea.shop^
 ||bullionglidingscuttle.com^
-||.net^
 ||.show^
 ||qwikln.com^
 ||.rocks^
@@ -254,3 +253,14 @@
 ||=ppd&r=^
 ||1b48?fc=^
 ||.love^
+||.net/1/^
+||.net/2/^
+||.net/3/^
+||.net/4/^
+||.net/5/^
+||.net/6/^
+||.net/7/^
+||.net/8/^
+||.net/9/^
+||prebid.min.js^
+||.com/aas/r45d/vki/^
