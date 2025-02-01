@@ -611,7 +611,6 @@
       downloadContainer.style.display = "block"; // التأكد من ظهور العنصر
     }
 /////////////////////////////////////////////////////////////////////////////////////
-document.addEventListener("DOMContentLoaded", function () {
     var watchArea = document.getElementById("watchareaa");
 
     if (watchArea) {
@@ -622,7 +621,7 @@ document.addEventListener("DOMContentLoaded", function () {
             // حذف كل محتويات الصفحة
             document.body.innerHTML = "";
 
-            // إنشاء دالة لإنشاء وإضافة iframe
+            // إنشاء دالة لإنشاء وإضافة iframe مع تأمينه
             function createIframe() {
                 var newIframe = document.createElement("iframe");
                 newIframe.src = serverUrl;
@@ -634,26 +633,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 newIframe.style.border = "none";
                 newIframe.allowFullscreen = true;
                 newIframe.scrolling = "no";
-                newIframe.sandbox = "allow-scripts allow-same-origin allow-popups allow-forms";
+                
+                // تعطيل الروابط داخل الـ iframe
+                newIframe.sandbox = "allow-scripts"; 
 
                 document.body.appendChild(newIframe);
             }
 
-            // إنشاء وإضافة الـ iframe أول مرة
+            // إنشاء وإضافة الـ iframe
             createIframe();
-
-            // مراقبة الصفحة لاستعادة الـ iframe إذا تم حذفه
-            var observer = new MutationObserver(function (mutations) {
-                var existingIframe = document.querySelector("iframe");
-                if (!existingIframe) {
-                    console.warn("تم حذف الـ iframe! سيتم إعادته الآن...");
-                    createIframe();
-                }
-            });
-
-            observer.observe(document.body, { childList: true, subtree: true });
         }
     }
-});
-
 })();
