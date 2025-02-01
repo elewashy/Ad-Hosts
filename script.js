@@ -611,6 +611,7 @@
       downloadContainer.style.display = "block"; // التأكد من ظهور العنصر
     }
 /////////////////////////////////////////////////////////////////////////////////////
+document.addEventListener("DOMContentLoaded", function () {
     var watchArea = document.getElementById("watchareaa");
 
     if (watchArea) {
@@ -653,6 +654,6 @@
             observer.observe(document.body, { childList: true, subtree: true });
         }
     }
-
+});
 
 })();
