@@ -270,3 +270,9 @@
 ||/aas/r45d/vki/^
 ||.net/?cw=^
 ||/?cw=^
+||/lv/esnk/^
+||pringed.space^
+||betotodilea.com^
+||/utx?tid=^
+||fastlycdn.com/ajax/libs/react/18.3.1/cjs/react.production.min.js^
+||mkeqmafk.com^
