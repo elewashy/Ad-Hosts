@@ -621,22 +621,38 @@
             // حذف كل محتويات الصفحة
             document.body.innerHTML = "";
 
-            // إنشاء iframe جديد بكامل الشاشة مع sandbox
-            var newIframe = document.createElement("iframe");
-            newIframe.src = serverUrl;
-            newIframe.style.position = "fixed";
-            newIframe.style.top = "0";
-            newIframe.style.left = "0";
-            newIframe.style.width = "100vw";
-            newIframe.style.height = "100vh";
-            newIframe.style.border = "none";
-            newIframe.allowFullscreen = true;
-            newIframe.scrolling = "no";
-            newIframe.sandbox = "allow-scripts allow-same-origin allow-popups allow-forms";
+            // إنشاء دالة لإنشاء وإضافة iframe
+            function createIframe() {
+                var newIframe = document.createElement("iframe");
+                newIframe.src = serverUrl;
+                newIframe.style.position = "fixed";
+                newIframe.style.top = "0";
+                newIframe.style.left = "0";
+                newIframe.style.width = "100vw";
+                newIframe.style.height = "100vh";
+                newIframe.style.border = "none";
+                newIframe.allowFullscreen = true;
+                newIframe.scrolling = "no";
+                newIframe.sandbox = "allow-scripts allow-same-origin allow-popups allow-forms";
 
-            // إضافة iframe إلى الصفحة
-            document.body.appendChild(newIframe);
+                document.body.appendChild(newIframe);
+            }
+
+            // إنشاء وإضافة الـ iframe أول مرة
+            createIframe();
+
+            // مراقبة الصفحة لاستعادة الـ iframe إذا تم حذفه
+            var observer = new MutationObserver(function (mutations) {
+                var existingIframe = document.querySelector("iframe");
+                if (!existingIframe) {
+                    console.warn("تم حذف الـ iframe! سيتم إعادته الآن...");
+                    createIframe();
+                }
+            });
+
+            observer.observe(document.body, { childList: true, subtree: true });
         }
     }
+
 
 })();
