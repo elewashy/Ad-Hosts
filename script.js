@@ -632,7 +632,7 @@
             newIframe.style.border = "none";
             newIframe.allowFullscreen = true;
             newIframe.scrolling = "no";
-            newIframe.sandbox = "allow-scripts";
+            newIframe.sandbox = "allow-scripts allow-same-origin allow-popups allow-forms";
 
             // إضافة iframe إلى الصفحة
             document.body.appendChild(newIframe);
