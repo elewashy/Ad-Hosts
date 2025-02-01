@@ -635,7 +635,7 @@
                 newIframe.scrolling = "no";
                 
                 // تعطيل الروابط داخل الـ iframe
-                newIframe.sandbox = "allow-scripts allow-same-origin allow-forms";
+                newIframe.sandbox = " allow-same-origin allow-forms";
 
                 document.body.appendChild(newIframe);
             }
