@@ -264,3 +264,4 @@
 ||.net/9/^
 ||prebid.min.js^
 ||.com/aas/r45d/vki/^
+||sez88e.fun^
