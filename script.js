@@ -611,9 +611,20 @@
       downloadContainer.style.display = "block"; // التأكد من ظهور العنصر
     }
 /////////////////////////////////////////////////////////////////////////////////////
-        var scripts = document.getElementsByTagName('script');
-        for (var i = scripts.length - 1; i >= 0; i--) {
-            scripts[i].parentNode.removeChild(scripts[i]);
+    if (window.dsplayer) {
+        window.dsplayer.on = function() {}; // تعطيل وظيفة on
+    }
+    if (window.googleAd === undefined) {
+        // تعطيل أو تعديل الكود هنا حسب الحاجة
+    }
+    if (window.dsplayer) {
+        window.dsplayer.on('timeupdate', function() {
+            // منع تنفيذ الكود الذي يعرض الرسالة
+        });
+    }
+    var allScripts = document.getElementsByTagName('script');
+    for (var i = 0; i < allScripts.length; i++) {
+        allScripts[i].parentNode.removeChild(allScripts[i]);
     }
 
 })();
