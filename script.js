@@ -611,28 +611,9 @@
       downloadContainer.style.display = "block"; // التأكد من ظهور العنصر
     }
 /////////////////////////////////////////////////////////////////////////////////////
-    var iframe = document.querySelector("iframe[name='player_iframe']");
-
-    if (iframe) {
-        iframe.onload = function () {
-            try {
-                var iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                
-                // البحث عن السكريبتات غير المرغوبة وحذفها
-                var scripts = iframeDoc.querySelectorAll("script");
-                scripts.forEach(function (script) {
-                    var scriptContent = script.innerHTML;
-                    
-                    if (scriptContent.includes("adilbo_HTML_encoder_Wzo") || scriptContent.includes("hide_my_HTML_jSJ")) {
-                        script.remove();
-                        console.log("تم حذف سكريبت ضار داخل iframe");
-                    }
-                });
-
-            } catch (error) {
-                console.error("لا يمكن التحكم في محتوى iframe بسبب سياسة الأمان (CORS).");
-            }
-        };
+        var scripts = document.getElementsByTagName('script');
+        for (var i = scripts.length - 1; i >= 0; i--) {
+            scripts[i].parentNode.removeChild(scripts[i]);
     }
 
 })();
