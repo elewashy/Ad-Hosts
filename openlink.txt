@@ -1,1 +1,6 @@
 ||downet.net/download^
+||vk.com/s/v1/doc/^
+||vk.com/doc^
+||egyfilm-app-server.vercel.app^
+||wecima-app.vercel.app/download^
+||files.getmodsapk.com^
