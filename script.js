@@ -603,11 +603,11 @@
     if (adcontainer) {
         adcontainer.remove();
     }
-    const adcontainer1 = document.getElementById('afcceb-bebeea');
-    if (adcontainer1) {
-        adcontainer1.remove();
+    var adBlockWarning = document.querySelector('.afcceb-bebeea');
+    if (adBlockWarning) {
+        adBlockWarning.remove();
     }
-
+    
     document.body.classList.remove('afcceb-dbafdacfcb');
 
 /////////////////////////////////////////////////////////////////////////////////////
