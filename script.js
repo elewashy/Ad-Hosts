@@ -607,7 +607,11 @@
     if (adBlockWarning) {
         adBlockWarning.remove();
     }
-    
+    var adOverlay = document.querySelector('.afcceb-afdacf');
+    if (adOverlay) {
+        adOverlay.remove();
+    }
+
     document.body.classList.remove('afcceb-dbafdacfcb');
 
 /////////////////////////////////////////////////////////////////////////////////////
