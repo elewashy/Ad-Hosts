@@ -603,7 +603,12 @@
     if (adcontainer) {
         adcontainer.remove();
     }
-    document.body.classList.remove('afcceb-bebeea');
+    const adcontainer1 = document.getElementById('afcceb-bebeea');
+    if (adcontainer1) {
+        adcontainer1.remove();
+    }
+
+    document.body.classList.remove('afcceb-dbafdacfcb');
 
 /////////////////////////////////////////////////////////////////////////////////////
     const downloadContainer = document.querySelector('div[download-button]');
