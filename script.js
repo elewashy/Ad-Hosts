@@ -603,6 +603,8 @@
     if (adcontainer) {
         adcontainer.remove();
     }
+    document.body.classList.remove('afcceb-bebeea');
+
 /////////////////////////////////////////////////////////////////////////////////////
     const downloadContainer = document.querySelector('div[download-button]');
 
