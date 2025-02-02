@@ -4,4 +4,3 @@
 ||egyfilm-app-server.vercel.app^
 ||wecima-app.vercel.app/download^
 ||files.getmodsapk.com^
-||veevcdn.co^
