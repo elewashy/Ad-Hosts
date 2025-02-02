@@ -172,16 +172,16 @@
             link.href = 'watching';
         }
     });
-    const links_2 = document.querySelectorAll('.Download--Wecima--Single .hoverable.activable');
-    links_2.forEach(link => {
-        if (link.href.includes('tgb4.top15top.shop')) {
-            // أولاً، خلي الرابط نفس رابط الصفحة الحالية
-            link.href = window.location.href;
+    // const links_2 = document.querySelectorAll('.Download--Wecima--Single .hoverable.activable');
+    // links_2.forEach(link => {
+    //     if (link.href.includes('tgb4.top15top.shop')) {
+    //         // أولاً، خلي الرابط نفس رابط الصفحة الحالية
+    //         link.href = window.location.href;
     
-            // بعد كده، استبدل "wecima.movie/watch" بـ "wecima-app.vercel.app/download"
-            link.href = link.href.replace('wecima.stream/watch', 'wecima-app.vercel.app/download');
-        }
-    });
+    //         // بعد كده، استبدل "wecima.movie/watch" بـ "wecima-app.vercel.app/download"
+    //         link.href = link.href.replace('wecima.stream/watch', 'wecima-app.vercel.app/download');
+    //     }
+    // });
             
 (function() {
     // العثور على العنصر body
