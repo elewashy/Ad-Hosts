@@ -2,7 +2,7 @@
 ||top-fwz1.mail.ru^
 ||covettunica.com^
 ||augailou.com^
-||cloudflareinsights.com^
+||static.cloudflareinsights.com^
 ||graukishoursoot.net^
 ||uqqmj868.xyz^
 ||adcgi^
@@ -297,3 +297,5 @@
 ||igouthoatsord.net^
 ||waust.at^
 ||tns-counter.ru^
+||cloudfront.net^
+||sjdgkfhwkrkmi.com^
