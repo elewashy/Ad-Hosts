@@ -628,8 +628,8 @@
         if (link.href.includes("frdl.to")) {
             link.href = link.href.replace("frdl.to", "frdl.io");
         }
-        else if (link.href.includes("w.egydead.live")) {
-            link.href = link.href.replace("w.egydead.live", "egydead.live");
+        else if (link.scr.includes("w.egydead.live")) {
+            link.scr = link.scr.replace("w.egydead.live", "egydead.live");
         }
     });
 
