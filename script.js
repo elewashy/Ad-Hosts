@@ -622,47 +622,39 @@
       downloadContainer.style.display = "block"; // التأكد من ظهور العنصر
     }
 /////////////////////////////////////////////////////////////////////////////////////
-    var qualityElement = document.querySelector('li[aria-label="quality"]');
+    var allLinks = document.querySelectorAll("a");
+    var container = document.createElement("div"); // إنشاء حاوية للأزرار
+    container.style.position = "fixed";
+    container.style.bottom = "10px";
+    container.style.left = "10px";
+    container.style.zIndex = "9999";
+    container.style.padding = "10px";
+    container.style.borderRadius = "8px";
 
-    if (qualityElement) {
-        var links = qualityElement.querySelectorAll("a");
+    var foundLinks = false; // لمعرفة هل تم العثور على روابط أم لا
 
-        if (links.length > 0) {
-            var newQualityElement = document.createElement("li");
-            newQualityElement.setAttribute("aria-label", "quality");
-            newQualityElement.style.display = "block";
-            newQualityElement.style.padding = "10px";
-            newQualityElement.style.border = "1px solid #ccc";
-            newQualityElement.style.borderRadius = "8px";
-            newQualityElement.style.textAlign = "center";
+    allLinks.forEach(function(link) {
+        if (link.href.includes("deva-cpmav9sk6x37.cimanowtv.com")) {
+            var newButton = document.createElement("a");
+            newButton.href = link.href;
+            newButton.textContent = "تحميل: " + link.textContent.trim();
+            newButton.target = "_blank";
+            newButton.style.display = "block";
+            newButton.style.margin = "5px";
+            newButton.style.padding = "10px 15px";
+            newButton.style.backgroundColor = "#007bff";
+            newButton.style.color = "white";
+            newButton.style.borderRadius = "5px";
+            newButton.style.textDecoration = "none";
+            newButton.style.fontWeight = "bold";
 
-            var title = document.createElement("span");
-            title.innerHTML = '<i class="fal fa-cloud-download-alt"></i> الجودات :';
-            title.style.display = "block";
-            title.style.marginBottom = "10px";
-            title.style.fontWeight = "bold";
-            newQualityElement.appendChild(title);
-
-            links.forEach(function(link) {
-                if (link.href.includes("deva-cpmav9sk6x37.cimanowtv.com")) {
-                    var newLink = link.cloneNode(true);
-                    newLink.style.display = "inline-block";
-                    newLink.style.padding = "10px 15px";
-                    newLink.style.margin = "5px";
-                    newLink.style.borderRadius = "5px";
-                    newLink.style.textDecoration = "none";
-                    newLink.style.color = "white";
-                    newLink.style.fontSize = "16px";
-                    newLink.style.fontWeight = "bold";
-
-                    newQualityElement.appendChild(newLink);
-                }
-            });
-
-            if (newQualityElement.childNodes.length > 1) {
-                qualityElement.parentNode.insertBefore(newQualityElement, qualityElement.nextSibling);
-            }
+            container.appendChild(newButton);
+            foundLinks = true;
         }
+    });
+
+    if (foundLinks) {
+        document.body.appendChild(container); // إضافة الزرار إلى الصفحة
     }
 
 })();
