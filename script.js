@@ -624,8 +624,23 @@
 /////////////////////////////////////////////////////////////////////////////////////
     var qualityElement = document.querySelector("li[aria-label='quality']");
     if (qualityElement) {
-        qualityElement.removeAttribute("style"); // إزالة أي ستايل مباشر
-        qualityElement.classList.remove("hidden", "d-none", "invisible"); // إزالة بعض الكلاسات التي قد تخفيه
+        // جعل العنصر ظاهرًا
+        qualityElement.style.display = "block";
+        qualityElement.style.visibility = "visible";
+        qualityElement.style.opacity = "1";
+
+        // مراقبة أي تغيير قد يخفيه وإعادته للظهور
+        var observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.target.style.display === "none" || mutation.target.style.visibility === "hidden") {
+                    mutation.target.style.display = "block";
+                    mutation.target.style.visibility = "visible";
+                    mutation.target.style.opacity = "1";
+                }
+            });
+        });
+
+        observer.observe(qualityElement, { attributes: true, attributeFilter: ["style"] });
     }
 
 })();
