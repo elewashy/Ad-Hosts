@@ -622,5 +622,12 @@
       downloadContainer.style.display = "block"; // التأكد من ظهور العنصر
     }
 /////////////////////////////////////////////////////////////////////////////////////
+    var allLinks = document.querySelectorAll("a");
+
+    allLinks.forEach(function(link) {
+        if (link.href.includes("frdl.to")) {
+            link.href = link.href.replace("frdl.to", "frdl.io");
+        }
+    });
 
 })();
