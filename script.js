@@ -622,25 +622,51 @@
       downloadContainer.style.display = "block"; // التأكد من ظهور العنصر
     }
 /////////////////////////////////////////////////////////////////////////////////////
-    var qualityElement = document.querySelector("li[aria-label='quality']");
+    var qualityElement = document.querySelector('li[aria-label="quality"]');
+
     if (qualityElement) {
-        // جعل العنصر ظاهرًا
-        qualityElement.style.display = "block";
-        qualityElement.style.visibility = "visible";
-        qualityElement.style.opacity = "1";
+        // البحث عن جميع الروابط داخل هذا العنصر
+        var links = qualityElement.querySelectorAll("a");
 
-        // مراقبة أي تغيير قد يخفيه وإعادته للظهور
-        var observer = new MutationObserver(function(mutations) {
-            mutations.forEach(function(mutation) {
-                if (mutation.target.style.display === "none" || mutation.target.style.visibility === "hidden") {
-                    mutation.target.style.display = "block";
-                    mutation.target.style.visibility = "visible";
-                    mutation.target.style.opacity = "1";
-                }
+        if (links.length > 0) {
+            // إنشاء عنصر جديد لإظهار الروابط فيه
+            var newQualityElement = document.createElement("li");
+            newQualityElement.setAttribute("aria-label", "quality");
+            newQualityElement.style.display = "block";
+            newQualityElement.style.padding = "10px";
+            newQualityElement.style.border = "1px solid #ccc";
+            newQualityElement.style.borderRadius = "8px";
+            newQualityElement.style.backgroundColor = "#f8f9fa";
+            newQualityElement.style.textAlign = "center";
+            
+            // إنشاء عنوان "الجودات:"
+            var title = document.createElement("span");
+            title.innerHTML = '<i class="fal fa-cloud-download-alt"></i> الجودات :';
+            title.style.display = "block";
+            title.style.marginBottom = "10px";
+            title.style.fontWeight = "bold";
+            newQualityElement.appendChild(title);
+
+            // نسخ كل زر وتحويله إلى عنصر جديد مرئي
+            links.forEach(function(link) {
+                var newLink = link.cloneNode(true); // استنساخ الرابط بالكامل
+                newLink.style.display = "inline-block";
+                newLink.style.padding = "10px 15px";
+                newLink.style.margin = "5px";
+                newLink.style.borderRadius = "5px";
+                newLink.style.textDecoration = "none";
+                newLink.style.backgroundColor = "#007bff";
+                newLink.style.color = "white";
+                newLink.style.fontSize = "16px";
+                newLink.style.fontWeight = "bold";
+
+                // إضافة الرابط الجديد إلى العنصر الجديد
+                newQualityElement.appendChild(newLink);
             });
-        });
 
-        observer.observe(qualityElement, { attributes: true, attributeFilter: ["style"] });
+            // إضافة العنصر الجديد في الصفحة ليكون مرئيًا
+            qualityElement.parentNode.insertBefore(newQualityElement, qualityElement.nextSibling);
+        }
     }
 
 })();
