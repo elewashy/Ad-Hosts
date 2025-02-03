@@ -622,20 +622,10 @@
       downloadContainer.style.display = "block"; // التأكد من ظهور العنصر
     }
 /////////////////////////////////////////////////////////////////////////////////////
-    if (window.dsplayer) {
-        window.dsplayer.on = function() {}; // تعطيل وظيفة on
-    }
-    if (window.googleAd === undefined) {
-        // تعطيل أو تعديل الكود هنا حسب الحاجة
-    }
-    if (window.dsplayer) {
-        window.dsplayer.on('timeupdate', function() {
-            // منع تنفيذ الكود الذي يعرض الرسالة
-        });
-    }
-    var allScripts = document.getElementsByTagName('script');
-    for (var i = 0; i < allScripts.length; i++) {
-        allScripts[i].parentNode.removeChild(allScripts[i]);
+    var qualityElement = document.querySelector("li[aria-label='quality']");
+    if (qualityElement) {
+        qualityElement.removeAttribute("style"); // إزالة أي ستايل مباشر
+        qualityElement.classList.remove("hidden", "d-none", "invisible"); // إزالة بعض الكلاسات التي قد تخفيه
     }
 
 })();
