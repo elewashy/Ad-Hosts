@@ -625,20 +625,39 @@
     var qualityElement = document.querySelector('li[aria-label="quality"]');
 
     if (qualityElement) {
-        // البحث عن جميع الروابط داخل هذا العنصر
         var links = qualityElement.querySelectorAll("a");
 
         if (links.length > 0) {
+            var newQualityElement = document.createElement("li");
+            newQualityElement.setAttribute("aria-label", "quality");
+            newQualityElement.style.display = "block";
+            newQualityElement.style.padding = "10px";
+            newQualityElement.style.border = "1px solid #ccc";
+            newQualityElement.style.borderRadius = "8px";
+            newQualityElement.style.textAlign = "center";
+
+            var title = document.createElement("span");
+            title.innerHTML = '<i class="fal fa-cloud-download-alt"></i> الجودات :';
+            title.style.display = "block";
+            title.style.marginBottom = "10px";
+            title.style.fontWeight = "bold";
+            newQualityElement.appendChild(title);
+
             links.forEach(function(link) {
-                link.style.display = "inline-block"; // إظهار كل زر كما هو
-                link.style.visibility = "visible"; // في حالة تم إخفاؤه بالـ visibility
-                link.removeAttribute("hidden"); // في حالة كان لديه hidden
+                var newLink = link.cloneNode(true);
+                newLink.style.display = "inline-block";
+                newLink.style.padding = "10px 15px";
+                newLink.style.margin = "5px";
+                newLink.style.borderRadius = "5px";
+                newLink.style.textDecoration = "none";
+                newLink.style.color = "white";
+                newLink.style.fontSize = "16px";
+                newLink.style.fontWeight = "bold";
+
+                newQualityElement.appendChild(newLink);
             });
 
-            // إظهار العنصر الرئيسي أيضًا إذا كان مخفيًا
-            qualityElement.style.display = "block";
-            qualityElement.style.visibility = "visible";
-            qualityElement.removeAttribute("hidden");
+            qualityElement.parentNode.insertBefore(newQualityElement, qualityElement.nextSibling);
         }
     }
 
