@@ -644,20 +644,24 @@
             newQualityElement.appendChild(title);
 
             links.forEach(function(link) {
-                var newLink = link.cloneNode(true);
-                newLink.style.display = "inline-block";
-                newLink.style.padding = "10px 15px";
-                newLink.style.margin = "5px";
-                newLink.style.borderRadius = "5px";
-                newLink.style.textDecoration = "none";
-                newLink.style.color = "white";
-                newLink.style.fontSize = "16px";
-                newLink.style.fontWeight = "bold";
+                if (link.href.includes("deva-cpmav9sk6x37.cimanowtv.com")) {
+                    var newLink = link.cloneNode(true);
+                    newLink.style.display = "inline-block";
+                    newLink.style.padding = "10px 15px";
+                    newLink.style.margin = "5px";
+                    newLink.style.borderRadius = "5px";
+                    newLink.style.textDecoration = "none";
+                    newLink.style.color = "white";
+                    newLink.style.fontSize = "16px";
+                    newLink.style.fontWeight = "bold";
 
-                newQualityElement.appendChild(newLink);
+                    newQualityElement.appendChild(newLink);
+                }
             });
 
-            qualityElement.parentNode.insertBefore(newQualityElement, qualityElement.nextSibling);
+            if (newQualityElement.childNodes.length > 1) {
+                qualityElement.parentNode.insertBefore(newQualityElement, qualityElement.nextSibling);
+            }
         }
     }
 
