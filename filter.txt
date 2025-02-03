@@ -299,5 +299,4 @@
 ||tns-counter.ru^
 ||cloudfront.net^
 ||sjdgkfhwkrkmi.com^
-||/xads.js^
 ||chekrilsoumpoab.net^
