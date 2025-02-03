@@ -629,12 +629,5 @@
             link.href = link.href.replace("frdl.to", "frdl.io");
         }
     });
-    var allLinks1 = document.querySelectorAll("img");
-
-    allLinks1.forEach(function(link) {
-        if (link.scr.includes("w.egydead.live")) {
-            link.scr = link.scr.replace("w.egydead.live", "egydead.live");
-        }
-    });
 
 })();
