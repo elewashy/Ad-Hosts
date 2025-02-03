@@ -629,43 +629,16 @@
         var links = qualityElement.querySelectorAll("a");
 
         if (links.length > 0) {
-            // إنشاء عنصر جديد لإظهار الروابط فيه
-            var newQualityElement = document.createElement("li");
-            newQualityElement.setAttribute("aria-label", "quality");
-            newQualityElement.style.display = "block";
-            newQualityElement.style.padding = "10px";
-            newQualityElement.style.border = "1px solid #ccc";
-            newQualityElement.style.borderRadius = "8px";
-            newQualityElement.style.backgroundColor = "#f8f9fa";
-            newQualityElement.style.textAlign = "center";
-            
-            // إنشاء عنوان "الجودات:"
-            var title = document.createElement("span");
-            title.innerHTML = '<i class="fal fa-cloud-download-alt"></i> الجودات :';
-            title.style.display = "block";
-            title.style.marginBottom = "10px";
-            title.style.fontWeight = "bold";
-            newQualityElement.appendChild(title);
-
-            // نسخ كل زر وتحويله إلى عنصر جديد مرئي
             links.forEach(function(link) {
-                var newLink = link.cloneNode(true); // استنساخ الرابط بالكامل
-                newLink.style.display = "inline-block";
-                newLink.style.padding = "10px 15px";
-                newLink.style.margin = "5px";
-                newLink.style.borderRadius = "5px";
-                newLink.style.textDecoration = "none";
-                newLink.style.backgroundColor = "#007bff";
-                newLink.style.color = "white";
-                newLink.style.fontSize = "16px";
-                newLink.style.fontWeight = "bold";
-
-                // إضافة الرابط الجديد إلى العنصر الجديد
-                newQualityElement.appendChild(newLink);
+                link.style.display = "inline-block"; // إظهار كل زر كما هو
+                link.style.visibility = "visible"; // في حالة تم إخفاؤه بالـ visibility
+                link.removeAttribute("hidden"); // في حالة كان لديه hidden
             });
 
-            // إضافة العنصر الجديد في الصفحة ليكون مرئيًا
-            qualityElement.parentNode.insertBefore(newQualityElement, qualityElement.nextSibling);
+            // إظهار العنصر الرئيسي أيضًا إذا كان مخفيًا
+            qualityElement.style.display = "block";
+            qualityElement.style.visibility = "visible";
+            qualityElement.removeAttribute("hidden");
         }
     }
 
