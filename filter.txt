@@ -300,3 +300,5 @@
 ||cloudfront.net^
 ||sjdgkfhwkrkmi.com^
 ||chekrilsoumpoab.net^
+||&cdt=^
+||/nzuba^
