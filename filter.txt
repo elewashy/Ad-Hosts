@@ -305,3 +305,8 @@
 ||/en/ri^
 ||kf?tnii=^
 ||kurkanasbo.com^
+||/prebid.min.js^
+||pictunoctette.com^
+||/sub/^
+||adforcast.com^
+||zimpolo.com^
