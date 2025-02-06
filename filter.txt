@@ -311,3 +311,4 @@
 ||adforcast.com^
 ||zimpolo.com^
 ||paikoasa.tv^
+||bizzarrely.info^
