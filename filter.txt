@@ -310,3 +310,4 @@
 ||/sub/^
 ||adforcast.com^
 ||zimpolo.com^
+||paikoasa.tv^
