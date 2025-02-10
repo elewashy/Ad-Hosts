@@ -607,6 +607,17 @@
     if (fixedban5) {
         fixedban5.remove();
     }
+    const Advert1 = document.getElementById('Advert1');
+    if (Advert1) {
+        Advert1.remove();
+    }
+    const adContainer = document.getElementById('adContainer');
+    if (adContainer) {
+        adContainer.remove();
+    }
+    var adBlockWarning1 = document.querySelector('.live-ad-container');
+    if (adBlockWarning1) {
+        adBlockWarning1.remove();
 
     var adBlockWarning = document.querySelector('.afcceb-bebeea');
     if (adBlockWarning) {
