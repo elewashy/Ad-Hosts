@@ -618,7 +618,7 @@
     var adBlockWarning1 = document.querySelector('.live-ad-container');
     if (adBlockWarning1) {
         adBlockWarning1.remove();
-
+    }
     var adBlockWarning = document.querySelector('.afcceb-bebeea');
     if (adBlockWarning) {
         adBlockWarning.remove();
