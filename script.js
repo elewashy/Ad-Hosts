@@ -603,6 +603,11 @@
     if (adcontainer) {
         adcontainer.remove();
     }
+    const fixedban5 = document.getElementById('fixedban5');
+    if (fixedban5) {
+        fixedban5.remove();
+    }
+
     var adBlockWarning = document.querySelector('.afcceb-bebeea');
     if (adBlockWarning) {
         adBlockWarning.remove();
