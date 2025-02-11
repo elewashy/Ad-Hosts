@@ -611,6 +611,10 @@
     if (Advert1) {
         Advert1.remove();
     }
+    const adunit1 = document.getElementById('ad-unit-1');
+    if (adunit1) {
+        adunit1.remove();
+    }
     const adContainer = document.getElementById('adContainer');
     if (adContainer) {
         adContainer.remove();
@@ -618,6 +622,10 @@
     var adBlockWarning1 = document.querySelector('.live-ad-container');
     if (adBlockWarning1) {
         adBlockWarning1.remove();
+    }
+    var adBlockWarning2 = document.querySelector('.ad-unit ad-unit__top');
+    if (adBlockWarning2) {
+        adBlockWarning2.remove();
     }
     var adBlockWarning = document.querySelector('.afcceb-bebeea');
     if (adBlockWarning) {
