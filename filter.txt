@@ -332,3 +332,5 @@
 ||&os_version=^
 ||/partitial/^
 ||whoorgussi.net^
+||/?cw=^
+||chirsaidsoun.net^
