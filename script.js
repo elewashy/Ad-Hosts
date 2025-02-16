@@ -662,30 +662,11 @@
             // الوصول إلى محتوى الـ iframe
             const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
             
-            // العثور على عنصر player_code
+            // العثور على عنصر player_code وإزالته
             const playerCode = iframeDocument.querySelector('#player_code');
-            
             if (playerCode) {
-                // حذف جميع عناصر <link>
-                const links = playerCode.querySelectorAll('link');
-                links.forEach(link => link.remove());
-                
-                // حذف جميع عناصر <script>
-                const scripts = playerCode.querySelectorAll('script');
-                scripts.forEach(script => script.remove());
-                
-                // الاحتفاظ فقط بعنصر الفيديو
-                const video = playerCode.querySelector('video');
-                if (video) {
-                    // تنظيف playerCode من كل شيء ما عدا الفيديو
-                    playerCode.innerHTML = '';
-                    playerCode.appendChild(video);
-                    
-                    // إضافة التحكم المباشر بالفيديو
-                    video.controls = true;
-                    video.style.width = '100%';
-                    video.style.height = 'auto';
-                }
+                playerCode.remove();
+                console.log("تم إزالة player_code بنجاح");
             }
             
         } catch (error) {
