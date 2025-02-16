@@ -324,3 +324,10 @@
 ||touwidovoap.net^
 ||daseptoaramol.net^
 ||uaucqlwwo.com^
+||saimimorephoan.net^
+||rhd=false^
+||&sf=1^
+||&ab2r=^
+||&prfrev=true^
+||&os_version=^
+||/partitial/^
