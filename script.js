@@ -92,10 +92,10 @@
     }
 
     // إخفاء عنصر العد التنازلي
-    var countdown = document.getElementById('countdown');
-    if (countdown) {
-        countdown.style.display = 'none'; // إخفاء العنصر
-    }
+    // var countdown = document.getElementById('countdown');
+    // if (countdown) {
+    //     countdown.style.display = 'none'; // إخفاء العنصر
+    // }
 
     // إخفاء عنصر كود الكابتشا
     var captcha = document.getElementById('free-captcha');
