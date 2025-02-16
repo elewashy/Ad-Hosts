@@ -653,5 +653,44 @@
             link.href = link.href.replace("frdl.to", "frdl.io");
         }
     });
+    // الحصول على عنصر الـ iframe
+    const iframe = document.querySelector('iframe');
 
+    // التأكد من تحميل محتوى الـ iframe
+    iframe.addEventListener('load', function() {
+        try {
+            // الوصول إلى محتوى الـ iframe
+            const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+            
+            // العثور على عنصر player_code
+            const playerCode = iframeDocument.querySelector('#player_code');
+            
+            if (playerCode) {
+                // حذف جميع عناصر <link>
+                const links = playerCode.querySelectorAll('link');
+                links.forEach(link => link.remove());
+                
+                // حذف جميع عناصر <script>
+                const scripts = playerCode.querySelectorAll('script');
+                scripts.forEach(script => script.remove());
+                
+                // الاحتفاظ فقط بعنصر الفيديو
+                const video = playerCode.querySelector('video');
+                if (video) {
+                    // تنظيف playerCode من كل شيء ما عدا الفيديو
+                    playerCode.innerHTML = '';
+                    playerCode.appendChild(video);
+                    
+                    // إضافة التحكم المباشر بالفيديو
+                    video.controls = true;
+                    video.style.width = '100%';
+                    video.style.height = 'auto';
+                }
+            }
+            
+        } catch (error) {
+            console.error('حدث خطأ في الوصول إلى محتوى الـ iframe:', error);
+            console.log('قد يكون هذا بسبب سياسة Same-Origin Policy');
+        }
+    });
 })();
