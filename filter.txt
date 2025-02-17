@@ -340,4 +340,3 @@
 ||/afu.php^
 ||navvitstucuz.com^
 ||rannydualin.shop^
-||.shop^
