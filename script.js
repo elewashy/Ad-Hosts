@@ -655,84 +655,113 @@
     });
 
 })();
-// Function to block all links in iframes
-function blockIframeLinks() {
-    // Get all iframes in the document
+// Function to handle interactive iframe with popup blocking
+function setupInteractiveIframeWithBlocker() {
+    // Get all iframes
     const iframes = document.getElementsByTagName('iframe');
     
     for (let iframe of iframes) {
-        iframe.addEventListener('load', function() {
-            try {
-                // Access iframe content
-                const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
-                
-                // Block all anchor clicks
-                iframeDocument.addEventListener('click', function(e) {
-                    if (e.target.tagName === 'A' || e.target.closest('a')) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        return false;
-                    }
-                }, true);
-                
-                // Prevent form submissions
-                iframeDocument.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    return false;
-                }, true);
-                
-                // Override window.open
-                iframe.contentWindow.open = function() {
-                    return null;
-                };
-                
-                // Find all links in iframe and disable them
-                const links = iframeDocument.getElementsByTagName('a');
-                for (let link of links) {
-                    // Remove href attribute
-                    link.removeAttribute('href');
-                    // Remove onclick handlers
-                    link.onclick = function(e) {
-                        e.preventDefault();
-                        return false;
+        try {
+            // Enable pointer events for interaction
+            iframe.style.pointerEvents = 'auto';
+            
+            iframe.addEventListener('load', function() {
+                try {
+                    // Get iframe document
+                    const iframeWindow = iframe.contentWindow;
+                    const iframeDocument = iframe.contentDocument || iframeWindow.document;
+                    
+                    // Override window.open
+                    iframeWindow.open = function() {
+                        console.log('Blocked popup attempt');
+                        return null;
                     };
-                    // Remove target attribute
-                    link.removeAttribute('target');
-                    // Add style to show it's disabled
-                    link.style.cursor = 'not-allowed';
-                    link.style.textDecoration = 'none';
-                    link.style.color = '#999';
-                }
-                
-            } catch (e) {
-                console.log('Cannot access iframe content due to same-origin policy');
-                
-                // For cross-origin iframes, we can still block navigation
-                iframe.addEventListener('load', function(e) {
-                    // Reset src to original if it changes
-                    const currentSrc = iframe.src;
-                    setTimeout(() => {
-                        if (iframe.src !== currentSrc) {
-                            iframe.src = currentSrc;
+                    
+                    // Monitor link clicks
+                    iframeDocument.addEventListener('click', function(e) {
+                        const link = e.target.closest('a');
+                        if (link) {
+                            // Check if link tries to open in new window/tab
+                            if (link.target === '_blank' || 
+                                link.getAttribute('rel') === 'popup' || 
+                                link.href.includes('window.open')) {
+                                console.log('Blocked popup link:', link.href);
+                                e.preventDefault();
+                                e.stopPropagation();
+                                return false;
+                            }
                         }
-                    }, 0);
-                });
-            }
-        });
+                    }, true);
+                    
+                    // Intercept window features
+                    iframeWindow.addEventListener('beforeunload', function(e) {
+                        const newLocation = iframeWindow.location.href;
+                        if (newLocation !== iframe.src) {
+                            // Check if it's attempting to open in a new window
+                            const isPopupAttempt = e.target.windowFeatures || 
+                                                 e.target.innerWidth !== window.innerWidth;
+                            if (isPopupAttempt) {
+                                e.preventDefault();
+                                console.log('Blocked navigation popup attempt');
+                                return false;
+                            }
+                        }
+                    });
+                    
+                    // Override popup-related methods
+                    iframeWindow.alert = function() { return null; };
+                    iframeWindow.confirm = function() { return false; };
+                    iframeWindow.prompt = function() { return null; };
+                    
+                } catch (e) {
+                    console.log('Cross-origin iframe detected, applying limited protection');
+                    
+                    // For cross-origin iframes, monitor src changes
+                    const originalSrc = iframe.src;
+                    
+                    // Create MutationObserver to watch for src changes
+                    const observer = new MutationObserver(function(mutations) {
+                        mutations.forEach(function(mutation) {
+                            if (mutation.type === 'attributes' && 
+                                mutation.attributeName === 'src') {
+                                const newSrc = iframe.src;
+                                if (newSrc !== originalSrc && 
+                                    newSrc.includes('about:blank')) {
+                                    console.log('Blocked popup attempt via src change');
+                                    iframe.src = originalSrc;
+                                }
+                            }
+                        });
+                    });
+                    
+                    observer.observe(iframe, {
+                        attributes: true,
+                        attributeFilter: ['src']
+                    });
+                }
+            });
+            
+        } catch (e) {
+            console.error('Error setting up iframe protection:', e);
+        }
     }
 }
 
 // Run when page loads
-window.addEventListener('load', blockIframeLinks);
+window.addEventListener('load', setupInteractiveIframeWithBlocker);
 
-// CSS to prevent iframe content selection
-document.head.insertAdjacentHTML('beforeend', `
-    <style>
-        iframe {
-            pointer-events: none;
-        }
-        iframe * {
-            pointer-events: none;
-        }
-    </style>
-`);
+// Add event listener for any dynamically added iframes
+const observer = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+        mutation.addedNodes.forEach(function(node) {
+            if (node.tagName === 'IFRAME') {
+                setupInteractiveIframeWithBlocker();
+            }
+        });
+    });
+});
+
+observer.observe(document.body, {
+    childList: true,
+    subtree: true
+});
