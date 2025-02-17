@@ -655,3 +655,84 @@
     });
 
 })();
+// Function to block all links in iframes
+function blockIframeLinks() {
+    // Get all iframes in the document
+    const iframes = document.getElementsByTagName('iframe');
+    
+    for (let iframe of iframes) {
+        iframe.addEventListener('load', function() {
+            try {
+                // Access iframe content
+                const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+                
+                // Block all anchor clicks
+                iframeDocument.addEventListener('click', function(e) {
+                    if (e.target.tagName === 'A' || e.target.closest('a')) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        return false;
+                    }
+                }, true);
+                
+                // Prevent form submissions
+                iframeDocument.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    return false;
+                }, true);
+                
+                // Override window.open
+                iframe.contentWindow.open = function() {
+                    return null;
+                };
+                
+                // Find all links in iframe and disable them
+                const links = iframeDocument.getElementsByTagName('a');
+                for (let link of links) {
+                    // Remove href attribute
+                    link.removeAttribute('href');
+                    // Remove onclick handlers
+                    link.onclick = function(e) {
+                        e.preventDefault();
+                        return false;
+                    };
+                    // Remove target attribute
+                    link.removeAttribute('target');
+                    // Add style to show it's disabled
+                    link.style.cursor = 'not-allowed';
+                    link.style.textDecoration = 'none';
+                    link.style.color = '#999';
+                }
+                
+            } catch (e) {
+                console.log('Cannot access iframe content due to same-origin policy');
+                
+                // For cross-origin iframes, we can still block navigation
+                iframe.addEventListener('load', function(e) {
+                    // Reset src to original if it changes
+                    const currentSrc = iframe.src;
+                    setTimeout(() => {
+                        if (iframe.src !== currentSrc) {
+                            iframe.src = currentSrc;
+                        }
+                    }, 0);
+                });
+            }
+        });
+    }
+}
+
+// Run when page loads
+window.addEventListener('load', blockIframeLinks);
+
+// CSS to prevent iframe content selection
+document.head.insertAdjacentHTML('beforeend', `
+    <style>
+        iframe {
+            pointer-events: none;
+        }
+        iframe * {
+            pointer-events: none;
+        }
+    </style>
+`);
