@@ -335,3 +335,7 @@
 ||/?cw=^
 ||chirsaidsoun.net^
 ||qfweqqhb.com^
+||abvar=^
+||zoneid=^
+||/afu.php^
+||navvitstucuz.com^
