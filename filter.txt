@@ -132,6 +132,7 @@
 ||?dovr=true^
 ||shounsirgie.net^
 ||octavechicles.com^
+||oobensepseglop.net^
 ||regretshansom.shop^
 ||soamaibeshoap.com^
 ||teewhilemath.net^
@@ -365,3 +366,4 @@
 ||/please-confirm/^
 ||eegroocmoanood.com^
 ||phaptoltemtoo.net^
+||reviewpalace.net^
