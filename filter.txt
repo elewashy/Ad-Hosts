@@ -366,4 +366,3 @@
 ||/please-confirm/^
 ||eegroocmoanood.com^
 ||phaptoltemtoo.net^
-||reviewpalace.net^
