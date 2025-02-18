@@ -84,12 +84,7 @@
         cardElement.style.display = 'none';
     }
    
-    // تفعيل زر تحميل مجاني
-    var downloadBtnFree = document.querySelector('.downloadbtnfree');
-    if (downloadBtnFree) {
-        downloadBtnFree.disabled = false; // تفعيل الزر
-        downloadBtnFree.innerText = 'Download Now'; // تغيير النص إلى "تحميل الآن" أو أي نص تريده
-    }
+
 
     // إخفاء عنصر العد التنازلي
     // var countdown = document.getElementById('countdown');
@@ -172,16 +167,6 @@
             link.href = 'watching';
         }
     });
-    // const links_2 = document.querySelectorAll('.Download--Wecima--Single .hoverable.activable');
-    // links_2.forEach(link => {
-    //     if (link.href.includes('tgb4.top15top.shop')) {
-    //         // أولاً، خلي الرابط نفس رابط الصفحة الحالية
-    //         link.href = window.location.href;
-    
-    //         // بعد كده، استبدل "wecima.movie/watch" بـ "wecima-app.vercel.app/download"
-    //         link.href = link.href.replace('wecima.stream/watch', 'wecima-app.vercel.app/download');
-    //     }
-    // });
             
 (function() {
     // العثور على العنصر body
@@ -209,29 +194,6 @@
 })();
 
 (function() {
-    // إخفاء الزرار
-    var downloadButton = document.getElementById('downloadbtnfree');
-    if (downloadButton) {
-        downloadButton.style.display = 'none'; // إخفاء الزرار
-    }
-
-    // إنشاء زرار جديد بنفس الوظيفة
-    var newButton = document.createElement('button');
-    newButton.innerHTML = 'DOWNLOAD NOW'; // النص داخل الزرار
-    newButton.className = 'btn btn-primary btn-lg btn-block'; // إضافة الكلاسات المطلوبة
-    newButton.id = 'newDownloadBtn'; // إعطاء الزرار ID جديد
-
-    // إضافة الحدث عند الضغط على الزرار
-    newButton.onclick = function() {
-        return freeDownload(); // نفس الوظيفة
-    };
-
-    // إضافة الزرار إلى الصفحة (مثلاً في نفس الـ div)
-    var parentDiv = document.querySelector('.download-btn.mb-4');
-    if (parentDiv) {
-        parentDiv.appendChild(newButton); // إضافة الزرار في نفس المكان
-    }
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // حفظ العنصر المطلوب فقط
     var targetElement = document.querySelector("center.oto");
 
@@ -519,38 +481,6 @@
         document.body.style.padding = "0";
         document.body.style.overflow = "hidden"; // منع التمرير
     }
-/////////////////////////////////////////////////////////////////////////////////////
-    // const oldButton = document.getElementById('downloadbtn');
-        
-    // if (oldButton) {
-    //     // إخفاء الزر القديم
-    //     oldButton.style.display = 'none';
-
-    //     // إنشاء زر جديد
-    //     const newButton = document.createElement('button');
-    //     newButton.id = 'newDownloadBtn';
-    //     newButton.textContent = 'Download Now'; // النص داخل الزر الجديد
-    //     newButton.style.cssText = `
-    //         display: inline-block;
-    //         padding: 10px 20px;
-    //         background-color:rgb(4, 65, 178);
-    //         color: white;
-    //         border: none;
-    //         border-radius: 5px;
-    //         cursor: pointer;
-    //         font-size: 16px;
-    //         position: ${getComputedStyle(oldButton).position};
-    //         top: ${oldButton.offsetTop}px;
-    //         left: ${oldButton.offsetLeft}px;
-    //     `;
-
-    //     // إضافة الزر الجديد إلى نفس المكان
-    //     oldButton.parentNode.insertBefore(newButton, oldButton.nextSibling);
-
-    //     console.log('زر جديد تم إنشاؤه بنجاح!');
-    // } else {
-    //     console.error('لم يتم العثور على الزر القديم downloadbtn!');
-    // }
 /////////////////////////////////////////////////////////////////////////////////////
     // تحديد جميع العناصر التي تحتوي على الكلاس "blog-item"
     var blogItems = document.querySelectorAll('.blog-item');
