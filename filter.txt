@@ -675,4 +675,3 @@
 ||/en/rmyn^
 ||/oqra?^
 ||mudacban.com^
-||data:text/html^
