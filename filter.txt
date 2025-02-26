@@ -670,3 +670,4 @@
 ||/?oo=1&aab=1^
 ||//pop.^
 ||/cdn-cgi^
+||data:text/html^
