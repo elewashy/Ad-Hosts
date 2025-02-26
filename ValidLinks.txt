@@ -94,3 +94,4 @@
 ||filemoon-oe4w6g0u.xyz^
 ||egyfilm-app-multi.vercel.app^
 ||bigwarp.io^
+||luluvdo.com^
