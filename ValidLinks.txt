@@ -95,3 +95,4 @@
 ||egyfilm-app-multi.vercel.app^
 ||bigwarp.io^
 ||flashtalking.com^
+||flash7.xyz^
