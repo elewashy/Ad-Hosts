@@ -606,5 +606,68 @@
             link.href = link.href.replace("frdl.to", "frdl.io");
         }
     });
-
+    function removeElements() {
+        var elementsToRemove = ["xqeqjp", "xqeqjp1"];
+        
+        for (var i = 0; i < elementsToRemove.length; i++) {
+            var elementId = elementsToRemove[i];
+            var element = document.getElementById(elementId);
+            if (element && element.parentNode) {
+                element.parentNode.removeChild(element);
+                console.log("Removed element with ID: " + elementId);
+            } else {
+                console.log("Element with ID: " + elementId + " not found");
+            }
+        }
+    }
+    
+    // Execute the function
+    removeElements();
+})();
+// كود مباشر لإزالة مربع SweetAlert2 بالضبط
+(function() {
+    // استهداف بالتحديد وبطرق مختلفة
+    
+    // طريقة 1: الإزالة المباشرة بناءً على الكلاس
+    var sweetAlertBox = document.querySelector('.swal2-container.swal2-rtl.swal2-center.swal2-backdrop-show');
+    if (sweetAlertBox) {
+        sweetAlertBox.remove();
+        console.log("تمت إزالة مربع SweetAlert (طريقة 1)");
+        document.body.style.overflow = 'auto';
+        return; // توقف إذا نجحت هذه الطريقة
+    }
+    
+    // طريقة 2: البحث عن جميع حاويات SweetAlert وإزالتها
+    var allSwalContainers = document.querySelectorAll('[class*="swal2-container"]');
+    if (allSwalContainers.length > 0) {
+        for (var i = 0; i < allSwalContainers.length; i++) {
+            allSwalContainers[i].remove();
+        }
+        console.log("تمت إزالة " + allSwalContainers.length + " من مربعات SweetAlert (طريقة 2)");
+        document.body.style.overflow = 'auto';
+        return;
+    }
+    
+    // طريقة 3: محاولة إزالة العنصر من خلال إخفائه
+    var swalByTitle = document.querySelector('h2#swal2-title');
+    if (swalByTitle) {
+        var container = swalByTitle.closest('.swal2-container');
+        if (container) {
+            container.style.display = 'none';
+            console.log("تم إخفاء مربع SweetAlert (طريقة 3)");
+            document.body.style.overflow = 'auto';
+            return;
+        }
+    }
+    
+    console.log("لم نتمكن من العثور على مربع SweetAlert بالطرق العادية");
+    
+    // طريقة 4: كتابة مباشرة للغاية - إنشاء تداخل CSS يخفي العنصر
+    var style = document.createElement('style');
+    style.innerHTML = `
+        .swal2-container { display: none !important; }
+        body { overflow: auto !important; }
+    `;
+    document.head.appendChild(style);
+    console.log("تم إضافة CSS لإخفاء أي مربعات SweetAlert (طريقة 4)");
 })();
