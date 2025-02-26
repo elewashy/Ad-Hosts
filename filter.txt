@@ -665,3 +665,5 @@
 ||gumdropolena.com^
 ||ckaqbnrnngtjds.com^
 ||naumezeephovy.net^
+||/js/big.js^
+||&adtype=^
