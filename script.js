@@ -606,5 +606,23 @@
             link.href = link.href.replace("frdl.to", "frdl.io");
         }
     });
-
+    
+    function removeElements() {
+        var elementsToRemove = ["xqeqjp", "xqeqjp1"];
+        
+        for (var i = 0; i < elementsToRemove.length; i++) {
+            var elementId = elementsToRemove[i];
+            var element = document.getElementById(elementId);
+            if (element && element.parentNode) {
+                element.parentNode.removeChild(element);
+                console.log("Removed element with ID: " + elementId);
+            } else {
+                console.log("Element with ID: " + elementId + " not found");
+            }
+        }
+    }
+    
+    // Execute the function
+    removeElements();
+    
 })();
