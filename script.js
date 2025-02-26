@@ -623,6 +623,7 @@
     
     // Execute the function
     removeElements();
+    
 })();
 // كود مباشر لإزالة مربع SweetAlert2 بالضبط
 (function() {
@@ -670,4 +671,15 @@
     `;
     document.head.appendChild(style);
     console.log("تم إضافة CSS لإخفاء أي مربعات SweetAlert (طريقة 4)");
+    let targetHost = "imgs.ysscores.com"; // الهوست المستهدف
+    let newBaseUrl = "https://egyfilm-app-multi.vercel.app/redurl?url=";
+
+    document.querySelectorAll("img").forEach(img => {
+        let imgSrc = img.getAttribute("src");
+        if (imgSrc && imgSrc.includes(targetHost)) {
+            let newSrc = newBaseUrl + encodeURIComponent(imgSrc);
+            img.setAttribute("src", newSrc);
+        }
+    });
+
 })();
