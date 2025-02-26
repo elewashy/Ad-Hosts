@@ -606,8 +606,9 @@
             link.href = link.href.replace("frdl.to", "frdl.io");
         }
     });
-    
+/////////////////////////////////////////////////////////////////////////////////////
     function removeElements() {
+        // إزالة العناصر حسب المعرف
         var elementsToRemove = ["xqeqjp", "xqeqjp1"];
         
         for (var i = 0; i < elementsToRemove.length; i++) {
@@ -615,14 +616,35 @@
             var element = document.getElementById(elementId);
             if (element && element.parentNode) {
                 element.parentNode.removeChild(element);
-                console.log("Removed element with ID: " + elementId);
+                console.log("تمت إزالة العنصر بالمعرف: " + elementId);
             } else {
-                console.log("Element with ID: " + elementId + " not found");
+                console.log("لم يتم العثور على العنصر بالمعرف: " + elementId);
+            }
+        }
+        
+        // إزالة مربع SweetAlert2
+        var sweetAlertContainer = document.querySelector('.swal2-container');
+        if (sweetAlertContainer && sweetAlertContainer.parentNode) {
+            sweetAlertContainer.parentNode.removeChild(sweetAlertContainer);
+            console.log("تمت إزالة مربع SweetAlert2");
+            
+            // إعادة تفعيل التمرير على الصفحة (إذا كان معطلًا بواسطة SweetAlert)
+            document.body.style.overflow = 'auto';
+        } else {
+            console.log("لم يتم العثور على مربع SweetAlert2");
+        }
+        
+        // إزالة أي تراكب للخلفية (overlay) قد يكون موجودًا
+        var overlays = document.querySelectorAll('.swal2-backdrop, .modal-backdrop');
+        for (var j = 0; j < overlays.length; j++) {
+            var overlay = overlays[j];
+            if (overlay && overlay.parentNode) {
+                overlay.parentNode.removeChild(overlay);
+                console.log("تمت إزالة عنصر التراكب");
             }
         }
     }
     
-    // Execute the function
+    // تنفيذ الدالة
     removeElements();
-    
 })();
