@@ -99,3 +99,4 @@
 ||liteapks.com^
 ||getmodsapk.com^
 ||apkmody.com^
+||imgs.ysscores.com^
