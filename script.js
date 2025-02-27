@@ -163,7 +163,7 @@
 })();
     const links = document.querySelectorAll('.btns a');
     links.forEach(link => {
-        if (link.href.includes('new.cimanow.online')) {
+        if (link.href.includes('mothaqaf.cimanow.online')) {
             link.href = 'watching';
         }
     });
