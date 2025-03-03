@@ -125,7 +125,7 @@
     });
 
     // تحقق إذا كان الرابط يحتوي على domain ma3refa.online
-    if (window.location.href.includes("ma3refa.online/ta7mel")) {
+    if (window.location.href.includes("khabrnew.store/ta7mel")) {
         // الحصول على الرابط النهائي
         const urlParams = new URLSearchParams(window.location.search);
         const redirectedUrl = urlParams.get("postUrl");
