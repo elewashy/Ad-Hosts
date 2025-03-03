@@ -163,11 +163,17 @@
 })();
     const links = document.querySelectorAll('.btns a');
     links.forEach(link => {
-        if (link.href.includes('mothaqaf.cimanow.online', 'new.cimanow.online')) {
+        if (link.href.includes('mothaqaf.cimanow.online')) {
             link.href = 'watching';
         }
     });
-            
+    const links2 = document.querySelectorAll('.btns a');
+    links2.forEach(link => {
+        if (link.href.includes('new.cimanow.online')) {
+            link.href = 'watching';
+        }
+    });
+    
 (function() {
     // العثور على العنصر body
     var element = document.body;
