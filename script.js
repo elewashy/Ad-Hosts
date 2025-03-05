@@ -690,3 +690,54 @@
     var count = parseInt($.cookie('ads'));
     var count2 = 0;
 })();
+(function () {
+    'use strict';
+
+    const blockedPatterns = [
+        /eval\s*\(/,              // منع eval()
+        /document\.write\s*\(/,   // منع document.write()
+        /atob\s*\(/,              // منع atob (قد تستخدم لفك تشفير الأكواد المشبوهة)
+        /btoa\s*\(/,              // منع btoa
+        /setTimeout\s*\(.*?eval/, // منع setTimeout مع eval
+        /setInterval\s*\(.*?eval/, // منع setInterval مع eval
+        /Function\s*\(/,          // منع Function()
+        /decodeURIComponent\s*\(/, // لمنع استخدام فك تشفير الأكواد المشبوهة
+        /String\.fromCharCode\s*\(/ // يستخدم في تحويل الأكواد المشفرة
+    ];
+
+    function isSuspiciousScript(scriptContent) {
+        return blockedPatterns.some(pattern => pattern.test(scriptContent));
+    }
+
+    function blockSuspiciousScripts() {
+        document.querySelectorAll('script').forEach(script => {
+            if (script.src) return; // تخطي السكربتات الخارجية (يمكنك تعديل هذا)
+
+            const scriptContent = script.textContent || script.innerText;
+            if (isSuspiciousScript(scriptContent)) {
+                console.warn('Blocked suspicious script:', script);
+                script.remove();
+            }
+        });
+    }
+
+    const observer = new MutationObserver(mutations => {
+        mutations.forEach(mutation => {
+            mutation.addedNodes.forEach(node => {
+                if (node.tagName === 'SCRIPT') {
+                    const scriptContent = node.textContent || node.innerText;
+                    if (isSuspiciousScript(scriptContent)) {
+                        console.warn('Blocked suspicious script before execution:', node);
+                        node.remove();
+                    }
+                }
+            });
+        });
+    });
+
+    observer.observe(document.documentElement, { childList: true, subtree: true });
+
+    window.addEventListener('DOMContentLoaded', blockSuspiciousScripts);
+    window.addEventListener('load', blockSuspiciousScripts);
+
+})();
