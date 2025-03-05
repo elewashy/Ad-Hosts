@@ -687,3 +687,7 @@
 ||/adblock^
 ||sheecmimty.net^
 ||?psid=^
+||/en/bme^
+||.com/en/^
+||xubatxswa.com^
+||data:image/gif;base64^
