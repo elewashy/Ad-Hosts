@@ -100,8 +100,3 @@
 ||getmodsapk.com^
 ||apkmody.com^
 ||imgs.ysscores.com^
-||acscdn.com^
-||adligature.com^
-||outbrain.com^
-||quantserve.com^
-||srvtrck.com^
