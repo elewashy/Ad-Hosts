@@ -677,3 +677,16 @@
     document.head.appendChild(style);
     console.log("تم إضافة CSS لإخفاء أي مربعات SweetAlert (طريقة 4)");
 })();
+(function() {
+    var delay_done = 1;
+    setTimeout(function() {
+        $('#blk1').hide();
+    }, 1000);
+
+    if (!$.cookie('ads')) {
+        $.cookie('ads', -1, { expires: 1 });
+    }
+
+    var count = parseInt($.cookie('ads'));
+    var count2 = 0;
+})();
