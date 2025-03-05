@@ -100,3 +100,9 @@
 ||getmodsapk.com^
 ||apkmody.com^
 ||imgs.ysscores.com^
+||acscdn.com^
+||adligature.com^
+||heardaccumulatebeans.com^
+||outbrain.com^
+||quantserve.com^
+||srvtrck.com^
