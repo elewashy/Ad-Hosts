@@ -683,3 +683,5 @@
 ||fashmuqpi.com^
 ||futchelbelles.top^
 ||accurstscaur.shop^
+||adblock^
+||/adblock^
