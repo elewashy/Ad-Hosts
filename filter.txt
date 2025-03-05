@@ -685,5 +685,3 @@
 ||accurstscaur.shop^
 ||adblock^
 ||/adblock^
-||sheecmimty.net^
-||?psid=^
