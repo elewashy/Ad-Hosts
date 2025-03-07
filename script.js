@@ -519,9 +519,13 @@
         item.style.display = 'none';
     });
 /////////////////////////////////////////////////////////////////////////////////////
-    var warnArea = document.getElementById("additional");
+    var warnArea = document.getElementById("warnarea");
     if (warnArea) {
         warnArea.style.display = "none";
+    }
+    var blackpage = document.getElementById("blackpage");
+    if (blackpage) {
+        blackpage.style.display = "none";
     }
 
 /////////////////////////////////////////////////////////////////////////////////////
