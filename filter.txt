@@ -689,3 +689,4 @@
 ||.com/en/^
 ||xubatxswa.com^
 ||data:image/gif;base64^
+||cimanow.cc^
