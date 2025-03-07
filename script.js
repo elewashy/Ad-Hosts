@@ -519,9 +519,9 @@
         item.style.display = 'none';
     });
 /////////////////////////////////////////////////////////////////////////////////////
-    var warnArea = document.getElementById("warnarea");
-    if (warnArea) {
-        warnArea.remove();
+    var additional = document.getElementById("additional");
+    if (additional) {
+        additional.remove();
     }
     
 /////////////////////////////////////////////////////////////////////////////////////
