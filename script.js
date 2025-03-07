@@ -509,15 +509,7 @@
         document.body.style.margin = "0";
         document.body.style.padding = "0";
         document.body.style.overflow = "hidden"; // منع التمرير
-    }
-/////////////////////////////////////////////////////////////////////////////////////    
-    var site = window.location.hostname;
-    var targetSite = "cr3zyblog.com";
-    
-    if (site === targetSite || site === "www." + targetSite) {
-        document.body.style.display = "none";
-    }
-    
+    }    
 /////////////////////////////////////////////////////////////////////////////////////
     // تحديد جميع العناصر التي تحتوي على الكلاس "blog-item"
     var blogItems = document.querySelectorAll('.blog-item');
