@@ -91,7 +91,6 @@
 ||static.apkmody.com^
 ||egyfilm-app-multi.vercel.app^
 ||bigwarp.io^
-||secure.flashtalking.com^
 ||flash7.xyz^
 ||liteapks.com^
 ||getmodsapk.com^
