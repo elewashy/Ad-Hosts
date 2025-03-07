@@ -519,7 +519,7 @@
         item.style.display = 'none';
     });
 /////////////////////////////////////////////////////////////////////////////////////
-    var warnArea = document.getElementById("warnarea");
+    var warnArea = document.getElementById("additional");
     if (warnArea) {
         warnArea.style.display = "none";
     }
