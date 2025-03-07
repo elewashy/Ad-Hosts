@@ -100,7 +100,3 @@
 ||getmodsapk.com^
 ||apkmody.com^
 ||imgs.ysscores.com^
-||googlesyndication.com^
-||sasinoxyazo.com^
-||gpt.js^
-||doubleclick.net^
