@@ -97,9 +97,3 @@
 ||getmodsapk.com^
 ||apkmody.com^
 ||imgs.ysscores.com^
-||doubleclick.net^
-||flashtalking.com^
-||secure.flashtalking.com^
-||googlesyndication.com^
-||pagead2.googlesyndication.com^
-||ibb.co^
