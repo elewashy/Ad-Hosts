@@ -691,3 +691,6 @@
 ||.com/en/^
 ||xubatxswa.com^
 ||data:image/gif;base64^
+||adblock^
+||unpkg.com/just-detect-adblock@latest/dist/bundle.umd.js^
+||just-detect-adblock^
