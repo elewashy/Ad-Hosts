@@ -509,7 +509,7 @@
         document.body.style.margin = "0";
         document.body.style.padding = "0";
         document.body.style.overflow = "hidden"; // منع التمرير
-    }    
+    }
 /////////////////////////////////////////////////////////////////////////////////////
     // تحديد جميع العناصر التي تحتوي على الكلاس "blog-item"
     var blogItems = document.querySelectorAll('.blog-item');
@@ -590,32 +590,10 @@
     if (adBlockWarning) {
         adBlockWarning.remove();
     }
-    var warnArea = document.querySelector(".warnarea-wrapper");
-    if (warnArea) {
-        warnArea.remove();
-    }
-    
     var adOverlay = document.querySelector('.afcceb-afdacf');
     if (adOverlay) {
         adOverlay.remove();
     }
-    // تعطيل الكود بمنع تنفيذ الدالة الأساسية
-    window.s1dd9f1c06c374a739d468e77d3fee817_6623f60e12e3d40244a0a59f4f765695 = function() {};
-
-    // مسح جميع السكربتات من الصفحة التي تحتوي على الكود المستهدف
-    document.querySelectorAll("script").forEach(script => {
-        if (script.innerHTML.includes("s1dd9f1c06c374a739d468e77d3fee817_6623f60e12e3d40244a0a59f4f765695")) {
-            script.remove();
-        }
-    });
-
-    // تعطيل تنفيذ أي أكواد لها علاقة بالشريط التقدمي والزر
-    document.querySelectorAll('.progress, .progress-done, #continue-button').forEach(el => {
-        el.remove();
-    });
-
-    // تعطيل eventListener للزر
-    document.getElementById("continue-button")?.removeEventListener('click', yuideascrolldown);
 
     document.body.classList.remove('afcceb-dbafdacfcb');
 
