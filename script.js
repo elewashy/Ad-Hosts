@@ -519,6 +519,12 @@
         item.style.display = 'none';
     });
 /////////////////////////////////////////////////////////////////////////////////////
+    var warnArea = document.getElementById("warnarea");
+    if (warnArea) {
+        warnArea.remove();
+    }
+    
+/////////////////////////////////////////////////////////////////////////////////////
     const section = document.querySelector('section#secondSection'); // البحث عن القسم
     const button = section?.querySelector(
         'a[href="https://yourdoctor.site?cdf_plus=EgyFilm_Code"], a[href="https://swiftlnx.com/EgyFilm_Code"]'
