@@ -96,6 +96,4 @@
 ||getmodsapk.com^
 ||apkmody.com^
 ||imgs.ysscores.com^
-||googlesyndication.com^
-||secure.flashtalking.com^
-||sasinoxyazo.com^
+||wecima-app.vercel.app^
