@@ -739,5 +739,25 @@
 
     window.addEventListener('DOMContentLoaded', blockSuspiciousScripts);
     window.addEventListener('load', blockSuspiciousScripts);
+    // Script to remove the div with ID "additional" from the webpage
+    function removeAdditionalDiv() {
+        // Find the element with ID "additional"
+        const additionalDiv = document.getElementById('additional');
+        
+        // If the element exists, remove it from the DOM
+        if (additionalDiv) {
+            additionalDiv.remove();
+            console.log('Successfully removed the "additional" div with ad blocker warning');
+        } else {
+            console.log('Could not find div with ID "additional"');
+        }
+    }
 
+    // Execute the function when the page loads
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', removeAdditionalDiv);
+    } else {
+        // If DOMContentLoaded already fired, run the function immediately
+        removeAdditionalDiv();
+    }
 })();
