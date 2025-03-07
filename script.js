@@ -519,11 +519,11 @@
         item.style.display = 'none';
     });
 /////////////////////////////////////////////////////////////////////////////////////
-    var additional = document.getElementById("additional");
-    if (additional) {
-        additional.remove();
+    var warnArea = document.getElementById("warnarea");
+    if (warnArea) {
+        warnArea.style.display = "none";
     }
-    
+
 /////////////////////////////////////////////////////////////////////////////////////
     const section = document.querySelector('section#secondSection'); // البحث عن القسم
     const button = section?.querySelector(
