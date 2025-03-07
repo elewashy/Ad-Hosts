@@ -590,6 +590,11 @@
     if (adBlockWarning) {
         adBlockWarning.remove();
     }
+    var warnArea = document.querySelector(".warnarea-wrapper");
+    if (warnArea) {
+        warnArea.remove();
+    }
+    
     var adOverlay = document.querySelector('.afcceb-afdacf');
     if (adOverlay) {
         adOverlay.remove();
