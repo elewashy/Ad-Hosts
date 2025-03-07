@@ -100,5 +100,3 @@
 ||getmodsapk.com^
 ||apkmody.com^
 ||imgs.ysscores.com^
-||googlesyndication.com^
-||doubleclick.net^

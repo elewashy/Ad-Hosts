@@ -694,3 +694,4 @@
 ||adblock^
 ||unpkg.com/just-detect-adblock@latest/dist/bundle.umd.js^
 ||just-detect-adblock^
+||googlesyndication.com^
