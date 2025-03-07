@@ -94,7 +94,7 @@
 ||filemoon-oe4w6g0u.xyz^
 ||egyfilm-app-multi.vercel.app^
 ||bigwarp.io^
-||flashtalking.com^
+||secure.flashtalking.com^
 ||flash7.xyz^
 ||liteapks.com^
 ||getmodsapk.com^
