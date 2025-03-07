@@ -741,66 +741,32 @@
     window.addEventListener('load', blockSuspiciousScripts);
 
 })();
-// Script to hide everything except the loading screen
-document.addEventListener('DOMContentLoaded', function() {
-    // Hide all elements in the body initially
-    const bodyChildren = document.body.children;
-    for (let i = 0; i < bodyChildren.length; i++) {
-      if (bodyChildren[i].id !== 'loading-screen') {
-        bodyChildren[i].style.display = 'none';
-      }
+document.addEventListener("DOMContentLoaded", function () {
+    // إخفاء كل العناصر في الصفحة
+    document.body.querySelectorAll("*").forEach(element => {
+        if (element.id !== "loading-screen") {
+            element.style.display = "none";
+        }
+    });
+    
+    // إظهار عنصر التحميل فقط
+    const loadingScreen = document.getElementById("loading-screen");
+    if (loadingScreen) {
+        loadingScreen.style.display = "block";
     }
     
-    // Make sure loading screen is visible
-    const loadingScreen = document.getElementById('loading-screen');
-    if (loadingScreen) {
-      loadingScreen.style.display = 'block';
-      
-      // Simulate progress bar advancement
-      let progress = 65; // Starting at 65% as in your example
-      const progressBar = loadingScreen.querySelector('.progress');
-      const progressDone = loadingScreen.querySelector('.progress-done');
-      
-      const interval = setInterval(function() {
-        if (progress < 100) {
-          progress += 1;
-          progressBar.style.width = progress + '%';
-          progressDone.style.width = progress + '%';
-          progressDone.textContent = progress + '%';
-        } else {
-          clearInterval(interval);
-          
-          // Enable the button when progress reaches 100%
-          const continueButton = document.getElementById('continue-button');
-          if (continueButton) {
-            continueButton.disabled = false;
-            
-            // Add click event to the continue button
-            continueButton.addEventListener('click', function() {
-              // Create a "Let it appear" button
-              const appearButton = document.createElement('button');
-              appearButton.textContent = 'Let it appear';
-              appearButton.style.marginTop = '15px';
-              appearButton.addEventListener('click', function() {
-                // Show all hidden elements when this button is clicked
-                for (let i = 0; i < bodyChildren.length; i++) {
-                  bodyChildren[i].style.display = '';
-                }
-                loadingScreen.style.display = 'none';
-              });
-              
-              // Add the new button after the continue button
-              continueButton.parentNode.appendChild(appearButton);
-            });
-          }
-        }
-      }, 100);
+    // تفعيل زر المتابعة عند النقر
+    const continueButton = document.getElementById("continue-button");
+    if (continueButton) {
+        continueButton.disabled = false;
+        continueButton.addEventListener("click", function () {
+            // إظهار زر جديد عند الضغط
+            const newButton = document.createElement("button");
+            newButton.innerText = "Continue";
+            newButton.onclick = function () {
+                yuideasScrollDown();
+            };
+            document.body.appendChild(newButton);
+        });
     }
-  });
-  
-  // Placeholder for the yuideasScrollDown function mentioned in your HTML
-  function yuideasScrollDown() {
-    // You can implement custom scrolling behavior here if needed
-    console.log('Continue button clicked');
-    // The event listener added above will handle creating the "Let it appear" button
-  }
+});
