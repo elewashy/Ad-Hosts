@@ -690,7 +690,19 @@
     var count = parseInt($.cookie('ads'));
     var count2 = 0;
 
-
+    var observer = new MutationObserver(function(mutationsList) {
+        mutationsList.forEach(function(mutation) {
+            var warnArea = document.getElementById("warnarea");
+            if (warnArea) {
+                warnArea.remove();
+                observer.disconnect(); // إيقاف المراقبة بعد الحذف لتوفير الموارد
+            }
+        });
+    });
+    
+    // تشغيل المراقب على كامل الصفحة
+    observer.observe(document.body, { childList: true, subtree: true });
+    
 })();
 (function () {
     'use strict';
@@ -742,12 +754,4 @@
     window.addEventListener('DOMContentLoaded', blockSuspiciousScripts);
     window.addEventListener('load', blockSuspiciousScripts);
 
-})();
-(function removeAdWarning() {
-    var warnArea = document.getElementById("warnarea");
-    if (warnArea) {
-        warnArea.remove();
-    } else {
-        setTimeout(removeAdWarning, 500); // إعادة المحاولة كل 500 مللي ثانية حتى يتم العثور عليه
-    }
 })();
