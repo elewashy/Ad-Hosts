@@ -173,7 +173,13 @@
             link.href = 'watching';
         }
     });
-    
+    const links3 = document.querySelectorAll('.btns a');
+    links3.forEach(link => {
+        if (link.href.includes('rm.freex2line.online')) {
+            link.href = 'watching';
+        }
+    });
+
 (function() {
     // العثور على العنصر body
     var element = document.body;
