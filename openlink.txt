@@ -2,5 +2,5 @@
 ||vk.com/s/v1/doc/^
 ||vk.com/doc^
 ||egyfilm-app-server.vercel.app^
-||files.getmodsapk.com^
+||t.me/EgyFilm_code^
 ||.veevcdn.co/^
