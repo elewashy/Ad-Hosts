@@ -596,6 +596,11 @@
     if (adBlockWarning) {
         adBlockWarning.remove();
     }
+    var adBlockDiv = document.querySelector('.fjojw-ihdwiiwd#owjojw-du2');
+    if (adBlockDiv) {
+        adBlockDiv.remove();
+    }
+
     var adOverlay = document.querySelector('.afcceb-afdacf');
     if (adOverlay) {
         adOverlay.remove();
