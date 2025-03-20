@@ -695,4 +695,3 @@
 ||ppd&wtc=dlink&r=^
 ||.fun/ffe7?^
 ||?cs=ppd&wtc=^
-||=dlink&r=^
