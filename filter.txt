@@ -691,3 +691,8 @@
 ||data:image/gif;base64^
 ||?blockID=^
 ||viiskuvr.com^
+||/401/^
+||ppd&wtc=dlink&r=^
+||.fun/ffe7?^
+||?cs=ppd&wtc=^
+||=dlink&r=^
