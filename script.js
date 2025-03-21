@@ -736,10 +736,23 @@
     var count2 = 0;
 })();
 (function() {
-    setTimeout(function() {
+    function removeAds() {
         var adPopup = document.getElementById('nindo-popup-portal');
         if (adPopup) {
             adPopup.remove();
         }
-    }, 1000); // بعد ثانية واحدة
+
+        var adElements = document.querySelectorAll('.nindo-popup, .nindo-popup-overlay, .nindo-popup-content-wrapper');
+        adElements.forEach(function(el) {
+            el.remove();
+        });
+    }
+
+    // تشغيل الحذف كل 500 مللي ثانية للتأكد من إزالة الإعلانات حتى لو ظهرت بعد التحميل
+    var interval = setInterval(removeAds, 500);
+
+    // إيقاف الفحص بعد 10 ثواني (لتوفير الأداء)
+    setTimeout(function() {
+        clearInterval(interval);
+    }, 10000);
 })();
