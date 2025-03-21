@@ -525,37 +525,6 @@
         item.style.display = 'none';
     });
 /////////////////////////////////////////////////////////////////////////////////////
-    let iframes = document.querySelectorAll("iframe");
-    let targetIframe = null;
-
-    iframes.forEach(iframe => {
-        if (iframe.src.includes("/albaplayer/")) {
-            targetIframe = iframe;
-        }
-    });
-
-    if (targetIframe) {
-        // إخفاء كل العناصر في الصفحة
-        document.body.childNodes.forEach(node => {
-            if (node !== targetIframe && node.nodeType === 1) {
-                node.style.display = "none";
-            }
-        });
-
-        // ضبط ال iframe ليكون بالحجم الكامل
-        targetIframe.style.position = "fixed";
-        targetIframe.style.top = "0";
-        targetIframe.style.left = "0";
-        targetIframe.style.width = "100vw";
-        targetIframe.style.height = "100vh";
-        targetIframe.style.zIndex = "9999";
-
-        console.log("✅ تم إخفاء كل شيء والإبقاء على iframe المطلوب!");
-    } else {
-        console.log("❌ لم يتم العثور على iframe يحتوي على '/albaplayer/'.");
-    }
-
-/////////////////////////////////////////////////////////////////////////////////////
     // let verifyButton = document.querySelector('#hmVrfy .pstL');
     // let goToLinkContainer = document.querySelector('.aSlB.vsbl');
 
@@ -774,3 +743,10 @@
     var count = parseInt($.cookie('ads'));
     var count2 = 0;
 })();
+document.addEventListener("DOMContentLoaded", function () {
+    setInterval(() => {
+        let popups = document.querySelectorAll(".nindo-popup, .faded-in.nindo-popup-content-wrapper");
+        popups.forEach(popup => popup.remove());
+        console.log("✅ تم حذف النوافذ المنبثقة!");
+    }, 1000); // بيحذفها كل ثانية عشان لو ظهرت تاني
+});
