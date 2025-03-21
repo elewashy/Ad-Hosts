@@ -526,17 +526,29 @@
     });
 
 /////////////////////////////////////////////////////////////////////////////////////
-    let keepElements = document.querySelectorAll('.aSlB.vsbl, #hmVrfy');
+    let verifyButton = document.querySelector('#hmVrfy .pstL');
 
-    if (keepElements.length > 0) {  
-        // إنشاء عنصر جديد لحفظ العناصر المطلوبة
+    if (verifyButton) {  
+        // إخفاء كل العناصر في الصفحة
+        document.body.childNodes.forEach(node => {
+            if (node.nodeType === 1) { // يتحقق إنه عنصر HTML
+                node.style.display = 'none';
+            }
+        });
+
+        // إظهار الزر فقط
+        verifyButton.style.display = 'block';
+        verifyButton.style.margin = '20px auto'; // توسيطه في الصفحة
+        verifyButton.style.textAlign = 'center';
+
+        // إضافة الزر إلى وسط الصفحة
         let container = document.createElement('div');
-        keepElements.forEach(el => container.appendChild(el.cloneNode(true)));
+        container.style.display = 'flex';
+        container.style.justifyContent = 'center';
+        container.style.alignItems = 'center';
+        container.style.height = '100vh';
+        container.appendChild(verifyButton);
 
-        // مسح الصفحة تمامًا
-        document.body.innerHTML = '';
-
-        // إضافة العناصر المحفوظة مرة أخرى إلى الصفحة
         document.body.appendChild(container);
     }
 
