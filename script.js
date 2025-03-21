@@ -732,9 +732,7 @@
 })();
 (function() {
     var delay_done = 1;
-    setTimeout(function() {
-        $('#blk1').hide();
-    }, 1000);
+    $('#blk1').hide(); // إخفاء العنصر مباشرةً بدون انتظار
 
     if (!$.cookie('ads')) {
         $.cookie('ads', -1, { expires: 1 });
