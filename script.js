@@ -526,40 +526,40 @@
     });
 
 /////////////////////////////////////////////////////////////////////////////////////
-    let verifyButton = document.querySelector('#hmVrfy .pstL');
-    let goToLinkContainer = document.querySelector('.aSlB.vsbl');
+    // let verifyButton = document.querySelector('#hmVrfy .pstL');
+    // let goToLinkContainer = document.querySelector('.aSlB.vsbl');
 
-    if (verifyButton || goToLinkContainer) {  
-        // إخفاء كل عناصر الصفحة
-        document.body.childNodes.forEach(node => {
-            if (node.nodeType === 1) { // يتحقق إنه عنصر HTML
-                node.style.display = 'none';
-            }
-        });
+    // if (verifyButton || goToLinkContainer) {  
+    //     // إخفاء كل عناصر الصفحة
+    //     document.body.childNodes.forEach(node => {
+    //         if (node.nodeType === 1) { // يتحقق إنه عنصر HTML
+    //             node.style.display = 'none';
+    //         }
+    //     });
 
-        // إنشاء كونتينر جديد لتجميع العناصر المطلوبة
-        let container = document.createElement('div');
-        container.style.display = 'flex';
-        container.style.flexDirection = 'column';
-        container.style.justifyContent = 'center';
-        container.style.alignItems = 'center';
-        container.style.height = '100vh';
-        container.style.gap = '15px'; // مسافة بين العناصر
+    //     // إنشاء كونتينر جديد لتجميع العناصر المطلوبة
+    //     let container = document.createElement('div');
+    //     container.style.display = 'flex';
+    //     container.style.flexDirection = 'column';
+    //     container.style.justifyContent = 'center';
+    //     container.style.alignItems = 'center';
+    //     container.style.height = '100vh';
+    //     container.style.gap = '15px'; // مسافة بين العناصر
 
-        // إضافة زر "I am not a Robot" لو موجود
-        if (verifyButton) {
-            verifyButton.style.display = 'block';
-            container.appendChild(verifyButton);
-        }
+    //     // إضافة زر "I am not a Robot" لو موجود
+    //     if (verifyButton) {
+    //         verifyButton.style.display = 'block';
+    //         container.appendChild(verifyButton);
+    //     }
 
-        // إضافة زر "Go to Link" مع الكونتينر بتاعه لو موجود
-        if (goToLinkContainer) {
-            goToLinkContainer.style.display = 'block';
-            container.appendChild(goToLinkContainer);
-        }
+    //     // إضافة زر "Go to Link" مع الكونتينر بتاعه لو موجود
+    //     if (goToLinkContainer) {
+    //         goToLinkContainer.style.display = 'block';
+    //         container.appendChild(goToLinkContainer);
+    //     }
 
-        document.body.appendChild(container);
-    }
+    //     document.body.appendChild(container);
+    // }
 /////////////////////////////////////////////////////////////////////////////////////
     const section = document.querySelector('section#secondSection'); // البحث عن القسم
     const button = section?.querySelector(
