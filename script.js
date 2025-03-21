@@ -526,61 +526,6 @@
     });
 
 /////////////////////////////////////////////////////////////////////////////////////
-    let iframes = document.querySelectorAll("iframe");
-
-    iframes.forEach(iframe => {
-        try {
-            iframe.addEventListener("load", function() {
-                let iframeWindow = iframe.contentWindow;
-
-                // منع `window.open()` داخل iframe
-                iframeWindow.open = function() {
-                    console.warn("Popup blocked inside iframe!");
-                    return null;
-                };
-
-                // منع `target=_blank` داخل iframe
-                let links = iframe.contentDocument.querySelectorAll("a");
-                links.forEach(link => {
-                    link.setAttribute("target", "_self"); // يجبر الرابط يفتح بنفس الصفحة
-                    link.addEventListener("click", function(event) {
-                        event.preventDefault();
-                        console.warn("Blocked external link inside iframe:", link.href);
-                    });
-                });
-
-                // تعطيل أكواد pop-under مثل `eval()`, `setTimeout()`, `setInterval()`
-                iframeWindow.eval = function() {
-                    console.warn("Blocked eval script inside iframe!");
-                };
-                iframeWindow.setTimeout = function() {
-                    console.warn("Blocked setTimeout inside iframe!");
-                };
-                iframeWindow.setInterval = function() {
-                    console.warn("Blocked setInterval inside iframe!");
-                };
-
-                // منع الأكواد اللي بتحاول تفتح pop-under عند النقر
-                iframeWindow.addEventListener("mousedown", function() {
-                    setTimeout(function() {
-                        if (iframeWindow.document.hasFocus() === false) {
-                            console.warn("Pop-Under attempt blocked inside iframe!");
-                            iframeWindow.focus();
-                        }
-                    }, 200);
-                });
-
-                // منع الأكواد اللي بتحاول تفتح نوافذ عند إغلاق الصفحة
-                iframeWindow.onbeforeunload = function() {
-                    return "Are you sure you want to leave?";
-                };
-
-            });
-        } catch (e) {
-            console.error("Can't modify iframe settings:", e);
-        }
-    });
-/////////////////////////////////////////////////////////////////////////////////////
     // let verifyButton = document.querySelector('#hmVrfy .pstL');
     // let goToLinkContainer = document.querySelector('.aSlB.vsbl');
 
