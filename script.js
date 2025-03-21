@@ -526,6 +526,51 @@
     });
 
 /////////////////////////////////////////////////////////////////////////////////////
+    let iframes = document.querySelectorAll("iframe");
+
+    iframes.forEach(iframe => {
+        try {
+            // منع فتح النوافذ المنبثقة داخل الـ iframe
+            iframe.contentWindow.open = function() {
+                console.warn("Popup blocked from iframe!");
+                return null;
+            };
+
+            // منع فتح أي رابط في نافذة جديدة داخل الـ iframe
+            iframe.addEventListener("load", function() {
+                try {
+                    let links = iframe.contentDocument.querySelectorAll("a");
+                    links.forEach(link => {
+                        link.setAttribute("target", "_self"); // يجبر الرابط يفتح بنفس الصفحة
+                        link.addEventListener("click", function(event) {
+                            event.preventDefault();
+                            console.warn("Blocked external link in iframe:", link.href);
+                        });
+                    });
+                } catch (e) {
+                    console.error("Can't access iframe content:", e);
+                }
+            });
+        } catch (e) {
+            console.error("Can't modify iframe settings:", e);
+        }
+    });
+
+    // منع فتح أي نوافذ خارجية من الصفحة بالكامل
+    window.open = function() {
+        console.warn("Popup blocked!");
+        return null;
+    };
+
+    // منع النوافذ اللي تفتح عبر أحداث JavaScript مثل window.open أو target=_blank
+    document.addEventListener("click", function(event) {
+        let el = event.target.closest("a");
+        if (el && el.target === "_blank") {
+            event.preventDefault();
+            console.warn("Blocked external link:", el.href);
+        }
+    });
+/////////////////////////////////////////////////////////////////////////////////////
     // let verifyButton = document.querySelector('#hmVrfy .pstL');
     // let goToLinkContainer = document.querySelector('.aSlB.vsbl');
 
