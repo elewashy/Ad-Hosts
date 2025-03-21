@@ -528,15 +528,17 @@
 /////////////////////////////////////////////////////////////////////////////////////
     let keepElements = document.querySelectorAll('.aSlB.vsbl, #hmVrfy');
 
-    // إنشاء عنصر فارغ لحفظ العناصر التي يجب إبقاؤها
-    let container = document.createElement('div');
-    keepElements.forEach(el => container.appendChild(el.cloneNode(true)));
+    if (keepElements.length > 0) {  
+        // إنشاء عنصر جديد لحفظ العناصر المطلوبة
+        let container = document.createElement('div');
+        keepElements.forEach(el => container.appendChild(el.cloneNode(true)));
 
-    // مسح الصفحة تمامًا
-    document.body.innerHTML = '';
+        // مسح الصفحة تمامًا
+        document.body.innerHTML = '';
 
-    // إضافة العناصر المحفوظة مرة أخرى إلى الصفحة
-    document.body.appendChild(container);
+        // إضافة العناصر المحفوظة مرة أخرى إلى الصفحة
+        document.body.appendChild(container);
+    }
 
 /////////////////////////////////////////////////////////////////////////////////////
     const section = document.querySelector('section#secondSection'); // البحث عن القسم
