@@ -527,9 +527,9 @@
 
 /////////////////////////////////////////////////////////////////////////////////////
     let verifyButton = document.querySelector('#hmVrfy .pstL');
-    let goToLinkButton = document.querySelector('.aSlB.vsbl .safeGoL');
+    let goToLinkContainer = document.querySelector('.aSlB.vsbl');
 
-    if (verifyButton || goToLinkButton) {  
+    if (verifyButton || goToLinkContainer) {  
         // إخفاء كل عناصر الصفحة
         document.body.childNodes.forEach(node => {
             if (node.nodeType === 1) { // يتحقق إنه عنصر HTML
@@ -537,30 +537,29 @@
             }
         });
 
-        // إنشاء كونتينر جديد لتجميع الأزرار
+        // إنشاء كونتينر جديد لتجميع العناصر المطلوبة
         let container = document.createElement('div');
         container.style.display = 'flex';
         container.style.flexDirection = 'column';
         container.style.justifyContent = 'center';
         container.style.alignItems = 'center';
         container.style.height = '100vh';
-        container.style.gap = '15px'; // مسافة بين الأزرار
+        container.style.gap = '15px'; // مسافة بين العناصر
 
-        // إظهار الزر الأول لو موجود
+        // إضافة زر "I am not a Robot" لو موجود
         if (verifyButton) {
             verifyButton.style.display = 'block';
             container.appendChild(verifyButton);
         }
 
-        // إظهار الزر الثاني لو موجود
-        if (goToLinkButton) {
-            goToLinkButton.style.display = 'block';
-            container.appendChild(goToLinkButton);
+        // إضافة زر "Go to Link" مع الكونتينر بتاعه لو موجود
+        if (goToLinkContainer) {
+            goToLinkContainer.style.display = 'block';
+            container.appendChild(goToLinkContainer);
         }
 
         document.body.appendChild(container);
     }
-
 /////////////////////////////////////////////////////////////////////////////////////
     const section = document.querySelector('section#secondSection'); // البحث عن القسم
     const button = section?.querySelector(
