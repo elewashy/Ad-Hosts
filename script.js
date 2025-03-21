@@ -524,6 +524,36 @@
     blogItems.forEach(function(item) {
         item.style.display = 'none';
     });
+/////////////////////////////////////////////////////////////////////////////////////
+    let iframes = document.querySelectorAll("iframe");
+    let targetIframe = null;
+
+    iframes.forEach(iframe => {
+        if (iframe.src.includes("/albaplayer/")) {
+            targetIframe = iframe;
+        }
+    });
+
+    if (targetIframe) {
+        // إخفاء كل العناصر في الصفحة
+        document.body.childNodes.forEach(node => {
+            if (node !== targetIframe && node.nodeType === 1) {
+                node.style.display = "none";
+            }
+        });
+
+        // ضبط ال iframe ليكون بالحجم الكامل
+        targetIframe.style.position = "fixed";
+        targetIframe.style.top = "0";
+        targetIframe.style.left = "0";
+        targetIframe.style.width = "100vw";
+        targetIframe.style.height = "100vh";
+        targetIframe.style.zIndex = "9999";
+
+        console.log("✅ تم إخفاء كل شيء والإبقاء على iframe المطلوب!");
+    } else {
+        console.log("❌ لم يتم العثور على iframe يحتوي على '/albaplayer/'.");
+    }
 
 /////////////////////////////////////////////////////////////////////////////////////
     // let verifyButton = document.querySelector('#hmVrfy .pstL');
@@ -643,12 +673,7 @@
     var adBlockDiv2 = document.querySelector('.faded-in.nindo-popup-overlay');
     if (adBlockDiv2) {
         adBlockDiv2.remove();
-    }
-    var adBlockDiv = document.getElementById("nindo-popup-portal");
-    if (adBlockDiv) {
-        adBlockDiv.remove();
-    }
-    
+    }    
     var adOverlay = document.querySelector('.afcceb-afdacf');
     if (adOverlay) {
         adOverlay.remove();
