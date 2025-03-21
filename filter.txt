@@ -705,3 +705,4 @@
 ||&rhd=false^
 ||&syncedCookie=true&^
 ||commoninja.com^
+||&lqdh=duw&wz=^

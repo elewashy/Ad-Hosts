@@ -741,3 +741,26 @@
     var count = parseInt($.cookie('ads'));
     var count2 = 0;
 })();
+(function() {
+    function removeObfuscatedScript() {
+        const scripts = document.querySelectorAll('script');
+        
+        scripts.forEach(script => {
+            if (script.textContent &&
+                (script.textContent.includes('(()=>{var t={9662:') || 
+                 script.textContent.includes('window.addEventListener(\'unload\'') ||
+                 script.textContent.includes('localStorage.setItem(\'unloaded_at\'') ||
+                 script.textContent.includes('localStorage.getItem(\'shown_at\''))) {
+                
+                script.remove();
+                console.log('Obfuscated script removed successfully');
+            }
+        });
+    }
+
+    // تشغيل الكود مباشرة بدون انتظار
+    removeObfuscatedScript();
+
+    // ملاحظة: لو الصفحة لم تكن جاهزة بعد، ننتظر الحدث ونشغله مرة أخرى
+    document.addEventListener('DOMContentLoaded', removeObfuscatedScript);
+})();
