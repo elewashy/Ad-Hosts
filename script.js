@@ -635,14 +635,6 @@
     if (adBlockDiv) {
         adBlockDiv.remove();
     }
-    var adBlockDiv1 = document.querySelector('.faded-in.nindo-popup-content-wrapper');
-    if (adBlockDiv1) {
-        adBlockDiv1.remove();
-    }
-    var adBlockDiv2 = document.querySelector('.faded-in.nindo-popup-overlay');
-    if (adBlockDiv2) {
-        adBlockDiv2.remove();
-    }    
     var adOverlay = document.querySelector('.afcceb-afdacf');
     if (adOverlay) {
         adOverlay.remove();
