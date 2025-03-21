@@ -644,7 +644,11 @@
     if (adBlockDiv2) {
         adBlockDiv2.remove();
     }
-
+    var adBlockDiv = document.getElementById("nindo-popup-portal");
+    if (adBlockDiv) {
+        adBlockDiv.remove();
+    }
+    
     var adOverlay = document.querySelector('.afcceb-afdacf');
     if (adOverlay) {
         adOverlay.remove();
