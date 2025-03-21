@@ -701,3 +701,6 @@
 ||zpilkesyasa.com^
 ||/sub/^
 ||//pop.^
+||reptootho.net^
+||&rhd=false^
+||&syncedCookie=true&^
