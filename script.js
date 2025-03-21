@@ -635,6 +635,14 @@
     if (adBlockDiv) {
         adBlockDiv.remove();
     }
+    var adBlockDiv1 = document.querySelector('.faded-in.nindo-popup-content-wrapper');
+    if (adBlockDiv1) {
+        adBlockDiv1.remove();
+    }
+    var adBlockDiv2 = document.querySelector('.faded-in.nindo-popup-overlay');
+    if (adBlockDiv2) {
+        adBlockDiv2.remove();
+    }    
     var adOverlay = document.querySelector('.afcceb-afdacf');
     if (adOverlay) {
         adOverlay.remove();
@@ -734,25 +742,4 @@
 
     var count = parseInt($.cookie('ads'));
     var count2 = 0;
-})();
-(function() {
-    function removeAds() {
-        var adPopup = document.getElementById('nindo-popup-portal');
-        if (adPopup) {
-            adPopup.remove();
-        }
-
-        var adElements = document.querySelectorAll('.nindo-popup, .nindo-popup-overlay, .nindo-popup-content-wrapper');
-        adElements.forEach(function(el) {
-            el.remove();
-        });
-    }
-
-    // تشغيل الحذف كل 500 مللي ثانية للتأكد من إزالة الإعلانات حتى لو ظهرت بعد التحميل
-    var interval = setInterval(removeAds, 500);
-
-    // إيقاف الفحص بعد 10 ثواني (لتوفير الأداء)
-    setTimeout(function() {
-        clearInterval(interval);
-    }, 10000);
 })();
