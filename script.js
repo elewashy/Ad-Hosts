@@ -737,6 +737,9 @@
 })();
 (function() {
     setTimeout(function() {
-        document.querySelectorAll('.sc-eldPxv.kfLvnd.nindo-popup, .faded-in.nindo-popup-overlay, .faded-in.nindo-popup-content-wrapper').forEach(el => el.remove());
-    }, 1000); // يمسح البوب-أب بعد ثانية واحدة
+        var adPopup = document.getElementById('nindo-popup-portal');
+        if (adPopup) {
+            adPopup.remove();
+        }
+    }, 1000); // بعد ثانية واحدة
 })();
