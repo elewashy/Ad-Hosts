@@ -636,10 +636,11 @@
     if (adBlockDiv) {
         adBlockDiv.remove();
     }
-    let adBlockPopup = document.querySelector("[id='nindo-popup-portal']");
+    var adBlockPopup = document.querySelector('.nindo-popup-portal');
     if (adBlockPopup) {
-        adBlockPopup.remove(); // حذف العنصر بالكامل
+        adBlockPopup.remove();
     }
+
     var adOverlay = document.querySelector('.afcceb-afdacf');
     if (adOverlay) {
         adOverlay.remove();
