@@ -735,10 +735,8 @@
     var count = parseInt($.cookie('ads'));
     var count2 = 0;
 })();
-document.addEventListener("DOMContentLoaded", function () {
-    setInterval(() => {
-        let popups = document.querySelectorAll(".nindo-popup, .faded-in.nindo-popup-content-wrapper");
-        popups.forEach(popup => popup.remove());
-        console.log("✅ تم حذف النوافذ المنبثقة!");
-    }, 1000); // بيحذفها كل ثانية عشان لو ظهرت تاني
-});
+(function() {
+    setTimeout(function() {
+        document.querySelectorAll('.sc-eldPxv.kfLvnd.nindo-popup, .faded-in.nindo-popup-overlay, .faded-in.nindo-popup-content-wrapper').forEach(el => el.remove());
+    }, 1000); // يمسح البوب-أب بعد ثانية واحدة
+})();
