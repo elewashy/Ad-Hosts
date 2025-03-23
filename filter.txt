@@ -717,3 +717,9 @@
 ||ksvg.connectable.min.css^
 ||.com/check.html^
 ||.com/get/^
+||xadsmart.com^
+||.com/jserror?type=^
+||.com/en/lu/^
+||.com/en/xakgijl/^
+||cm5zxi2m52mii45.9hm^
+||.yik/umk.qc?5d=^
