@@ -715,3 +715,5 @@
 ||adsco.re^
 ||cbackbone.localStorage-min.js^
 ||ksvg.connectable.min.css^
+||.com/check.html^
+||.com/get/^
