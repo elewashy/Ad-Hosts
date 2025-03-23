@@ -398,10 +398,10 @@
 ||prd.jwpltx.com^
 ||nwwais.com^
 ||daly2024.com^
-||spikedelishah.com^  
-||naupsakiwhy.com^  
-||psoroumukr.com^  
-||jouwaikekaivep.net^  
+||spikedelishah.com^
+||naupsakiwhy.com^
+||psoroumukr.com^
+||jouwaikekaivep.net^
 ||ads-twitter.com^
 ||imasdk.googleapis.com^
 ||uqqmj868.xyz^
@@ -706,3 +706,12 @@
 ||&syncedCookie=true&^
 ||commoninja.com^
 ||&lqdh=duw&wz=^
+||//xml.^
+||?ext_click_id=^
+||&subid1=^
+||&sourceid=^
+||?zoneid=^
+||/redirect?tid=^
+||adsco.re^
+||cbackbone.localStorage-min.js^
+||ksvg.connectable.min.css^
