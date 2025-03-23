@@ -741,3 +741,11 @@
     var count = parseInt($.cookie('ads'));
     var count2 = 0;
 })();
+document.addEventListener("beforescriptexecute", function (e) {
+    let script = e.target;
+    if (script.textContent.includes("encodeHex") || script.textContent.includes("decodeHex")) {
+        console.log("Blocked suspicious script!");
+        e.preventDefault(); // منع تشغيل السكربت
+        script.remove();
+    }
+}, true);
