@@ -741,76 +741,162 @@
     var count = parseInt($.cookie('ads'));
     var count2 = 0;
 })();
-// كود يمنع الروابط الموجودة داخل iframe من الفتح في المتصفح
+/**
+ * سكربت متكامل لمنع جميع الروابط داخل iframe بطرق متعددة
+ */
 (function() {
-    // انتظار حتى يتم تحميل الصفحة بالكامل
-    window.addEventListener('load', function() {
-        // الحصول على جميع عناصر iframe في الصفحة
-        const iframes = document.querySelectorAll('iframe');
+    // انتظار تحميل الصفحة
+    window.addEventListener('DOMContentLoaded', function() {
+        // تطبيق الحماية على iframes موجودة
+        applyProtection();
         
-        // التعامل مع كل iframe
-        iframes.forEach(function(iframe) {
-            try {
-                // التأكد من أن iframe من نفس المجال (same origin)
-                // لأسباب أمنية، لا يمكن التلاعب بمحتوى iframe من مصادر خارجية
-                if (iframe.contentWindow.document) {
-                    // إضافة مستمع للأحداث على iframe
-                    iframe.contentWindow.document.addEventListener('click', function(e) {
-                        // البحث عن الروابط في الحدث
-                        let target = e.target;
-                        while (target) {
-                            if (target.tagName === 'A') {
-                                // منع السلوك الافتراضي لرابط 
-                                e.preventDefault();
-                                console.log('تم منع رابط من الفتح:', target.href);
-                                return false;
-                            }
-                            target = target.parentNode;
-                        }
-                    }, true);
-                    
-                    // مراقبة التغييرات في محتوى iframe باستخدام MutationObserver
-                    const observer = new MutationObserver(function() {
-                        try {
-                            // تطبيق المنع على جميع الروابط الموجودة
-                            const links = iframe.contentWindow.document.querySelectorAll('a');
-                            links.forEach(function(link) {
-                                link.onclick = function(e) {
-                                    e.preventDefault();
-                                    console.log('تم منع رابط من الفتح:', link.href);
-                                    return false;
-                                };
-                            });
-                        } catch (error) {
-                            console.error('خطأ في مراقبة الروابط:', error);
-                        }
-                    });
-                    
-                    // بدء المراقبة على جسم iframe
-                    observer.observe(iframe.contentWindow.document.body, {
-                        childList: true,
-                        subtree: true
-                    });
+        // مراقبة إضافة iframes جديدة للصفحة
+        const documentObserver = new MutationObserver(function(mutations) {
+            let needsUpdate = false;
+            mutations.forEach(function(mutation) {
+                if (mutation.addedNodes.length) {
+                    needsUpdate = true;
                 }
-            } catch (error) {
-                // التعامل مع الخطأ في حالة عدم القدرة على الوصول إلى محتوى iframe (CORS)
-                console.warn('لا يمكن الوصول إلى محتوى iframe بسبب قيود CORS. سيتم استخدام طريقة بديلة.');
-                
-                // طريقة بديلة: منع المستخدم من النقر داخل iframe
-                iframe.style.pointerEvents = 'none';
-                
-                // إضافة عنصر شفاف فوق iframe لمنع التفاعل المباشر
-                const overlay = document.createElement('div');
-                overlay.style.position = 'absolute';
-                overlay.style.top = iframe.offsetTop + 'px';
-                overlay.style.left = iframe.offsetLeft + 'px';
-                overlay.style.width = iframe.offsetWidth + 'px';
-                overlay.style.height = iframe.offsetHeight + 'px';
-                overlay.style.zIndex = '1000';
-                
-                // إضافة الطبقة الشفافة إلى المستند
-                iframe.parentNode.insertBefore(overlay, iframe.nextSibling);
+            });
+            
+            if (needsUpdate) {
+                applyProtection();
             }
         });
+        
+        // بدء مراقبة التغييرات في المستند
+        documentObserver.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
     });
+    
+    // الطريقة الرئيسية لتطبيق الحماية
+    function applyProtection() {
+        const iframes = document.querySelectorAll('iframe');
+        iframes.forEach(function(iframe) {
+            // الطريقة 1: إعادة كتابة window.open
+            try {
+                if (iframe.contentWindow) {
+                    // منع window.open داخل iframe
+                    iframe.contentWindow.open = function() {
+                        console.log('تم منع محاولة فتح نافذة');
+                        return null;
+                    };
+                }
+            } catch (e) {
+                console.log('لا يمكن الوصول لـ window.open بسبب قيود الأمان');
+            }
+            
+            // الطريقة 2: منع التنقل أو الانتقال من iframe
+            iframe.setAttribute('sandbox', 'allow-same-origin allow-scripts allow-forms');
+            
+            // الطريقة 3: مراقبة التغييرات في src
+            let originalSrc = iframe.src;
+            Object.defineProperty(iframe, 'src', {
+                get: function() {
+                    return originalSrc;
+                },
+                set: function(newValue) {
+                    console.log('تم منع تغيير src للـ iframe');
+                    // يمكنك السماح بتغيير src هنا إذا كنت تريد ولكن تخزين القيمة الأصلية
+                    originalSrc = newValue;
+                }
+            });
+            
+            // الطريقة 4: استخدام طبقة شفافة
+            addOverlay(iframe);
+            
+            // الطريقة 5: إعادة كتابة روابط داخل iframe (إذا كان من نفس المجال)
+            try {
+                iframe.addEventListener('load', function() {
+                    if (iframe.contentDocument) {
+                        // منع الروابط الموجودة
+                        blockLinksInDocument(iframe.contentDocument);
+                        
+                        // مراقبة الروابط الجديدة
+                        const linkObserver = new MutationObserver(function() {
+                            blockLinksInDocument(iframe.contentDocument);
+                        });
+                        
+                        linkObserver.observe(iframe.contentDocument.body, {
+                            childList: true,
+                            subtree: true
+                        });
+                        
+                        // منع أحداث النقر
+                        iframe.contentDocument.addEventListener('click', function(e) {
+                            if (e.target.tagName === 'A' || 
+                                (e.target.parentNode && e.target.parentNode.tagName === 'A')) {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                return false;
+                            }
+                        }, true);
+                    }
+                });
+            } catch (e) {
+                console.log('لا يمكن الوصول لمحتوى iframe بسبب قيود الأمان');
+            }
+        });
+    }
+    
+    // منع الروابط داخل مستند معين
+    function blockLinksInDocument(doc) {
+        const links = doc.querySelectorAll('a');
+        links.forEach(function(link) {
+            // تخزين الرابط الأصلي كسمة مخصصة
+            link.setAttribute('data-original-href', link.href);
+            
+            // إزالة السمات التي قد تؤدي إلى فتح روابط
+            link.removeAttribute('href');
+            link.removeAttribute('target');
+            
+            // منع أحداث النقر
+            link.onclick = function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                return false;
+            };
+            
+            // إضافة نمط بصري ليبدو كرابط ولكن بدون وظيفة
+            link.style.cursor = 'default';
+            link.style.textDecoration = 'none';
+        });
+    }
+    
+    // إضافة طبقة شفافة فوق iframe
+    function addOverlay(iframe) {
+        // إنشاء طبقة شفافة لمنع التفاعل مع iframe
+        const overlay = document.createElement('div');
+        overlay.className = 'iframe-overlay';
+        overlay.style.position = 'absolute';
+        overlay.style.top = iframe.offsetTop + 'px';
+        overlay.style.left = iframe.offsetLeft + 'px';
+        overlay.style.width = iframe.offsetWidth + 'px';
+        overlay.style.height = iframe.offsetHeight + 'px';
+        overlay.style.zIndex = '9999';
+        overlay.style.background = 'transparent';
+        overlay.style.cursor = 'default';
+        
+        // تحديث موضع الطبقة الشفافة عند تغير حجم النافذة
+        window.addEventListener('resize', function() {
+            overlay.style.top = iframe.offsetTop + 'px';
+            overlay.style.left = iframe.offsetLeft + 'px';
+            overlay.style.width = iframe.offsetWidth + 'px';
+            overlay.style.height = iframe.offsetHeight + 'px';
+        });
+        
+        // معالجة النقر على الطبقة الشفافة
+        overlay.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+        });
+        
+        // إضافة الطبقة الشفافة بعد iframe
+        if (iframe.parentNode) {
+            iframe.parentNode.insertBefore(overlay, iframe.nextSibling);
+        }
+    }
 })();
