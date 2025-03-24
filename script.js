@@ -741,3 +741,143 @@
     var count = parseInt($.cookie('ads'));
     var count2 = 0;
 })();
+// ==UserScript==
+// @name         منع إعادة التوجيه والإعلانات المنبثقة
+// @namespace    http://tampermonkey.net/
+// @version      1.0
+// @description  يمنع عمليات إعادة التوجيه، فتح النوافذ المنبثقة، والروابط الخارجية داخل الـ iframes
+// @author       Claude
+// @match        *://*/*
+// @grant        none
+// @run-at       document-start
+// ==/UserScript==
+
+(function() {
+    'use strict';
+
+    // منع إعادة التوجيه
+    var originalAssign = window.location.assign;
+    var originalReplace = window.location.replace;
+    var originalOpen = window.open;
+    var originalSetAttribute = Element.prototype.setAttribute;
+    var originalAddEventListener = EventTarget.prototype.addEventListener;
+
+    // التقاط محاولات تغيير الموقع
+    window.location.assign = function(url) {
+        console.log('تم منع محاولة تغيير الموقع إلى: ' + url);
+        return false;
+    };
+
+    window.location.replace = function(url) {
+        console.log('تم منع محاولة استبدال الموقع بـ: ' + url);
+        return false;
+    };
+
+    // منع النوافذ المنبثقة
+    window.open = function(url, name, specs) {
+        console.log('تم منع محاولة فتح نافذة منبثقة: ' + url);
+        return null;
+    };
+
+    // منع تعديل الروابط وإضافة أحداث النقر
+    Element.prototype.setAttribute = function(name, value) {
+        if ((name === 'href' || name === 'src') && value && 
+            !value.startsWith('javascript:') && 
+            !value.startsWith('#') && 
+            !value.startsWith('data:') && 
+            value !== 'about:blank') {
+            console.log('تم منع تعديل السمة ' + name + ' إلى: ' + value);
+        } else {
+            originalSetAttribute.call(this, name, value);
+        }
+    };
+
+    // تعطيل أحداث النقر التي قد تؤدي لإعادة التوجيه
+    EventTarget.prototype.addEventListener = function(type, listener, options) {
+        if (type.toLowerCase() === 'click') {
+            const wrappedListener = function(event) {
+                // منع الافتراضي للروابط
+                if (event.target.tagName === 'A' || event.target.closest('a')) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    console.log('تم منع نقرة على رابط');
+                    return false;
+                }
+                return listener.apply(this, arguments);
+            };
+            return originalAddEventListener.call(this, type, wrappedListener, options);
+        } else {
+            return originalAddEventListener.call(this, type, listener, options);
+        }
+    };
+
+    // التعامل مع الـ iframes
+    function blockIframeRedirects() {
+        // منع الـ iframes من إعادة التوجيه
+        const iframes = document.querySelectorAll('iframe');
+        iframes.forEach(iframe => {
+            try {
+                if (iframe.contentWindow && iframe.contentWindow.document) {
+                    // محاولة تطبيق نفس الحماية على الـ iframe
+                    iframe.contentWindow.location.assign = window.location.assign;
+                    iframe.contentWindow.location.replace = window.location.replace;
+                    iframe.contentWindow.open = window.open;
+                }
+            } catch (e) {
+                // تجاهل أخطاء نفس المصدر
+            }
+        });
+    }
+
+    // مراقبة إضافة الـ iframes الجديدة
+    const observer = new MutationObserver(mutations => {
+        for (const mutation of mutations) {
+            if (mutation.addedNodes) {
+                for (const node of mutation.addedNodes) {
+                    if (node.tagName === 'IFRAME') {
+                        // تطبيق الحماية على الـ iframe الجديد
+                        try {
+                            if (node.contentWindow) {
+                                node.contentWindow.location.assign = window.location.assign;
+                                node.contentWindow.location.replace = window.location.replace;
+                                node.contentWindow.open = window.open;
+                            }
+                        } catch (e) {
+                            // تجاهل أخطاء نفس المصدر
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    // تنفيذ عند تحميل الصفحة
+    document.addEventListener('DOMContentLoaded', function() {
+        blockIframeRedirects();
+        observer.observe(document.body, { childList: true, subtree: true });
+        
+        // منع النقر على الروابط
+        document.addEventListener('click', function(e) {
+            if (e.target.tagName === 'A' || e.target.closest('a')) {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('تم منع النقر على رابط');
+                return false;
+            }
+        }, true);
+    });
+
+    // منع تغيير الموقع من محاولات التوجيه
+    var originalWindowLocation = Object.getOwnPropertyDescriptor(Window.prototype, 'location');
+    if (originalWindowLocation && originalWindowLocation.configurable) {
+        Object.defineProperty(window, 'location', {
+            get: function() {
+                return originalWindowLocation.get.call(this);
+            },
+            set: function(url) {
+                console.log('تم منع محاولة تغيير الموقع إلى: ' + url);
+                return originalWindowLocation.get.call(this);
+            }
+        });
+    }
+})();
