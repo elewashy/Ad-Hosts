@@ -686,7 +686,7 @@
 ||sheecmimty.net^
 ||?psid=^
 ||/en/bme^
-||.com/en/^
+||com/en/^
 ||xubatxswa.com^
 ||data:image/gif;base64^
 ||?blockID=^
@@ -719,7 +719,8 @@
 ||.com/get/^
 ||xadsmart.com^
 ||.com/jserror?type=^
-||.com/en/^
-||.com/en/xakgijl/^
+||com/en/^
+||com/en/xakgijl/^
 ||cm5zxi2m52mii45.9hm^
 ||.yik/umk.qc?5d=^
+||/ofjorlf?dsl=^
