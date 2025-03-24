@@ -699,15 +699,12 @@
 ||flftebmuafc.com^
 ||zoiefwqhcaczun.com^
 ||zpilkesyasa.com^
-||/sub/^
 ||//pop.^
 ||reptootho.net^
 ||&rhd=false^
 ||&syncedCookie=true&^
 ||commoninja.com^
 ||&lqdh=duw&wz=^
-||//xml.^
-||//xml-^
 ||?ext_click_id=^
 ||&subid1=^
 ||&sourceid=^
@@ -725,4 +722,3 @@
 ||cm5zxi2m52mii45.9hm^
 ||.yik/umk.qc?5d=^
 ||/ofjorlf?dsl=^
-||data:text/html;charset=utf-8;base64^
