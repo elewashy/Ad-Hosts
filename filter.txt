@@ -707,6 +707,7 @@
 ||commoninja.com^
 ||&lqdh=duw&wz=^
 ||//xml.^
+||//xml-^
 ||?ext_click_id=^
 ||&subid1=^
 ||&sourceid=^
