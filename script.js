@@ -742,142 +742,416 @@
     var count2 = 0;
 })();
 // ==UserScript==
-// @name         منع إعادة التوجيه والإعلانات المنبثقة
+// @name         سكربت متقدم لمنع الروابط المخفية وإعادة التوجيه
 // @namespace    http://tampermonkey.net/
-// @version      1.0
-// @description  يمنع عمليات إعادة التوجيه، فتح النوافذ المنبثقة، والروابط الخارجية داخل الـ iframes
+// @version      1.1
+// @description  يمنع جميع أنواع إعادة التوجيه والروابط المخفية داخل iframes والنصوص البرمجية
 // @author       Claude
 // @match        *://*/*
-// @grant        none
+// @grant        unsafeWindow
 // @run-at       document-start
 // ==/UserScript==
 
 (function() {
     'use strict';
+    
+    // تخزين النسخ الأصلية من الوظائف التي سنعدلها
+    const original = {
+        assign: window.location.assign,
+        replace: window.location.replace,
+        href: Object.getOwnPropertyDescriptor(window.Location.prototype, 'href'),
+        open: window.open,
+        createElement: document.createElement,
+        appendChild: Element.prototype.appendChild,
+        setAttribute: Element.prototype.setAttribute,
+        addEventListener: EventTarget.prototype.addEventListener,
+        eval: window.eval,
+        setTimeout: window.setTimeout,
+        setInterval: window.setInterval,
+        Function: window.Function,
+        postMessage: window.postMessage
+    };
 
-    // منع إعادة التوجيه
-    var originalAssign = window.location.assign;
-    var originalReplace = window.location.replace;
-    var originalOpen = window.open;
-    var originalSetAttribute = Element.prototype.setAttribute;
-    var originalAddEventListener = EventTarget.prototype.addEventListener;
-
-    // التقاط محاولات تغيير الموقع
+    // منع تغيير المواقع
     window.location.assign = function(url) {
-        console.log('تم منع محاولة تغيير الموقع إلى: ' + url);
-        return false;
-    };
-
-    window.location.replace = function(url) {
-        console.log('تم منع محاولة استبدال الموقع بـ: ' + url);
-        return false;
-    };
-
-    // منع النوافذ المنبثقة
-    window.open = function(url, name, specs) {
-        console.log('تم منع محاولة فتح نافذة منبثقة: ' + url);
+        console.log('🛑 تم منع assign إلى: ' + url);
         return null;
     };
 
-    // منع تعديل الروابط وإضافة أحداث النقر
-    Element.prototype.setAttribute = function(name, value) {
-        if ((name === 'href' || name === 'src') && value && 
-            !value.startsWith('javascript:') && 
-            !value.startsWith('#') && 
-            !value.startsWith('data:') && 
-            value !== 'about:blank') {
-            console.log('تم منع تعديل السمة ' + name + ' إلى: ' + value);
-        } else {
-            originalSetAttribute.call(this, name, value);
+    window.location.replace = function(url) {
+        console.log('🛑 تم منع replace إلى: ' + url);
+        return null;
+    };
+    
+    // منع تغيير location.href
+    Object.defineProperty(window.Location.prototype, 'href', {
+        set: function(url) {
+            console.log('🛑 تم منع تغيير location.href إلى: ' + url);
+            return null;
+        },
+        get: function() {
+            return original.href.get.call(this);
         }
+    });
+
+    // منع فتح النوافذ
+    window.open = function(url) {
+        console.log('🛑 تم منع فتح نافذة: ' + url);
+        return {
+            focus: function(){},
+            close: function(){}
+        };
+    };
+    
+    // التعامل مع نصوص جافاسكربت مخفية
+    window.eval = function(code) {
+        if (code && typeof code === 'string') {
+            // منع أكواد إعادة التوجيه المخفية
+            if (code.includes('location') || code.includes('window.open') || 
+                code.includes('href') || code.includes('document.write')) {
+                console.log('🛑 تم منع تنفيذ كود eval مشبوه');
+                return null;
+            }
+        }
+        return original.eval.call(window, code);
+    };
+    
+    // منع الدوال التي تنشئ من النصوص
+    window.Function = function() {
+        const args = Array.from(arguments);
+        const body = args.pop();
+        if (typeof body === 'string') {
+            if (body.includes('location') || body.includes('window.open') || 
+                body.includes('href') || body.includes('document.write')) {
+                console.log('🛑 تم منع إنشاء دالة مشبوهة');
+                return function() { return null; };
+            }
+        }
+        return original.Function.apply(this, arguments);
     };
 
-    // تعطيل أحداث النقر التي قد تؤدي لإعادة التوجيه
+    // التعامل مع setTimeout و setInterval
+    window.setTimeout = function(func, delay) {
+        if (typeof func === 'string') {
+            if (func.includes('location') || func.includes('window.open') || 
+                func.includes('href') || func.includes('document.write')) {
+                console.log('🛑 تم منع setTimeout مشبوه');
+                return -1;
+            }
+        }
+        return original.setTimeout.apply(this, arguments);
+    };
+    
+    window.setInterval = function(func, delay) {
+        if (typeof func === 'string') {
+            if (func.includes('location') || func.includes('window.open') || 
+                func.includes('href') || func.includes('document.write')) {
+                console.log('🛑 تم منع setInterval مشبوه');
+                return -1;
+            }
+        }
+        return original.setInterval.apply(this, arguments);
+    };
+
+    // اعتراض إنشاء عناصر يمكن استخدامها لإعادة التوجيه
+    document.createElement = function(tagName) {
+        const element = original.createElement.call(document, tagName);
+        
+        if (tagName.toLowerCase() === 'iframe' || tagName.toLowerCase() === 'frame') {
+            // تسجيل إنشاء إطار
+            console.log('⚠️ تم إنشاء إطار، سيتم مراقبته');
+            
+            // تعطيل src الأصلية
+            Object.defineProperty(element, 'src', {
+                set: function(value) {
+                    console.log('🛑 تم منع تعيين src للإطار: ' + value);
+                },
+                get: function() {
+                    return 'about:blank';
+                }
+            });
+            
+            // مراقبة المحتوى بعد تحميله
+            element.addEventListener('load', function() {
+                try {
+                    if (element.contentWindow) {
+                        // تطبيق نفس الحماية على الإطار
+                        element.contentWindow.location.assign = window.location.assign;
+                        element.contentWindow.location.replace = window.location.replace;
+                        element.contentWindow.open = window.open;
+                        
+                        // الوصول إلى النصوص البرمجية داخل الإطار
+                        if (element.contentDocument) {
+                            const scripts = element.contentDocument.querySelectorAll('script');
+                            scripts.forEach(script => {
+                                // إزالة النصوص المشبوهة
+                                if (script.textContent.includes('location') || 
+                                    script.textContent.includes('window.open') ||
+                                    script.textContent.includes('href')) {
+                                    console.log('🛑 تم إزالة نص برمجي مشبوه من الإطار');
+                                    script.textContent = '';
+                                }
+                            });
+                        }
+                    }
+                } catch (e) {
+                    // تجاهل أخطاء نفس المصدر
+                }
+            });
+        }
+        
+        if (tagName.toLowerCase() === 'script') {
+            // منع الروابط المخفية في النصوص البرمجية
+            Object.defineProperty(element, 'src', {
+                set: function(value) {
+                    if (value && !value.startsWith('data:') && !value.includes('jquery') && !value.includes('static')) {
+                        console.log('⚠️ تم منع سكربت خارجي: ' + value);
+                        return;
+                    }
+                    element.setAttribute('data-original-src', value);
+                },
+                get: function() {
+                    return element.getAttribute('data-original-src') || '';
+                }
+            });
+            
+            // منع النصوص البرمجية المخفية
+            Object.defineProperty(element, 'textContent', {
+                set: function(value) {
+                    if (value && (value.includes('location') || value.includes('window.open') || value.includes('href'))) {
+                        console.log('🛑 تم منع نص برمجي مشبوه');
+                        element.setAttribute('data-original-content', value);
+                        return '';
+                    }
+                    element.setAttribute('data-original-content', value);
+                },
+                get: function() {
+                    return element.getAttribute('data-original-content') || '';
+                }
+            });
+        }
+        
+        if (tagName.toLowerCase() === 'a') {
+            // منع تعيين href للروابط
+            Object.defineProperty(element, 'href', {
+                set: function(value) {
+                    console.log('⚠️ تم منع رابط: ' + value);
+                    element.setAttribute('data-original-href', value);
+                    return null;
+                },
+                get: function() {
+                    return element.getAttribute('data-original-href') || '#';
+                }
+            });
+        }
+        
+        return element;
+    };
+
+    // منع إضافة العناصر التي قد تحتوي على روابط مخفية
+    Element.prototype.appendChild = function(element) {
+        if (element.tagName && (element.tagName.toLowerCase() === 'script' || element.tagName.toLowerCase() === 'iframe')) {
+            // فحص السكربتات قبل إضافتها
+            if (element.tagName.toLowerCase() === 'script') {
+                // التحقق من وجود كود مشبوه
+                if (element.textContent && (
+                    element.textContent.includes('location') || 
+                    element.textContent.includes('window.open') || 
+                    element.textContent.includes('href')
+                )) {
+                    console.log('🛑 تم منع إضافة سكربت مشبوه');
+                    return document.createComment('Script blocked by anti-redirect');
+                }
+                
+                // التحقق من المصادر الخارجية
+                if (element.src && !element.src.startsWith('data:') && !element.src.includes('jquery') && !element.src.includes('static')) {
+                    console.log('⚠️ تم منع سكربت خارجي: ' + element.src);
+                    return document.createComment('External script blocked: ' + element.src);
+                }
+            }
+        }
+        
+        return original.appendChild.call(this, element);
+    };
+
+    // منع تعديل السمات للعناصر مثل src و href
+    Element.prototype.setAttribute = function(name, value) {
+        if (name.toLowerCase() === 'href' || name.toLowerCase() === 'src') {
+            if (this.tagName && (
+                this.tagName.toLowerCase() === 'a' || 
+                this.tagName.toLowerCase() === 'iframe' || 
+                this.tagName.toLowerCase() === 'frame' || 
+                this.tagName.toLowerCase() === 'script'
+            )) {
+                console.log(`⚠️ تم منع تعيين ${name} إلى: ${value}`);
+                return;
+            }
+        }
+        
+        if (name.toLowerCase() === 'onclick' || name.toLowerCase() === 'onload') {
+            if (value && (
+                value.includes('location') || 
+                value.includes('window.open') || 
+                value.includes('href')
+            )) {
+                console.log(`🛑 تم منع معالج حدث مشبوه: ${name}`);
+                return;
+            }
+        }
+        
+        original.setAttribute.call(this, name, value);
+    };
+
+    // منع أحداث النقر والتحميل التي قد تحتوي على إعادة توجيه
     EventTarget.prototype.addEventListener = function(type, listener, options) {
-        if (type.toLowerCase() === 'click') {
-            const wrappedListener = function(event) {
-                // منع الافتراضي للروابط
+        if (type.toLowerCase() === 'click' || type.toLowerCase() === 'load') {
+            const safeListener = function(event) {
+                // منع التنقل الافتراضي للروابط
                 if (event.target.tagName === 'A' || event.target.closest('a')) {
                     event.preventDefault();
                     event.stopPropagation();
-                    console.log('تم منع نقرة على رابط');
+                    console.log('🛑 تم منع نقرة على رابط');
                     return false;
                 }
-                return listener.apply(this, arguments);
+                
+                // تنفيذ المستمع الأصلي مع التقاط الأخطاء
+                try {
+                    return listener.apply(this, arguments);
+                } catch (e) {
+                    console.log('⚠️ خطأ في معالج الحدث:', e);
+                    return false;
+                }
             };
-            return originalAddEventListener.call(this, type, wrappedListener, options);
-        } else {
-            return originalAddEventListener.call(this, type, listener, options);
+            
+            return original.addEventListener.call(this, type, safeListener, options);
         }
+        
+        return original.addEventListener.call(this, type, listener, options);
     };
 
-    // التعامل مع الـ iframes
-    function blockIframeRedirects() {
-        // منع الـ iframes من إعادة التوجيه
-        const iframes = document.querySelectorAll('iframe');
-        iframes.forEach(iframe => {
-            try {
-                if (iframe.contentWindow && iframe.contentWindow.document) {
-                    // محاولة تطبيق نفس الحماية على الـ iframe
-                    iframe.contentWindow.location.assign = window.location.assign;
-                    iframe.contentWindow.location.replace = window.location.replace;
-                    iframe.contentWindow.open = window.open;
-                }
-            } catch (e) {
-                // تجاهل أخطاء نفس المصدر
+    // منع الإتصال بين النوافذ/الإطارات
+    window.postMessage = function(message, targetOrigin, transfer) {
+        if (typeof message === 'object' && message !== null) {
+            // التحقق من وجود أوامر إعادة توجيه
+            if (message.action && (
+                message.action.includes('redirect') || 
+                message.action.includes('navigate') || 
+                message.action.includes('open')
+            )) {
+                console.log('🛑 تم منع رسالة postMessage مشبوهة:', message);
+                return;
             }
-        });
-    }
+        }
+        
+        return original.postMessage.call(this, message, targetOrigin, transfer);
+    };
 
-    // مراقبة إضافة الـ iframes الجديدة
-    const observer = new MutationObserver(mutations => {
-        for (const mutation of mutations) {
-            if (mutation.addedNodes) {
-                for (const node of mutation.addedNodes) {
-                    if (node.tagName === 'IFRAME') {
-                        // تطبيق الحماية على الـ iframe الجديد
-                        try {
-                            if (node.contentWindow) {
-                                node.contentWindow.location.assign = window.location.assign;
-                                node.contentWindow.location.replace = window.location.replace;
-                                node.contentWindow.open = window.open;
+    // مراقب DOM لمعالجة العناصر الجديدة
+    function setupMutationObserver() {
+        const observer = new MutationObserver(mutations => {
+            for (const mutation of mutations) {
+                if (mutation.addedNodes && mutation.addedNodes.length) {
+                    for (const node of mutation.addedNodes) {
+                        if (node.nodeType === 1) {  // عنصر HTML
+                            // مراقبة الإطارات الجديدة
+                            if (node.tagName === 'IFRAME' || node.tagName === 'FRAME') {
+                                try {
+                                    node.src = 'about:blank';
+                                    if (node.contentWindow) {
+                                        node.contentWindow.location.assign = window.location.assign;
+                                        node.contentWindow.location.replace = window.location.replace;
+                                        node.contentWindow.open = window.open;
+                                    }
+                                } catch (e) {
+                                    // تجاهل أخطاء نفس المصدر
+                                }
                             }
-                        } catch (e) {
-                            // تجاهل أخطاء نفس المصدر
+                            
+                            // مسح النصوص البرمجية المشبوهة
+                            if (node.tagName === 'SCRIPT') {
+                                if (node.textContent && (
+                                    node.textContent.includes('location') || 
+                                    node.textContent.includes('window.open') || 
+                                    node.textContent.includes('href')
+                                )) {
+                                    node.textContent = '';
+                                    console.log('🛑 تم مسح نص برمجي مشبوه');
+                                }
+                            }
+                            
+                            // منع النقر على الروابط
+                            if (node.tagName === 'A') {
+                                node.href = '#';
+                                node.target = '_self';
+                                node.addEventListener('click', function(e) {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                    return false;
+                                }, true);
+                            }
+                            
+                            // البحث عن المزيد من العناصر المشبوهة
+                            const frames = node.querySelectorAll('iframe, frame');
+                            frames.forEach(frame => {
+                                try {
+                                    frame.src = 'about:blank';
+                                } catch (e) {}
+                            });
+                            
+                            const scripts = node.querySelectorAll('script');
+                            scripts.forEach(script => {
+                                if (script.textContent && (
+                                    script.textContent.includes('location') || 
+                                    script.textContent.includes('window.open') || 
+                                    script.textContent.includes('href')
+                                )) {
+                                    script.textContent = '';
+                                }
+                            });
+                            
+                            const links = node.querySelectorAll('a');
+                            links.forEach(link => {
+                                link.href = '#';
+                                link.target = '_self';
+                                link.addEventListener('click', function(e) {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                    return false;
+                                }, true);
+                            });
                         }
                     }
                 }
             }
-        }
-    });
-
-    // تنفيذ عند تحميل الصفحة
-    document.addEventListener('DOMContentLoaded', function() {
-        blockIframeRedirects();
-        observer.observe(document.body, { childList: true, subtree: true });
+        });
         
-        // منع النقر على الروابط
+        // بدء المراقبة
+        document.addEventListener('DOMContentLoaded', function() {
+            observer.observe(document.documentElement, {
+                childList: true,
+                subtree: true
+            });
+        });
+    }
+
+    // التعامل مع المحتوى الموجود حاليًا والمستقبلي
+    function handleExistingContent() {
+        // منع أي انتقال مباشر
         document.addEventListener('click', function(e) {
             if (e.target.tagName === 'A' || e.target.closest('a')) {
                 e.preventDefault();
                 e.stopPropagation();
-                console.log('تم منع النقر على رابط');
+                console.log('🛑 تم منع النقر على رابط');
                 return false;
             }
         }, true);
-    });
-
-    // منع تغيير الموقع من محاولات التوجيه
-    var originalWindowLocation = Object.getOwnPropertyDescriptor(Window.prototype, 'location');
-    if (originalWindowLocation && originalWindowLocation.configurable) {
-        Object.defineProperty(window, 'location', {
-            get: function() {
-                return originalWindowLocation.get.call(this);
-            },
-            set: function(url) {
-                console.log('تم منع محاولة تغيير الموقع إلى: ' + url);
-                return originalWindowLocation.get.call(this);
-            }
-        });
     }
+
+    // تنفيذ كل الوظائف
+    setupMutationObserver();
+    handleExistingContent();
+
+    // كتابة رسالة تأكيد
+    console.log('✅ تم تفعيل سكربت منع إعادة التوجيه والروابط المخفية بنجاح');
+
 })();
