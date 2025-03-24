@@ -742,10 +742,10 @@
     var count2 = 0;
 })();
 // ==UserScript==
-// @name         سكربت متقدم لمنع الروابط المخفية وإعادة التوجيه
+// @name         حظر روابط بنمط محدد واستخراج الهوست
 // @namespace    http://tampermonkey.net/
-// @version      1.1
-// @description  يمنع جميع أنواع إعادة التوجيه والروابط المخفية داخل iframes والنصوص البرمجية
+// @version      1.0
+// @description  يبحث عن روابط تطابق نمط محدد ويحظر أي انتقال إليها
 // @author       Claude
 // @match        *://*/*
 // @grant        unsafeWindow
@@ -755,144 +755,182 @@
 (function() {
     'use strict';
     
-    // تخزين النسخ الأصلية من الوظائف التي سنعدلها
+    // قائمة النطاقات المحظورة
+    const blockedHosts = new Set();
+    
+    // النمط الذي سيتم البحث عنه
+    const urlPattern = /^https:\/\/[a-z]{8,12}\.com\/en\/(?:[a-z]{2,10}\/){0,2}[a-z]{2,}\?(?:[a-z]+=(?:\d+|[a-z]+)&)*?id=[12]\d{6}$/;
+    
+    // دالة لاستخراج النطاق من الرابط
+    function extractHost(url) {
+        try {
+            const urlObj = new URL(url);
+            return urlObj.hostname;
+        } catch (e) {
+            return null;
+        }
+    }
+    
+    // حفظ الوظائف الأصلية التي سيتم تعديلها
     const original = {
         assign: window.location.assign,
         replace: window.location.replace,
         href: Object.getOwnPropertyDescriptor(window.Location.prototype, 'href'),
         open: window.open,
-        createElement: document.createElement,
-        appendChild: Element.prototype.appendChild,
         setAttribute: Element.prototype.setAttribute,
-        addEventListener: EventTarget.prototype.addEventListener,
-        eval: window.eval,
-        setTimeout: window.setTimeout,
-        setInterval: window.setInterval,
-        Function: window.Function,
-        postMessage: window.postMessage
-    };
-
-    // منع تغيير المواقع
-    window.location.assign = function(url) {
-        console.log('🛑 تم منع assign إلى: ' + url);
-        return null;
-    };
-
-    window.location.replace = function(url) {
-        console.log('🛑 تم منع replace إلى: ' + url);
-        return null;
+        createElement: document.createElement,
+        appendChild: Element.prototype.appendChild
     };
     
-    // منع تغيير location.href
+    // منع تغيير الموقع باستخدام location.assign
+    window.location.assign = function(url) {
+        const host = extractHost(url);
+        if (host && blockedHosts.has(host)) {
+            console.log(`🚫 تم منع الانتقال إلى الموقع المحظور: ${host}`);
+            return null;
+        }
+        if (urlPattern.test(url)) {
+            const host = extractHost(url);
+            if (host) {
+                blockedHosts.add(host);
+                console.log(`🚫 تم إضافة نطاق جديد للحظر: ${host}`);
+            }
+            console.log(`🚫 تم منع الانتقال إلى: ${url}`);
+            return null;
+        }
+        return original.assign.call(window.location, url);
+    };
+    
+    // منع تغيير الموقع باستخدام location.replace
+    window.location.replace = function(url) {
+        const host = extractHost(url);
+        if (host && blockedHosts.has(host)) {
+            console.log(`🚫 تم منع استبدال الموقع بموقع محظور: ${host}`);
+            return null;
+        }
+        if (urlPattern.test(url)) {
+            const host = extractHost(url);
+            if (host) {
+                blockedHosts.add(host);
+                console.log(`🚫 تم إضافة نطاق جديد للحظر: ${host}`);
+            }
+            console.log(`🚫 تم منع استبدال الموقع بـ: ${url}`);
+            return null;
+        }
+        return original.replace.call(window.location, url);
+    };
+    
+    // منع تغيير الموقع باستخدام location.href
     Object.defineProperty(window.Location.prototype, 'href', {
         set: function(url) {
-            console.log('🛑 تم منع تغيير location.href إلى: ' + url);
-            return null;
+            const host = extractHost(url);
+            if (host && blockedHosts.has(host)) {
+                console.log(`🚫 تم منع تعيين location.href إلى موقع محظور: ${host}`);
+                return null;
+            }
+            if (urlPattern.test(url)) {
+                const host = extractHost(url);
+                if (host) {
+                    blockedHosts.add(host);
+                    console.log(`🚫 تم إضافة نطاق جديد للحظر: ${host}`);
+                }
+                console.log(`🚫 تم منع تعيين location.href إلى: ${url}`);
+                return null;
+            }
+            return original.href.set.call(this, url);
         },
         get: function() {
             return original.href.get.call(this);
         }
     });
-
-    // منع فتح النوافذ
+    
+    // منع فتح نوافذ جديدة
     window.open = function(url) {
-        console.log('🛑 تم منع فتح نافذة: ' + url);
-        return {
-            focus: function(){},
-            close: function(){}
-        };
+        if (!url) return original.open.apply(this, arguments);
+        
+        const host = extractHost(url);
+        if (host && blockedHosts.has(host)) {
+            console.log(`🚫 تم منع فتح نافذة لموقع محظور: ${host}`);
+            return {
+                focus: function(){},
+                close: function(){}
+            };
+        }
+        if (urlPattern.test(url)) {
+            const host = extractHost(url);
+            if (host) {
+                blockedHosts.add(host);
+                console.log(`🚫 تم إضافة نطاق جديد للحظر: ${host}`);
+            }
+            console.log(`🚫 تم منع فتح نافذة لـ: ${url}`);
+            return {
+                focus: function(){},
+                close: function(){}
+            };
+        }
+        
+        return original.open.apply(this, arguments);
     };
     
-    // التعامل مع نصوص جافاسكربت مخفية
-    window.eval = function(code) {
-        if (code && typeof code === 'string') {
-            // منع أكواد إعادة التوجيه المخفية
-            if (code.includes('location') || code.includes('window.open') || 
-                code.includes('href') || code.includes('document.write')) {
-                console.log('🛑 تم منع تنفيذ كود eval مشبوه');
+    // منع تعيين سمات تحتوي على روابط
+    Element.prototype.setAttribute = function(name, value) {
+        if ((name.toLowerCase() === 'href' || name.toLowerCase() === 'src') && typeof value === 'string') {
+            const host = extractHost(value);
+            if (host && blockedHosts.has(host)) {
+                console.log(`🚫 تم منع تعيين ${name} إلى موقع محظور: ${host}`);
+                return null;
+            }
+            if (urlPattern.test(value)) {
+                const host = extractHost(value);
+                if (host) {
+                    blockedHosts.add(host);
+                    console.log(`🚫 تم إضافة نطاق جديد للحظر: ${host}`);
+                }
+                console.log(`🚫 تم منع تعيين ${name} إلى: ${value}`);
                 return null;
             }
         }
-        return original.eval.call(window, code);
+        return original.setAttribute.call(this, name, value);
     };
     
-    // منع الدوال التي تنشئ من النصوص
-    window.Function = function() {
-        const args = Array.from(arguments);
-        const body = args.pop();
-        if (typeof body === 'string') {
-            if (body.includes('location') || body.includes('window.open') || 
-                body.includes('href') || body.includes('document.write')) {
-                console.log('🛑 تم منع إنشاء دالة مشبوهة');
-                return function() { return null; };
-            }
-        }
-        return original.Function.apply(this, arguments);
-    };
-
-    // التعامل مع setTimeout و setInterval
-    window.setTimeout = function(func, delay) {
-        if (typeof func === 'string') {
-            if (func.includes('location') || func.includes('window.open') || 
-                func.includes('href') || func.includes('document.write')) {
-                console.log('🛑 تم منع setTimeout مشبوه');
-                return -1;
-            }
-        }
-        return original.setTimeout.apply(this, arguments);
-    };
-    
-    window.setInterval = function(func, delay) {
-        if (typeof func === 'string') {
-            if (func.includes('location') || func.includes('window.open') || 
-                func.includes('href') || func.includes('document.write')) {
-                console.log('🛑 تم منع setInterval مشبوه');
-                return -1;
-            }
-        }
-        return original.setInterval.apply(this, arguments);
-    };
-
-    // اعتراض إنشاء عناصر يمكن استخدامها لإعادة التوجيه
+    // اعتراض إنشاء إطارات iframe
     document.createElement = function(tagName) {
         const element = original.createElement.call(document, tagName);
         
         if (tagName.toLowerCase() === 'iframe' || tagName.toLowerCase() === 'frame') {
-            // تسجيل إنشاء إطار
-            console.log('⚠️ تم إنشاء إطار، سيتم مراقبته');
-            
-            // تعطيل src الأصلية
+            // مراقبة تعيين src
             Object.defineProperty(element, 'src', {
                 set: function(value) {
-                    console.log('🛑 تم منع تعيين src للإطار: ' + value);
+                    if (!value) return;
+                    
+                    const host = extractHost(value);
+                    if (host && blockedHosts.has(host)) {
+                        console.log(`🚫 تم منع تعيين src للإطار إلى موقع محظور: ${host}`);
+                        return;
+                    }
+                    if (urlPattern.test(value)) {
+                        const host = extractHost(value);
+                        if (host) {
+                            blockedHosts.add(host);
+                            console.log(`🚫 تم إضافة نطاق جديد للحظر: ${host}`);
+                        }
+                        console.log(`🚫 تم منع تعيين src للإطار إلى: ${value}`);
+                        return;
+                    }
+                    
+                    element.setAttribute('data-original-src', value);
+                    original.setAttribute.call(element, 'src', value);
                 },
                 get: function() {
-                    return 'about:blank';
+                    return element.getAttribute('data-original-src') || '';
                 }
             });
             
             // مراقبة المحتوى بعد تحميله
             element.addEventListener('load', function() {
                 try {
-                    if (element.contentWindow) {
-                        // تطبيق نفس الحماية على الإطار
-                        element.contentWindow.location.assign = window.location.assign;
-                        element.contentWindow.location.replace = window.location.replace;
-                        element.contentWindow.open = window.open;
-                        
-                        // الوصول إلى النصوص البرمجية داخل الإطار
-                        if (element.contentDocument) {
-                            const scripts = element.contentDocument.querySelectorAll('script');
-                            scripts.forEach(script => {
-                                // إزالة النصوص المشبوهة
-                                if (script.textContent.includes('location') || 
-                                    script.textContent.includes('window.open') ||
-                                    script.textContent.includes('href')) {
-                                    console.log('🛑 تم إزالة نص برمجي مشبوه من الإطار');
-                                    script.textContent = '';
-                                }
-                            });
-                        }
+                    if (element.contentWindow && element.contentWindow.document) {
+                        scanIframeContent(element);
                     }
                 } catch (e) {
                     // تجاهل أخطاء نفس المصدر
@@ -900,258 +938,198 @@
             });
         }
         
-        if (tagName.toLowerCase() === 'script') {
-            // منع الروابط المخفية في النصوص البرمجية
-            Object.defineProperty(element, 'src', {
-                set: function(value) {
-                    if (value && !value.startsWith('data:') && !value.includes('jquery') && !value.includes('static')) {
-                        console.log('⚠️ تم منع سكربت خارجي: ' + value);
-                        return;
-                    }
-                    element.setAttribute('data-original-src', value);
-                },
-                get: function() {
-                    return element.getAttribute('data-original-src') || '';
-                }
-            });
-            
-            // منع النصوص البرمجية المخفية
-            Object.defineProperty(element, 'textContent', {
-                set: function(value) {
-                    if (value && (value.includes('location') || value.includes('window.open') || value.includes('href'))) {
-                        console.log('🛑 تم منع نص برمجي مشبوه');
-                        element.setAttribute('data-original-content', value);
-                        return '';
-                    }
-                    element.setAttribute('data-original-content', value);
-                },
-                get: function() {
-                    return element.getAttribute('data-original-content') || '';
-                }
-            });
-        }
-        
-        if (tagName.toLowerCase() === 'a') {
-            // منع تعيين href للروابط
-            Object.defineProperty(element, 'href', {
-                set: function(value) {
-                    console.log('⚠️ تم منع رابط: ' + value);
-                    element.setAttribute('data-original-href', value);
-                    return null;
-                },
-                get: function() {
-                    return element.getAttribute('data-original-href') || '#';
-                }
-            });
-        }
-        
         return element;
     };
-
-    // منع إضافة العناصر التي قد تحتوي على روابط مخفية
-    Element.prototype.appendChild = function(element) {
-        if (element.tagName && (element.tagName.toLowerCase() === 'script' || element.tagName.toLowerCase() === 'iframe')) {
-            // فحص السكربتات قبل إضافتها
-            if (element.tagName.toLowerCase() === 'script') {
-                // التحقق من وجود كود مشبوه
-                if (element.textContent && (
-                    element.textContent.includes('location') || 
-                    element.textContent.includes('window.open') || 
-                    element.textContent.includes('href')
-                )) {
-                    console.log('🛑 تم منع إضافة سكربت مشبوه');
-                    return document.createComment('Script blocked by anti-redirect');
-                }
-                
-                // التحقق من المصادر الخارجية
-                if (element.src && !element.src.startsWith('data:') && !element.src.includes('jquery') && !element.src.includes('static')) {
-                    console.log('⚠️ تم منع سكربت خارجي: ' + element.src);
-                    return document.createComment('External script blocked: ' + element.src);
-                }
-            }
-        }
-        
-        return original.appendChild.call(this, element);
-    };
-
-    // منع تعديل السمات للعناصر مثل src و href
-    Element.prototype.setAttribute = function(name, value) {
-        if (name.toLowerCase() === 'href' || name.toLowerCase() === 'src') {
-            if (this.tagName && (
-                this.tagName.toLowerCase() === 'a' || 
-                this.tagName.toLowerCase() === 'iframe' || 
-                this.tagName.toLowerCase() === 'frame' || 
-                this.tagName.toLowerCase() === 'script'
-            )) {
-                console.log(`⚠️ تم منع تعيين ${name} إلى: ${value}`);
-                return;
-            }
-        }
-        
-        if (name.toLowerCase() === 'onclick' || name.toLowerCase() === 'onload') {
-            if (value && (
-                value.includes('location') || 
-                value.includes('window.open') || 
-                value.includes('href')
-            )) {
-                console.log(`🛑 تم منع معالج حدث مشبوه: ${name}`);
-                return;
-            }
-        }
-        
-        original.setAttribute.call(this, name, value);
-    };
-
-    // منع أحداث النقر والتحميل التي قد تحتوي على إعادة توجيه
-    EventTarget.prototype.addEventListener = function(type, listener, options) {
-        if (type.toLowerCase() === 'click' || type.toLowerCase() === 'load') {
-            const safeListener = function(event) {
-                // منع التنقل الافتراضي للروابط
-                if (event.target.tagName === 'A' || event.target.closest('a')) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    console.log('🛑 تم منع نقرة على رابط');
-                    return false;
-                }
-                
-                // تنفيذ المستمع الأصلي مع التقاط الأخطاء
-                try {
-                    return listener.apply(this, arguments);
-                } catch (e) {
-                    console.log('⚠️ خطأ في معالج الحدث:', e);
-                    return false;
-                }
-            };
+    
+    // فحص محتوى الإطار للبحث عن روابط مطابقة للنمط
+    function scanIframeContent(iframe) {
+        try {
+            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+            if (!iframeDoc) return;
             
-            return original.addEventListener.call(this, type, safeListener, options);
+            // فحص الروابط داخل الإطار
+            const links = iframeDoc.querySelectorAll('a[href]');
+            links.forEach(link => {
+                const url = link.href;
+                if (urlPattern.test(url)) {
+                    const host = extractHost(url);
+                    if (host) {
+                        blockedHosts.add(host);
+                        console.log(`🚫 تم إضافة نطاق جديد للحظر من داخل إطار: ${host}`);
+                    }
+                    // منع النقر على الرابط
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        console.log(`🚫 تم منع نقرة على رابط محظور داخل إطار`);
+                        return false;
+                    }, true);
+                    // تعطيل الرابط
+                    link.href = 'javascript:void(0)';
+                }
+            });
+            
+            // فحص الإطارات المتداخلة
+            const nestedFrames = iframeDoc.querySelectorAll('iframe, frame');
+            nestedFrames.forEach(frame => {
+                try {
+                    if (frame.src) {
+                        const url = frame.src;
+                        if (urlPattern.test(url)) {
+                            const host = extractHost(url);
+                            if (host) {
+                                blockedHosts.add(host);
+                                console.log(`🚫 تم إضافة نطاق جديد للحظر من إطار متداخل: ${host}`);
+                            }
+                            frame.src = 'about:blank';
+                        }
+                    }
+                    
+                    if (frame.contentWindow && frame.contentWindow.document) {
+                        scanIframeContent(frame);
+                    }
+                } catch (e) {
+                    // تجاهل أخطاء نفس المصدر
+                }
+            });
+        } catch (e) {
+            // تجاهل أخطاء نفس المصدر
         }
-        
-        return original.addEventListener.call(this, type, listener, options);
-    };
-
-    // منع الإتصال بين النوافذ/الإطارات
-    window.postMessage = function(message, targetOrigin, transfer) {
-        if (typeof message === 'object' && message !== null) {
-            // التحقق من وجود أوامر إعادة توجيه
-            if (message.action && (
-                message.action.includes('redirect') || 
-                message.action.includes('navigate') || 
-                message.action.includes('open')
-            )) {
-                console.log('🛑 تم منع رسالة postMessage مشبوهة:', message);
-                return;
+    }
+    
+    // فحص الصفحة للبحث عن الروابط المطابقة للنمط
+    function scanPageForMatchingUrls() {
+        // فحص الروابط في الصفحة
+        const links = document.querySelectorAll('a[href]');
+        links.forEach(link => {
+            const url = link.href;
+            if (urlPattern.test(url)) {
+                const host = extractHost(url);
+                if (host) {
+                    blockedHosts.add(host);
+                    console.log(`🚫 تم إضافة نطاق جديد للحظر: ${host}`);
+                }
+                // منع النقر على الرابط
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log(`🚫 تم منع نقرة على رابط محظور`);
+                    return false;
+                }, true);
+                // تعطيل الرابط
+                link.href = 'javascript:void(0)';
             }
-        }
+        });
         
-        return original.postMessage.call(this, message, targetOrigin, transfer);
-    };
-
-    // مراقب DOM لمعالجة العناصر الجديدة
+        // فحص الإطارات
+        const frames = document.querySelectorAll('iframe, frame');
+        frames.forEach(frame => {
+            try {
+                if (frame.src) {
+                    const url = frame.src;
+                    if (urlPattern.test(url)) {
+                        const host = extractHost(url);
+                        if (host) {
+                            blockedHosts.add(host);
+                            console.log(`🚫 تم إضافة نطاق جديد للحظر: ${host}`);
+                        }
+                        frame.src = 'about:blank';
+                    }
+                }
+                
+                if (frame.contentWindow && frame.contentWindow.document) {
+                    scanIframeContent(frame);
+                }
+            } catch (e) {
+                // تجاهل أخطاء نفس المصدر
+            }
+        });
+    }
+    
+    // مراقب DOM لفحص العناصر الجديدة
     function setupMutationObserver() {
         const observer = new MutationObserver(mutations => {
+            let shouldScan = false;
+            
             for (const mutation of mutations) {
                 if (mutation.addedNodes && mutation.addedNodes.length) {
                     for (const node of mutation.addedNodes) {
                         if (node.nodeType === 1) {  // عنصر HTML
-                            // مراقبة الإطارات الجديدة
-                            if (node.tagName === 'IFRAME' || node.tagName === 'FRAME') {
-                                try {
-                                    node.src = 'about:blank';
-                                    if (node.contentWindow) {
-                                        node.contentWindow.location.assign = window.location.assign;
-                                        node.contentWindow.location.replace = window.location.replace;
-                                        node.contentWindow.open = window.open;
-                                    }
-                                } catch (e) {
-                                    // تجاهل أخطاء نفس المصدر
-                                }
+                            if (node.tagName === 'A' || node.tagName === 'IFRAME' || node.tagName === 'FRAME') {
+                                shouldScan = true;
+                                break;
                             }
-                            
-                            // مسح النصوص البرمجية المشبوهة
-                            if (node.tagName === 'SCRIPT') {
-                                if (node.textContent && (
-                                    node.textContent.includes('location') || 
-                                    node.textContent.includes('window.open') || 
-                                    node.textContent.includes('href')
-                                )) {
-                                    node.textContent = '';
-                                    console.log('🛑 تم مسح نص برمجي مشبوه');
-                                }
+                            // التحقق من وجود روابط أو إطارات داخل العنصر الجديد
+                            if (node.querySelector && (node.querySelector('a') || node.querySelector('iframe') || node.querySelector('frame'))) {
+                                shouldScan = true;
+                                break;
                             }
-                            
-                            // منع النقر على الروابط
-                            if (node.tagName === 'A') {
-                                node.href = '#';
-                                node.target = '_self';
-                                node.addEventListener('click', function(e) {
-                                    e.preventDefault();
-                                    e.stopPropagation();
-                                    return false;
-                                }, true);
-                            }
-                            
-                            // البحث عن المزيد من العناصر المشبوهة
-                            const frames = node.querySelectorAll('iframe, frame');
-                            frames.forEach(frame => {
-                                try {
-                                    frame.src = 'about:blank';
-                                } catch (e) {}
-                            });
-                            
-                            const scripts = node.querySelectorAll('script');
-                            scripts.forEach(script => {
-                                if (script.textContent && (
-                                    script.textContent.includes('location') || 
-                                    script.textContent.includes('window.open') || 
-                                    script.textContent.includes('href')
-                                )) {
-                                    script.textContent = '';
-                                }
-                            });
-                            
-                            const links = node.querySelectorAll('a');
-                            links.forEach(link => {
-                                link.href = '#';
-                                link.target = '_self';
-                                link.addEventListener('click', function(e) {
-                                    e.preventDefault();
-                                    e.stopPropagation();
-                                    return false;
-                                }, true);
-                            });
                         }
                     }
                 }
+                
+                if (shouldScan) {
+                    break;
+                }
+            }
+            
+            if (shouldScan) {
+                scanPageForMatchingUrls();
             }
         });
         
         // بدء المراقبة
-        document.addEventListener('DOMContentLoaded', function() {
-            observer.observe(document.documentElement, {
-                childList: true,
-                subtree: true
-            });
+        observer.observe(document.documentElement, {
+            childList: true,
+            subtree: true
         });
     }
-
-    // التعامل مع المحتوى الموجود حاليًا والمستقبلي
-    function handleExistingContent() {
-        // منع أي انتقال مباشر
+    
+    // فحص الصفحة عند التحميل وبدء المراقبة
+    function init() {
+        // الفحص المبدئي عند التحميل
+        scanPageForMatchingUrls();
+        
+        // بدء مراقبة التغييرات
+        setupMutationObserver();
+        
+        console.log('✅ تم تفعيل سكربت حظر الروابط المطابقة للنمط');
+        
+        // منع النقر على الروابط المحظورة
         document.addEventListener('click', function(e) {
             if (e.target.tagName === 'A' || e.target.closest('a')) {
-                e.preventDefault();
-                e.stopPropagation();
-                console.log('🛑 تم منع النقر على رابط');
-                return false;
+                const link = e.target.tagName === 'A' ? e.target : e.target.closest('a');
+                const url = link.href;
+                
+                if (!url) return;
+                
+                const host = extractHost(url);
+                if (host && blockedHosts.has(host)) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log(`🚫 تم منع النقر على رابط يؤدي إلى موقع محظور: ${host}`);
+                    return false;
+                }
+                
+                if (urlPattern.test(url)) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const host = extractHost(url);
+                    if (host) {
+                        blockedHosts.add(host);
+                        console.log(`🚫 تم إضافة نطاق جديد للحظر: ${host}`);
+                    }
+                    console.log(`🚫 تم منع النقر على رابط مطابق للنمط: ${url}`);
+                    return false;
+                }
             }
         }, true);
     }
-
-    // تنفيذ كل الوظائف
-    setupMutationObserver();
-    handleExistingContent();
-
-    // كتابة رسالة تأكيد
-    console.log('✅ تم تفعيل سكربت منع إعادة التوجيه والروابط المخفية بنجاح');
-
+    
+    // تشغيل السكربت أثناء تحميل الصفحة
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
 })();
