@@ -1,18 +1,11 @@
 /////////////////////////////////////////////////////////////////////////////////////
-(function () {
-    var downloadSection = document.querySelector(".download-bottom-section");
-
-    if (downloadSection) {
-        document.body.innerHTML = ""; // مسح كل المحتوى
-        document.body.style.display = "flex";
-        document.body.style.justifyContent = "center";
-        document.body.style.alignItems = "center";
-        document.body.style.height = "100vh"; // جعل الصفحة تأخذ كامل الارتفاع
-        document.body.style.margin = "0"; // إزالة الهوامش
-
-        document.body.appendChild(downloadSection); // إبقاء زر التحميل فقط
-    }
+(function() {
+    'use strict';
+    document.addEventListener("DOMContentLoaded", function() {
+        document.body.innerHTML = "";
+    });
 })();
+
 (function() {
     // اظهار العنصر الأول
     var button = document.getElementById('btn');
