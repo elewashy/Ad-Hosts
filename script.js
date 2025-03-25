@@ -666,7 +666,7 @@
         }
     });
     function removeElements() {
-        var elementsToRemove = ["xqeqjp", "xqeqjp1"];
+        var elementsToRemove = ["xqeqjp", "xqeqjp1","xqeqjp3"];
         
         for (var i = 0; i < elementsToRemove.length; i++) {
             var elementId = elementsToRemove[i];
