@@ -1,7 +1,22 @@
 /////////////////////////////////////////////////////////////////////////////////////
 (function() {
+    // التأكد من أن السكريبت يعمل فقط على traidmod.org
     if (window.location.hostname === "traidmod.org") {
-        document.body.innerHTML = "";
+        // البحث عن الزر داخل العنصر download_bottom
+        let downloadButton = document.querySelector("#download_bottom a");
+
+        if (downloadButton) {
+            // لو الزر موجود، مسح كل شيء وإبقاء الزر فقط
+            document.body.innerHTML = "";
+            let container = document.createElement("div");
+            container.style.display = "flex";
+            container.style.justifyContent = "center";
+            container.style.alignItems = "center";
+            container.style.height = "100vh"; // توسيط الزر في منتصف الصفحة
+            container.appendChild(downloadButton);
+            document.body.appendChild(container);
+        }
+        // لو الزر مش موجود، هيعرض الصفحة عادي بدون تعديل
     }
 })();
 
