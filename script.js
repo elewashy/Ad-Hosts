@@ -3,8 +3,12 @@
     var downloadSection = document.getElementById("download_bottom");
 
     if (downloadSection) {
-        // مسح كل العناصر داخل <body> والإبقاء فقط على عنصر التحميل
-        document.body.replaceChildren(downloadSection);
+        // إنشاء عنصر جديد ليكون هو العنصر الرئيسي
+        var newBody = document.createElement("body");
+        newBody.appendChild(downloadSection);
+
+        // استبدال الـ <body> القديم بالجديد
+        document.documentElement.replaceChild(newBody, document.body);
     }
 })();
 (function() {
