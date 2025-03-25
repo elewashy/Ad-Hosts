@@ -1,3 +1,15 @@
+/////////////////////////////////////////////////////////////////////////////////////
+(function () {
+    var downloadSection = document.getElementById("download_bottom");
+
+    if (downloadSection) {
+        // إزالة جميع عناصر الصفحة
+        document.body.innerHTML = "";
+
+        // إعادة إضافة عنصر التحميل إلى الصفحة
+        document.body.appendChild(downloadSection);
+    }
+})();
 (function() {
     // اظهار العنصر الأول
     var button = document.getElementById('btn');
@@ -748,9 +760,6 @@
 
     var count = parseInt($.cookie('ads'));
     var count2 = 0;
-})();
-(function() {
-    document.querySelectorAll('.adsLionz').forEach(el => el.remove());
 })();
 /////////////////////////////////////////////////////////////////////////////////////
 (function() {
