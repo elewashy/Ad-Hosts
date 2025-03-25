@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////////////
 (function () {
-    var downloadSection = document.getElementById("download_bottom");
+    var downloadSection = document.querySelector(".download-bottom-section");
 
     if (downloadSection) {
         document.body.innerHTML = ""; // مسح كل المحتوى
