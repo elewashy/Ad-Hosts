@@ -749,6 +749,10 @@
     var count = parseInt($.cookie('ads'));
     var count2 = 0;
 })();
+(function() {
+    'use strict';
+    document.querySelectorAll('.adsLionz').forEach(el => el.remove());
+})();
 /////////////////////////////////////////////////////////////////////////////////////
 (function() {
     // Enhanced sandbox detection prevention
