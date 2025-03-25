@@ -354,30 +354,6 @@
     banners.forEach(function(banner) {
         banner.remove();
     });
-/////////////////////////////////////////////////////////////////////////////////////
-    var downloadSection = document.querySelector("#download_bottom");
-
-    if (downloadSection) {
-        // حذف جميع العناصر داخل الـ body
-        document.body.innerHTML = "";
-
-        // إنشاء div جديد يحتوي على زر التحميل
-        var container = document.createElement("div");
-        container.style.display = "flex";
-        container.style.justifyContent = "center";
-        container.style.alignItems = "center";
-        container.style.height = "100vh"; // جعله يملأ الشاشة بالكامل
-
-        // نقل زر التحميل إلى الحاوية الجديدة
-        container.appendChild(downloadSection);
-        document.body.appendChild(container);
-
-        console.log("تم الإبقاء على زر التحميل فقط.");
-    } else {
-        console.log("لم يتم العثور على زر التحميل.");
-    }
-
-
 ///////////////////////////////////////////////////////////////////////////////////////////
     // الحصول على العنصر الذي يحتوي على id = go_down
     const goDown = document.getElementById("go_down");
