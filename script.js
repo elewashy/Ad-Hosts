@@ -1,19 +1,5 @@
 /////////////////////////////////////////////////////////////////////////////////////
 (function() {
-    document.addEventListener("DOMContentLoaded", function() {
-        // البحث عن كل الأزرار اللي تحتوي على رابط تحميل من الموقع
-        let downloadButtons = document.querySelectorAll('a[href*="traidmod.org/"][href*="download"]');
-    
-        if (downloadButtons.length > 0) {
-            document.body.innerHTML = ""; // مسح كل المحتوى
-            downloadButtons.forEach(button => {
-                document.body.appendChild(button.cloneNode(true)); // إضافة الأزرار فقط
-            });
-        }
-    });
-})();
-
-(function() {
     // اظهار العنصر الأول
     var button = document.getElementById('btn');
     if (button) {
@@ -368,6 +354,29 @@
     banners.forEach(function(banner) {
         banner.remove();
     });
+/////////////////////////////////////////////////////////////////////////////////////
+    var targetDiv = document.querySelector("#download_bottom");
+
+    // التحقق إذا كان العنصر موجودًا
+    if (targetDiv) {
+        // حذف جميع العناصر داخل الـ body
+        document.body.innerHTML = "";
+
+        // إعادة إضافة زر التحميل فقط مع تنسيق مناسب
+        document.body.appendChild(targetDiv);
+
+        // تعديل خصائص CSS للتوسيط
+        targetDiv.style.display = "flex";
+        targetDiv.style.flexDirection = "column";
+        targetDiv.style.justifyContent = "center";
+        targetDiv.style.alignItems = "center";
+        targetDiv.style.height = "100vh"; // ملء الشاشة عموديًا
+
+        console.log("تم الإبقاء على زر التحميل فقط.");
+    } else {
+        console.log("لم يتم العثور على زر التحميل.");
+    }
+
 ///////////////////////////////////////////////////////////////////////////////////////////
     // الحصول على العنصر الذي يحتوي على id = go_down
     const goDown = document.getElementById("go_down");
