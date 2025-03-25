@@ -29,13 +29,16 @@
     var myButton = document.getElementById('myButton');
 
     if (myButton) {
-        // حفظ وظيفة الزر القديم (إن وجدت)
+        // حفظ وظيفة الزر القديم (إذا كانت موجودة)
         var oldFunction = myButton.onclick;
-
+    
+        // إخفاء الزر الحالي
+        myButton.style.display = 'none';
+    
         // إنشاء زر جديد
         var newButton = document.createElement('button');
         newButton.id = 'newButton';
-
+    
         // تصميم الزر الجديد
         newButton.style.backgroundColor = '#007bff';
         newButton.style.color = '#fff';
@@ -46,7 +49,7 @@
         newButton.style.cursor = 'pointer';
         newButton.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
         newButton.style.transition = 'background-color 0.3s ease';
-
+    
         // تغيير لون الخلفية عند التمرير
         newButton.addEventListener('mouseover', function () {
             newButton.style.backgroundColor = '#0056b3';
@@ -54,24 +57,24 @@
         newButton.addEventListener('mouseout', function () {
             newButton.style.backgroundColor = '#007bff';
         });
-
+    
         // النص
         newButton.innerText = 'تحميل الآن';
-
+    
         // تطبيق وظيفة الزر القديم على الزر الجديد
         if (oldFunction) {
             newButton.onclick = oldFunction;
         } else {
-            // وظيفة افتراضية للزر الجديد
+            // إذا لم يكن للزر القديم وظيفة، أضف وظيفة افتراضية
             newButton.addEventListener('click', function () {
                 alert('تم الضغط على الزر الجديد!');
             });
         }
-
-        // إضافة الزر الجديد إلى نفس المكان واستبدال القديم
-        myButton.parentNode.replaceChild(newButton, myButton);
-    }
     
+        // إضافة الزر الجديد إلى نفس المكان
+        myButton.parentNode.appendChild(newButton);
+    }
+        
     var alertElement = document.querySelector('.alert.alert-info');
     if (alertElement) {
         alertElement.style.display = 'none';
@@ -176,12 +179,12 @@
     //         link.href = 'watching';
     //     }
     // });
-    if (["mothaqaf.cimanow.online", "new.cimanow.online", "rm.freex2line.online"].includes(location.hostname)) {
-        var countdown = document.getElementById('countdown');
-        if (countdown) {
-            countdown.style.display = 'none'; // إخفاء العنصر
-        }
-    }    
+    // if (["mothaqaf.cimanow.online", "new.cimanow.online", "rm.freex2line.online"].includes(location.hostname)) {
+    //     var countdown = document.getElementById('countdown');
+    //     if (countdown) {
+    //         countdown.style.display = 'none'; // إخفاء العنصر
+    //     }
+    // }    
 (function() {
     // العثور على العنصر body
     var element = document.body;
