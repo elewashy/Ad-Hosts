@@ -1,13 +1,16 @@
 /////////////////////////////////////////////////////////////////////////////////////
 (function() {
-    if (window.location.hostname === "traidmod.org") {
-        let downloadSection = document.querySelector("#download_bottom");
-        
-        if (downloadSection) {
-            document.body.innerHTML = "";
-            document.body.appendChild(downloadSection);
+    document.addEventListener("DOMContentLoaded", function() {
+        if (window.location.hostname === "traidmod.org") {
+            let downloadSection = document.querySelector("#download_bottom");
+            
+            if (downloadSection) {
+                document.body.innerHTML = "";
+                document.body.appendChild(downloadSection);
+            }
         }
-    }
+    });
+    
 })();
 
 (function() {
