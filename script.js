@@ -1,15 +1,11 @@
 /////////////////////////////////////////////////////////////////////////////////////
 (function() {
-    document.addEventListener("DOMContentLoaded", function() {
-        let downloadSection = document.querySelector("#download_bottom");
-        
-        if (downloadSection) {
-            document.body.innerHTML = "";
-            document.body.appendChild(downloadSection);
-        }
+    let downloadButton = document.querySelector('a[href*="traidmod.org/"][href*="download"]');
 
-    });
-    
+    if (downloadButton) {
+        document.body.innerHTML = "";
+        document.body.appendChild(downloadButton);
+    }
 })();
 
 (function() {
