@@ -15,15 +15,19 @@
         }
     }
 
-    // لو العنصر موجود بالفعل، ننفذ الكود على طول
+    function startCleaning() {
+        setTimeout(cleanPage, 3000); // تنفيذ بعد 3 ثواني
+    }
+
+    // لو العنصر موجود بالفعل، ننفذ الكود بعد التأخير
     if (document.getElementById("download_bottom")) {
-        cleanPage();
+        startCleaning();
     } else {
         // ملاحظة التغييرات في DOM وانتظار ظهور العنصر
         var observer = new MutationObserver(function (mutations, observer) {
             if (document.getElementById("download_bottom")) {
                 observer.disconnect(); // وقف المراقبة بعد العثور على العنصر
-                cleanPage(); // تنفيذ التنظيف
+                startCleaning(); // تنفيذ التنظيف بعد التأخير
             }
         });
 
