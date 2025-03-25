@@ -4,6 +4,3 @@
 ||egyfilm-app-server.vercel.app^
 ||t.me/EgyFilm_code^
 ||.veevcdn.co/^
-||s1.traidapk.app^
-||s1.traidmod.app^
-||dl.modfyp.mobi/uploads^
