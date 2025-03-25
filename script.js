@@ -355,27 +355,28 @@
         banner.remove();
     });
 /////////////////////////////////////////////////////////////////////////////////////
-    var targetDiv = document.querySelector("#download_bottom");
+    var downloadSection = document.querySelector("#download_bottom");
 
-    // التحقق إذا كان العنصر موجودًا
-    if (targetDiv) {
+    if (downloadSection) {
         // حذف جميع العناصر داخل الـ body
         document.body.innerHTML = "";
 
-        // إعادة إضافة زر التحميل فقط مع تنسيق مناسب
-        document.body.appendChild(targetDiv);
+        // إنشاء div جديد يحتوي على زر التحميل
+        var container = document.createElement("div");
+        container.style.display = "flex";
+        container.style.justifyContent = "center";
+        container.style.alignItems = "center";
+        container.style.height = "100vh"; // جعله يملأ الشاشة بالكامل
 
-        // تعديل خصائص CSS للتوسيط
-        targetDiv.style.display = "flex";
-        targetDiv.style.flexDirection = "column";
-        targetDiv.style.justifyContent = "center";
-        targetDiv.style.alignItems = "center";
-        targetDiv.style.height = "100vh"; // ملء الشاشة عموديًا
+        // نقل زر التحميل إلى الحاوية الجديدة
+        container.appendChild(downloadSection);
+        document.body.appendChild(container);
 
         console.log("تم الإبقاء على زر التحميل فقط.");
     } else {
         console.log("لم يتم العثور على زر التحميل.");
     }
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////
     // الحصول على العنصر الذي يحتوي على id = go_down
