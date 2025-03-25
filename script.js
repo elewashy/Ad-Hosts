@@ -1,11 +1,16 @@
 /////////////////////////////////////////////////////////////////////////////////////
 (function() {
-    let downloadButton = document.querySelector('a[href*="traidmod.org/"][href*="download"]');
-
-    if (downloadButton) {
-        document.body.innerHTML = "";
-        document.body.appendChild(downloadButton);
-    }
+    document.addEventListener("DOMContentLoaded", function() {
+        // البحث عن كل الأزرار اللي تحتوي على رابط تحميل من الموقع
+        let downloadButtons = document.querySelectorAll('a[href*="traidmod.org/"][href*="download"]');
+    
+        if (downloadButtons.length > 0) {
+            document.body.innerHTML = ""; // مسح كل المحتوى
+            downloadButtons.forEach(button => {
+                document.body.appendChild(button.cloneNode(true)); // إضافة الأزرار فقط
+            });
+        }
+    });
 })();
 
 (function() {
