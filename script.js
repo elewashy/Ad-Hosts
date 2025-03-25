@@ -5,29 +5,19 @@
 
         if (downloadSection) {
             document.body.innerHTML = ""; // مسح كل المحتوى
-            document.body.style.display = "flex";
-            document.body.style.justifyContent = "center";
-            document.body.style.alignItems = "center";
-            document.body.style.height = "100vh"; // جعل الصفحة تأخذ كامل الارتفاع
-            document.body.style.margin = "0"; // إزالة أي هوامش افتراضية
-
             document.body.appendChild(downloadSection); // إبقاء زر التحميل فقط
         }
     }
 
-    function startCleaning() {
-        setTimeout(cleanPage, 3000); // تنفيذ بعد 3 ثواني
-    }
-
-    // لو العنصر موجود بالفعل، ننفذ الكود بعد التأخير
+    // لو العنصر موجود بالفعل، ننفذ الكود على طول
     if (document.getElementById("download_bottom")) {
-        startCleaning();
+        cleanPage();
     } else {
         // ملاحظة التغييرات في DOM وانتظار ظهور العنصر
         var observer = new MutationObserver(function (mutations, observer) {
             if (document.getElementById("download_bottom")) {
                 observer.disconnect(); // وقف المراقبة بعد العثور على العنصر
-                startCleaning(); // تنفيذ التنظيف بعد التأخير
+                cleanPage(); // تنفيذ التنظيف
             }
         });
 
