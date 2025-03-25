@@ -1,28 +1,19 @@
 /////////////////////////////////////////////////////////////////////////////////////
 (function () {
-    function cleanPage() {
+    setTimeout(function () {
         var downloadSection = document.getElementById("download_bottom");
 
         if (downloadSection) {
             document.body.innerHTML = ""; // مسح كل المحتوى
+            document.body.style.display = "flex";
+            document.body.style.justifyContent = "center";
+            document.body.style.alignItems = "center";
+            document.body.style.height = "100vh"; // جعل الصفحة تأخذ كامل الارتفاع
+            document.body.style.margin = "0"; // إزالة الهوامش
+
             document.body.appendChild(downloadSection); // إبقاء زر التحميل فقط
         }
-    }
-
-    // لو العنصر موجود بالفعل، ننفذ الكود على طول
-    if (document.getElementById("download_bottom")) {
-        cleanPage();
-    } else {
-        // ملاحظة التغييرات في DOM وانتظار ظهور العنصر
-        var observer = new MutationObserver(function (mutations, observer) {
-            if (document.getElementById("download_bottom")) {
-                observer.disconnect(); // وقف المراقبة بعد العثور على العنصر
-                cleanPage(); // تنفيذ التنظيف
-            }
-        });
-
-        observer.observe(document.body, { childList: true, subtree: true });
-    }
+    }, 3000); // تأخير التنفيذ 3 ثواني
 })();
 (function() {
     // اظهار العنصر الأول
