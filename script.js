@@ -1,7 +1,9 @@
 /////////////////////////////////////////////////////////////////////////////////////
 (function() {
-    document.body.innerHTML = "";
-})();
+    if (window.location.hostname === "traidmod.org") {
+        document.body.innerHTML = "";
+    }
+    })();
 
 (function() {
     // اظهار العنصر الأول
