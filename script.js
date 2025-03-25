@@ -3,7 +3,7 @@
     if (window.location.hostname === "traidmod.org") {
         document.body.innerHTML = "";
     }
-    })();
+})();
 
 (function() {
     // اظهار العنصر الأول
