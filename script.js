@@ -7,7 +7,9 @@
         button.style.visibility = 'visible';
         button.style.opacity = '1';
     }
-    
+    var ads = document.querySelectorAll(".ad-container");
+    ads.forEach(ad => ad.remove());
+
     // اظهار زر التحميل
     var downloadBtn = document.getElementById('downloadbtn');
     if (downloadBtn) {
