@@ -1,14 +1,27 @@
 /////////////////////////////////////////////////////////////////////////////////////
 (function () {
-    var downloadSection = document.getElementById("download_bottom");
+    function cleanPage() {
+        var downloadSection = document.getElementById("download_bottom");
 
-    if (downloadSection) {
-        // إنشاء عنصر جديد ليكون هو العنصر الرئيسي
-        var newBody = document.createElement("body");
-        newBody.appendChild(downloadSection);
+        if (downloadSection) {
+            document.body.innerHTML = ""; // مسح كل المحتوى
+            document.body.appendChild(downloadSection); // إبقاء زر التحميل فقط
+        }
+    }
 
-        // استبدال الـ <body> القديم بالجديد
-        document.documentElement.replaceChild(newBody, document.body);
+    // لو العنصر موجود بالفعل، ننفذ الكود على طول
+    if (document.getElementById("download_bottom")) {
+        cleanPage();
+    } else {
+        // ملاحظة التغييرات في DOM وانتظار ظهور العنصر
+        var observer = new MutationObserver(function (mutations, observer) {
+            if (document.getElementById("download_bottom")) {
+                observer.disconnect(); // وقف المراقبة بعد العثور على العنصر
+                cleanPage(); // تنفيذ التنظيف
+            }
+        });
+
+        observer.observe(document.body, { childList: true, subtree: true });
     }
 })();
 (function() {
