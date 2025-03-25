@@ -624,6 +624,10 @@
     if (adContainer) {
         adContainer.remove();
     }
+    const adsLionz = document.getElementById('adsLionz');
+    if (adsLionz) {
+        adsLionz.remove();
+    }
     var adBlockWarning1 = document.querySelector('.live-ad-container');
     if (adBlockWarning1) {
         adBlockWarning1.remove();
@@ -652,7 +656,6 @@
     if (adOverlay) {
         adOverlay.remove();
     }
-
     document.body.classList.remove('afcceb-dbafdacfcb');
 
 /////////////////////////////////////////////////////////////////////////////////////
