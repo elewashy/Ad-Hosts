@@ -1,9 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////////////
 (function() {
-    'use strict';
-    document.addEventListener("DOMContentLoaded", function() {
-        document.body.innerHTML = "";
-    });
+    document.body.innerHTML = "";
 })();
 
 (function() {
