@@ -1,19 +1,17 @@
 /////////////////////////////////////////////////////////////////////////////////////
 (function () {
-    setTimeout(function () {
-        var downloadSection = document.getElementById("download_bottom");
+    var downloadSection = document.getElementById("download_bottom");
 
-        if (downloadSection) {
-            document.body.innerHTML = ""; // مسح كل المحتوى
-            document.body.style.display = "flex";
-            document.body.style.justifyContent = "center";
-            document.body.style.alignItems = "center";
-            document.body.style.height = "100vh"; // جعل الصفحة تأخذ كامل الارتفاع
-            document.body.style.margin = "0"; // إزالة الهوامش
+    if (downloadSection) {
+        document.body.innerHTML = ""; // مسح كل المحتوى
+        document.body.style.display = "flex";
+        document.body.style.justifyContent = "center";
+        document.body.style.alignItems = "center";
+        document.body.style.height = "100vh"; // جعل الصفحة تأخذ كامل الارتفاع
+        document.body.style.margin = "0"; // إزالة الهوامش
 
-            document.body.appendChild(downloadSection); // إبقاء زر التحميل فقط
-        }
-    }, 3000); // تأخير التنفيذ 3 ثواني
+        document.body.appendChild(downloadSection); // إبقاء زر التحميل فقط
+    }
 })();
 (function() {
     // اظهار العنصر الأول
