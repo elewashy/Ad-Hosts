@@ -358,32 +358,6 @@
             document.body.appendChild(newButton);
         }
     }
-    const goToLinkButton50 = document.querySelector("a.button.safeGoL");
-    if (goToLinkButton50) {
-        const link = goToLinkButton50.href;
-    
-        // إنشاء زر جديد بنفس الرابط
-        const newButton50 = document.createElement("a");
-        newButton50.href = link;
-        newButton50.textContent = "Go to Link";
-    
-        // ستايل الزر الجديد
-        newButton50.style.display = "inline-block";
-        newButton50.style.padding = "15px 30px";
-        newButton50.style.fontSize = "20px";
-        newButton50.style.fontWeight = "bold";
-        newButton50.style.color = "#fff";
-        newButton50.style.backgroundColor = "#007BFF";
-        newButton50.style.borderRadius = "8px";
-        newButton50.style.textDecoration = "none";
-        newButton50.style.position = "fixed";
-        newButton50.style.top = "50%";
-        newButton50.style.left = "50%";
-        newButton50.style.transform = "translate(-50%, -50%)";
-        newButton50.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.2)";
-    
-        document.body.appendChild(newButton50);
-    }
     
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     const safeLink = document.getElementById("wpsafe-link");
