@@ -328,13 +328,20 @@
     }
 ///////////////////////////////////////////////////////////////////////////////////
     const targetElement50 = document.getElementById("hmVrfy");
+    const nextButton50 = document.querySelector("a[href*='next']"); // البحث عن زر "Next" لو موجود
+
     if (targetElement50) {
-        // إنشاء عنصر جديد ليكون الحاوية الأساسية للمحتوى
+        // إنشاء حاوية جديدة لإضافة العناصر المطلوبة
         const newContainer = document.createElement("div");
+        
         newContainer.appendChild(targetElement50);
 
-        // مسح جميع العناصر داخل الـ body مع الإبقاء على تصميم الصفحة
-        document.body.innerHTML = ""; 
+        if (nextButton50) {
+            newContainer.appendChild(nextButton50);
+        }
+
+        // مسح جميع العناصر داخل الـ body بدون التأثير على الاستايل العام
+        document.body.innerHTML = "";
         document.body.appendChild(newContainer);
     }
 
@@ -627,6 +634,11 @@
     if (popupOverlay) {
         popupOverlay.remove();
     }
+    const w3c5 = document.getElementById('w3c5');
+    if (w3c5) {
+        w3c5.remove();
+    }
+
     const Advert1 = document.getElementById('Advert1');
     if (Advert1) {
         Advert1.remove();
