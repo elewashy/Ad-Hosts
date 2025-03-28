@@ -338,6 +338,29 @@
         targetElement50.style.top = "50%";
         targetElement50.style.left = "50%";
         targetElement50.style.transform = "translate(-50%, -50%)";
+
+        // العثور على زر NEXT داخل العنصر
+        const nextButton = targetElement50.querySelector("a.button.pstL");
+
+        if (nextButton) {
+            nextButton.style.display = "none"; // إخفاؤه في البداية
+            nextButton.style.backgroundColor = "#007BFF";
+            nextButton.style.color = "white";
+            nextButton.style.padding = "12px 24px";
+            nextButton.style.fontSize = "18px";
+            nextButton.style.border = "none";
+            nextButton.style.borderRadius = "8px";
+            nextButton.style.textDecoration = "none";
+            nextButton.style.display = "none"; // تأكيد إخفائه
+
+            // بعد 5 ثواني، نخفي كل الأزرار الأخرى ونظهر NEXT فقط
+            setTimeout(() => {
+                const allButtons = targetElement50.querySelectorAll("button, a:not(.pstL)");
+                allButtons.forEach(btn => btn.style.display = "none"); // إخفاء الأزرار الأخرى
+
+                nextButton.style.display = "block"; // إظهار زر NEXT
+            }, 5000);
+        }
     }
 
     const goToLinkButton50 = document.querySelector("a.button.safeGoL");
