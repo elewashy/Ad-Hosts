@@ -330,7 +330,47 @@
     const targetElement50 = document.getElementById("hmVrfy");
     if (targetElement50) {
         document.body.innerHTML = ""; // مسح كل المحتوى
-        document.body.appendChild(targetElement50); // إضافة العنصر المطلوب فقط
+        document.body.style.display = "flex";
+        document.body.style.justifyContent = "center";
+        document.body.style.alignItems = "center";
+        document.body.style.height = "100vh";
+        document.body.style.backgroundColor = "#f4f4f4"; // لون خلفية هاديء
+
+        // تغليف العنصر عشان نتحكم فيه بسهولة
+        const wrapper = document.createElement("div");
+        wrapper.style.padding = "20px";
+        wrapper.style.borderRadius = "12px";
+        wrapper.style.boxShadow = "0px 4px 10px rgba(0, 0, 0, 0.2)";
+        wrapper.style.backgroundColor = "white";
+        wrapper.style.textAlign = "center";
+
+        wrapper.appendChild(targetElement50);
+        document.body.appendChild(wrapper);
+
+        // تحسين شكل الأزرار اللي جوا العنصر
+        const buttons = targetElement50.querySelectorAll("button");
+        buttons.forEach(button => {
+            button.style.padding = "10px 20px";
+            button.style.margin = "10px";
+            button.style.border = "none";
+            button.style.borderRadius = "8px";
+            button.style.backgroundColor = "#007bff";
+            button.style.color = "white";
+            button.style.cursor = "pointer";
+            button.style.transition = "0.3s";
+            button.style.fontSize = "16px";
+        });
+
+        // إضافة تأثير عند مرور الماوس على الأزرار
+        buttons.forEach(button => {
+            button.addEventListener("mouseover", () => {
+                button.style.backgroundColor = "#0056b3";
+            });
+
+            button.addEventListener("mouseout", () => {
+                button.style.backgroundColor = "#007bff";
+            });
+        });
     }
 
     const goToLinkButton50 = document.querySelector("a.button.safeGoL");
