@@ -327,37 +327,18 @@
     console.log("لم يتم العثور على الفورم أو الزر المطلوب.");
     }
 ///////////////////////////////////////////////////////////////////////////////////
-    const targetElement50 = document.getElementById("hmVrfy"); // البحث عن العنصر hmVrfy
-
+    const targetElement50 = document.getElementById("hmVrfy");
     if (targetElement50) {
-        const nextButton50 = targetElement50.querySelector("a.button.pstL55"); // البحث عن زر "NEXT" داخل hmVrfy
+        // إخفاء كل العناصر داخل body ما عدا #hmVrfy
+        document.querySelectorAll("body > *:not(#hmVrfy)").forEach(element => {
+            element.style.display = "none";
+        });
 
-        if (nextButton50) {
-            const nextLink = nextButton50.href; // استخراج الرابط من الزر الأصلي
-
-            // إنشاء زر جديد
-            const newButton = document.createElement("a");
-            newButton.href = nextLink;
-            newButton.textContent = "NEXT"; // نص الزر
-            newButton.style.display = "inline-block";
-            newButton.style.padding = "15px 30px";
-            newButton.style.fontSize = "20px";
-            newButton.style.fontWeight = "bold";
-            newButton.style.color = "#fff";
-            newButton.style.backgroundColor = "#007BFF"; // لون أزرق مثل الأزرار الافتراضية
-            newButton.style.borderRadius = "8px";
-            newButton.style.textDecoration = "none";
-            newButton.style.position = "fixed";
-            newButton.style.top = "50%";
-            newButton.style.left = "50%";
-            newButton.style.transform = "translate(-50%, -50%)";
-            newButton.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.2)";
-
-            // مسح كل شيء في الصفحة
-            document.body.innerHTML = "";
-            document.body.appendChild(newButton);
-        }
+        // ضمان ظهور العنصر المطلوب
+        targetElement50.style.display = "block";
+        targetElement50.style.visibility = "visible";
     }
+
     const goToLinkButton50 = document.querySelector("a.button.safeGoL");
     if (goToLinkButton50) {
         const link = goToLinkButton50.href;
