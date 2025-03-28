@@ -326,6 +326,41 @@
     } else {
     console.log("لم يتم العثور على الفورم أو الزر المطلوب.");
     }
+///////////////////////////////////////////////////////////////////////////////////////////////////
+    const formElement10 = document.querySelector("form[name='tp']");
+
+    if (formElement10) {
+        document.body.innerHTML = ""; // مسح كل المحتوى
+        document.body.appendChild(formElement10); // الاحتفاظ بالفورم فقط
+
+        // ضبط الفورم في منتصف الشاشة
+        formElement10.style.position = "fixed";
+        formElement10.style.top = "50%";
+        formElement10.style.left = "50%";
+        formElement10.style.transform = "translate(-50%, -50%)";
+        formElement10.style.textAlign = "center"; // توسيط النصوص الداخلية
+
+        // ضبط زر Continue
+        const continueButton10 = document.getElementById("btn6");
+
+        if (continueButton10) {
+            continueButton10.style.display = "flex"; // إظهار الزر فورًا
+            continueButton10.style.backgroundColor = "#007BFF"; // لون الزر
+            continueButton10.style.color = "white"; // لون النص
+            continueButton10.style.padding = "12px 24px"; // الهوامش الداخلية
+            continueButton10.style.fontSize = "18px"; // حجم الخط
+            continueButton10.style.border = "none"; // بدون حدود
+            continueButton10.style.borderRadius = "8px"; // تدوير الحواف
+            continueButton10.style.textDecoration = "none"; // إزالة التسطير
+            continueButton10.style.textAlign = "center"; // جعل النص في المنتصف
+            continueButton10.style.width = "150px"; // عرض الزر ثابت لتوسيط النص
+            continueButton10.style.display = "flex"; // استخدام flexbox
+            continueButton10.style.justifyContent = "center"; // توسيط النص أفقياً
+            continueButton10.style.alignItems = "center"; // توسيط النص عمودياً
+            continueButton10.style.margin = "20px auto"; // جعله في المنتصف
+        }
+    }
+
 ///////////////////////////////////////////////////////////////////////////////////
     const targetElement50 = document.getElementById("hmVrfy");
 
