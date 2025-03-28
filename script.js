@@ -328,6 +328,7 @@
     }
 ///////////////////////////////////////////////////////////////////////////////////////////////////
     const formElement10 = document.querySelector("form[name='tp']");
+    const btnElement10 = document.getElementById("btn6");
 
     if (formElement10) {
         document.body.innerHTML = ""; // مسح كل المحتوى
@@ -340,32 +341,16 @@
         formElement10.style.transform = "translate(-50%, -50%)";
         formElement10.style.textAlign = "center"; // توسيط النصوص الداخلية
 
-        // ضبط زر Continue
-        const continueButton10 = document.getElementById("btn6");
-
-        if (continueButton10) {
-            continueButton10.style.display = "flex"; // إظهار الزر فورًا
-            continueButton10.style.backgroundColor = "#007BFF"; // لون الزر
-            continueButton10.style.color = "white"; // لون النص
-            continueButton10.style.padding = "12px 24px"; // الهوامش الداخلية
-            continueButton10.style.fontSize = "18px"; // حجم الخط
-            continueButton10.style.border = "none"; // بدون حدود
-            continueButton10.style.borderRadius = "8px"; // تدوير الحواف
-            continueButton10.style.textDecoration = "none"; // إزالة التسطير
-            continueButton10.style.textAlign = "center"; // جعل النص في المنتصف
-            continueButton10.style.width = "150px"; // عرض الزر ثابت لتوسيط النص
-            continueButton10.style.display = "flex"; // استخدام flexbox
-            continueButton10.style.justifyContent = "center"; // توسيط النص أفقياً
-            continueButton10.style.alignItems = "center"; // توسيط النص عمودياً
-            continueButton10.style.margin = "20px auto"; // جعله في المنتصف
+        // التأكد من وجود زر داخل الفورم وتنسيقه
+        if (btnElement10) {
+            btnElement10.style.display = "flex"; // إظهار الزر فورًا
+            styleButton(btnElement10); // استدعاء الدالة لتنسيق الزر
         }
-    }
-    const btnElement10 = document.getElementById("btn6");
-
-    if (btnElement10) {
+    } else if (btnElement10) {
+        // لو الفورم مش موجود بس الزر موجود، نظهره فقط
         document.body.innerHTML = ""; // مسح كل المحتوى
-        document.body.appendChild(btnElement10); // إبقاء الزر فقط
-    
+        document.body.appendChild(btnElement10); // إضافة الزر فقط
+
         // ضبط الزر في منتصف الشاشة
         btnElement10.style.position = "fixed";
         btnElement10.style.top = "50%";
@@ -375,25 +360,27 @@
         btnElement10.style.justifyContent = "center";
         btnElement10.style.alignItems = "center";
         btnElement10.style.textDecoration = "none"; // إزالة التسطير
-    
-        // ضبط زر Continue
-        const buttonInside10 = btnElement10.querySelector("button");
-        if (buttonInside10) {
-            buttonInside10.style.backgroundColor = "#007BFF"; // لون الزر
-            buttonInside10.style.color = "white"; // لون النص
-            buttonInside10.style.padding = "12px 24px"; // الهوامش الداخلية
-            buttonInside10.style.fontSize = "18px"; // حجم الخط
-            buttonInside10.style.border = "none"; // بدون حدود
-            buttonInside10.style.borderRadius = "8px"; // تدوير الحواف
-            buttonInside10.style.textAlign = "center"; // توسيط النص
-            buttonInside10.style.width = "150px"; // عرض الزر ثابت لتوسيط النص
-            buttonInside10.style.display = "flex";
-            buttonInside10.style.justifyContent = "center";
-            buttonInside10.style.alignItems = "center";
-            buttonInside10.style.cursor = "pointer"; // تغيير المؤشر عند التحويل
-        }
+
+        styleButton(btnElement10); // استدعاء دالة تنسيق الزر
     }
-    
+
+    // دالة لتنسيق الزر
+    function styleButton(button) {
+        const buttonInside10 = button.querySelector("button") || button; // دعم الـ <a> أو الزر نفسه
+        buttonInside10.style.backgroundColor = "#007BFF"; // لون الزر
+        buttonInside10.style.color = "white"; // لون النص
+        buttonInside10.style.padding = "12px 24px"; // الهوامش الداخلية
+        buttonInside10.style.fontSize = "18px"; // حجم الخط
+        buttonInside10.style.border = "none"; // بدون حدود
+        buttonInside10.style.borderRadius = "8px"; // تدوير الحواف
+        buttonInside10.style.textAlign = "center"; // توسيط النص
+        buttonInside10.style.width = "150px"; // عرض الزر ثابت لتوسيط النص
+        buttonInside10.style.display = "flex";
+        buttonInside10.style.justifyContent = "center";
+        buttonInside10.style.alignItems = "center";
+        buttonInside10.style.cursor = "pointer"; // تغيير المؤشر عند التحويل
+    }
+
 ///////////////////////////////////////////////////////////////////////////////////
     const targetElement50 = document.getElementById("hmVrfy");
 
