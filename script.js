@@ -328,19 +328,25 @@
     }
 ///////////////////////////////////////////////////////////////////////////////////
     const targetElement50 = document.getElementById("hmVrfy");
-    const nextButton50 = document.querySelector("a[href*='next']"); // البحث عن زر "Next" لو موجود
+    const nextButton50 = document.querySelector("a.button.pstL"); // البحث عن زر "NEXT"
 
     if (targetElement50) {
-        // إنشاء حاوية جديدة لإضافة العناصر المطلوبة
+        // إنشاء حاوية جديدة
         const newContainer = document.createElement("div");
-        
+        newContainer.style.display = "flex";
+        newContainer.style.flexDirection = "column";
+        newContainer.style.alignItems = "center"; // توسيط المحتوى في الصفحة
+        newContainer.style.justifyContent = "center";
+        newContainer.style.height = "100vh"; // ملء الشاشة بالكامل
+
         newContainer.appendChild(targetElement50);
 
         if (nextButton50) {
+            // إضافة زر "NEXT" والاحتفاظ بتنسيقه
             newContainer.appendChild(nextButton50);
         }
 
-        // مسح جميع العناصر داخل الـ body بدون التأثير على الاستايل العام
+        // مسح جميع العناصر داخل الـ body بدون التأثير على CSS العام
         document.body.innerHTML = "";
         document.body.appendChild(newContainer);
     }
