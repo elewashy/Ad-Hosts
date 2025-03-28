@@ -330,15 +330,11 @@
     const targetElement50 = document.getElementById("hmVrfy");
 
     if (targetElement50) {
-        // إخفاء كل العناصر داخل `body`
         document.body.childNodes.forEach(node => {
-            if (node.nodeType === 1 && node !== targetElement50) { // التأكد أنه عنصر HTML وليس نص
+            if (node.nodeType === 1 && node !== targetElement50 && !targetElement50.contains(node)) {
                 node.style.display = "none";
             }
         });
-
-        // ضمان أن العنصر المطلوب يظل ظاهرًا
-        targetElement50.style.display = "block";
     }
 
     const goToLinkButton50 = document.querySelector("a.button.safeGoL");
