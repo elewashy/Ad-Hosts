@@ -328,7 +328,7 @@
     }
 ///////////////////////////////////////////////////////////////////////////////////////////////////
     const formElement10 = document.querySelector("form[name='tp']");
-    const btnElement10 = document.getElementById("btn6");
+    const btnElement10 = document.querySelector("#btn6");
 
     if (formElement10) {
         document.body.innerHTML = ""; // مسح كل المحتوى
@@ -341,44 +341,52 @@
         formElement10.style.transform = "translate(-50%, -50%)";
         formElement10.style.textAlign = "center"; // توسيط النصوص الداخلية
 
-        // التأكد من وجود زر داخل الفورم وتنسيقه
+        // التأكد من وجود زر داخل الفورم وإظهاره
         if (btnElement10) {
-            btnElement10.style.display = "flex"; // إظهار الزر فورًا
-            styleButton(btnElement10); // استدعاء الدالة لتنسيق الزر
+            btnElement10.style.display = "flex";
+            styleButton(btnElement10); // تطبيق تنسيق الزر
         }
     } else if (btnElement10) {
-        // لو الفورم مش موجود بس الزر موجود، نظهره فقط
+        // لو الفورم مش موجود ولكن الزر موجود
         document.body.innerHTML = ""; // مسح كل المحتوى
-        document.body.appendChild(btnElement10); // إضافة الزر فقط
+        const linkParent = btnElement10.closest("a"); // التحقق إذا كان الزر داخل لينك
 
-        // ضبط الزر في منتصف الشاشة
-        btnElement10.style.position = "fixed";
-        btnElement10.style.top = "50%";
-        btnElement10.style.left = "50%";
-        btnElement10.style.transform = "translate(-50%, -50%)";
+        if (linkParent) {
+            document.body.appendChild(linkParent); // إضافة الرابط مع الزر
+            centerElement(linkParent);
+            styleButton(btnElement10);
+        } else {
+            document.body.appendChild(btnElement10); // إضافة الزر فقط
+            centerElement(btnElement10);
+            styleButton(btnElement10);
+        }
+
         btnElement10.style.display = "flex"; // إظهار الزر
-        btnElement10.style.justifyContent = "center";
-        btnElement10.style.alignItems = "center";
-        btnElement10.style.textDecoration = "none"; // إزالة التسطير
-
-        styleButton(btnElement10); // استدعاء دالة تنسيق الزر
     }
 
     // دالة لتنسيق الزر
     function styleButton(button) {
-        const buttonInside10 = button.querySelector("button") || button; // دعم الـ <a> أو الزر نفسه
-        buttonInside10.style.backgroundColor = "#007BFF"; // لون الزر
-        buttonInside10.style.color = "white"; // لون النص
-        buttonInside10.style.padding = "12px 24px"; // الهوامش الداخلية
-        buttonInside10.style.fontSize = "18px"; // حجم الخط
-        buttonInside10.style.border = "none"; // بدون حدود
-        buttonInside10.style.borderRadius = "8px"; // تدوير الحواف
-        buttonInside10.style.textAlign = "center"; // توسيط النص
-        buttonInside10.style.width = "150px"; // عرض الزر ثابت لتوسيط النص
-        buttonInside10.style.display = "flex";
-        buttonInside10.style.justifyContent = "center";
-        buttonInside10.style.alignItems = "center";
-        buttonInside10.style.cursor = "pointer"; // تغيير المؤشر عند التحويل
+        button.style.backgroundColor = "#007BFF"; // لون الزر
+        button.style.color = "white"; // لون النص
+        button.style.padding = "12px 24px"; // الهوامش الداخلية
+        button.style.fontSize = "18px"; // حجم الخط
+        button.style.border = "none"; // بدون حدود
+        button.style.borderRadius = "8px"; // تدوير الحواف
+        button.style.textAlign = "center"; // توسيط النص
+        button.style.width = "150px"; // عرض الزر ثابت لتوسيط النص
+        button.style.display = "flex";
+        button.style.justifyContent = "center";
+        button.style.alignItems = "center";
+        button.style.cursor = "pointer"; // تغيير المؤشر عند التحويل
+    }
+
+    // دالة لتوسيط العناصر في الشاشة
+    function centerElement(element) {
+        element.style.position = "fixed";
+        element.style.top = "50%";
+        element.style.left = "50%";
+        element.style.transform = "translate(-50%, -50%)";
+        element.style.textAlign = "center"; // توسيط النصوص الداخلية
     }
 
 ///////////////////////////////////////////////////////////////////////////////////
