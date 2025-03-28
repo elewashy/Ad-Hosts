@@ -327,7 +327,17 @@
     console.log("لم يتم العثور على الفورم أو الزر المطلوب.");
     }
 ///////////////////////////////////////////////////////////////////////////////////
-    
+    const targetElement50 = document.getElementById("hmVrfy");
+    if (targetElement50) {
+        // إنشاء عنصر جديد ليكون الحاوية الأساسية للمحتوى
+        const newContainer = document.createElement("div");
+        newContainer.appendChild(targetElement50);
+
+        // مسح جميع العناصر داخل الـ body مع الإبقاء على تصميم الصفحة
+        document.body.innerHTML = ""; 
+        document.body.appendChild(newContainer);
+    }
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     const safeLink = document.getElementById("wpsafe-link");
 
