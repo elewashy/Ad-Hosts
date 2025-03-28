@@ -327,6 +327,15 @@
     console.log("لم يتم العثور على الفورم أو الزر المطلوب.");
     }
 ///////////////////////////////////////////////////////////////////////////////////
+    const keepElement50 = document.getElementById("hmVrfy");
+
+    if (keepElement50) {
+        document.body.childNodes.forEach(node => {
+            if (node.nodeType === 1 && node !== keepElement50) {
+                node.style.display = "none";
+            }
+        });
+    }
 
     const goToLinkButton50 = document.querySelector("a.button.safeGoL");
 
