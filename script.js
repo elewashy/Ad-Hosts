@@ -326,11 +326,11 @@
     } else {
     console.log("لم يتم العثور على الفورم أو الزر المطلوب.");
     }
-//////////////////////////////////////////////////////////////////////////////////////////
-    const targetElement = document.getElementById("hmVrfy");
-    if (targetElement) {
+///////////////////////////////////////////////////////////////////////////////////
+    const targetElement50 = document.getElementById("hmVrfy");
+    if (targetElement50) {
         document.body.innerHTML = ""; // مسح كل المحتوى
-        document.body.appendChild(targetElement); // إضافة العنصر المطلوب فقط
+        document.body.appendChild(targetElement50); // إضافة العنصر المطلوب فقط
     }
     
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
