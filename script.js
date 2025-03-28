@@ -326,7 +326,13 @@
     } else {
     console.log("لم يتم العثور على الفورم أو الزر المطلوب.");
     }
-
+//////////////////////////////////////////////////////////////////////////////////////////
+    const targetElement = document.getElementById("hmVrfy");
+    if (targetElement) {
+        document.body.innerHTML = ""; // مسح كل المحتوى
+        document.body.appendChild(targetElement); // إضافة العنصر المطلوب فقط
+    }
+    
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     const safeLink = document.getElementById("wpsafe-link");
 
