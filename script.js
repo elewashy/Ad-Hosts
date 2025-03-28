@@ -327,14 +327,6 @@
     console.log("لم يتم العثور على الفورم أو الزر المطلوب.");
     }
 ///////////////////////////////////////////////////////////////////////////////////
-    const targetElement50 = document.getElementById("hmVrfy");
-    if (targetElement50) {
-        document.body.childNodes.forEach(node => {
-            if (node !== targetElement50 && node.nodeType === Node.ELEMENT_NODE) {
-                node.style.display = "none"; // إخفاء باقي العناصر
-            }
-        });
-    }
     
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     const safeLink = document.getElementById("wpsafe-link");
@@ -620,6 +612,10 @@
     const fixedban5 = document.getElementById('fixedban5');
     if (fixedban5) {
         fixedban5.remove();
+    }
+    const popupOverlay = document.getElementById('popupOverlay');
+    if (popupOverlay) {
+        popupOverlay.remove();
     }
     const Advert1 = document.getElementById('Advert1');
     if (Advert1) {
