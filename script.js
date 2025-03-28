@@ -327,28 +327,36 @@
     console.log("لم يتم العثور على الفورم أو الزر المطلوب.");
     }
 ///////////////////////////////////////////////////////////////////////////////////
-    const targetElement50 = document.getElementById("hmVrfy");
-    const nextButton50 = document.querySelector("a.button.pstL"); // البحث عن زر "NEXT"
+    const targetElement50 = document.getElementById("hmVrfy"); // البحث عن العنصر hmVrfy
 
     if (targetElement50) {
-        // إنشاء حاوية جديدة
-        const newContainer = document.createElement("div");
-        newContainer.style.display = "flex";
-        newContainer.style.flexDirection = "column";
-        newContainer.style.alignItems = "center"; // توسيط المحتوى في الصفحة
-        newContainer.style.justifyContent = "center";
-        newContainer.style.height = "100vh"; // ملء الشاشة بالكامل
-
-        newContainer.appendChild(targetElement50);
+        const nextButton50 = targetElement50.querySelector("a.button.pstL"); // البحث عن زر "NEXT" داخل hmVrfy
 
         if (nextButton50) {
-            // إضافة زر "NEXT" والاحتفاظ بتنسيقه
-            newContainer.appendChild(nextButton50);
-        }
+            const nextLink = nextButton50.href; // استخراج الرابط من الزر الأصلي
 
-        // مسح جميع العناصر داخل الـ body بدون التأثير على CSS العام
-        document.body.innerHTML = "";
-        document.body.appendChild(newContainer);
+            // إنشاء زر جديد
+            const newButton = document.createElement("a");
+            newButton.href = nextLink;
+            newButton.textContent = "NEXT"; // نص الزر
+            newButton.style.display = "inline-block";
+            newButton.style.padding = "15px 30px";
+            newButton.style.fontSize = "20px";
+            newButton.style.fontWeight = "bold";
+            newButton.style.color = "#fff";
+            newButton.style.backgroundColor = "#007BFF"; // لون أزرق مثل الأزرار الافتراضية
+            newButton.style.borderRadius = "8px";
+            newButton.style.textDecoration = "none";
+            newButton.style.position = "fixed";
+            newButton.style.top = "50%";
+            newButton.style.left = "50%";
+            newButton.style.transform = "translate(-50%, -50%)";
+            newButton.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.2)";
+
+            // مسح كل شيء في الصفحة
+            document.body.innerHTML = "";
+            document.body.appendChild(newButton);
+        }
     }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
