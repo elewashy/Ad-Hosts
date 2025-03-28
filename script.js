@@ -623,7 +623,7 @@
     }
     const popupOverlay = document.getElementById('popupOverlay');
     if (popupOverlay) {
-        popupOverlay.remove();
+        popupOverlay.style.display = "none"; // إخفاء العنصر بدل حذفه
     }
     const Advert1 = document.getElementById('Advert1');
     if (Advert1) {
