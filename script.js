@@ -360,7 +360,40 @@
             continueButton10.style.margin = "20px auto"; // جعله في المنتصف
         }
     }
+    const btnElement10 = document.getElementById("btn6");
 
+    if (btnElement10) {
+        document.body.innerHTML = ""; // مسح كل المحتوى
+        document.body.appendChild(btnElement10); // إبقاء الزر فقط
+    
+        // ضبط الزر في منتصف الشاشة
+        btnElement10.style.position = "fixed";
+        btnElement10.style.top = "50%";
+        btnElement10.style.left = "50%";
+        btnElement10.style.transform = "translate(-50%, -50%)";
+        btnElement10.style.display = "flex"; // إظهار الزر
+        btnElement10.style.justifyContent = "center";
+        btnElement10.style.alignItems = "center";
+        btnElement10.style.textDecoration = "none"; // إزالة التسطير
+    
+        // ضبط زر Continue
+        const buttonInside10 = btnElement10.querySelector("button");
+        if (buttonInside10) {
+            buttonInside10.style.backgroundColor = "#007BFF"; // لون الزر
+            buttonInside10.style.color = "white"; // لون النص
+            buttonInside10.style.padding = "12px 24px"; // الهوامش الداخلية
+            buttonInside10.style.fontSize = "18px"; // حجم الخط
+            buttonInside10.style.border = "none"; // بدون حدود
+            buttonInside10.style.borderRadius = "8px"; // تدوير الحواف
+            buttonInside10.style.textAlign = "center"; // توسيط النص
+            buttonInside10.style.width = "150px"; // عرض الزر ثابت لتوسيط النص
+            buttonInside10.style.display = "flex";
+            buttonInside10.style.justifyContent = "center";
+            buttonInside10.style.alignItems = "center";
+            buttonInside10.style.cursor = "pointer"; // تغيير المؤشر عند التحويل
+        }
+    }
+    
 ///////////////////////////////////////////////////////////////////////////////////
     const targetElement50 = document.getElementById("hmVrfy");
 
