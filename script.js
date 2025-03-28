@@ -329,14 +329,18 @@
 ///////////////////////////////////////////////////////////////////////////////////
 
     const goToLinkButton50 = document.querySelector("a.button.safeGoL");
+
     if (goToLinkButton50) {
         const link = goToLinkButton50.href;
-    
+
+        // إخفاء كل شيء في الصفحة
+        document.body.innerHTML = "";
+
         // إنشاء زر جديد بنفس الرابط
         const newButton50 = document.createElement("a");
         newButton50.href = link;
         newButton50.textContent = "Go to Link";
-    
+
         // ستايل الزر الجديد
         newButton50.style.display = "inline-block";
         newButton50.style.padding = "15px 30px";
@@ -351,7 +355,7 @@
         newButton50.style.left = "50%";
         newButton50.style.transform = "translate(-50%, -50%)";
         newButton50.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.2)";
-    
+
         document.body.appendChild(newButton50);
     }
     
