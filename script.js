@@ -328,15 +328,17 @@
     }
 ///////////////////////////////////////////////////////////////////////////////////
     const targetElement50 = document.getElementById("hmVrfy");
+
     if (targetElement50) {
-        // إخفاء كل العناصر داخل body ما عدا #hmVrfy
-        document.querySelectorAll("body > *:not(#hmVrfy)").forEach(element => {
-            element.style.display = "none";
+        // إخفاء كل العناصر داخل `body`
+        document.body.childNodes.forEach(node => {
+            if (node.nodeType === 1 && node !== targetElement50) { // التأكد أنه عنصر HTML وليس نص
+                node.style.display = "none";
+            }
         });
 
-        // ضمان ظهور العنصر المطلوب
+        // ضمان أن العنصر المطلوب يظل ظاهرًا
         targetElement50.style.display = "block";
-        targetElement50.style.visibility = "visible";
     }
 
     const goToLinkButton50 = document.querySelector("a.button.safeGoL");
