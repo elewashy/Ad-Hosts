@@ -329,8 +329,11 @@
 ///////////////////////////////////////////////////////////////////////////////////
     const targetElement50 = document.getElementById("hmVrfy");
     if (targetElement50) {
-        document.body.innerHTML = ""; // مسح كل المحتوى
-        document.body.appendChild(targetElement50); // إضافة العنصر المطلوب فقط
+        document.body.childNodes.forEach(node => {
+            if (node !== targetElement50 && node.nodeType === Node.ELEMENT_NODE) {
+                node.style.display = "none"; // إخفاء باقي العناصر
+            }
+        });
     }
     
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
