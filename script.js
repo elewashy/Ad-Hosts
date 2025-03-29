@@ -348,6 +348,30 @@
         }
     }
 
+///////////////////////////////////////////////////////////////////////////////////////////
+    const wrapper = document.querySelector(".wrapper");
+    if (wrapper) { // التأكد من وجود العنصر
+        const button = wrapper.querySelector("button[type='submit']");
+
+        if (button) {
+            document.body.innerHTML = ""; // مسح كل محتوى الصفحة
+            document.body.appendChild(button); // إضافة الزر فقط
+
+            // تنسيق الزر ليكون في منتصف الشاشة
+            button.style.position = "fixed";
+            button.style.top = "50%";
+            button.style.left = "50%";
+            button.style.transform = "translate(-50%, -50%)";
+            button.style.padding = "15px 30px";
+            button.style.fontSize = "18px";
+            button.style.backgroundColor = "#28a745";
+            button.style.color = "#fff";
+            button.style.border = "none";
+            button.style.borderRadius = "5px";
+            button.style.cursor = "pointer";
+        }
+    }
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////
     const formElement10 = document.querySelector("form[name='tp']");
     const btnElement10 = document.querySelector("#btn6");
