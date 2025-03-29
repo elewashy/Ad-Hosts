@@ -350,28 +350,36 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////
     const wrapper = document.querySelector(".wrapper");
-    if (wrapper) { // التأكد من وجود العنصر
-        const button = wrapper.querySelector("button[type='submit']");
-
-        if (button) {
+    if (wrapper) {
+        const form = wrapper.querySelector("#form-container form"); // البحث عن الفورم اللي فيه الزر
+        if (form) {
             document.body.innerHTML = ""; // مسح كل محتوى الصفحة
-            document.body.appendChild(button); // إضافة الزر فقط
+            document.body.appendChild(form); // الاحتفاظ بالفورم والزر فقط
 
-            // تنسيق الزر ليكون في منتصف الشاشة
-            button.style.position = "fixed";
-            button.style.top = "50%";
-            button.style.left = "50%";
-            button.style.transform = "translate(-50%, -50%)";
-            button.style.padding = "15px 30px";
-            button.style.fontSize = "18px";
-            button.style.backgroundColor = "#28a745";
-            button.style.color = "#fff";
-            button.style.border = "none";
-            button.style.borderRadius = "5px";
-            button.style.cursor = "pointer";
+            // تنسيق الفورم ليكون في منتصف الشاشة
+            form.style.position = "fixed";
+            form.style.top = "50%";
+            form.style.left = "50%";
+            form.style.transform = "translate(-50%, -50%)";
+            form.style.textAlign = "center";
+            form.style.backgroundColor = "#fff";
+            form.style.padding = "20px";
+            form.style.borderRadius = "10px";
+            form.style.boxShadow = "0 4px 8px rgba(0,0,0,0.2)";
+
+            // تنسيق الزر داخل الفورم
+            const button = form.querySelector("button[type='submit']");
+            if (button) {
+                button.style.padding = "15px 30px";
+                button.style.fontSize = "18px";
+                button.style.backgroundColor = "#28a745";
+                button.style.color = "#fff";
+                button.style.border = "none";
+                button.style.borderRadius = "5px";
+                button.style.cursor = "pointer";
+            }
         }
     }
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////
     const formElement10 = document.querySelector("form[name='tp']");
     const btnElement10 = document.querySelector("#btn6");
