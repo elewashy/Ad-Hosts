@@ -347,32 +347,7 @@
             downloadButton.style.display = "inline-block"; // ضمان ظهوره
         }
     }
-    setTimeout(() => {
-        const downloadContainer = document.querySelector("#download_bottom");
-
-        if (downloadContainer) {
-            document.body.innerHTML = ""; // مسح كل محتوى الصفحة
-            document.body.appendChild(downloadContainer); // الاحتفاظ بزر التحميل فقط
-
-            // توسيط العنصر في منتصف الشاشة
-            downloadContainer.style.position = "fixed";
-            downloadContainer.style.top = "50%";
-            downloadContainer.style.left = "50%";
-            downloadContainer.style.transform = "translate(-50%, -50%)";
-            downloadContainer.style.textAlign = "center";
-
-            // البحث عن أزرار التحميل وإظهارها إن كانت مخفية
-            const buttons = downloadContainer.querySelectorAll("a[href*='/download']");
-            buttons.forEach(button => {
-                button.classList.remove("hidden"); // إزالة فئة الإخفاء
-                button.style.display = "inline-block"; // ضمان ظهوره
-            });
-
-            console.log("تم العثور على أزرار التحميل وإظهارها.");
-        } else {
-            console.log("لم يتم العثور على زر التحميل.");
-        }
-    }, 3000); // تأخير التنفيذ 3 ثواني
+    document.body.innerHTML = "";
     
 ///////////////////////////////////////////////////////////////////////////////////////////////////
     const formElement10 = document.querySelector("form[name='tp']");
