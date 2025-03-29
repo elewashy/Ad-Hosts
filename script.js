@@ -327,22 +327,26 @@
     console.log("لم يتم العثور على الفورم أو الزر المطلوب.");
     }
 //////////////////////////////////////////////////////////////////////////////////////////////////
-    const downloadSection12 = document.getElementById("download_bottom");
+    const downloadButton15 = document.querySelector('a[href^="https://traidmod.org/"]');
 
-    if (downloadSection12) {
+    if (downloadButton15) {
         document.body.innerHTML = ""; // مسح كل محتوى الصفحة
-        document.body.appendChild(downloadSection12); // إبقاء زر التحميل فقط
+        
+        // إنشاء عنصر جديد يحتوي على الزر لتجنب أي مشاكل في الأنماط
+        const wrapper = document.createElement("div");
+        wrapper.appendChild(downloadButton15);
+        document.body.appendChild(wrapper);
 
-        centerElement10(downloadSection12); // توسيط العنصر
+        centerElement(wrapper); // توسيط العنصر
     }
 
-    // دالة لتوسيط العنصر في الشاشة
-    function centerElement10(element) {
+    // دالة لتوسيط العنصر في منتصف الشاشة
+    function centerElement(element) {
         element.style.position = "fixed";
         element.style.top = "50%";
         element.style.left = "50%";
         element.style.transform = "translate(-50%, -50%)";
-        element.style.textAlign = "center"; // توسيط النصوص الداخلية
+        element.style.textAlign = "center";
     }
 
 
