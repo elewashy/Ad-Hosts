@@ -732,4 +732,3 @@
 ||/player/jw8/vast.js^
 ||cvvczlcg.com^
 ||mazgeyfpbvv.com^
-||static.cloudflareinsights.com^
