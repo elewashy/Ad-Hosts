@@ -339,6 +339,13 @@
         downloadContainer10.style.left = "50%";
         downloadContainer10.style.transform = "translate(-50%, -50%)";
         downloadContainer10.style.textAlign = "center";
+
+        // إظهار زر التحميل المخفي
+        const downloadButton = downloadContainer10.querySelector('[download-button]');
+        if (downloadButton) {
+            downloadButton.classList.remove("hidden"); // إزالة فئة الإخفاء
+            downloadButton.style.display = "inline-block"; // ضمان ظهوره
+        }
     }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
