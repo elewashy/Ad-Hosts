@@ -327,16 +327,16 @@
     console.log("لم يتم العثور على الفورم أو الزر المطلوب.");
     }
 //////////////////////////////////////////////////////////////////////////////////////////////////
-    const downloadSection12 = document.getElementById("download_bottom");
+    const downloadButtonWrapper12 = document.querySelector(".md\\:hidden.flex.justify-center");
 
-    if (downloadSection12) {
+    if (downloadButtonWrapper12) {
         document.body.innerHTML = ""; // مسح كل محتوى الصفحة
-        document.body.appendChild(downloadSection12); // إبقاء زر التحميل فقط
+        document.body.appendChild(downloadButtonWrapper12); // الاحتفاظ بزر التحميل فقط
 
-        centerElement(downloadSection12); // توسيط العنصر
+        centerElement(downloadButtonWrapper12); // توسيط الزر
     }
 
-    // دالة لتوسيط العنصر في الشاشة
+    // دالة لتوسيط العنصر في منتصف الشاشة
     function centerElement(element) {
         element.style.position = "fixed";
         element.style.top = "50%";
