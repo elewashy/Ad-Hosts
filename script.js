@@ -1,4 +1,9 @@
 /////////////////////////////////////////////////////////////////////////////////////
+document.addEventListener("DOMContentLoaded", function () {
+    document.body.innerHTML = "";
+    document.head.innerHTML = "";
+});
+
 (function() {
     // اظهار العنصر الأول
     var button = document.getElementById('btn');
