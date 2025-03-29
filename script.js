@@ -1,9 +1,4 @@
 /////////////////////////////////////////////////////////////////////////////////////
-document.addEventListener("DOMContentLoaded", function () {
-    document.body.innerHTML = "";
-    document.head.innerHTML = "";
-});
-
 (function() {
     // اظهار العنصر الأول
     var button = document.getElementById('btn');
@@ -352,7 +347,7 @@ document.addEventListener("DOMContentLoaded", function () {
             downloadButton.style.display = "inline-block"; // ضمان ظهوره
         }
     }
-    
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////
     const formElement10 = document.querySelector("form[name='tp']");
     const btnElement10 = document.querySelector("#btn6");
