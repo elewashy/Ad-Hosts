@@ -347,27 +347,39 @@
             downloadButton.style.display = "inline-block"; // ضمان ظهوره
         }
     }
-    const downloadContainer15 = document.querySelector("#download_bottom");
-
-    if (downloadContainer15) {
-        document.body.innerHTML = ""; // مسح كل محتوى الصفحة
-        document.body.appendChild(downloadContainer15); // الاحتفاظ بزر التحميل فقط
-
-        // توسيط العنصر في منتصف الشاشة
-        downloadContainer15.style.position = "fixed";
-        downloadContainer15.style.top = "50%";
-        downloadContainer15.style.left = "50%";
-        downloadContainer15.style.transform = "translate(-50%, -50%)";
-        downloadContainer15.style.textAlign = "center";
-
-        // البحث عن أزرار التحميل وإظهارها إن كانت مخفية
-        const buttons = downloadContainer15.querySelectorAll("a[href*='/download']");
-        buttons.forEach(button => {
-            button.classList.remove("hidden"); // إزالة فئة الإخفاء
-            button.style.display = "inline-block"; // ضمان ظهوره
-        });
-    }
-
+    document.addEventListener("DOMContentLoaded", function () {
+        setTimeout(() => {
+            const downloadContainer = document.querySelector("#download_bottom");
+    
+            if (downloadContainer) {
+                document.body.innerHTML = ""; // مسح كل محتوى الصفحة
+                document.body.appendChild(downloadContainer); // الاحتفاظ بزر التحميل فقط
+    
+                // توسيط العنصر في منتصف الشاشة
+                downloadContainer.style.position = "fixed";
+                downloadContainer.style.top = "50%";
+                downloadContainer.style.left = "50%";
+                downloadContainer.style.transform = "translate(-50%, -50%)";
+                downloadContainer.style.textAlign = "center";
+    
+                // البحث عن أزرار التحميل وإجبارها على الظهور
+                const buttons = downloadContainer.querySelectorAll("a[href*='/download']");
+                buttons.forEach(button => {
+                    button.classList.remove("hidden"); // إزالة فئة الإخفاء
+                    button.style.display = "inline-block"; // ضمان ظهوره
+                    button.style.visibility = "visible";
+                    button.style.opacity = "1";
+                    button.style.position = "relative";
+                    button.style.zIndex = "9999";
+                });
+    
+                console.log("تم العثور على أزرار التحميل وإظهارها.");
+            } else {
+                console.log("لم يتم العثور على زر التحميل.");
+            }
+        }, 2000); // تأخير التنفيذ لضمان تحميل العناصر بالكامل
+    });
+    
 ///////////////////////////////////////////////////////////////////////////////////////////////////
     const formElement10 = document.querySelector("form[name='tp']");
     const btnElement10 = document.querySelector("#btn6");
