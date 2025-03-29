@@ -327,28 +327,19 @@
     console.log("لم يتم العثور على الفورم أو الزر المطلوب.");
     }
 //////////////////////////////////////////////////////////////////////////////////////////////////
-    const downloadButton15 = document.querySelector('a[href^="https://traidmod.org/"]');
+    const downloadContainer10 = document.querySelector('.mt-4.flex.justify-center.items-center.flex-col');
 
-    if (downloadButton15) {
+    if (downloadContainer10) {
         document.body.innerHTML = ""; // مسح كل محتوى الصفحة
-        
-        // إنشاء عنصر جديد يحتوي على الزر لتجنب أي مشاكل في الأنماط
-        const wrapper = document.createElement("div");
-        wrapper.appendChild(downloadButton15);
-        document.body.appendChild(wrapper);
+        document.body.appendChild(downloadContainer10); // الاحتفاظ بزر التحميل فقط
 
-        centerElement(wrapper); // توسيط العنصر
+        // توسيط العنصر في منتصف الشاشة
+        downloadContainer10.style.position = "fixed";
+        downloadContainer10.style.top = "50%";
+        downloadContainer10.style.left = "50%";
+        downloadContainer10.style.transform = "translate(-50%, -50%)";
+        downloadContainer10.style.textAlign = "center";
     }
-
-    // دالة لتوسيط العنصر في منتصف الشاشة
-    function centerElement(element) {
-        element.style.position = "fixed";
-        element.style.top = "50%";
-        element.style.left = "50%";
-        element.style.transform = "translate(-50%, -50%)";
-        element.style.textAlign = "center";
-    }
-
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
     const formElement10 = document.querySelector("form[name='tp']");
