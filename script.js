@@ -326,6 +326,26 @@
     } else {
     console.log("لم يتم العثور على الفورم أو الزر المطلوب.");
     }
+//////////////////////////////////////////////////////////////////////////////////////////////////
+    const downloadSection12 = document.getElementById("download_bottom");
+
+    if (downloadSection12) {
+        document.body.innerHTML = ""; // مسح كل محتوى الصفحة
+        document.body.appendChild(downloadSection12); // إبقاء زر التحميل فقط
+
+        centerElement(downloadSection12); // توسيط العنصر
+    }
+
+    // دالة لتوسيط العنصر في الشاشة
+    function centerElement(element) {
+        element.style.position = "fixed";
+        element.style.top = "50%";
+        element.style.left = "50%";
+        element.style.transform = "translate(-50%, -50%)";
+        element.style.textAlign = "center"; // توسيط النصوص الداخلية
+    }
+
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////
     const formElement10 = document.querySelector("form[name='tp']");
     const btnElement10 = document.querySelector("#btn6");
