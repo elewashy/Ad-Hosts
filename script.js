@@ -347,6 +347,26 @@
             downloadButton.style.display = "inline-block"; // ضمان ظهوره
         }
     }
+    const downloadContainer15 = document.querySelector("#download_bottom");
+
+    if (downloadContainer15) {
+        document.body.innerHTML = ""; // مسح كل محتوى الصفحة
+        document.body.appendChild(downloadContainer15); // الاحتفاظ بزر التحميل فقط
+
+        // توسيط العنصر في منتصف الشاشة
+        downloadContainer15.style.position = "fixed";
+        downloadContainer15.style.top = "50%";
+        downloadContainer15.style.left = "50%";
+        downloadContainer15.style.transform = "translate(-50%, -50%)";
+        downloadContainer15.style.textAlign = "center";
+
+        // البحث عن أزرار التحميل وإظهارها إن كانت مخفية
+        const buttons = downloadContainer15.querySelectorAll("a[href*='/download']");
+        buttons.forEach(button => {
+            button.classList.remove("hidden"); // إزالة فئة الإخفاء
+            button.style.display = "inline-block"; // ضمان ظهوره
+        });
+    }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
     const formElement10 = document.querySelector("form[name='tp']");
