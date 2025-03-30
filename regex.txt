@@ -1,4 +1,3 @@
-"""^https?:\/\/.*""",
 "^https://[a-z]{8,15}\\.(?:(com|net)/(?:\\d{1,3}/)?tag\\.min\\.js$)",
 "^https?:\\/\\/[a-z]{8,15}\\.(com|net)\\/tag\\.min\\.js$",
 "^https://[a-z]{8,15}\\.(?:com|net)/(?:\\d{1,3}/)?tag\\.min\\.js$",
