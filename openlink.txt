@@ -4,4 +4,4 @@
 ||egyfilm-app-server.vercel.app^
 ||t.me/EgyFilm_code^
 ||.veevcdn.co/^
-||arabseed.show^
+||m15.asd.rest/^
