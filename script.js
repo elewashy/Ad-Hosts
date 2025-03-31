@@ -212,27 +212,27 @@
 
 (function() {
     // إخفاء الزرار
-    var downloadButton = document.getElementById('downloadbtnfree');
-    if (downloadButton) {
-        downloadButton.style.display = 'none'; // إخفاء الزرار
-    }
+    // var downloadButton = document.getElementById('downloadbtnfree');
+    // if (downloadButton) {
+    //     downloadButton.style.display = 'none'; // إخفاء الزرار
+    // }
 
-    // إنشاء زرار جديد بنفس الوظيفة
-    var newButton = document.createElement('button');
-    newButton.innerHTML = 'DOWNLOAD NOW'; // النص داخل الزرار
-    newButton.className = 'btn btn-primary btn-lg btn-block'; // إضافة الكلاسات المطلوبة
-    newButton.id = 'newDownloadBtn'; // إعطاء الزرار ID جديد
+    // // إنشاء زرار جديد بنفس الوظيفة
+    // var newButton = document.createElement('button');
+    // newButton.innerHTML = 'DOWNLOAD NOW'; // النص داخل الزرار
+    // newButton.className = 'btn btn-primary btn-lg btn-block'; // إضافة الكلاسات المطلوبة
+    // newButton.id = 'newDownloadBtn'; // إعطاء الزرار ID جديد
 
-    // إضافة الحدث عند الضغط على الزرار
-    newButton.onclick = function() {
-        return freeDownload(); // نفس الوظيفة
-    };
+    // // إضافة الحدث عند الضغط على الزرار
+    // newButton.onclick = function() {
+    //     return freeDownload(); // نفس الوظيفة
+    // };
 
-    // إضافة الزرار إلى الصفحة (مثلاً في نفس الـ div)
-    var parentDiv = document.querySelector('.download-btn.mb-4');
-    if (parentDiv) {
-        parentDiv.appendChild(newButton); // إضافة الزرار في نفس المكان
-    }
+    // // إضافة الزرار إلى الصفحة (مثلاً في نفس الـ div)
+    // var parentDiv = document.querySelector('.download-btn.mb-4');
+    // if (parentDiv) {
+    //     parentDiv.appendChild(newButton); // إضافة الزرار في نفس المكان
+    // }
 ////////////////////////////////////////////////////////////////////////////////
     // حفظ العنصر المطلوب فقط
     var targetElement = document.querySelector("center.oto");
