@@ -109,3 +109,4 @@
 ||mobic1.online^
 ||okcdn.ru^
 ||dzen.ru^
+||dzeninfra.ru^
