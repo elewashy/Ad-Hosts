@@ -1,26 +1,26 @@
 /////////////////////////////////////////////////////////////////////////////////////
 (function() {
-    // تعطيل اكتشاف مانع الإعلانات
-    try {
-        Object.defineProperty(window, 'fetchSync', {
-            value: function () { return null; },
-            writable: false
-        });
-    } catch (e) {}
-
+    // // تعطيل اكتشاف مانع الإعلانات
     // try {
-    //     Object.defineProperty(window, 'WebAssembly', {
-    //         value: {
-    //             instantiate: async function () { 
-    //                 return { exports: { check: () => "" } }; 
-    //             },
-    //             compileStreaming: async function () { 
-    //                 return {}; 
-    //             }
-    //         },
+    //     Object.defineProperty(window, 'fetchSync', {
+    //         value: function () { return null; },
     //         writable: false
     //     });
     // } catch (e) {}
+
+    try {
+        Object.defineProperty(window, 'WebAssembly', {
+            value: {
+                instantiate: async function () { 
+                    return { exports: { check: () => "" } }; 
+                },
+                compileStreaming: async function () { 
+                    return {}; 
+                }
+            },
+            writable: false
+        });
+    } catch (e) {}
 
     // التأكد من أن الصفحة لا تختفي
     document.addEventListener('DOMContentLoaded', function () {
