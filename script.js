@@ -1,50 +1,96 @@
 (function() {
-    // استبدال WebAssembly.compileStreaming
-    const originalCompileStreaming = WebAssembly.compileStreaming;
-    WebAssembly.compileStreaming = function(response) {
-    console.log("تم اعتراض تحميل WebAssembly");
-    return Promise.resolve({});
-    };
+//     // استبدال WebAssembly.compileStreaming
+//     const originalCompileStreaming = WebAssembly.compileStreaming;
+//     WebAssembly.compileStreaming = function(response) {
+//     console.log("تم اعتراض تحميل WebAssembly");
+//     return Promise.resolve({});
+//     };
 
-    // استبدال WebAssembly.instantiate
-    const originalInstantiate = WebAssembly.instantiate;
-    WebAssembly.instantiate = function(module, importObject) {
-    console.log("تم اعتراض instantiate");
+//     // استبدال WebAssembly.instantiate
+//     const originalInstantiate = WebAssembly.instantiate;
+//     WebAssembly.instantiate = function(module, importObject) {
+//     console.log("تم اعتراض instantiate");
     
-    // إنشاء كائن زائف يحاكي وظائف WebAssembly
-    return Promise.resolve({
+//     // إنشاء كائن زائف يحاكي وظائف WebAssembly
+//     return Promise.resolve({
+//         exports: {
+//         memory: { buffer: new ArrayBuffer(1024) },
+//         __new: function() { return 1; },
+//         check: function(input) {
+//             // إرجاع قيمة تمثل عنوان URL صالح
+//             // هذا سيخدع النظام ليظن أنه لا يوجد مانع إعلانات
+//             return 42;  // رقم عشوائي سيتم تفسيره كمؤشر للذاكرة
+//         }
+//         }
+//     });
+//     };
+
+//     // الاحتفاظ بنسخة من الدالة الأصلية u قبل استبدالها
+//     const originalU = window.u;
+
+//     // إعادة تعريف دالة u لتعيد وعدًا ناجحًا دائمًا
+//     window.u = function(str) {
+//     return Promise.resolve("success-url-placeholder");
+//     };
+
+//     // تعريض دالة نقطة انطلاق لنسخة مزيفة من check
+//     setTimeout(function() {
+//     if (typeof i !== 'undefined' && typeof i.check === 'function') {
+//         // استبدال دالة check
+//         const originalCheck = i.check;
+//         i.check = function() {
+//         // إرجاع قيمة غير فارغة تمثل النجاح
+//         return "success-url-placeholder";
+//         };
+//         console.log("تم استبدال دالة check بنجاح");
+//     }
+//     }, 100);
+// حقن كود JavaScript في الصفحة
+    const script = document.createElement('script');
+    script.textContent = `
+    // تعطيل وظيفة WebAssembly بالكامل
+    WebAssembly.instantiate = function() {
+        return Promise.resolve({
         exports: {
-        memory: { buffer: new ArrayBuffer(1024) },
-        __new: function() { return 1; },
-        check: function(input) {
-            // إرجاع قيمة تمثل عنوان URL صالح
-            // هذا سيخدع النظام ليظن أنه لا يوجد مانع إعلانات
-            return 42;  // رقم عشوائي سيتم تفسيره كمؤشر للذاكرة
+            memory: { buffer: new ArrayBuffer(1024) },
+            check: function() { return 42; }
         }
-        }
-    });
+        });
     };
-
-    // الاحتفاظ بنسخة من الدالة الأصلية u قبل استبدالها
-    const originalU = window.u;
-
-    // إعادة تعريف دالة u لتعيد وعدًا ناجحًا دائمًا
-    window.u = function(str) {
-    return Promise.resolve("success-url-placeholder");
+    
+    WebAssembly.compileStreaming = function() {
+        return Promise.resolve({});
     };
-
-    // تعريض دالة نقطة انطلاق لنسخة مزيفة من check
-    setTimeout(function() {
-    if (typeof i !== 'undefined' && typeof i.check === 'function') {
-        // استبدال دالة check
-        const originalCheck = i.check;
-        i.check = function() {
-        // إرجاع قيمة غير فارغة تمثل النجاح
-        return "success-url-placeholder";
+    
+    // تعريف بديل لنظام الكشف
+    function f(t, r) {
+        var e = document.querySelector(".download-timer");
+        // إظهار زر التحميل مباشرة بدون فحص
+        var n = document.createElement("a");
+        n.className = "uk-button uk-button-secondary uk-text-truncate uk-width-1-1";
+        n.href = "#";
+        n.innerHTML = '<span uk-icon="icon: cloud-download" class="uk-icon"></span> ' + r;
+        n.onclick = function(r) {
+        r.preventDefault();
+        // محاولة استخدام الرابط المخزن في الصفحة إن وجد
+        // أو استخدام الصفحة الحالية كبديل
+        window.location.href = window.location.href;
         };
-        console.log("تم استبدال دالة check بنجاح");
+        e.innerHTML = "";
+        e.appendChild(n);
     }
-    }, 100);
+    
+    // تجاوز العد التنازلي
+    seconds = 0;
+    
+    // تنفيذ الدالة المعدلة فورًا
+    setTimeout(function() {
+        f("dummy-input", "DOWNLOAD FILE");
+    }, 500);
+    `;
+
+    // إضافة السكربت إلى الصفحة
+    document.head.appendChild(script);
   })();
   
 ///////////////////////////////////////////////////////////////////////////////////////
