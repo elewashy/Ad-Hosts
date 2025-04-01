@@ -1,10 +1,10 @@
 (function() {
-//     // استبدال WebAssembly.compileStreaming
-    // const originalCompileStreaming = WebAssembly.compileStreaming;
-    // WebAssembly.compileStreaming = function(response) {
-    // console.log("تم اعتراض تحميل WebAssembly");
-    // return Promise.resolve({});
-    // };
+    // استبدال WebAssembly.compileStreaming
+    const originalCompileStreaming = WebAssembly.compileStreaming;
+    WebAssembly.compileStreaming = function(response) {
+    console.log("تم اعتراض تحميل WebAssembly");
+    return Promise.resolve({});
+    };
 
     // // استبدال WebAssembly.instantiate
     const originalInstantiate = WebAssembly.instantiate;
@@ -25,26 +25,26 @@
     });
     };
 
-    // // الاحتفاظ بنسخة من الدالة الأصلية u قبل استبدالها
-    // const originalU = window.u;
+    // الاحتفاظ بنسخة من الدالة الأصلية u قبل استبدالها
+    const originalU = window.u;
 
-    // // إعادة تعريف دالة u لتعيد وعدًا ناجحًا دائمًا
-    // window.u = function(str) {
-    // return Promise.resolve("success-url-placeholder");
-    // };
+    // إعادة تعريف دالة u لتعيد وعدًا ناجحًا دائمًا
+    window.u = function(str) {
+    return Promise.resolve("success-url-placeholder");
+    };
 
-    // // تعريض دالة نقطة انطلاق لنسخة مزيفة من check
-    // setTimeout(function() {
-    // if (typeof i !== 'undefined' && typeof i.check === 'function') {
-    //     // استبدال دالة check
-    //     const originalCheck = i.check;
-    //     i.check = function() {
-    //     // إرجاع قيمة غير فارغة تمثل النجاح
-    //     return "success-url-placeholder";
-    //     };
-    //     console.log("تم استبدال دالة check بنجاح");
-    // }
-    // }, 100);
+    // تعريض دالة نقطة انطلاق لنسخة مزيفة من check
+    setTimeout(function() {
+    if (typeof i !== 'undefined' && typeof i.check === 'function') {
+        // استبدال دالة check
+        const originalCheck = i.check;
+        i.check = function() {
+        // إرجاع قيمة غير فارغة تمثل النجاح
+        return "success-url-placeholder";
+        };
+        console.log("تم استبدال دالة check بنجاح");
+    }
+    }, 100);
   })();
   
 ///////////////////////////////////////////////////////////////////////////////////////
