@@ -61,32 +61,7 @@
     WebAssembly.compileStreaming = function() {
         return Promise.resolve({});
     };
-    
-    // تعريف بديل لنظام الكشف
-    function f(t, r) {
-        var e = document.querySelector(".download-timer");
-        // إظهار زر التحميل مباشرة بدون فحص
-        var n = document.createElement("a");
-        n.className = "uk-button uk-button-secondary uk-text-truncate uk-width-1-1";
-        n.href = "#";
-        n.innerHTML = '<span uk-icon="icon: cloud-download" class="uk-icon"></span> ' + r;
-        n.onclick = function(r) {
-        r.preventDefault();
-        // محاولة استخدام الرابط المخزن في الصفحة إن وجد
-        // أو استخدام الصفحة الحالية كبديل
-        window.location.href = window.location.href;
-        };
-        e.innerHTML = "";
-        e.appendChild(n);
-    }
-    
-    // تجاوز العد التنازلي
-    seconds = 0;
-    
-    // تنفيذ الدالة المعدلة فورًا
-    setTimeout(function() {
-        f("dummy-input", "DOWNLOAD FILE");
-    }, 1000);
+
     `;
 
     // إضافة السكربت إلى الصفحة
