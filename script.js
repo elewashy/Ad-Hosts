@@ -1,9 +1,46 @@
 (function() {
-    const originalCheck = i.check;
-    i.check = function(t) {
-      // إرجاع قيمة نصية غير فارغة لتخطي فحص مانع الإعلانات
-      return "https://ad-hosts.vercel.app/filter.txt";
+    // اعتراض دالة fetch للعثور على محاولات تحميل ملف wasm
+    const originalFetch = window.fetch;
+
+    // منع ظهور رسالة خطأ مانع الإعلانات
+    const originalCatch = Promise.prototype.catch;
+    Promise.prototype.catch = function(onRejected) {
+    // استبدال دالة معالجة الخطأ الخاصة بكشف مانع الإعلانات
+    if (onRejected && onRejected.toString().includes('Please Disable adblock')) {
+        // تعديل دالة معالجة الخطأ لتنفذ شيئًا آخر بدلاً من عرض الرسالة
+        const newOnRejected = function(error) {
+        console.log("تم اعتراض رسالة كشف مانع الإعلانات");
+        return; // لا تفعل شيئًا (عدم عرض رسالة الخطأ)
+        };
+        return originalCatch.call(this, newOnRejected);
+    }
+    return originalCatch.call(this, onRejected);
     };
+
+    // في حالة فشل الطريقة السابقة، يمكنك تجربة هذه الطريقة البديلة
+    setInterval(function() {
+    // البحث عن رسالة الخطأ وإزالتها
+    const errorMsg = document.body.innerHTML.indexOf('Please Disable adblock');
+    if (errorMsg > -1) {
+        // تقليد سلوك نجاح التحقق
+        try {
+        const downloadTimer = document.querySelector('.download-timer');
+        if (downloadTimer && downloadTimer.innerHTML.includes('Please Disable adblock')) {
+            downloadTimer.innerHTML = 'جاري تحضير التحميل...';
+            // محاولة إعادة تنفيذ العملية
+            setTimeout(function() {
+            // ضغط على زر التحميل (إن وُجد)
+            const downloadBtn = document.querySelector('[uk-icon="icon: cloud-download"]');
+            if (downloadBtn) {
+                downloadBtn.closest('a').click();
+            }
+            }, 1000);
+        }
+        } catch (e) {
+        console.error(e);
+        }
+    }
+    }, 500);
   })();
   
 ///////////////////////////////////////////////////////////////////////////////////////
