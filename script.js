@@ -6,24 +6,24 @@
     return Promise.resolve({});
     };
 
-    // استبدال WebAssembly.instantiate
-    const originalInstantiate = WebAssembly.instantiate;
-    WebAssembly.instantiate = function(module, importObject) {
-    console.log("تم اعتراض instantiate");
+    // // استبدال WebAssembly.instantiate
+    // const originalInstantiate = WebAssembly.instantiate;
+    // WebAssembly.instantiate = function(module, importObject) {
+    // console.log("تم اعتراض instantiate");
     
-    // إنشاء كائن زائف يحاكي وظائف WebAssembly
-    return Promise.resolve({
-        exports: {
-        memory: { buffer: new ArrayBuffer(1024) },
-        __new: function() { return 1; },
-        check: function(input) {
-            // إرجاع قيمة تمثل عنوان URL صالح
-            // هذا سيخدع النظام ليظن أنه لا يوجد مانع إعلانات
-            return 42;  // رقم عشوائي سيتم تفسيره كمؤشر للذاكرة
-        }
-        }
-    });
-    };
+    // // إنشاء كائن زائف يحاكي وظائف WebAssembly
+    // return Promise.resolve({
+    //     exports: {
+    //     memory: { buffer: new ArrayBuffer(1024) },
+    //     __new: function() { return 1; },
+    //     check: function(input) {
+    //         // إرجاع قيمة تمثل عنوان URL صالح
+    //         // هذا سيخدع النظام ليظن أنه لا يوجد مانع إعلانات
+    //         return 42;  // رقم عشوائي سيتم تفسيره كمؤشر للذاكرة
+    //     }
+    //     }
+    // });
+    // };
 
     // // الاحتفاظ بنسخة من الدالة الأصلية u قبل استبدالها
     // const originalU = window.u;
