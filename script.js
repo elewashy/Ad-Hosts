@@ -30,14 +30,6 @@
         }, 500);
     });
 
-    // إزالة أي رسالة تطلب تعطيل مانع الإعلانات
-    setInterval(() => {
-        let adblockMessage = document.querySelector('.download-timer');
-        if (adblockMessage) {
-            adblockMessage.innerHTML = '<p>Download link available.</p>';
-        }
-    }, 1000);
-
 })();
 ///////////////////////////////////////////////////////////////////////////////////////
 
