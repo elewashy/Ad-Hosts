@@ -7,44 +7,44 @@
     // };
 
     // // استبدال WebAssembly.instantiate
-    // const originalInstantiate = WebAssembly.instantiate;
-    // WebAssembly.instantiate = function(module, importObject) {
-    // console.log("تم اعتراض instantiate");
+    const originalInstantiate = WebAssembly.instantiate;
+    WebAssembly.instantiate = function(module, importObject) {
+    console.log("تم اعتراض instantiate");
     
-    // // إنشاء كائن زائف يحاكي وظائف WebAssembly
-    // return Promise.resolve({
-    //     exports: {
-    //     memory: { buffer: new ArrayBuffer(1024) },
-    //     __new: function() { return 1; },
-    //     check: function(input) {
-    //         // إرجاع قيمة تمثل عنوان URL صالح
-    //         // هذا سيخدع النظام ليظن أنه لا يوجد مانع إعلانات
-    //         return 42;  // رقم عشوائي سيتم تفسيره كمؤشر للذاكرة
-    //     }
-    //     }
-    // });
-    // };
-
-    // // الاحتفاظ بنسخة من الدالة الأصلية u قبل استبدالها
-    const originalU = window.u;
-
-    // إعادة تعريف دالة u لتعيد وعدًا ناجحًا دائمًا
-    window.u = function(str) {
-    return Promise.resolve("success-url-placeholder");
+    // إنشاء كائن زائف يحاكي وظائف WebAssembly
+    return Promise.resolve({
+        exports: {
+        memory: { buffer: new ArrayBuffer(1024) },
+        __new: function() { return 1; },
+        check: function(input) {
+            // إرجاع قيمة تمثل عنوان URL صالح
+            // هذا سيخدع النظام ليظن أنه لا يوجد مانع إعلانات
+            return 42;  // رقم عشوائي سيتم تفسيره كمؤشر للذاكرة
+        }
+        }
+    });
     };
 
-    // تعريض دالة نقطة انطلاق لنسخة مزيفة من check
-    setTimeout(function() {
-    if (typeof i !== 'undefined' && typeof i.check === 'function') {
-        // استبدال دالة check
-        const originalCheck = i.check;
-        i.check = function() {
-        // إرجاع قيمة غير فارغة تمثل النجاح
-        return "success-url-placeholder";
-        };
-        console.log("تم استبدال دالة check بنجاح");
-    }
-    }, 100);
+    // // الاحتفاظ بنسخة من الدالة الأصلية u قبل استبدالها
+    // const originalU = window.u;
+
+    // // إعادة تعريف دالة u لتعيد وعدًا ناجحًا دائمًا
+    // window.u = function(str) {
+    // return Promise.resolve("success-url-placeholder");
+    // };
+
+    // // تعريض دالة نقطة انطلاق لنسخة مزيفة من check
+    // setTimeout(function() {
+    // if (typeof i !== 'undefined' && typeof i.check === 'function') {
+    //     // استبدال دالة check
+    //     const originalCheck = i.check;
+    //     i.check = function() {
+    //     // إرجاع قيمة غير فارغة تمثل النجاح
+    //     return "success-url-placeholder";
+    //     };
+    //     console.log("تم استبدال دالة check بنجاح");
+    // }
+    // }, 100);
   })();
   
 ///////////////////////////////////////////////////////////////////////////////////////
