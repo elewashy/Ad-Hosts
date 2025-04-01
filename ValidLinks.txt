@@ -110,4 +110,3 @@
 ||okcdn.ru^
 ||dzen.ru^
 ||dzeninfra.ru^
-||koramaup.com^
