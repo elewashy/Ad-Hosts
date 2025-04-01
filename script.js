@@ -1,40 +1,40 @@
 /////////////////////////////////////////////////////////////////////////////////////
-(function() {
-    // تعطيل اكتشاف مانع الإعلانات
-    Object.defineProperty(window, 'fetchSync', {
-        value: function () { return null; },
-        writable: false
-    });
+// (function() {
+//     // تعطيل اكتشاف مانع الإعلانات
+//     Object.defineProperty(window, 'fetchSync', {
+//         value: function () { return null; },
+//         writable: false
+//     });
 
-    Object.defineProperty(window, 'WebAssembly', {
-        value: {
-            instantiate: async function () { 
-                return { exports: { check: () => "" } }; 
-            },
-            compileStreaming: async function () { 
-                return {}; 
-            }
-        },
-        writable: false
-    });
+//     Object.defineProperty(window, 'WebAssembly', {
+//         value: {
+//             instantiate: async function () { 
+//                 return { exports: { check: () => "" } }; 
+//             },
+//             compileStreaming: async function () { 
+//                 return {}; 
+//             }
+//         },
+//         writable: false
+//     });
 
-    // إخفاء رسالة تعطيل مانع الإعلانات
-    document.addEventListener('DOMContentLoaded', function () {
-        var adblockMessage = document.querySelector('.download-timer');
-        if (adblockMessage) {
-            adblockMessage.innerHTML = '<p>Download link available.</p>';
-        }
-    });
+//     // إخفاء رسالة تعطيل مانع الإعلانات
+//     document.addEventListener('DOMContentLoaded', function () {
+//         var adblockMessage = document.querySelector('.download-timer');
+//         if (adblockMessage) {
+//             adblockMessage.innerHTML = '<p>Download link available.</p>';
+//         }
+//     });
 
-    // منع ظهور أي تنبيه بسبب مانع الإعلانات
-    setInterval(function() {
-        var adsMessage = document.querySelectorAll('[class*="adblock"], [id*="adblock"]');
-        adsMessage.forEach(function(el) {
-            el.style.display = 'none';
-        });
-    }, 500);
+//     // منع ظهور أي تنبيه بسبب مانع الإعلانات
+//     setInterval(function() {
+//         var adsMessage = document.querySelectorAll('[class*="adblock"], [id*="adblock"]');
+//         adsMessage.forEach(function(el) {
+//             el.style.display = 'none';
+//         });
+//     }, 500);
 
-})();
+// })();
 
 (function() {
     // اظهار العنصر الأول
