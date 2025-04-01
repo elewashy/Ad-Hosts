@@ -1,46 +1,50 @@
 (function() {
-    // اعتراض دالة fetch للعثور على محاولات تحميل ملف wasm
-    const originalFetch = window.fetch;
-
-    // منع ظهور رسالة خطأ مانع الإعلانات
-    const originalCatch = Promise.prototype.catch;
-    Promise.prototype.catch = function(onRejected) {
-    // استبدال دالة معالجة الخطأ الخاصة بكشف مانع الإعلانات
-    if (onRejected && onRejected.toString().includes('Please Disable adblock')) {
-        // تعديل دالة معالجة الخطأ لتنفذ شيئًا آخر بدلاً من عرض الرسالة
-        const newOnRejected = function(error) {
-        console.log("تم اعتراض رسالة كشف مانع الإعلانات");
-        return; // لا تفعل شيئًا (عدم عرض رسالة الخطأ)
-        };
-        return originalCatch.call(this, newOnRejected);
-    }
-    return originalCatch.call(this, onRejected);
+    // استبدال WebAssembly.compileStreaming
+    const originalCompileStreaming = WebAssembly.compileStreaming;
+    WebAssembly.compileStreaming = function(response) {
+    console.log("تم اعتراض تحميل WebAssembly");
+    return Promise.resolve({});
     };
 
-    // في حالة فشل الطريقة السابقة، يمكنك تجربة هذه الطريقة البديلة
-    setInterval(function() {
-    // البحث عن رسالة الخطأ وإزالتها
-    const errorMsg = document.body.innerHTML.indexOf('Please Disable adblock');
-    if (errorMsg > -1) {
-        // تقليد سلوك نجاح التحقق
-        try {
-        const downloadTimer = document.querySelector('.download-timer');
-        if (downloadTimer && downloadTimer.innerHTML.includes('Please Disable adblock')) {
-            downloadTimer.innerHTML = 'جاري تحضير التحميل...';
-            // محاولة إعادة تنفيذ العملية
-            setTimeout(function() {
-            // ضغط على زر التحميل (إن وُجد)
-            const downloadBtn = document.querySelector('[uk-icon="icon: cloud-download"]');
-            if (downloadBtn) {
-                downloadBtn.closest('a').click();
-            }
-            }, 1000);
+    // استبدال WebAssembly.instantiate
+    const originalInstantiate = WebAssembly.instantiate;
+    WebAssembly.instantiate = function(module, importObject) {
+    console.log("تم اعتراض instantiate");
+    
+    // إنشاء كائن زائف يحاكي وظائف WebAssembly
+    return Promise.resolve({
+        exports: {
+        memory: { buffer: new ArrayBuffer(1024) },
+        __new: function() { return 1; },
+        check: function(input) {
+            // إرجاع قيمة تمثل عنوان URL صالح
+            // هذا سيخدع النظام ليظن أنه لا يوجد مانع إعلانات
+            return 42;  // رقم عشوائي سيتم تفسيره كمؤشر للذاكرة
         }
-        } catch (e) {
-        console.error(e);
         }
+    });
+    };
+
+    // الاحتفاظ بنسخة من الدالة الأصلية u قبل استبدالها
+    const originalU = window.u;
+
+    // إعادة تعريف دالة u لتعيد وعدًا ناجحًا دائمًا
+    window.u = function(str) {
+    return Promise.resolve("success-url-placeholder");
+    };
+
+    // تعريض دالة نقطة انطلاق لنسخة مزيفة من check
+    setTimeout(function() {
+    if (typeof i !== 'undefined' && typeof i.check === 'function') {
+        // استبدال دالة check
+        const originalCheck = i.check;
+        i.check = function() {
+        // إرجاع قيمة غير فارغة تمثل النجاح
+        return "success-url-placeholder";
+        };
+        console.log("تم استبدال دالة check بنجاح");
     }
-    }, 500);
+    }, 100);
   })();
   
 ///////////////////////////////////////////////////////////////////////////////////////
