@@ -1,40 +1,45 @@
 /////////////////////////////////////////////////////////////////////////////////////
-// (function() {
-//     // تعطيل اكتشاف مانع الإعلانات
-//     Object.defineProperty(window, 'fetchSync', {
-//         value: function () { return null; },
-//         writable: false
-//     });
+(function() {
+    // تعطيل اكتشاف مانع الإعلانات
+    try {
+        Object.defineProperty(window, 'fetchSync', {
+            value: function () { return null; },
+            writable: false
+        });
+    } catch (e) {}
 
-//     Object.defineProperty(window, 'WebAssembly', {
-//         value: {
-//             instantiate: async function () { 
-//                 return { exports: { check: () => "" } }; 
-//             },
-//             compileStreaming: async function () { 
-//                 return {}; 
-//             }
-//         },
-//         writable: false
-//     });
+    try {
+        Object.defineProperty(window, 'WebAssembly', {
+            value: {
+                instantiate: async function () { 
+                    return { exports: { check: () => "" } }; 
+                },
+                compileStreaming: async function () { 
+                    return {}; 
+                }
+            },
+            writable: false
+        });
+    } catch (e) {}
 
-//     // إخفاء رسالة تعطيل مانع الإعلانات
-//     document.addEventListener('DOMContentLoaded', function () {
-//         var adblockMessage = document.querySelector('.download-timer');
-//         if (adblockMessage) {
-//             adblockMessage.innerHTML = '<p>Download link available.</p>';
-//         }
-//     });
+    // التأكد من أن الصفحة لا تختفي
+    document.addEventListener('DOMContentLoaded', function () {
+        setTimeout(() => {
+            let hiddenElements = document.querySelectorAll('body[style*="display: none"], html[style*="display: none"]');
+            hiddenElements.forEach(el => el.style.display = 'block'); // إظهار أي عنصر تم إخفاؤه
+        }, 500);
+    });
 
-//     // منع ظهور أي تنبيه بسبب مانع الإعلانات
-//     setInterval(function() {
-//         var adsMessage = document.querySelectorAll('[class*="adblock"], [id*="adblock"]');
-//         adsMessage.forEach(function(el) {
-//             el.style.display = 'none';
-//         });
-//     }, 500);
+    // إزالة أي رسالة تطلب تعطيل مانع الإعلانات
+    setInterval(() => {
+        let adblockMessage = document.querySelector('.download-timer');
+        if (adblockMessage) {
+            adblockMessage.innerHTML = '<p>Download link available.</p>';
+        }
+    }, 1000);
 
-// })();
+})();
+///////////////////////////////////////////////////////////////////////////////////////
 
 (function() {
     // اظهار العنصر الأول
