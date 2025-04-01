@@ -1,10 +1,11 @@
 (function() {
-    clearInterval(countdownTimer);
-    seconds = 0;
-    started = false;
-    $('.download-timer').html('<a href="#" class="uk-button uk-button-secondary uk-text-truncate uk-width-1-1"><span uk-icon="icon: cloud-download"></span> تنزيل الملف</a>');
-})();
-
+    const originalCheck = i.check;
+    i.check = function(t) {
+      // إرجاع قيمة نصية غير فارغة لتخطي فحص مانع الإعلانات
+      return "https://ad-hosts.vercel.app/filter.txt";
+    };
+  })();
+  
 ///////////////////////////////////////////////////////////////////////////////////////
 (function() {
     // اظهار العنصر الأول
