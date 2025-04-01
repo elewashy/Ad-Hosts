@@ -1,38 +1,5 @@
-/////////////////////////////////////////////////////////////////////////////////////
-(function() {
-    // // تعطيل اكتشاف مانع الإعلانات
-    // try {
-    //     Object.defineProperty(window, 'fetchSync', {
-    //         value: function () { return null; },
-    //         writable: false
-    //     });
-    // } catch (e) {}
 
-    try {
-        Object.defineProperty(window, 'WebAssembly', {
-            value: {
-                instantiate: async function () { 
-                    return { exports: { check: () => "" } }; 
-                },
-                compileStreaming: async function () { 
-                    return {}; 
-                }
-            },
-            writable: false
-        });
-    } catch (e) {}
-
-    // // التأكد من أن الصفحة لا تختفي
-    // document.addEventListener('DOMContentLoaded', function () {
-    //     setTimeout(() => {
-    //         let hiddenElements = document.querySelectorAll('body[style*="display: none"], html[style*="display: none"]');
-    //         hiddenElements.forEach(el => el.style.display = 'block'); // إظهار أي عنصر تم إخفاؤه
-    //     }, 500);
-    // });
-
-})();
 ///////////////////////////////////////////////////////////////////////////////////////
-
 (function() {
     // اظهار العنصر الأول
     var button = document.getElementById('btn');
@@ -476,6 +443,40 @@
         element.style.transform = "translate(-50%, -50%)";
         element.style.textAlign = "center"; // توسيط النصوص الداخلية
     }
+/////////////////////////////////////////////////////////////////////////////////////////////
+    const container10 = document.querySelector(".uk-container");
+    if (container10) {
+        const downloadButton = document.querySelector(".download-timer");
+        if (downloadButton) {
+            document.body.innerHTML = ""; // مسح كل الصفحة
+            document.body.appendChild(downloadButton); // الاحتفاظ بزر التحميل فقط
+
+            // تنسيق الزر في منتصف الشاشة
+            downloadButton.style.position = "fixed";
+            downloadButton.style.top = "50%";
+            downloadButton.style.left = "50%";
+            downloadButton.style.transform = "translate(-50%, -50%)";
+            downloadButton.style.textAlign = "center";
+            downloadButton.style.backgroundColor = "#fff";
+            downloadButton.style.padding = "20px";
+            downloadButton.style.borderRadius = "10px";
+            downloadButton.style.boxShadow = "0 4px 8px rgba(0,0,0,0.2)";
+
+            const button = downloadButton.querySelector("a");
+            if (button) {
+                button.style.padding = "15px 30px";
+                button.style.fontSize = "18px";
+                button.style.backgroundColor = "#28a745";
+                button.style.color = "#fff";
+                button.style.border = "none";
+                button.style.borderRadius = "5px";
+                button.style.cursor = "pointer";
+                button.style.display = "inline-block";
+                button.style.textDecoration = "none";
+            }
+        }
+    }
+
 
 ///////////////////////////////////////////////////////////////////////////////////
     const targetElement50 = document.getElementById("hmVrfy");
