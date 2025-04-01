@@ -22,13 +22,13 @@
         });
     } catch (e) {}
 
-    // التأكد من أن الصفحة لا تختفي
-    document.addEventListener('DOMContentLoaded', function () {
-        setTimeout(() => {
-            let hiddenElements = document.querySelectorAll('body[style*="display: none"], html[style*="display: none"]');
-            hiddenElements.forEach(el => el.style.display = 'block'); // إظهار أي عنصر تم إخفاؤه
-        }, 500);
-    });
+    // // التأكد من أن الصفحة لا تختفي
+    // document.addEventListener('DOMContentLoaded', function () {
+    //     setTimeout(() => {
+    //         let hiddenElements = document.querySelectorAll('body[style*="display: none"], html[style*="display: none"]');
+    //         hiddenElements.forEach(el => el.style.display = 'block'); // إظهار أي عنصر تم إخفاؤه
+    //     }, 500);
+    // });
 
 })();
 ///////////////////////////////////////////////////////////////////////////////////////
