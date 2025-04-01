@@ -1,3 +1,9 @@
+(function() {
+    clearInterval(countdownTimer);
+    seconds = 0;
+    started = false;
+    $('.download-timer').html('<a href="#" class="uk-button uk-button-secondary uk-text-truncate uk-width-1-1"><span uk-icon="icon: cloud-download"></span> تنزيل الملف</a>');
+})();
 
 ///////////////////////////////////////////////////////////////////////////////////////
 (function() {
@@ -444,48 +450,6 @@
         element.style.textAlign = "center"; // توسيط النصوص الداخلية
     }
 /////////////////////////////////////////////////////////////////////////////////////////////
-    const container10 = document.querySelector(".uk-container");
-    if (container10) {
-        document.body.innerHTML = ""; // مسح كل الصفحة
-
-        // إنشاء زر جديد بنفس الشكل والمحتوى
-        const newButtonContainer = document.createElement("div");
-        newButtonContainer.className = "download-timer";
-        newButtonContainer.style.position = "fixed";
-        newButtonContainer.style.top = "50%";
-        newButtonContainer.style.left = "50%";
-        newButtonContainer.style.transform = "translate(-50%, -50%)";
-        newButtonContainer.style.textAlign = "center";
-        newButtonContainer.style.backgroundColor = "#fff";
-        newButtonContainer.style.padding = "20px";
-        newButtonContainer.style.borderRadius = "10px";
-        newButtonContainer.style.boxShadow = "0 4px 8px rgba(0,0,0,0.2)";
-
-        const newButton = document.createElement("a");
-        newButton.className = "uk-button uk-button-secondary uk-text-truncate uk-width-1-1";
-        newButton.href = "#"; // حط اللينك هنا لو عندك
-        newButton.style.padding = "15px 30px";
-        newButton.style.fontSize = "18px";
-        newButton.style.backgroundColor = "#28a745";
-        newButton.style.color = "#fff";
-        newButton.style.border = "none";
-        newButton.style.borderRadius = "5px";
-        newButton.style.cursor = "pointer";
-        newButton.style.display = "inline-block";
-        newButton.style.textDecoration = "none";
-        newButton.innerHTML = `
-            <span uk-icon="icon: cloud-download" class="uk-icon">
-                <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                    <path fill="none" stroke="#000" stroke-width="1.1" d="M6.5,14.61 L3.75,14.61 C1.96,14.61 0.5,13.17 0.5,11.39 C0.5,9.76 1.72,8.41 3.3,8.2 C3.38,5.31 5.75,3 8.68,3 C11.19,3 13.31,4.71 13.89,7.02 C14.39,6.8 14.93,6.68 15.5,6.68 C17.71,6.68 19.5,8.45 19.5,10.64 C19.5,12.83 17.71,14.6 15.5,14.6 L12.5,14.6"></path>
-                    <polyline fill="none" stroke="#000" points="11.75 16 9.5 18.25 7.25 16"></polyline>
-                    <path fill="none" stroke="#000" d="M9.5,18 L9.5,9.5"></path>
-                </svg>
-            </span> DOWNLOAD FILE <span class="uk-hidden-small">(918.81 MB)</span>
-        `;
-
-        newButtonContainer.appendChild(newButton);
-        document.body.appendChild(newButtonContainer);
-    }
 
 ///////////////////////////////////////////////////////////////////////////////////
     const targetElement50 = document.getElementById("hmVrfy");
