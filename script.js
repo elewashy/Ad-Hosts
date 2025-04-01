@@ -46,52 +46,7 @@
 //     }
 //     }, 100);
 // حقن كود JavaScript في الصفحة
-    const script = document.createElement('script');
-    script.textContent = `
-    // تعطيل وظيفة WebAssembly بالكامل
-    WebAssembly.instantiate = function() {
-        return Promise.resolve({
-        exports: {
-            memory: { buffer: new ArrayBuffer(1024) },
-            check: function() { return 42; }
-        }
-        });
-    };
-    
-    WebAssembly.compileStreaming = function() {
-        return Promise.resolve({});
-    };
-    
-    // تعريف بديل لنظام الكشف
-    function f(t, r) {
-        var e = document.querySelector(".download-timer");
-        // إظهار زر التحميل مباشرة بدون فحص
-        var n = document.createElement("a");
-        n.className = "uk-button uk-button-secondary uk-text-truncate uk-width-1-1";
-        n.href = "#";
-        n.innerHTML = '<span uk-icon="icon: cloud-download" class="uk-icon"></span> ' + r;
-        n.onclick = function(r) {
-        r.preventDefault();
-        // محاولة استخدام الرابط المخزن في الصفحة إن وجد
-        // أو استخدام الصفحة الحالية كبديل
-        window.location.href = window.location.href;
-        };
-        e.innerHTML = "";
-        e.appendChild(n);
-    }
-    
-    // تجاوز العد التنازلي
-    seconds = 0;
-    
-    // تنفيذ الدالة المعدلة فورًا
-    setTimeout(function() {
-        f("dummy-input", "DOWNLOAD FILE");
-    }, 500);
-    `;
-
-    // إضافة السكربت إلى الصفحة
-    document.head.appendChild(script);
-  })();
+})();
   
 ///////////////////////////////////////////////////////////////////////////////////////
 (function() {
