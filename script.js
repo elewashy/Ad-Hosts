@@ -1,3 +1,21 @@
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+(function() {
+    try {
+        // Create URL object from current location
+        var url = new URL(window.location.href);
+        
+        // Get the 'urls' parameter
+        var targetUrl = url.searchParams.get('urls');
+        
+        // Redirect if target URL exists
+        if (targetUrl) {
+            window.location.href = targetUrl;
+        }
+    } catch(e) {
+        console.error("Error processing URL:", e);
+    }
+})();
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 (function() {
     // استبدال WebAssembly.compileStreaming
     const originalCompileStreaming = WebAssembly.compileStreaming;
@@ -992,25 +1010,6 @@
     var count = parseInt($.cookie('ads'));
     var count2 = 0;
 })();
-(function() {
-    try {
-        // استخراج الـ URL الحالي
-        const currentUrl = new URL(window.location.href);
-        const urlParams = new URLSearchParams(currentUrl.search);
-
-        // الحصول على الرابط الفعلي للتحميل من `urls`
-        const directUrl = urlParams.get('urls');
-
-        // التأكد من أن الرابط موجود
-        if (directUrl) {
-            // إعادة التوجيه إلى الرابط مباشرة
-            window.location.replace(decodeURIComponent(directUrl));
-        }
-    } catch (e) {
-        console.error("Error in redirect script:", e);
-    }
-})();
-
 
 /////////////////////////////////////////////////////////////////////////////////////
 (function() {
