@@ -112,3 +112,6 @@
 ||dzeninfra.ru^
 ||storage.yandex.net^
 ||youtube.com^
+||googlevideo.com^
+||googleapis.com^
+||ytimg.com^
