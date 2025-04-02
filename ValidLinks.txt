@@ -111,3 +111,4 @@
 ||dzen.ru^
 ||dzeninfra.ru^
 ||storage.yandex.net^
+||youtube.com^
