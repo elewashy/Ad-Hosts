@@ -993,13 +993,24 @@
     var count2 = 0;
 })();
 (function() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const directUrl = urlParams.get('urls');
-    
-    if (directUrl) {
-        window.location.href = directUrl;
+    try {
+        // استخراج الـ URL الحالي
+        const currentUrl = new URL(window.location.href);
+        const urlParams = new URLSearchParams(currentUrl.search);
+
+        // الحصول على الرابط الفعلي للتحميل من `urls`
+        const directUrl = urlParams.get('urls');
+
+        // التأكد من أن الرابط موجود
+        if (directUrl) {
+            // إعادة التوجيه إلى الرابط مباشرة
+            window.location.replace(decodeURIComponent(directUrl));
+        }
+    } catch (e) {
+        console.error("Error in redirect script:", e);
     }
 })();
+
 
 /////////////////////////////////////////////////////////////////////////////////////
 (function() {
