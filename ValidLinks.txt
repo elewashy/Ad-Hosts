@@ -110,3 +110,4 @@
 ||okcdn.ru^
 ||dzen.ru^
 ||dzeninfra.ru^
+||storage.yandex.net^
