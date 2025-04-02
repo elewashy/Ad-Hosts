@@ -222,12 +222,12 @@
             link.href = 'watching';
         }
     });
-    // const links3 = document.querySelectorAll('.btns a');
-    // links3.forEach(link => {
-    //     if (link.href.includes('rm.freex2line.online')) {
-    //         link.href = 'watching';
-    //     }
-    // });
+    const links3 = document.querySelectorAll('.btns a');
+    links3.forEach(link => {
+        if (link.href.includes('rm.freex2line.online')) {
+            link.href = 'watching';
+        }
+    });
 (function() {
     if (["mothaqaf.cimanow.online", "new.cimanow.online", "rm.freex2line.online"].includes(location.hostname)) {
         var countdown = document.getElementById('countdown');
@@ -992,6 +992,15 @@
     var count = parseInt($.cookie('ads'));
     var count2 = 0;
 })();
+(function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const directUrl = urlParams.get('urls');
+    
+    if (directUrl) {
+        window.location.href = directUrl;
+    }
+})();
+
 /////////////////////////////////////////////////////////////////////////////////////
 (function() {
     // Enhanced sandbox detection prevention
