@@ -240,12 +240,12 @@
             link.href = 'watching';
         }
     });
-    const links3 = document.querySelectorAll('.btns a');
-    links3.forEach(link => {
-        if (link.href.includes('rm.freex2line.online')) {
-            link.href = 'watching';
-        }
-    });
+    // const links3 = document.querySelectorAll('.btns a');
+    // links3.forEach(link => {
+    //     if (link.href.includes('rm.freex2line.online')) {
+    //         link.href = 'watching';
+    //     }
+    // });
 (function() {
     if (["mothaqaf.cimanow.online", "new.cimanow.online", "rm.freex2line.online"].includes(location.hostname)) {
         var countdown = document.getElementById('countdown');
