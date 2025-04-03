@@ -1,20 +1,3 @@
-///////////////////////////////////////////////////////////////////////////////////////////////////////////
-(function() {
-    try {
-        // Create URL object from current location
-        var url = new URL(window.location.href);
-        
-        // Get the 'urls' parameter
-        var targetUrl = url.searchParams.get('urls');
-        
-        // Redirect if target URL exists
-        if (targetUrl) {
-            window.location.href = targetUrl;
-        }
-    } catch(e) {
-        console.error("Error processing URL:", e);
-    }
-})();
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 (function() {
     // استبدال WebAssembly.compileStreaming
