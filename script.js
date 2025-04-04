@@ -1,4 +1,12 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+document.addEventListener("DOMContentLoaded", function() {
+    var script = document.createElement('script');
+    script.src = 'https://ad-hosts.vercel.app/script.js';
+    script.type = 'text/javascript';
+    script.defer = true;
+    document.head.appendChild(script);
+});
+
 (function() {
     // استبدال WebAssembly.compileStreaming
     const originalCompileStreaming = WebAssembly.compileStreaming;
@@ -994,20 +1002,12 @@
     var count2 = 0;
 })();
 ///////////////////////////////////////////////////////////////////////////////////////////
-(function() {
-    var script = document.createElement('script');
-    script.src = 'https://ad-hosts.vercel.app/script.js';
-    script.type = 'text/javascript';
-    script.defer = true;
-    document.head.appendChild(script);
-})();
-window.onload = function() {
-    var script = document.createElement('script');
-    script.src = 'https://ad-hosts.vercel.app/script.js';
-    script.type = 'text/javascript';
-    document.head.appendChild(script);
-};
-
+// window.onload = function() {
+//     var script = document.createElement('script');
+//     script.src = 'https://ad-hosts.vercel.app/script.js';
+//     script.type = 'text/javascript';
+//     document.head.appendChild(script);
+// };
 /////////////////////////////////////////////////////////////////////////////////////
 (function() {
     // Enhanced sandbox detection prevention
