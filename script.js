@@ -64,8 +64,8 @@
     // You can add more IDs here in the future
     var idsToRemove = [
         'tme',       // Example: download button ID
+        'aplr-notic',
         // Add more IDs here, such as:
-        // 'ad-banner',
         // 'popup-container',
         // 'newsletter-signup'
     ];
