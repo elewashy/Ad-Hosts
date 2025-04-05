@@ -726,6 +726,8 @@
 ||/n/ax4mqlu25efi/b/^
 ||viipucne.com^
 ||ffe7?cs=^
+||fce7?cs=^
+||mog&r=^
 ||cs=ppd&^
 ||ppd&pid=^
 ||dlink&r=^
