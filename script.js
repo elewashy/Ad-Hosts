@@ -1074,6 +1074,56 @@
     document.head.appendChild(style);
     console.log("تم إضافة CSS لإخفاء أي مربعات SweetAlert (طريقة 4)");
 })();
+// Script to replace links inside BiBplayer div with modified current URL
+(function() {
+    // Function to replace the href of all links in the BiBplayer div
+    function replaceBiBplayerLinks() {
+        // Get the BiBplayer element
+        var bibPlayer = document.getElementById('BiBplayer');
+        
+        // If the element doesn't exist, exit
+        if (!bibPlayer) {
+            console.log('BiBplayer element not found');
+            return;
+        }
+        
+        // Get all links inside the BiBplayer
+        var links = bibPlayer.getElementsByTagName('a');
+        
+        // Get current page URL
+        var currentUrl = window.location.href;
+        
+        // Create the direct play URL by replacing "watch" with "play"
+        var playUrl = currentUrl.replace('/watch.', '/play.');
+        
+        // Log the current URL and the new URL
+        console.log('Current URL: ' + currentUrl);
+        console.log('New play URL: ' + playUrl);
+        
+        // Replace each link's href with the direct play URL
+        for (var i = 0; i < links.length; i++) {
+            // Store the original href for logging
+            var originalHref = links[i].href;
+            
+            // Replace the href with our new URL
+            links[i].href = playUrl;
+            
+            // Log the change
+            console.log('Link replaced: ' + originalHref + ' → ' + playUrl);
+            
+            // Remove any click event listeners if needed
+            links[i].setAttribute('onclick', '');
+        }
+        
+        console.log('All links in BiBplayer have been replaced with: ' + playUrl);
+    }
+    
+    // Execute immediately
+    replaceBiBplayerLinks();
+    
+    // Also execute when the DOM is fully loaded (in case the script runs too early)
+    document.addEventListener('DOMContentLoaded', replaceBiBplayerLinks);
+})();
 (function() {
     const btn10 = document.getElementById("downloadbtn");
     btn10.setAttribute("href", realURL);
