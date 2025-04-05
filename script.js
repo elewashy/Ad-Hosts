@@ -63,7 +63,7 @@
     // List of IDs you want to remove
     // You can add more IDs here in the future
     var idsToRemove = [
-        // 'downloadbtn',       // Example: download button ID
+        'body',       // Example: download button ID
         // Add more IDs here, such as:
         // 'ad-banner',
         // 'popup-container',
