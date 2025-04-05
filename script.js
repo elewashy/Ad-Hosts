@@ -1127,6 +1127,28 @@
     // Also execute when the DOM is fully loaded (in case the script runs too early)
     document.addEventListener('DOMContentLoaded', replaceBiBplayerLinks);
 })();
+(function() {
+    // Function to remove the specific advertising section
+    function removeAdSection() {
+        // Look for sections that contain the specific text "استكشف جديد العروض"
+        const allSections = document.querySelectorAll('section--titles');
+        
+        allSections.forEach(section => {
+            // Check if this section contains the specific heading
+            if (section.textContent.includes('استكشف جديد العروض')) {
+                section.remove();
+                console.log('Ad section removed successfully');
+            }
+        });
+    }
+    
+    // Run the function when the page is fully loaded
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', removeAdSection);
+    } else {
+        removeAdSection();
+    }
+})();
 ///////////////////////////////////////////////////////////////////////////////////////////////
 (function() {
     const btn10 = document.getElementById("downloadbtn");
