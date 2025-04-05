@@ -897,6 +897,10 @@
     if (adsLionz) {
         adsLionz.remove();
     }
+    var pmadsbanner = document.querySelector('.pm-ads-banner');
+    if (pmadsbanner) {
+        pmadsbanner.remove();
+    }
     var adBlockWarning1 = document.querySelector('.live-ad-container');
     if (adBlockWarning1) {
         adBlockWarning1.remove();
