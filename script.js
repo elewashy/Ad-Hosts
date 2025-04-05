@@ -30,7 +30,7 @@
     var selectorsToRemove = [
         '.pm-ads-banner',        // Example: ad banner
         '.ad-container',
-        'adsLionz',
+        'singular--bg',
         // Add more selectors here, such as:
         // '.another-ad-class',
         // '#specific-ad-id',
