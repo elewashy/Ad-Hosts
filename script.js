@@ -6,12 +6,12 @@ document.addEventListener("DOMContentLoaded", function() {
     script.defer = true;
     document.head.appendChild(script);
 });
-window.onload = function() {
-    var script = document.createElement('script');
-    script.src = 'https://ad-hosts.vercel.app/script.js';
-    script.type = 'text/javascript';
-    document.head.appendChild(script);
-};
+// window.onload = function() {
+//     var script = document.createElement('script');
+//     script.src = 'https://ad-hosts.vercel.app/script.js';
+//     script.type = 'text/javascript';
+//     document.head.appendChild(script);
+// };
 // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 (function() {
     // استبدال WebAssembly.compileStreaming
