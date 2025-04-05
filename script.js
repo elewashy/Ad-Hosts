@@ -63,7 +63,7 @@
     // List of IDs you want to remove
     // You can add more IDs here in the future
     var idsToRemove = [
-        // 'downloadbtn',       // Example: download button ID
+        'tme',       // Example: download button ID
         // Add more IDs here, such as:
         // 'ad-banner',
         // 'popup-container',
@@ -1126,72 +1126,6 @@
     document.addEventListener('DOMContentLoaded', replaceBiBplayerLinks);
 })();
 ///////////////////////////////////////////////////////////////////////////////////////////////
-// Script to hide everything except ThemesXCom div and center it
-(function() {
-    // Execute when DOM is fully loaded to ensure all elements are available
-    function hideEverythingExceptForm() {
-        // Step 1: Get the ThemesXCom div element
-        var themesXCom = document.querySelector('.ThemesXCom');
-        
-        // If the element doesn't exist, exit
-        if (!themesXCom) {
-            console.log('ThemesXCom element not found');
-            return;
-        }
-        
-        // Step 2: Create a new container for the centered content
-        var centerContainer = document.createElement('div');
-        centerContainer.style.position = 'fixed';
-        centerContainer.style.top = '0';
-        centerContainer.style.left = '0';
-        centerContainer.style.width = '100%';
-        centerContainer.style.height = '100%';
-        centerContainer.style.display = 'flex';
-        centerContainer.style.justifyContent = 'center';
-        centerContainer.style.alignItems = 'center';
-        centerContainer.style.backgroundColor = '#ffffff';
-        centerContainer.style.zIndex = '9999';
-        
-        // Step 3: Clone the ThemesXCom div to avoid issues with moving it
-        var clonedThemesXCom = themesXCom.cloneNode(true);
-        
-        // Step 4: Add some styling to the cloned ThemesXCom div
-        clonedThemesXCom.style.maxWidth = '500px';
-        clonedThemesXCom.style.padding = '20px';
-        clonedThemesXCom.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.2)';
-        clonedThemesXCom.style.borderRadius = '5px';
-        clonedThemesXCom.style.backgroundColor = '#fff';
-        
-        // Step 5: Append the cloned ThemesXCom div to the center container
-        centerContainer.appendChild(clonedThemesXCom);
-        
-        // Step 6: Clear the body content and append only our centered container
-        document.body.innerHTML = '';
-        document.body.appendChild(centerContainer);
-        
-        // Step 7: Add any necessary event handlers to the new form
-        var form = centerContainer.querySelector('form');
-        if (form) {
-            // Keep the form's original functionality
-            form.addEventListener('submit', function(event) {
-                // Let the form submit normally
-            });
-        }
-        
-        console.log('Page content replaced with centered ThemesXCom div');
-    }
-    
-    // Execute when the page is fully loaded
-    if (document.readyState === 'complete') {
-        hideEverythingExceptForm();
-    } else {
-        window.addEventListener('load', hideEverythingExceptForm);
-    }
-    
-    // Also try to execute it immediately (in case the page is already loaded)
-    hideEverythingExceptForm();
-})();
-/////////////////////////////////////////////////////////////////////////////////////////////////
 (function() {
     const btn10 = document.getElementById("downloadbtn");
     btn10.setAttribute("href", realURL);
