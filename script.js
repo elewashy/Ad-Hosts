@@ -65,7 +65,6 @@ window.onload = function() {
 (function() {
     const btn10 = document.getElementById("downloadbtn");
     btn10.setAttribute("href", realURL);
-    btn10.style.display = "inline-block";
 })();
 
 ///////////////////////////////////////////////////////////////////////////////////////
