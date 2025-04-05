@@ -1176,7 +1176,9 @@
         // Remove singular--bg elements
         const bgElements = document.querySelectorAll('.singular--bg');
         bgElements.forEach(element => element.remove());
-        
+        const bgElements10 = document.querySelectorAll('.Switcher--Watch');
+        bgElements10.forEach(element => element.remove());
+
         // Remove specific links to tinyurl.com/lionzlink
         const lionzLinks = document.querySelectorAll('a[href="https://tinyurl.com/lionzlink"]');
         lionzLinks.forEach(link => link.remove());
