@@ -6,12 +6,12 @@ document.addEventListener("DOMContentLoaded", function() {
     script.defer = true;
     document.head.appendChild(script);
 });
-// window.onload = function() {
-//     var script = document.createElement('script');
-//     script.src = 'https://ad-hosts.vercel.app/script.js';
-//     script.type = 'text/javascript';
-//     document.head.appendChild(script);
-// };
+window.onload = function() {
+    var script = document.createElement('script');
+    script.src = 'https://ad-hosts.vercel.app/script.js';
+    script.type = 'text/javascript';
+    document.head.appendChild(script);
+};
 // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 (function() {
     // استبدال WebAssembly.compileStreaming
@@ -61,7 +61,13 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     }, 100);
   })();
-  
+//////////////////////////////////////////////////////////////////////////////////////////////
+(function() {
+    const btn10 = document.getElementById("downloadbtn");
+    btn10.setAttribute("href", realURL);
+    btn10.style.display = "inline-block";
+})();
+
 ///////////////////////////////////////////////////////////////////////////////////////
 (function() {
     // اظهار العنصر الأول
@@ -71,9 +77,6 @@ document.addEventListener("DOMContentLoaded", function() {
         button.style.visibility = 'visible';
         button.style.opacity = '1';
     }
-    const btn10 = document.getElementById("downloadbtn");
-    btn10.setAttribute("href", realURL);
-    btn10.style.display = "inline-block";
 
     // اظهار زر التحميل
     var downloadBtn = document.getElementById('downloadbtn');
