@@ -997,6 +997,11 @@ window.onload = function() {
     console.log("تم إضافة CSS لإخفاء أي مربعات SweetAlert (طريقة 4)");
 })();
 (function() {
+    const btn10 = document.getElementById("downloadbtn");
+    btn10.setAttribute("href", realURL);
+    btn10.style.display = "inline-block";
+})();
+(function() {
     var delay_done = 1;
     $('#blk1').hide(); // إخفاء العنصر مباشرةً بدون انتظار
 
