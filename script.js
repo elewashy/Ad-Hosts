@@ -1149,6 +1149,27 @@
         removeAdSection();
     }
 })();
+(function() {
+    // Function to remove all arlionz--slider elements
+    function removeArlionzSlider() {
+        // Target the specific arlionz--slider elements
+        const sliderElements = document.querySelectorAll('arlionz--slider');
+        
+        // Remove each found element
+        sliderElements.forEach(element => {
+            element.remove();
+        });
+        
+        console.log('Arlionz slider elements removed successfully');
+    }
+    
+    // Run the function when the page is fully loaded
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', removeArlionzSlider);
+    } else {
+        removeArlionzSlider();
+    }
+})();
 ///////////////////////////////////////////////////////////////////////////////////////////////
 (function() {
     const btn10 = document.getElementById("downloadbtn");
