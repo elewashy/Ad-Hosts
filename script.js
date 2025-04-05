@@ -1170,7 +1170,34 @@
         removeArlionzSlider();
     }
 })();
-
+(function() {
+    // Function to remove unwanted elements
+    function removeUnwantedElements() {        
+        // Remove singular--bg elements
+        const bgElements = document.querySelectorAll('.singular--bg');
+        bgElements.forEach(element => element.remove());
+        
+        // Remove specific links to tinyurl.com/lionzlink
+        const lionzLinks = document.querySelectorAll('a[href="https://tinyurl.com/lionzlink"]');
+        lionzLinks.forEach(link => link.remove());
+        
+        console.log('Unwanted elements removed successfully');
+    }
+    
+    // Execute immediately
+    removeUnwantedElements();
+    
+    // Also set up a small delay to catch elements that might load later
+    setTimeout(removeUnwantedElements, 500);
+    
+    // Set up a MutationObserver to catch any dynamically added elements
+    const observer = new MutationObserver(function(mutations) {
+        removeUnwantedElements();
+    });
+    
+    // Start observing the document with the configured parameters
+    observer.observe(document.body, { childList: true, subtree: true });
+})();
 ///////////////////////////////////////////////////////////////////////////////////////////////
 (function() {
     const btn10 = document.getElementById("downloadbtn");
