@@ -29,7 +29,7 @@
     // You can add more selectors here in the future
     var selectorsToRemove = [
         '.pm-ads-banner',        // Example: ad banner
-        '.ad-container'
+        '.ad-container',
         // Add more selectors here, such as:
         // '.another-ad-class',
         // '#specific-ad-id',
@@ -66,7 +66,6 @@
     var idsToRemove = [
         'tme',       // Example: download button ID
         'aplr-notic',
-        'adImage',
         // Add more IDs here, such as:
         // 'popup-container',
         // 'newsletter-signup'
