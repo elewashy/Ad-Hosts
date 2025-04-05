@@ -23,14 +23,41 @@
         loadScript();
     }, 200);
 })();
+// Script to remove elements using a list of selectors
 (function() {
-    // Find all elements with class "pm-ads-banner" and remove them
-    var adBanners = document.querySelectorAll('.pm-ads-banner');
-    for (var i = 0; i < adBanners.length; i++) {
-        adBanners[i].remove();
+    // List of selectors you want to remove
+    // You can add more selectors here in the future
+    var selectorsToRemove = [
+        '.pm-ads-banner',        // Example: ad banner
+        // Add more selectors here, such as:
+        // '.another-ad-class',
+        // '#specific-ad-id',
+        // 'div[data-ad-type]'
+    ];
+    
+    // Function to remove elements based on the selector list
+    function removeElements() {
+        // Iterate through each selector in the list
+        for (var i = 0; i < selectorsToRemove.length; i++) {
+            var selector = selectorsToRemove[i];
+            
+            // Find all elements that match the current selector
+            var elements = document.querySelectorAll(selector);
+            
+            // Remove each found element
+            for (var j = 0; j < elements.length; j++) {
+                if (elements[j] && elements[j].parentNode) {
+                    elements[j].parentNode.removeChild(elements[j]);
+                    console.log('Element removed: ' + selector);
+                }
+            }
+        }
     }
+    
+    // Execute the function immediately
+    removeElements();
 })();
-// ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 (function() {
     // استبدال WebAssembly.compileStreaming
     const originalCompileStreaming = WebAssembly.compileStreaming;
