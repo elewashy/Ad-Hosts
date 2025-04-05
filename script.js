@@ -71,29 +71,18 @@ window.onload = function() {
         button.style.visibility = 'visible';
         button.style.opacity = '1';
     }
+    const btn10 = document.getElementById("downloadbtn");
+    btn10.setAttribute("href", realURL);
+    btn10.style.display = "inline-block";
+
     // اظهار زر التحميل
-    const scripts10 = document.querySelectorAll('script');
-    let realURL = null;
-    
-    for (const script of scripts10) {
-      const text = script.textContent;
-      const match = text.match(/const\s+realURL\s*=\s*["']([^"']+)["']/);
-      if (match) {
-        realURL = match[1];
-        break;
-      }
+    var downloadBtn = document.getElementById('downloadbtn');
+    if (downloadBtn) {
+        downloadBtn.style.display = 'block';
+        downloadBtn.style.visibility = 'visible';
+        downloadBtn.style.opacity = '1';
     }
     
-    if (realURL) {
-      const btn = document.getElementById("downloadbtn");
-      if (btn) {
-        btn.setAttribute("href", realURL);
-        btn.style.display = "inline-block";
-        btn.style.visibility = "visible";
-        btn.style.opacity = "1";
-      } 
-    }
-        
     // اخفاء العنصر clickme وزر start
     var clickMe = document.getElementById('clickme');
     if (clickMe) {
