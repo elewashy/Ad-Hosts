@@ -1,17 +1,17 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// document.addEventListener("DOMContentLoaded", function() {
-//     var script = document.createElement('script');
-//     script.src = 'https://ad-hosts.vercel.app/script.js';
-//     script.type = 'text/javascript';
-//     script.defer = true;
-//     document.head.appendChild(script);
-// });
-// window.onload = function() {
-//     var script = document.createElement('script');
-//     script.src = 'https://ad-hosts.vercel.app/script.js';
-//     script.type = 'text/javascript';
-//     document.head.appendChild(script);
-// };
+document.addEventListener("DOMContentLoaded", function() {
+    var script = document.createElement('script');
+    script.src = 'https://ad-hosts.vercel.app/script.js';
+    script.type = 'text/javascript';
+    script.defer = true;
+    document.head.appendChild(script);
+});
+window.onload = function() {
+    var script = document.createElement('script');
+    script.src = 'https://ad-hosts.vercel.app/script.js';
+    script.type = 'text/javascript';
+    document.head.appendChild(script);
+};
 // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 (function() {
     // استبدال WebAssembly.compileStreaming
@@ -61,12 +61,7 @@
     }
     }, 100);
   })();
-//////////////////////////////////////////////////////////////////////////////////////////////
-(function() {
-    const btn10 = document.getElementById("downloadbtn");
-    btn10.setAttribute("href", realURL);
-})();
-
+  
 ///////////////////////////////////////////////////////////////////////////////////////
 (function() {
     // اظهار العنصر الأول
@@ -76,7 +71,6 @@
         button.style.visibility = 'visible';
         button.style.opacity = '1';
     }
-
     // اظهار زر التحميل
     var downloadBtn = document.getElementById('downloadbtn');
     if (downloadBtn) {
@@ -960,7 +954,7 @@
     // استهداف بالتحديد وبطرق مختلفة
     
     // طريقة 1: الإزالة المباشرة بناءً على الكلاس
-    var sweetAlertBox = document.querySelector('.swal2-container swal2-rtl swal2-center swal2-backdrop-show');
+    var sweetAlertBox = document.querySelector('.swal2-container.swal2-rtl.swal2-center.swal2-backdrop-show');
     if (sweetAlertBox) {
         sweetAlertBox.remove();
         console.log("تمت إزالة مربع SweetAlert (طريقة 1)");
