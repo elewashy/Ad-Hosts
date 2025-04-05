@@ -57,6 +57,39 @@
     // Execute the function immediately
     removeElements();
 })();
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Script to remove elements using a list of IDs
+(function() {
+    // List of IDs you want to remove
+    // You can add more IDs here in the future
+    var idsToRemove = [
+        // 'downloadbtn',       // Example: download button ID
+        // Add more IDs here, such as:
+        // 'ad-banner',
+        // 'popup-container',
+        // 'newsletter-signup'
+    ];
+    
+    // Function to remove elements based on the ID list
+    function removeElementsById() {
+        // Iterate through each ID in the list
+        for (var i = 0; i < idsToRemove.length; i++) {
+            var id = idsToRemove[i];
+            
+            // Find the element with the current ID
+            var element = document.getElementById(id);
+            
+            // Remove the element if found
+            if (element && element.parentNode) {
+                element.parentNode.removeChild(element);
+                console.log('Element removed by ID: ' + id);
+            }
+        }
+    }
+    
+    // Execute the function immediately
+    removeElementsById();
+})();
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 (function() {
     // استبدال WebAssembly.compileStreaming
