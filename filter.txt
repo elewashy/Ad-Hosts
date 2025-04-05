@@ -196,7 +196,6 @@
 ||tns-counter.ru^
 ||static.cloudflareinsights.com^
 ||cloudflareinsights.com^
-||treatmentoctopus.com^
 ||youradexchange.com^
 ||loijtoottuleringv.info^
 ||s10.histats.com^
