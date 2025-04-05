@@ -23,6 +23,13 @@
         loadScript();
     }, 200);
 })();
+(function() {
+    // Find all elements with class "pm-ads-banner" and remove them
+    var adBanners = document.querySelectorAll('.pm-ads-banner');
+    for (var i = 0; i < adBanners.length; i++) {
+        adBanners[i].remove();
+    }
+})();
 // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 (function() {
     // استبدال WebAssembly.compileStreaming
@@ -896,10 +903,6 @@
     const adsLionz = document.getElementById('adsLionz');
     if (adsLionz) {
         adsLionz.remove();
-    }
-    var pmadsbanner = document.querySelector('.pm-ads-banner');
-    if (pmadsbanner) {
-        pmadsbanner.remove();
     }
     var adBlockWarning1 = document.querySelector('.live-ad-container');
     if (adBlockWarning1) {
