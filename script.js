@@ -34,6 +34,7 @@
         '.telegram_themexCom',
         '.comp-hide AlbaE3lan table_top',
         '.comp-hide.AlbaE3lan.table_top',
+        '.separator',
         // Add more selectors here, such as:
         // '.another-ad-class',
         // '#specific-ad-id',
@@ -1218,13 +1219,8 @@
         bgElements.forEach(element => element.remove());
         const bgElements10 = document.querySelectorAll('.Switcher--Watch');
         bgElements10.forEach(element => element.remove());
-        window.addEventListener('load', function () {
-            const adBox = document.querySelector('.comp-hide.AlbaE3lan.table_top');
-            if (adBox) {
-              adBox.remove();
-            }
-          });
-                  // Remove specific links to tinyurl.com/lionzlink
+
+        // Remove specific links to tinyurl.com/lionzlink
         const lionzLinks = document.querySelectorAll('a[href="https://tinyurl.com/lionzlink"]');
         lionzLinks.forEach(link => link.remove());
         
