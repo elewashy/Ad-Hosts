@@ -31,6 +31,7 @@
         '.pm-ads-banner',        // Example: ad banner
         '.ad-container',
         'singular--bg',
+        'telegram_themexCom',
         // Add more selectors here, such as:
         // '.another-ad-class',
         // '#specific-ad-id',
