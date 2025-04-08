@@ -733,4 +733,3 @@
 ||/player/jw8/vast.js^
 ||cvvczlcg.com^
 ||mazgeyfpbvv.com^
-||/release.wasm^
