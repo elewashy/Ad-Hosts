@@ -1218,7 +1218,10 @@
         bgElements.forEach(element => element.remove());
         const bgElements10 = document.querySelectorAll('.Switcher--Watch');
         bgElements10.forEach(element => element.remove());
-
+        const adBox60 = document.querySelector('.comp-hide.AlbaE3lan.table_top');
+        if (adBox60) {
+          adBox60.remove();
+        }        
         // Remove specific links to tinyurl.com/lionzlink
         const lionzLinks = document.querySelectorAll('a[href="https://tinyurl.com/lionzlink"]');
         lionzLinks.forEach(link => link.remove());
