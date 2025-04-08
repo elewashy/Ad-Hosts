@@ -32,6 +32,8 @@
         '.ad-container',
         '.singular--bg',
         '.telegram_themexCom',
+        '.comp-hide AlbaE3lan table_top',
+        '.comp-hide.AlbaE3lan.table_top',
         // Add more selectors here, such as:
         // '.another-ad-class',
         // '#specific-ad-id',
