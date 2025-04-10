@@ -115,5 +115,3 @@
 ||googlevideo.com^
 ||googleapis.com^
 ||ytimg.com^
-||viipucne.com^
-||zy.huskilyvroom.com^
