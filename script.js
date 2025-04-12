@@ -24,6 +24,23 @@
         loadScript();
     }, 200);
 })();
+(function() {
+    function restoreBtns() {
+      const btns = document.querySelector('.btns');
+      if (btns) {
+        // لو موجودة بس مخفية
+        const style = window.getComputedStyle(btns);
+        if (style.display === 'none' || style.visibility === 'hidden' || btns.offsetParent === null) {
+          btns.style.display = 'block';
+          btns.style.visibility = 'visible';
+        }
+      }
+    }
+  
+    // نتحقق كل ثانية
+    setInterval(restoreBtns, 1000);
+  })();
+  
 // Script to remove elements using a list of selectors
 (function() {
     // List of selectors you want to remove
