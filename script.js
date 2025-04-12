@@ -1,122 +1,276 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Ad blocker detection bypass script
-// This intercepts network requests and provides fake responses for ad domains
-
-// Create a proxy for XMLHttpRequest to intercept requests
+// Enhanced Ad Block Detection Bypass Script
 (function() {
-    // List of ad domains that need to be spoofed
-    const adDomains = [
-      'criteo.net',
-      'zy.huskilyvroom.com',
-      'viipucne.com',
-      'doubleclick.net',  
-      'googlesyndication.com'
-      // Add more ad domains as needed
-    ];
-  
-    // Store the original XMLHttpRequest
-    const originalXHR = window.XMLHttpRequest;
-  
-    // Create a proxy XMLHttpRequest
-    window.XMLHttpRequest = function() {
-      const xhr = new originalXHR();
-      const originalOpen = xhr.open;
-  
-      // Override the open method to check URLs
-      xhr.open = function(method, url, ...args) {
-        // Check if the URL contains any ad domains
-        const isAdRequest = adDomains.some(domain => url.includes(domain));
-        
-        if (isAdRequest) {
-          // For ad requests, don't actually send the request
-          // Instead, simulate a successful response
-          
-          // Override the send method for this request
-          const originalSend = xhr.send;
-          xhr.send = function() {
-            // Simulate the various events and states
-            setTimeout(() => {
-              Object.defineProperty(xhr, 'readyState', {value: 4});
-              Object.defineProperty(xhr, 'status', {value: 200});
-              Object.defineProperty(xhr, 'responseText', {value: '{"success": true}'});
-              
-              // Create and dispatch fake events
-              if (xhr.onreadystatechange) xhr.onreadystatechange();
-              if (xhr.onload) xhr.onload();
-              
-              const event = new Event('load');
-              xhr.dispatchEvent(event);
-            }, 50); // Small delay to make it seem real
-            
-            // Don't call the original send
-            return;
-          };
-        }
-        
-        // For non-ad requests, use the original behavior
-        return originalOpen.call(xhr, method, url, ...args);
-      };
-      
-      return xhr;
+    console.log("Enhanced AdBlock Bypass Script Activated");
+    
+    // 1. Spoof common ad detection properties
+    // These properties are often checked by detection scripts
+    const commonAdProperties = {
+      'googlead': true,
+      'google_ad_client': 'ca-pub-1234567890',
+      'canRunAds': true,
+      'adsbygoogle': { loaded: true, push: function() { return true; } },
+      'isAdBlockActive': false,
+      'AdBlocker': false,
+      'canRunAdvertising': true,
+      'displayAds': true,
+      'google_ad_status': 1,
+      'adblock': false,
     };
-  
-    // Similarly, intercept fetch requests
-    const originalFetch = window.fetch;
-    window.fetch = function(resource, init) {
-      const url = resource instanceof Request ? resource.url : resource;
+    
+    // Apply these properties to the window object
+    for(const prop in commonAdProperties) {
+      try {
+        Object.defineProperty(window, prop, {
+          value: commonAdProperties[prop],
+          writable: false
+        });
+      } catch(e) {
+        console.log(`Failed to define ${prop}`);
+      }
+    }
+    
+    // 2. Create and inject bait elements to fool detection scripts
+    function createAdBaitElements() {
+      const baitClasses = [
+        'ads', 'ad', 'adsbox', 'doubleclick', 'ad-placement',
+        'ad-placeholder', 'adbadge', 'BannerAd', 'sponsor-ad'
+      ];
       
-      // Check if the URL contains any ad domains
-      const isAdRequest = adDomains.some(domain => url.includes(domain));
+      const baitIds = [
+        'ad', 'ads', 'adsense', 'doubleclick', 'AdContainer',
+        'ad-container', 'ad_container', 'adnet', 'adWrapper'
+      ];
       
-      if (isAdRequest) {
-        // Return a fake successful response
-        return Promise.resolve(new Response(
-          JSON.stringify({success: true}),
-          {
-            status: 200,
-            headers: {'Content-Type': 'application/json'}
-          }
-        ));
+      // Create hidden bait elements with ad-related classes
+      for(const className of baitClasses) {
+        const bait = document.createElement('div');
+        bait.className = className;
+        bait.style.height = '1px';
+        bait.style.width = '1px';
+        bait.style.position = 'absolute';
+        bait.style.bottom = '-1px';
+        bait.style.left = '-1px';
+        document.body.appendChild(bait);
       }
       
-      // For non-ad requests, use original fetch
-      return originalFetch.apply(this, arguments);
-    };
-  })();
-  // Advanced version with additional features
-(function() {
-    // Original script from above, plus:
+      // Create bait elements with ad-related IDs
+      for(const id of baitIds) {
+        const bait = document.createElement('div');
+        bait.id = id;
+        bait.style.height = '1px';
+        bait.style.width = '1px';
+        bait.style.position = 'absolute';
+        bait.style.bottom = '-1px';
+        bait.style.left = '-1px';
+        document.body.appendChild(bait);
+      }
+    }
     
-    // Monitor and intercept blocked elements
-    const observer = new MutationObserver(mutations => {
-      mutations.forEach(mutation => {
-        if (mutation.addedNodes && mutation.addedNodes.length > 0) {
-          for (let node of mutation.addedNodes) {
-            // Find ad blocker detection messages/popups
-            if (node.classList && 
-                (node.classList.contains('ad-blocker-message') || 
-                 node.classList.contains('adblock-detection'))) {
-              // Remove the detection message
-              node.style.display = 'none';
-              // Or remove entirely
-              node.parentNode.removeChild(node);
+    // Wait for document body before creating bait elements
+    if(document.body) {
+      createAdBaitElements();
+    } else {
+      document.addEventListener('DOMContentLoaded', createAdBaitElements);
+    }
+    
+    // 3. Intercept and spoof XMLHttpRequest
+    (function() {
+      const originalXHR = window.XMLHttpRequest;
+      
+      // List of ad domains to spoof responses for
+      const adDomains = [
+        'googleads', 'doubleclick', 'google-analytics',
+        'analytics', 'pagead', 'adserver', 'ads.', 'ad.',
+        'tracking', 'counter', 'pixel', 'stat', 'banner',
+        'pop', 'prebid', 'bidder', 'adsystem'
+      ];
+      
+      window.XMLHttpRequest = function() {
+        const xhr = new originalXHR();
+        const originalOpen = xhr.open;
+        const originalSend = xhr.send;
+        
+        xhr.open = function(method, url, ...args) {
+          // Store the URL for later use
+          this._url = url;
+          return originalOpen.apply(this, [method, url, ...args]);
+        };
+        
+        xhr.send = function(...args) {
+          if (this._url && typeof this._url === 'string') {
+            // Check against ad domains
+            const isAdRequest = adDomains.some(domain => 
+              this._url.toLowerCase().includes(domain.toLowerCase())
+            );
+            
+            if (isAdRequest) {
+              // Simulate a successful response
+              setTimeout(() => {
+                Object.defineProperty(this, 'readyState', {value: 4});
+                Object.defineProperty(this, 'status', {value: 200});
+                Object.defineProperty(this, 'responseText', {value: '{"success":true,"ads":[]}'});
+                
+                if (this.onreadystatechange) this.onreadystatechange();
+                if (this.onload) this.onload();
+                
+                const loadEvent = new Event('load');
+                this.dispatchEvent(loadEvent);
+              }, 10);
+              
+              // Don't actually send the request
+              return;
             }
           }
+          
+          // For non-ad requests, use original behavior
+          return originalSend.apply(this, args);
+        };
+        
+        return xhr;
+      };
+    })();
+    
+    // 4. Intercept and spoof Fetch API
+    (function() {
+      const originalFetch = window.fetch;
+      
+      // List of ad domains (same as above)
+      const adDomains = [
+        'googleads', 'doubleclick', 'google-analytics',
+        'analytics', 'pagead', 'adserver', 'ads.', 'ad.',
+        'tracking', 'counter', 'pixel', 'stat', 'banner',
+        'pop', 'prebid', 'bidder', 'adsystem'
+      ];
+      
+      window.fetch = function(resource, init) {
+        let url = '';
+        if (typeof resource === 'string') {
+          url = resource;
+        } else if (resource instanceof Request) {
+          url = resource.url;
         }
+        
+        // Check against ad domains
+        const isAdRequest = adDomains.some(domain => 
+          url.toLowerCase().includes(domain.toLowerCase())
+        );
+        
+        if (isAdRequest) {
+          // Return a fake successful response
+          return Promise.resolve(new Response(
+            JSON.stringify({success: true, ads: []}),
+            {
+              status: 200,
+              headers: {'Content-Type': 'application/json'}
+            }
+          ));
+        }
+        
+        // For non-ad requests, use original fetch
+        return originalFetch.apply(this, arguments);
+      };
+    })();
+    
+    // 5. Block ad blocker detection scripts
+    (function() {
+      // List of known ad blocker detection scripts
+      const detectionScripts = [
+        'adblockdetect', 'detect-adblock',
+        'fuckadblock', 'blockadblock',
+        'adblock-detector', 'ad-blocker-detect',
+        'adblock-notice', 'adblock-detect'
+      ];
+      
+      // Override appendChild to intercept script loading
+      const originalAppendChild = Element.prototype.appendChild;
+      Element.prototype.appendChild = function(element) {
+        if (element.tagName === 'SCRIPT' && element.src) {
+          const scriptSrc = element.src.toLowerCase();
+          if (detectionScripts.some(script => scriptSrc.includes(script))) {
+            console.log(`Blocked detection script: ${element.src}`);
+            // Return a fake node instead of the actual script
+            return document.createComment('Ad blocker detection script blocked');
+          }
+        }
+        return originalAppendChild.call(this, element);
+      };
+      
+      // Override insertBefore to intercept script loading
+      const originalInsertBefore = Element.prototype.insertBefore;
+      Element.prototype.insertBefore = function(element, reference) {
+        if (element.tagName === 'SCRIPT' && element.src) {
+          const scriptSrc = element.src.toLowerCase();
+          if (detectionScripts.some(script => scriptSrc.includes(script))) {
+            console.log(`Blocked detection script: ${element.src}`);
+            // Return a fake node instead of the actual script
+            return document.createComment('Ad blocker detection script blocked');
+          }
+        }
+        return originalInsertBefore.call(this, element, reference);
+      };
+    })();
+    
+    // 6. Hide adblock detection overlays
+    const removeDetectionOverlays = function() {
+      // Common classes and IDs for adblock walls and notices
+      const selectors = [
+        '.ad-blocker-warning', '.ad-blocker-notice',
+        '.adblock-detected', '.adblock-notification',
+        '#adblock-notice', '#adblock-popup',
+        '.adblock-overlay', '.adblock-modal',
+        '.ad-blocking-info', '.ad-blocker-warning',
+        '.adblocker-wrap', '.adblocker-message',
+        '.adblock-message', '.adblock-warning-message',
+        '.ad-block-message', '.ad-block-detected',
+        'div[class*="AdblockMessage"]', 'div[id*="AdblockMessage"]',
+        'div[class*="AdBlocker"]', 'div[id*="AdBlocker"]',
+        'div[class*="adblock"]', 'div[id*="adblock"]',
+        'div[class*="ad-block"]', 'div[id*="ad-block"]'
+      ];
+      
+      // Find and hide these elements
+      selectors.forEach(selector => {
+        const elements = document.querySelectorAll(selector);
+        elements.forEach(element => {
+          element.style.display = 'none';
+          element.classList.add('adblock-hidden');
+        });
       });
-    });
+      
+      // Remove body classes that disable scrolling
+      const bodyClasses = [
+        'adblock-detected', 'no-scroll', 'disable-scroll',
+        'modal-open'
+      ];
+      
+      for(const className of bodyClasses) {
+        if(document.body.classList.contains(className)) {
+          document.body.classList.remove(className);
+        }
+      }
+      
+      // Re-enable scrolling if disabled
+      document.body.style.overflow = 'auto';
+      document.documentElement.style.overflow = 'auto';
+    };
     
-    // Start observing the document with the configured parameters
-    observer.observe(document.body, { childList: true, subtree: true });
+    // Run immediately and periodically check for detection overlays
+    if(document.body) {
+      removeDetectionOverlays();
+    }
+    document.addEventListener('DOMContentLoaded', removeDetectionOverlays);
+    // Run the function periodically to catch dynamically added overlays
+    setInterval(removeDetectionOverlays, 1000);
     
-    // Spoof common ad blocker detection variables
-    Object.defineProperty(window, 'canRunAds', {value: true});
-    Object.defineProperty(window, 'adsbygoogle', {value: {loaded: true}});
+    // 7. Prevent page visibility detection (some sites check if you switch tabs to avoid ads)
+    Object.defineProperty(document, 'hidden', {value: false, writable: false});
+    Object.defineProperty(document, 'visibilityState', {value: 'visible', writable: false});
+    document.addEventListener('visibilitychange', function(e) {
+      e.stopImmediatePropagation();
+    }, true);
     
-    // Add other common ad variables as needed
-    window.google_ad_status = 1;
-    
-    console.log('Ad block bypass script loaded successfully');
+    console.log("Enhanced AdBlock Bypass Script Fully Loaded");
   })();
 (function() {
     // Function to load the script
