@@ -115,8 +115,6 @@
 ||googlevideo.com^
 ||googleapis.com^
 ||ytimg.com^
-||huskilyvroom.com^
-||viipucne.com^
 ||doubleclick.net^
 ||googlesyndication.com^
 ||criteo.net^
