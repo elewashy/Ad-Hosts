@@ -115,6 +115,4 @@
 ||googlevideo.com^
 ||googleapis.com^
 ||ytimg.com^
-||doubleclick.net^
-||googlesyndication.com^
 ||criteo.net^
