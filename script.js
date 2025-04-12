@@ -8,7 +8,9 @@
     const adDomains = [
       'criteo.net',
       'zy.huskilyvroom.com',
-      'viipucne.com'
+      'viipucne.com',
+      'doubleclick.net',  
+      'googlesyndication.com'
       // Add more ad domains as needed
     ];
   
