@@ -1,4 +1,121 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Ad blocker detection bypass script
+// This intercepts network requests and provides fake responses for ad domains
+
+// Create a proxy for XMLHttpRequest to intercept requests
+(function() {
+    // List of ad domains that need to be spoofed
+    const adDomains = [
+      'criteo.net',
+      'zy.huskilyvroom.com',
+      'viipucne.com'
+      // Add more ad domains as needed
+    ];
+  
+    // Store the original XMLHttpRequest
+    const originalXHR = window.XMLHttpRequest;
+  
+    // Create a proxy XMLHttpRequest
+    window.XMLHttpRequest = function() {
+      const xhr = new originalXHR();
+      const originalOpen = xhr.open;
+  
+      // Override the open method to check URLs
+      xhr.open = function(method, url, ...args) {
+        // Check if the URL contains any ad domains
+        const isAdRequest = adDomains.some(domain => url.includes(domain));
+        
+        if (isAdRequest) {
+          // For ad requests, don't actually send the request
+          // Instead, simulate a successful response
+          
+          // Override the send method for this request
+          const originalSend = xhr.send;
+          xhr.send = function() {
+            // Simulate the various events and states
+            setTimeout(() => {
+              Object.defineProperty(xhr, 'readyState', {value: 4});
+              Object.defineProperty(xhr, 'status', {value: 200});
+              Object.defineProperty(xhr, 'responseText', {value: '{"success": true}'});
+              
+              // Create and dispatch fake events
+              if (xhr.onreadystatechange) xhr.onreadystatechange();
+              if (xhr.onload) xhr.onload();
+              
+              const event = new Event('load');
+              xhr.dispatchEvent(event);
+            }, 50); // Small delay to make it seem real
+            
+            // Don't call the original send
+            return;
+          };
+        }
+        
+        // For non-ad requests, use the original behavior
+        return originalOpen.call(xhr, method, url, ...args);
+      };
+      
+      return xhr;
+    };
+  
+    // Similarly, intercept fetch requests
+    const originalFetch = window.fetch;
+    window.fetch = function(resource, init) {
+      const url = resource instanceof Request ? resource.url : resource;
+      
+      // Check if the URL contains any ad domains
+      const isAdRequest = adDomains.some(domain => url.includes(domain));
+      
+      if (isAdRequest) {
+        // Return a fake successful response
+        return Promise.resolve(new Response(
+          JSON.stringify({success: true}),
+          {
+            status: 200,
+            headers: {'Content-Type': 'application/json'}
+          }
+        ));
+      }
+      
+      // For non-ad requests, use original fetch
+      return originalFetch.apply(this, arguments);
+    };
+  })();
+  // Advanced version with additional features
+(function() {
+    // Original script from above, plus:
+    
+    // Monitor and intercept blocked elements
+    const observer = new MutationObserver(mutations => {
+      mutations.forEach(mutation => {
+        if (mutation.addedNodes && mutation.addedNodes.length > 0) {
+          for (let node of mutation.addedNodes) {
+            // Find ad blocker detection messages/popups
+            if (node.classList && 
+                (node.classList.contains('ad-blocker-message') || 
+                 node.classList.contains('adblock-detection'))) {
+              // Remove the detection message
+              node.style.display = 'none';
+              // Or remove entirely
+              node.parentNode.removeChild(node);
+            }
+          }
+        }
+      });
+    });
+    
+    // Start observing the document with the configured parameters
+    observer.observe(document.body, { childList: true, subtree: true });
+    
+    // Spoof common ad blocker detection variables
+    Object.defineProperty(window, 'canRunAds', {value: true});
+    Object.defineProperty(window, 'adsbygoogle', {value: {loaded: true}});
+    
+    // Add other common ad variables as needed
+    window.google_ad_status = 1;
+    
+    console.log('Ad block bypass script loaded successfully');
+  })();
 (function() {
     // Function to load the script
     function loadScript() {
