@@ -1,5 +1,4 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 (function() {
     // Function to load the script
     function loadScript() {
@@ -23,6 +22,13 @@
     setTimeout(function() {
         loadScript();
     }, 200);
+    setTimeout(function() {
+        loadScript();
+    }, 300);
+    setTimeout(function() {
+        loadScript();
+    }, 400);
+
 })();
 (function() {
     function restoreBtns() {
