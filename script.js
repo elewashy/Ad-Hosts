@@ -12,6 +12,10 @@
     
     // Execute immediately for the first time
     loadScript();
+    // Execute a second time after a very short delay
+    setTimeout(function() {
+        loadScript();
+    }, 50);
     
     // Execute a second time after a very short delay
     setTimeout(function() {
@@ -28,6 +32,9 @@
     setTimeout(function() {
         loadScript();
     }, 400);
+    setTimeout(function() {
+        loadScript();
+    }, 500);
 
 })();
 // Script to remove elements using a list of selectors
