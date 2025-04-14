@@ -1,6 +1,3 @@
 ||downet.net/download^
-||vk.com/s/v1/doc/^
-||vk.com/doc^
-||egyfilm-app-server.vercel.app^
 ||t.me/EgyFilm_code^
 ||.veevcdn.co/^
