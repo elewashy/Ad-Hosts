@@ -1150,7 +1150,7 @@
         var currentUrl = window.location.href;
         
         // Create the direct play URL by replacing "watch" with "play"
-        var playUrl = currentUrl.replace('/watch.', '/play.');
+        // var playUrl = currentUrl.replace('/watch.', '/play.');
         
         // Log the current URL and the new URL
         console.log('Current URL: ' + currentUrl);
