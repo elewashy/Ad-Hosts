@@ -1131,7 +1131,13 @@
 })();
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Script to replace links inside BiBplayer div with modified current URL
-(function() {
+(function () {
+    // Check if current host is animezid.show
+    if (window.location.hostname !== "animezid.show") {
+        console.log("Not animezid.show — script will not run.");
+        return;
+    }
+
     // Function to replace the href of all links in the BiBplayer div
     function replaceBiBplayerLinks() {
         // Get the BiBplayer element
@@ -1150,7 +1156,7 @@
         var currentUrl = window.location.href;
         
         // Create the direct play URL by replacing "watch" with "play"
-        // var playUrl = currentUrl.replace('/watch.', '/play.');
+        var playUrl = currentUrl.replace('/watch.', '/play.');
         
         // Log the current URL and the new URL
         console.log('Current URL: ' + currentUrl);
@@ -1158,28 +1164,22 @@
         
         // Replace each link's href with the direct play URL
         for (var i = 0; i < links.length; i++) {
-            // Store the original href for logging
             var originalHref = links[i].href;
-            
-            // Replace the href with our new URL
             links[i].href = playUrl;
-            
-            // Log the change
             console.log('Link replaced: ' + originalHref + ' → ' + playUrl);
-            
-            // Remove any click event listeners if needed
             links[i].setAttribute('onclick', '');
         }
-        
+
         console.log('All links in BiBplayer have been replaced with: ' + playUrl);
     }
-    
+
     // Execute immediately
     replaceBiBplayerLinks();
-    
+
     // Also execute when the DOM is fully loaded (in case the script runs too early)
     document.addEventListener('DOMContentLoaded', replaceBiBplayerLinks);
 })();
+
 (function() {
     // Function to remove the specific advertising section
     function removeAdSection() {
