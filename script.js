@@ -1132,9 +1132,9 @@
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Script to replace links inside BiBplayer div with modified current URL
 (function () {
-    // Check if current host is animezid.show
-    if (window.location.hostname !== "animezid.show") {
-        console.log("Not animezid.show — script will not run.");
+    var host = window.location.hostname;
+    if (!host.includes("animezid.show") && !host.includes("animezid.cam")) {
+        console.log("Not a supported host — script will not run.");
         return;
     }
 
