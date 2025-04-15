@@ -116,3 +116,5 @@
 ||googleapis.com^
 ||ytimg.com^
 ||criteo.net^
+||f51rm.com^
+||xcoic.com^
