@@ -33,6 +33,55 @@
     }, 500);
 
 })();
+(function() {
+    // Enable smooth scrolling for the entire page
+    document.documentElement.style.scrollBehavior = 'smooth';
+
+    // Polyfill for smooth scrolling in older browsers
+    if (!('scrollBehavior' in document.documentElement.style)) {
+        const script = document.createElement('script');
+        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/smoothscroll/1.4.10/SmoothScroll.min.js';
+        document.head.appendChild(script);
+    }
+
+    // Optimize animations for a smoother experience
+    function optimizeAnimations() {
+        const elements = document.querySelectorAll('*');
+        elements.forEach(el => {
+            const style = window.getComputedStyle(el);
+            if (style.willChange === 'auto') {
+                el.style.willChange = 'transform, opacity';
+            }
+        });
+    }
+
+    // Call the function to optimize animations
+    optimizeAnimations();
+
+    // Add a global event listener to ensure smooth animations during resizes
+    window.addEventListener('resize', () => {
+        optimizeAnimations();
+    });
+
+    // Prevent layout thrashing (reflow/repaint issues)
+    let lastKnownScrollPosition = 0;
+    let ticking = false;
+
+    window.addEventListener('scroll', () => {
+        lastKnownScrollPosition = window.scrollY;
+
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                // Perform any DOM updates here without causing layout thrashing
+                ticking = false;
+            });
+
+            ticking = true;
+        }
+    });
+
+    console.log("Smooth experience script is applied successfully!");
+})();
 // Script to remove elements using a list of selectors
 (function() {
     // List of selectors you want to remove
