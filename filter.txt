@@ -734,3 +734,4 @@
 ||cvvczlcg.com^
 ||mazgeyfpbvv.com^
 ||/release.wasm^
+||m15.asd.rest^
