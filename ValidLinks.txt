@@ -116,3 +116,4 @@
 ||googleapis.com^
 ||ytimg.com^
 ||criteo.net^
+||huyashu.cfd^
