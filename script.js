@@ -308,6 +308,12 @@
     //     }
     // });
 (function() {
+    const btn10 = document.getElementById("downloadbtn");
+    btn10.setAttribute("href", realURL);
+    btn10.style.display = "inline-block";
+})();
+    
+(function() {
     if (["mothaqaf.cimanow.online", "new.cimanow.online", "rm.freex2line.online"].includes(location.hostname)) {
         var countdown = document.getElementById('countdown');
         if (countdown) {
@@ -1297,12 +1303,6 @@
     document.body.appendChild(scrollButton);
 })();
 ///////////////////////////////////////////////////////////////////////////////////////////////
-(function() {
-    const btn10 = document.getElementById("downloadbtn");
-    btn10.setAttribute("href", realURL);
-    btn10.style.display = "inline-block";
-})();
-/////////////////////////////////////////////////////////////////////////////////////
 (function() {
     // Enhanced sandbox detection prevention
     const setupAdvancedSandboxBypass = () => {
