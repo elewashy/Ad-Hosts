@@ -118,3 +118,5 @@
 ||criteo.net^
 ||huyashu.cfd^
 ||pagead2.googlesyndication.com^
+||doubleclick.net^
+||huskilyvroom.com^
