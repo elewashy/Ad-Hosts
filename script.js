@@ -1160,55 +1160,67 @@
 })();
 (function() {
     try {
-        // البحث عن روابط التحميل
-        const downloadLinks = document.querySelectorAll('a[href*="download"]');
+        // تعريف المراقب
+        const observer = new MutationObserver(function(mutations) {
+            // إيجاد روابط التحميل
+            const downloadLinks = document.querySelectorAll('a[href*="download"]');
+            
+            if (downloadLinks.length > 0) {
+                // استخدم روابط التحميل هنا
+                console.log('تم العثور على روابط تحميل:', downloadLinks.length);
+                
+                // إنشاء طبقة فوق المحتوى
+                const overlay = document.createElement('div');
+                overlay.style.position = 'fixed';
+                overlay.style.top = '0';
+                overlay.style.left = '0';
+                overlay.style.width = '100%';
+                overlay.style.height = '100%';
+                overlay.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+                overlay.style.zIndex = '10000';
+                overlay.style.display = 'flex';
+                overlay.style.justifyContent = 'center';
+                overlay.style.alignItems = 'center';
+                
+                const container = document.createElement('div');
+                container.style.backgroundColor = 'white';
+                container.style.padding = '30px';
+                container.style.borderRadius = '10px';
+                container.style.boxShadow = '0 0 20px rgba(0, 0, 0, 0.2)';
+                container.style.textAlign = 'center';
+                
+                downloadLinks.forEach(link => {
+                    const newLink = link.cloneNode(true);
+                    newLink.style.display = 'block';
+                    newLink.style.margin = '15px auto';
+                    newLink.style.transform = 'scale(1.3)';
+                    container.appendChild(newLink);
+                });
+                
+                overlay.appendChild(container);
+                document.body.appendChild(overlay);
+                
+                // إيقاف المراقب بعد العثور على الروابط
+                observer.disconnect();
+            }
+        });
         
-        if (downloadLinks.length > 0) {
-            // إخفاء جميع العناصر الموجودة في الجسم
-            Array.from(document.body.children).forEach(element => {
-                element.style.display = 'none';
-            });
-            
-            // إنشاء حاوي جديد
-            const container = document.createElement('div');
-            container.style.position = "fixed";
-            container.style.top = "50%";
-            container.style.left = "50%";
-            container.style.transform = "translate(-50%, -50%)";
-            container.style.padding = "30px";
-            container.style.backgroundColor = "white";
-            container.style.boxShadow = "0 0 20px rgba(0, 0, 0, 0.3)";
-            container.style.borderRadius = "10px";
-            container.style.zIndex = "9999";
-            container.style.textAlign = "center";
-            
-            // إضافة عنوان
-            const title = document.createElement('h2');
-            title.textContent = "تحميل الملف";
-            title.style.marginBottom = "20px";
-            container.appendChild(title);
-            
-            // إضافة الروابط
-            downloadLinks.forEach(link => {
-                const newLink = link.cloneNode(true);
-                newLink.style.display = "inline-block";
-                newLink.style.padding = "12px 24px";
-                newLink.style.margin = "10px";
-                newLink.style.backgroundColor = "#4CAF50";
-                newLink.style.color = "white";
-                newLink.style.textDecoration = "none";
-                newLink.style.borderRadius = "5px";
-                newLink.style.fontSize = "18px";
-                container.appendChild(newLink);
-            });
-            
-            document.body.appendChild(container);
-        } else {
-            alert('لم يتم العثور على روابط تحميل!');
+        // بدء المراقبة
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
+        
+        // للتأكد من أن الصفحة محملة بالكامل
+        if (document.readyState === 'complete') {
+            const downloadLinks = document.querySelectorAll('a[href*="download"]');
+            if (downloadLinks.length > 0) {
+                console.log('الصفحة محملة بالكامل، تم العثور على روابط');
+                // قم بتشغيل الكود فورًا لأن الصفحة محملة بالكامل
+            }
         }
     } catch (error) {
         console.error('حدث خطأ:', error);
-        alert('حدث خطأ: ' + error.message);
     }
 })();
 (function() {
