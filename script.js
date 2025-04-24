@@ -12,7 +12,6 @@
         '.comp-hide.AlbaE3lan.table_top',
         '.separator',
         '.banner-inner',
-        '.entry-content',
         // Add more selectors here, such as:
         // '.another-ad-class',
         // '#specific-ad-id',
