@@ -978,12 +978,6 @@
     // Execute the function
     removeElements();
 })();
-(function() {
-    const btn10 = document.getElementById("downloadbtn");
-    btn10.setAttribute("href", realURL);
-    btn10.style.display = "inline-block";
-})();
-
 // كود مباشر لإزالة مربع SweetAlert2 بالضبط
 (function() {
     // استهداف بالتحديد وبطرق مختلفة
@@ -1302,6 +1296,79 @@
     
     
     document.body.appendChild(scrollButton);
+})();
+(function() {
+    // Wait for jQuery to be available
+    function checkJQuery() {
+        if (typeof jQuery !== 'undefined') {
+            initProtection();
+        } else {
+            setTimeout(checkJQuery, 100);
+        }
+    }
+
+    function initProtection() {
+        // Store the original remove method
+        var originalRemove = jQuery.fn.remove;
+        
+        // Override the remove method
+        jQuery.fn.remove = function() {
+            // Check if this matches any of the protected selectors
+            var isProtected = false;
+            
+            // Using is() to check if the element matches our protected selectors
+            if (
+                this.is('#watch > li[data-index="00"]') || 
+                this.is('li[aria-label="quality"]:not(.box)') || 
+                this.is('li[data-index="00"]')
+            ) {
+                console.log('Blocked attempt to remove protected element:', this);
+                isProtected = true;
+            }
+            
+            // Only call the original remove method if not protected
+            if (!isProtected) {
+                return originalRemove.apply(this, arguments);
+            } else {
+                // Return this to maintain chainability
+                return this;
+            }
+        };
+        
+        console.log('Element protection activated - removal of specified elements is now blocked');
+        
+        // Optional: Monitor DOM for direct element removal (non-jQuery)
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.type === 'childList' && mutation.removedNodes.length > 0) {
+                    mutation.removedNodes.forEach((removedNode) => {
+                        if (removedNode.nodeType === 1) { // Element node
+                            // Check if it matches our protected selectors
+                            if (
+                                (removedNode.matches && removedNode.matches('li[data-index="00"]')) ||
+                                (removedNode.parentNode && removedNode.parentNode.id === 'watch' && 
+                                removedNode.matches && removedNode.matches('li[data-index="00"]')) ||
+                                (removedNode.matches && removedNode.matches('li[aria-label="quality"]:not(.box)'))
+                            ) {
+                                console.log('Detected removal of protected element, restoring:', removedNode);
+                                // Re-add the removed node
+                                mutation.target.insertBefore(removedNode, mutation.nextSibling);
+                            }
+                        }
+                    });
+                }
+            });
+        });
+        
+        // Start observing the document
+        observer.observe(document.body, { 
+            childList: true,
+            subtree: true
+        });
+    }
+    
+    // Start the protection
+    checkJQuery();
 })();
 ///////////////////////////////////////////////////////////////////////////////////////////////
 (function() {
