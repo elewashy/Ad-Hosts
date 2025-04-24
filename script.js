@@ -1159,6 +1159,62 @@
     }
 })();
 (function() {
+    // البحث عن قسم التحميل
+    const downloadSection = document.getElementById('download_bottom');
+    
+    if (downloadSection) {
+        // نسخ قسم التحميل قبل مسح المحتوى
+        const downloadSectionClone = downloadSection.cloneNode(true);
+        
+        // مسح كل محتوى الصفحة
+        document.body.innerHTML = "";
+        
+        // إنشاء عنصر حاوي للأزرار
+        const container = document.createElement('div');
+        container.style.position = "fixed";
+        container.style.top = "50%";
+        container.style.left = "50%";
+        container.style.transform = "translate(-50%, -50%)";
+        container.style.width = "90%";
+        container.style.maxWidth = "600px";
+        container.style.padding = "2rem";
+        container.style.backgroundColor = "white";
+        container.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.15)";
+        container.style.borderRadius = "10px";
+        container.style.zIndex = "9999";
+        container.style.textAlign = "center";
+        
+        // إضافة عنوان بسيط
+        const title = document.createElement('h2');
+        title.textContent = "تنزيل لعبة Shadow Knight";
+        title.style.marginBottom = "20px";
+        title.style.fontSize = "24px";
+        title.style.fontWeight = "bold";
+        title.style.color = "#333";
+        container.appendChild(title);
+        
+        // إضافة قسم التحميل إلى الحاوي
+        container.appendChild(downloadSectionClone);
+        
+        // تحسين مظهر أزرار التحميل
+        const downloadButtons = container.querySelectorAll('a');
+        downloadButtons.forEach(button => {
+            button.style.transform = "scale(1.2)";
+            button.style.margin = "15px auto";
+            button.style.display = "flex";
+            button.style.justifyContent = "center";
+            button.style.alignItems = "center";
+            button.style.width = "fit-content";
+        });
+        
+        // تعيين الخلفية للصفحة
+        document.body.style.backgroundColor = "#f5f5f5";
+        
+        // إضافة الحاوي إلى الجسم
+        document.body.appendChild(container);
+    }
+})();
+(function() {
     // Function to remove unwanted elements
     function removeUnwantedElements() {        
         // Remove singular--bg elements
