@@ -55,12 +55,7 @@
             // إظهار زر التحميل والنص
             downloadButton.style.display = 'inline-block';
             downloadButtonText.style.display = 'inline-block';
-            
-            // جعل الزر أكبر وأوضح
-            downloadButton.style.padding = '15px 30px';
-            downloadButton.style.fontSize = '18px';
-            downloadButton.style.fontWeight = 'bold';
-            
+                        
             // استخراج الرابط من السمات وتطبيقه على الزر
             const dataHref = downloadButton.getAttribute('data-href');
             if (dataHref) {
