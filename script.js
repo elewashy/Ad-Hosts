@@ -41,6 +41,47 @@
     // Execute the function immediately
     removeElements();
 })();
+(function() {
+    try {
+        // البحث عن زر التحميل وإظهاره مباشرة
+        const downloadButton = document.getElementById('download-button');
+        const downloadButtonText = document.getElementById('download-button-text');
+        const downloadLoading = document.getElementById('download-loading');
+        
+        if (downloadButton && downloadButtonText && downloadLoading) {
+            // إخفاء العداد وقسم التحميل
+            downloadLoading.style.display = 'none';
+            
+            // إظهار زر التحميل والنص
+            downloadButton.style.display = 'inline-block';
+            downloadButtonText.style.display = 'inline-block';
+            
+            // جعل الزر أكبر وأوضح
+            downloadButton.style.padding = '15px 30px';
+            downloadButton.style.fontSize = '18px';
+            downloadButton.style.fontWeight = 'bold';
+            
+            // استخراج الرابط من السمات وتطبيقه على الزر
+            const dataHref = downloadButton.getAttribute('data-href');
+            if (dataHref) {
+                // فك ترميز الـ base64 إذا لزم الأمر
+                try {
+                    const decodedHref = atob(dataHref);
+                    downloadButton.href = decodedHref;
+                } catch (e) {
+                    // في حالة عدم القدرة على فك الترميز، استخدم الرابط كما هو
+                    downloadButton.href = dataHref;
+                }
+            }
+            
+            console.log('تم إظهار زر التحميل بنجاح!');
+        } else {
+            console.error('لم يتم العثور على عناصر التحميل!');
+        }
+    } catch (error) {
+        console.error('حدث خطأ:', error);
+    }
+})();
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Script to remove elements using a list of IDs
 (function() {
