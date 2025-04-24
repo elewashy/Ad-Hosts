@@ -1096,6 +1096,48 @@
     document.head.appendChild(style);
     console.log("تم إضافة CSS لإخفاء أي مربعات SweetAlert (طريقة 4)");
 })();
+/////////////////////////////////////////////////////////////////////////////////////
+(function() {
+    // Wait for the DOM to be fully loaded
+    document.addEventListener('DOMContentLoaded', function() {
+      // Find the section element
+      const section = document.getElementById('secondSection');
+      
+      // Check if the section exists
+      if (section) {
+        // Remove the 'hidden' class to make it visible
+        section.classList.remove('hidden');
+        
+        // Hide all other elements in the body
+        Array.from(document.body.children).forEach(element => {
+          if (element !== section) {
+            element.style.display = 'none';
+          }
+        });
+        
+        // Make the section more prominent
+        section.style.position = 'absolute';
+        section.style.top = '50%';
+        section.style.left = '50%';
+        section.style.transform = 'translate(-50%, -50%)';
+        section.style.width = '80%';
+        section.style.maxWidth = '600px';
+        section.style.padding = '2rem';
+        section.style.backgroundColor = 'white';
+        section.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
+        section.style.borderRadius = '8px';
+        section.style.zIndex = '9999';
+        
+        // Make the button slightly larger
+        const button = section.querySelector('a');
+        if (button) {
+          button.style.transform = 'scale(1.2)';
+          button.style.display = 'inline-block';
+          button.style.margin = '20px 0';
+        }
+      }
+    });
+  })();
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Script to replace links inside BiBplayer div with modified current URL
 (function () {
