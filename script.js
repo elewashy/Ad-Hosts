@@ -315,10 +315,6 @@
             countdown.style.display = 'none'; // إخفاء العنصر
         }
     }    
-    const button12 = document.getElementById("downloadbtn");
-    button12.setAttribute("href", realURL);
-    button12.style.display = "inline-block";
-
     // العثور على العنصر body
     var element = document.body;
 
@@ -982,12 +978,27 @@
     // Execute the function
     removeElements();
 })();
-// (function() {
-//     const btn10 = document.getElementById("downloadbtn");
-//     btn10.setAttribute("href", realURL);
-//     btn10.style.display = "inline-block";
-// })();
-
+(function(){
+    const btnId     = 'downloadbtn',
+          attrName  = 'href',
+          displayVal= 'inline-block',
+          realVar   = 'realURL';
+  
+    function tick(){
+      const btn = document.getElementById(btnId);
+      const url = window[realVar];
+  
+      if (btn && url) {
+        btn.setAttribute(attrName, url);
+        btn.style.display = displayVal;
+      } else {
+        requestAnimationFrame(tick);
+      }
+    }
+  
+    requestAnimationFrame(tick);
+  })();
+  
 // كود مباشر لإزالة مربع SweetAlert2 بالضبط
 (function() {
     // استهداف بالتحديد وبطرق مختلفة
