@@ -117,4 +117,4 @@
 ||ytimg.com^
 ||criteo.net^
 ||huyashu.cfd^
-||cimanow.online^
+||pagead2.googlesyndication.com^
