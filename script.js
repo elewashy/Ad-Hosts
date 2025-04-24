@@ -1158,71 +1158,7 @@
         section.classList.add('bg-white');
     }
 })();
-(function() {
-    try {
-        // تعريف المراقب
-        const observer = new MutationObserver(function(mutations) {
-            // إيجاد روابط التحميل
-            const downloadLinks = document.querySelectorAll('a[href*="download"]');
-            
-            if (downloadLinks.length > 0) {
-                // استخدم روابط التحميل هنا
-                console.log('تم العثور على روابط تحميل:', downloadLinks.length);
-                
-                // إنشاء طبقة فوق المحتوى
-                const overlay = document.createElement('div');
-                overlay.style.position = 'fixed';
-                overlay.style.top = '0';
-                overlay.style.left = '0';
-                overlay.style.width = '100%';
-                overlay.style.height = '100%';
-                overlay.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
-                overlay.style.zIndex = '10000';
-                overlay.style.display = 'flex';
-                overlay.style.justifyContent = 'center';
-                overlay.style.alignItems = 'center';
-                
-                const container = document.createElement('div');
-                container.style.backgroundColor = 'white';
-                container.style.padding = '30px';
-                container.style.borderRadius = '10px';
-                container.style.boxShadow = '0 0 20px rgba(0, 0, 0, 0.2)';
-                container.style.textAlign = 'center';
-                
-                downloadLinks.forEach(link => {
-                    const newLink = link.cloneNode(true);
-                    newLink.style.display = 'block';
-                    newLink.style.margin = '15px auto';
-                    newLink.style.transform = 'scale(1.3)';
-                    container.appendChild(newLink);
-                });
-                
-                overlay.appendChild(container);
-                document.body.appendChild(overlay);
-                
-                // إيقاف المراقب بعد العثور على الروابط
-                observer.disconnect();
-            }
-        });
-        
-        // بدء المراقبة
-        observer.observe(document.body, {
-            childList: true,
-            subtree: true
-        });
-        
-        // للتأكد من أن الصفحة محملة بالكامل
-        if (document.readyState === 'complete') {
-            const downloadLinks = document.querySelectorAll('a[href*="download"]');
-            if (downloadLinks.length > 0) {
-                console.log('الصفحة محملة بالكامل، تم العثور على روابط');
-                // قم بتشغيل الكود فورًا لأن الصفحة محملة بالكامل
-            }
-        }
-    } catch (error) {
-        console.error('حدث خطأ:', error);
-    }
-})();
+console.log(document.contentSecurityPolicy || "لا توجد سياسة أمان معروفة");
 (function() {
     // Function to remove unwanted elements
     function removeUnwantedElements() {        
