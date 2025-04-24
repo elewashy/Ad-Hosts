@@ -1118,8 +1118,6 @@
     }
 })();
 (function() {
-    // Wait for the DOM to be fully loaded
-    document.addEventListener('DOMContentLoaded', function() {
       // Find the section element
       const section = document.getElementById('secondSection');
       
@@ -1156,7 +1154,6 @@
           button.style.margin = '20px 0';
         }
       }
-    });
   })();
 (function() {
     // Function to remove unwanted elements
