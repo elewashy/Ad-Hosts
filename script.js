@@ -337,559 +337,559 @@
     );
 })();
 
-// (function() {
-//     // حفظ العنصر المطلوب فقط
-//     var targetElement = document.querySelector("center.oto");
+(function() {
+    // حفظ العنصر المطلوب فقط
+    var targetElement = document.querySelector("center.oto");
 
-//     // تحقق إذا كان العنصر موجود
-//     if (targetElement) {
-//     // حذف جميع العناصر داخل الـ body
-//     document.body.innerHTML = "";
+    // تحقق إذا كان العنصر موجود
+    if (targetElement) {
+    // حذف جميع العناصر داخل الـ body
+    document.body.innerHTML = "";
 
-//     // إعادة إضافة العنصر المطلوب فقط
-//     document.body.appendChild(targetElement);
+    // إعادة إضافة العنصر المطلوب فقط
+    document.body.appendChild(targetElement);
 
-//     // تعديل خصائص CSS للتأكد من ظهور العنصر
-//     var progressBarContainer = document.getElementById("progressBarContainer");
-//     var nextButton = document.getElementById("nextbutton");
+    // تعديل خصائص CSS للتأكد من ظهور العنصر
+    var progressBarContainer = document.getElementById("progressBarContainer");
+    var nextButton = document.getElementById("nextbutton");
 
-//     if (progressBarContainer) {
-//         progressBarContainer.style.display = "block"; // إظهار شريط التقدم
-//     }
-//     if (nextButton) {
-//         nextButton.style.display = "inline-block"; // إظهار الزر
-//         nextButton.removeAttribute("disabled"); // إزالة التعطيل عن الزر
+    if (progressBarContainer) {
+        progressBarContainer.style.display = "block"; // إظهار شريط التقدم
+    }
+    if (nextButton) {
+        nextButton.style.display = "inline-block"; // إظهار الزر
+        nextButton.removeAttribute("disabled"); // إزالة التعطيل عن الزر
 
-//         // تكبير الزر
-//         nextButton.style.padding = "20px 40px"; // جعل الزر أكبر
-//         nextButton.style.fontSize = "22px"; // زيادة حجم الخط
-//         nextButton.style.borderRadius = "10px"; // إضافة حواف دائرية للزر
+        // تكبير الزر
+        nextButton.style.padding = "20px 40px"; // جعل الزر أكبر
+        nextButton.style.fontSize = "22px"; // زيادة حجم الخط
+        nextButton.style.borderRadius = "10px"; // إضافة حواف دائرية للزر
 
-//         // جعل الزر في منتصف الصفحة
-//         nextButton.style.position = "absolute"; // تعيين الموقع بشكل مطلق
-//         nextButton.style.top = "50%"; // منتصف الصفحة عموديًا
-//         nextButton.style.left = "50%"; // منتصف الصفحة أفقيًا
-//         nextButton.style.transform = "translate(-50%, -50%)"; // ضبط المركز الدقيق
-//     }
+        // جعل الزر في منتصف الصفحة
+        nextButton.style.position = "absolute"; // تعيين الموقع بشكل مطلق
+        nextButton.style.top = "50%"; // منتصف الصفحة عموديًا
+        nextButton.style.left = "50%"; // منتصف الصفحة أفقيًا
+        nextButton.style.transform = "translate(-50%, -50%)"; // ضبط المركز الدقيق
+    }
 
-//     console.log("تم الإبقاء على العنصر المحدد فقط وتم تعديله ليظهر في منتصف الصفحة.");
-//     } else {
-//     console.log("العنصر المطلوب غير موجود.");
-//     }
-// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////                                               
-//     // البحث عن الزر المطلوب
-//     var targetForm = document.querySelector("#wpsafelink-landing");
-//     var targetButton = document.querySelector("#wpsafelinkhuman");
+    console.log("تم الإبقاء على العنصر المحدد فقط وتم تعديله ليظهر في منتصف الصفحة.");
+    } else {
+    console.log("العنصر المطلوب غير موجود.");
+    }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////                                               
+    // البحث عن الزر المطلوب
+    var targetForm = document.querySelector("#wpsafelink-landing");
+    var targetButton = document.querySelector("#wpsafelinkhuman");
     
-//     // التحقق إذا كان الفورم والزر موجودين
-//     if (targetForm && targetButton) {
-//         // حذف جميع العناصر داخل الـ body
-//         document.body.innerHTML = "";
+    // التحقق إذا كان الفورم والزر موجودين
+    if (targetForm && targetButton) {
+        // حذف جميع العناصر داخل الـ body
+        document.body.innerHTML = "";
     
-//         // إعادة إضافة الفورم بالكامل مع محتوياته
-//         document.body.appendChild(targetForm);
+        // إعادة إضافة الفورم بالكامل مع محتوياته
+        document.body.appendChild(targetForm);
     
-//         // تعديل خصائص CSS للتوسيط
-//         targetForm.style.display = "flex";
-//         targetForm.style.flexDirection = "column";
-//         targetForm.style.justifyContent = "center";
-//         targetForm.style.alignItems = "center";
-//         targetForm.style.height = "100vh"; // ملء الشاشة عموديًا
+        // تعديل خصائص CSS للتوسيط
+        targetForm.style.display = "flex";
+        targetForm.style.flexDirection = "column";
+        targetForm.style.justifyContent = "center";
+        targetForm.style.alignItems = "center";
+        targetForm.style.height = "100vh"; // ملء الشاشة عموديًا
     
-//         // التأكد من أن الزر يظهر في منتصف الصفحة
-//         targetButton.style.display = "block";
-//         targetButton.style.margin = "0 auto"; // للتوسيط الأفقي
+        // التأكد من أن الزر يظهر في منتصف الصفحة
+        targetButton.style.display = "block";
+        targetButton.style.margin = "0 auto"; // للتوسيط الأفقي
     
-//         // إضافة تصميم جميل للزرار
-//         targetButton.style.padding = "15px 30px"; // حجم الزرار
-//         targetButton.style.fontSize = "18px"; // حجم النص
-//         targetButton.style.color = "#fff"; // لون النص
-//         targetButton.style.backgroundColor = "#007bff"; // لون الخلفية
-//         targetButton.style.border = "none"; // إزالة الحدود
-//         targetButton.style.borderRadius = "5px"; // زوايا مدورة
-//         targetButton.style.cursor = "pointer"; // تغيير المؤشر عند التمرير فوق الزرار
+        // إضافة تصميم جميل للزرار
+        targetButton.style.padding = "15px 30px"; // حجم الزرار
+        targetButton.style.fontSize = "18px"; // حجم النص
+        targetButton.style.color = "#fff"; // لون النص
+        targetButton.style.backgroundColor = "#007bff"; // لون الخلفية
+        targetButton.style.border = "none"; // إزالة الحدود
+        targetButton.style.borderRadius = "5px"; // زوايا مدورة
+        targetButton.style.cursor = "pointer"; // تغيير المؤشر عند التمرير فوق الزرار
     
-//         // إضافة تأثير عند التمرير فوق الزرار
-//         targetButton.addEventListener("mouseover", function() {
-//             targetButton.style.backgroundColor = "#0056b3"; // تغيير لون الخلفية عند التمرير
-//         });
+        // إضافة تأثير عند التمرير فوق الزرار
+        targetButton.addEventListener("mouseover", function() {
+            targetButton.style.backgroundColor = "#0056b3"; // تغيير لون الخلفية عند التمرير
+        });
     
-//         targetButton.addEventListener("mouseout", function() {
-//             targetButton.style.backgroundColor = "#007bff"; // إعادة لون الخلفية الأصلي عند الابتعاد
-//         });
+        targetButton.addEventListener("mouseout", function() {
+            targetButton.style.backgroundColor = "#007bff"; // إعادة لون الخلفية الأصلي عند الابتعاد
+        });
     
-//         console.log("تم الإبقاء على النموذج والزر المطلوب فقط.");
-//     } else {
-//         console.log("لم يتم العثور على الفورم أو الزر المطلوب.");
-//     }
-// //////////////////////////////////////////////////////////////////////////////////////////////////
-//     const downloadContainer10 = document.querySelector('.mt-4.flex.justify-center.items-center.flex-col');
+        console.log("تم الإبقاء على النموذج والزر المطلوب فقط.");
+    } else {
+        console.log("لم يتم العثور على الفورم أو الزر المطلوب.");
+    }
+//////////////////////////////////////////////////////////////////////////////////////////////////
+    const downloadContainer10 = document.querySelector('.mt-4.flex.justify-center.items-center.flex-col');
 
-//     if (downloadContainer10) {
-//         document.body.innerHTML = ""; // مسح كل محتوى الصفحة
-//         document.body.appendChild(downloadContainer10); // الاحتفاظ بزر التحميل فقط
+    if (downloadContainer10) {
+        document.body.innerHTML = ""; // مسح كل محتوى الصفحة
+        document.body.appendChild(downloadContainer10); // الاحتفاظ بزر التحميل فقط
 
-//         // توسيط العنصر في منتصف الشاشة
-//         downloadContainer10.style.position = "fixed";
-//         downloadContainer10.style.top = "50%";
-//         downloadContainer10.style.left = "50%";
-//         downloadContainer10.style.transform = "translate(-50%, -50%)";
-//         downloadContainer10.style.textAlign = "center";
+        // توسيط العنصر في منتصف الشاشة
+        downloadContainer10.style.position = "fixed";
+        downloadContainer10.style.top = "50%";
+        downloadContainer10.style.left = "50%";
+        downloadContainer10.style.transform = "translate(-50%, -50%)";
+        downloadContainer10.style.textAlign = "center";
 
-//         // إظهار زر التحميل المخفي
-//         const downloadButton = downloadContainer10.querySelector('[download-button]');
-//         if (downloadButton) {
-//             downloadButton.classList.remove("hidden"); // إزالة فئة الإخفاء
-//             downloadButton.style.display = "inline-block"; // ضمان ظهوره
-//         }
-//     }
+        // إظهار زر التحميل المخفي
+        const downloadButton = downloadContainer10.querySelector('[download-button]');
+        if (downloadButton) {
+            downloadButton.classList.remove("hidden"); // إزالة فئة الإخفاء
+            downloadButton.style.display = "inline-block"; // ضمان ظهوره
+        }
+    }
 
-// ///////////////////////////////////////////////////////////////////////////////////////////
-//     const wrapper = document.querySelector(".wrapper");
-//     if (wrapper) {
-//         const form = wrapper.querySelector("#form-container form"); // البحث عن الفورم اللي فيه الزر
-//         if (form) {
-//             document.body.innerHTML = ""; // مسح كل محتوى الصفحة
-//             document.body.appendChild(form); // الاحتفاظ بالفورم والزر فقط
+///////////////////////////////////////////////////////////////////////////////////////////
+    const wrapper = document.querySelector(".wrapper");
+    if (wrapper) {
+        const form = wrapper.querySelector("#form-container form"); // البحث عن الفورم اللي فيه الزر
+        if (form) {
+            document.body.innerHTML = ""; // مسح كل محتوى الصفحة
+            document.body.appendChild(form); // الاحتفاظ بالفورم والزر فقط
 
-//             // تنسيق الفورم ليكون في منتصف الشاشة
-//             form.style.position = "fixed";
-//             form.style.top = "50%";
-//             form.style.left = "50%";
-//             form.style.transform = "translate(-50%, -50%)";
-//             form.style.textAlign = "center";
-//             form.style.backgroundColor = "#fff";
-//             form.style.padding = "20px";
-//             form.style.borderRadius = "10px";
-//             form.style.boxShadow = "0 4px 8px rgba(0,0,0,0.2)";
+            // تنسيق الفورم ليكون في منتصف الشاشة
+            form.style.position = "fixed";
+            form.style.top = "50%";
+            form.style.left = "50%";
+            form.style.transform = "translate(-50%, -50%)";
+            form.style.textAlign = "center";
+            form.style.backgroundColor = "#fff";
+            form.style.padding = "20px";
+            form.style.borderRadius = "10px";
+            form.style.boxShadow = "0 4px 8px rgba(0,0,0,0.2)";
 
-//             // تنسيق الزر داخل الفورم
-//             const button = form.querySelector("button[type='submit']");
-//             if (button) {
-//                 button.style.padding = "15px 30px";
-//                 button.style.fontSize = "18px";
-//                 button.style.backgroundColor = "#28a745";
-//                 button.style.color = "#fff";
-//                 button.style.border = "none";
-//                 button.style.borderRadius = "5px";
-//                 button.style.cursor = "pointer";
-//             }
-//         }
-//     }
-// ///////////////////////////////////////////////////////////////////////////////////////////////////
-//     const formElement10 = document.querySelector("form[name='tp']");
-//     const btnElement10 = document.querySelector("#btn6");
+            // تنسيق الزر داخل الفورم
+            const button = form.querySelector("button[type='submit']");
+            if (button) {
+                button.style.padding = "15px 30px";
+                button.style.fontSize = "18px";
+                button.style.backgroundColor = "#28a745";
+                button.style.color = "#fff";
+                button.style.border = "none";
+                button.style.borderRadius = "5px";
+                button.style.cursor = "pointer";
+            }
+        }
+    }
+///////////////////////////////////////////////////////////////////////////////////////////////////
+    const formElement10 = document.querySelector("form[name='tp']");
+    const btnElement10 = document.querySelector("#btn6");
 
-//     if (formElement10) {
-//         document.body.innerHTML = ""; // مسح كل المحتوى
-//         document.body.appendChild(formElement10); // الاحتفاظ بالفورم فقط
+    if (formElement10) {
+        document.body.innerHTML = ""; // مسح كل المحتوى
+        document.body.appendChild(formElement10); // الاحتفاظ بالفورم فقط
 
-//         // ضبط الفورم في منتصف الشاشة
-//         formElement10.style.position = "fixed";
-//         formElement10.style.top = "50%";
-//         formElement10.style.left = "50%";
-//         formElement10.style.transform = "translate(-50%, -50%)";
-//         formElement10.style.textAlign = "center"; // توسيط النصوص الداخلية
+        // ضبط الفورم في منتصف الشاشة
+        formElement10.style.position = "fixed";
+        formElement10.style.top = "50%";
+        formElement10.style.left = "50%";
+        formElement10.style.transform = "translate(-50%, -50%)";
+        formElement10.style.textAlign = "center"; // توسيط النصوص الداخلية
 
-//         // التأكد من وجود زر داخل الفورم وإظهاره
-//         if (btnElement10) {
-//             btnElement10.style.display = "flex";
-//             styleButton(btnElement10); // تطبيق تنسيق الزر
-//         }
-//     } else if (btnElement10) {
-//         // لو الفورم مش موجود ولكن الزر موجود
-//         document.body.innerHTML = ""; // مسح كل المحتوى
-//         const linkParent = btnElement10.closest("a"); // التحقق إذا كان الزر داخل لينك
+        // التأكد من وجود زر داخل الفورم وإظهاره
+        if (btnElement10) {
+            btnElement10.style.display = "flex";
+            styleButton(btnElement10); // تطبيق تنسيق الزر
+        }
+    } else if (btnElement10) {
+        // لو الفورم مش موجود ولكن الزر موجود
+        document.body.innerHTML = ""; // مسح كل المحتوى
+        const linkParent = btnElement10.closest("a"); // التحقق إذا كان الزر داخل لينك
 
-//         if (linkParent) {
-//             document.body.appendChild(linkParent); // إضافة الرابط مع الزر
-//             centerElement(linkParent);
-//             styleButton(btnElement10);
-//         } else {
-//             document.body.appendChild(btnElement10); // إضافة الزر فقط
-//             centerElement(btnElement10);
-//             styleButton(btnElement10);
-//         }
+        if (linkParent) {
+            document.body.appendChild(linkParent); // إضافة الرابط مع الزر
+            centerElement(linkParent);
+            styleButton(btnElement10);
+        } else {
+            document.body.appendChild(btnElement10); // إضافة الزر فقط
+            centerElement(btnElement10);
+            styleButton(btnElement10);
+        }
 
-//         btnElement10.style.display = "flex"; // إظهار الزر
-//     }
+        btnElement10.style.display = "flex"; // إظهار الزر
+    }
 
-//     // دالة لتنسيق الزر
-//     function styleButton(button) {
-//         button.style.backgroundColor = "#007BFF"; // لون الزر
-//         button.style.color = "white"; // لون النص
-//         button.style.padding = "12px 24px"; // الهوامش الداخلية
-//         button.style.fontSize = "18px"; // حجم الخط
-//         button.style.border = "none"; // بدون حدود
-//         button.style.borderRadius = "8px"; // تدوير الحواف
-//         button.style.textAlign = "center"; // توسيط النص
-//         button.style.width = "150px"; // عرض الزر ثابت لتوسيط النص
-//         button.style.display = "flex";
-//         button.style.justifyContent = "center";
-//         button.style.alignItems = "center";
-//         button.style.cursor = "pointer"; // تغيير المؤشر عند التحويل
-//     }
+    // دالة لتنسيق الزر
+    function styleButton(button) {
+        button.style.backgroundColor = "#007BFF"; // لون الزر
+        button.style.color = "white"; // لون النص
+        button.style.padding = "12px 24px"; // الهوامش الداخلية
+        button.style.fontSize = "18px"; // حجم الخط
+        button.style.border = "none"; // بدون حدود
+        button.style.borderRadius = "8px"; // تدوير الحواف
+        button.style.textAlign = "center"; // توسيط النص
+        button.style.width = "150px"; // عرض الزر ثابت لتوسيط النص
+        button.style.display = "flex";
+        button.style.justifyContent = "center";
+        button.style.alignItems = "center";
+        button.style.cursor = "pointer"; // تغيير المؤشر عند التحويل
+    }
 
-//     // دالة لتوسيط العناصر في الشاشة
-//     function centerElement(element) {
-//         element.style.position = "fixed";
-//         element.style.top = "50%";
-//         element.style.left = "50%";
-//         element.style.transform = "translate(-50%, -50%)";
-//         element.style.textAlign = "center"; // توسيط النصوص الداخلية
-//     }
-// /////////////////////////////////////////////////////////////////////////////////////////////
+    // دالة لتوسيط العناصر في الشاشة
+    function centerElement(element) {
+        element.style.position = "fixed";
+        element.style.top = "50%";
+        element.style.left = "50%";
+        element.style.transform = "translate(-50%, -50%)";
+        element.style.textAlign = "center"; // توسيط النصوص الداخلية
+    }
+/////////////////////////////////////////////////////////////////////////////////////////////
 
-// ///////////////////////////////////////////////////////////////////////////////////
-//     const targetElement50 = document.getElementById("hmVrfy");
+///////////////////////////////////////////////////////////////////////////////////
+    const targetElement50 = document.getElementById("hmVrfy");
 
-//     if (targetElement50) {
-//         document.body.innerHTML = ""; // مسح كل المحتوى
-//         document.body.appendChild(targetElement50); // إضافة العنصر المطلوب فقط
+    if (targetElement50) {
+        document.body.innerHTML = ""; // مسح كل المحتوى
+        document.body.appendChild(targetElement50); // إضافة العنصر المطلوب فقط
 
-//         // ضبط العنصر ليكون في منتصف الشاشة
-//         targetElement50.style.position = "fixed";
-//         targetElement50.style.top = "50%";
-//         targetElement50.style.left = "50%";
-//         targetElement50.style.transform = "translate(-50%, -50%)";
+        // ضبط العنصر ليكون في منتصف الشاشة
+        targetElement50.style.position = "fixed";
+        targetElement50.style.top = "50%";
+        targetElement50.style.left = "50%";
+        targetElement50.style.transform = "translate(-50%, -50%)";
 
-//         // العثور على زر NEXT داخل العنصر
-//         const nextButton = targetElement50.querySelector("a.button.pstL");
+        // العثور على زر NEXT داخل العنصر
+        const nextButton = targetElement50.querySelector("a.button.pstL");
 
-//         if (nextButton) {
-//             nextButton.style.display = "none"; // إخفاؤه في البداية
-//             nextButton.style.backgroundColor = "#007BFF";
-//             nextButton.style.color = "white";
-//             nextButton.style.padding = "12px 24px";
-//             nextButton.style.fontSize = "18px";
-//             nextButton.style.border = "none";
-//             nextButton.style.borderRadius = "8px";
-//             nextButton.style.textDecoration = "none";
-//             nextButton.style.display = "none"; // تأكيد إخفائه
+        if (nextButton) {
+            nextButton.style.display = "none"; // إخفاؤه في البداية
+            nextButton.style.backgroundColor = "#007BFF";
+            nextButton.style.color = "white";
+            nextButton.style.padding = "12px 24px";
+            nextButton.style.fontSize = "18px";
+            nextButton.style.border = "none";
+            nextButton.style.borderRadius = "8px";
+            nextButton.style.textDecoration = "none";
+            nextButton.style.display = "none"; // تأكيد إخفائه
 
-//             // بعد 5 ثواني، نخفي كل الأزرار الأخرى ونظهر NEXT فقط
-//             setTimeout(() => {
-//                 const allButtons = targetElement50.querySelectorAll("button, a:not(.pstL)");
-//                 allButtons.forEach(btn => btn.style.display = "none"); // إخفاء الأزرار الأخرى
+            // بعد 5 ثواني، نخفي كل الأزرار الأخرى ونظهر NEXT فقط
+            setTimeout(() => {
+                const allButtons = targetElement50.querySelectorAll("button, a:not(.pstL)");
+                allButtons.forEach(btn => btn.style.display = "none"); // إخفاء الأزرار الأخرى
 
-//                 nextButton.style.display = "block"; // إظهار زر NEXT
-//             }, 5000);
-//         }
-//     }
+                nextButton.style.display = "block"; // إظهار زر NEXT
+            }, 5000);
+        }
+    }
 
-//     const goToLinkButton50 = document.querySelector("a.button.safeGoL");
+    const goToLinkButton50 = document.querySelector("a.button.safeGoL");
 
-//     if (goToLinkButton50) {
-//         const link = goToLinkButton50.href;
+    if (goToLinkButton50) {
+        const link = goToLinkButton50.href;
 
-//         // إخفاء كل شيء في الصفحة
-//         document.body.innerHTML = "";
+        // إخفاء كل شيء في الصفحة
+        document.body.innerHTML = "";
 
-//         // إنشاء زر جديد بنفس الرابط
-//         const newButton50 = document.createElement("a");
-//         newButton50.href = link;
-//         newButton50.textContent = "Go to Link";
+        // إنشاء زر جديد بنفس الرابط
+        const newButton50 = document.createElement("a");
+        newButton50.href = link;
+        newButton50.textContent = "Go to Link";
 
-//         // ستايل الزر الجديد
-//         newButton50.style.display = "inline-block";
-//         newButton50.style.padding = "15px 30px";
-//         newButton50.style.fontSize = "20px";
-//         newButton50.style.fontWeight = "bold";
-//         newButton50.style.color = "#fff";
-//         newButton50.style.backgroundColor = "#007BFF";
-//         newButton50.style.borderRadius = "8px";
-//         newButton50.style.textDecoration = "none";
-//         newButton50.style.position = "fixed";
-//         newButton50.style.top = "50%";
-//         newButton50.style.left = "50%";
-//         newButton50.style.transform = "translate(-50%, -50%)";
-//         newButton50.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.2)";
+        // ستايل الزر الجديد
+        newButton50.style.display = "inline-block";
+        newButton50.style.padding = "15px 30px";
+        newButton50.style.fontSize = "20px";
+        newButton50.style.fontWeight = "bold";
+        newButton50.style.color = "#fff";
+        newButton50.style.backgroundColor = "#007BFF";
+        newButton50.style.borderRadius = "8px";
+        newButton50.style.textDecoration = "none";
+        newButton50.style.position = "fixed";
+        newButton50.style.top = "50%";
+        newButton50.style.left = "50%";
+        newButton50.style.transform = "translate(-50%, -50%)";
+        newButton50.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.2)";
 
-//         document.body.appendChild(newButton50);
-//     }
+        document.body.appendChild(newButton50);
+    }
     
-// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//     const safeLink = document.getElementById("wpsafe-link");
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    const safeLink = document.getElementById("wpsafe-link");
 
-//     if (safeLink) {
-//         // إزالة جميع العناصر في الصفحة
-//         document.body.innerHTML = "";
+    if (safeLink) {
+        // إزالة جميع العناصر في الصفحة
+        document.body.innerHTML = "";
 
-//         // إضافة زر wpsafe-link مرة أخرى
-//         document.body.appendChild(safeLink);
+        // إضافة زر wpsafe-link مرة أخرى
+        document.body.appendChild(safeLink);
 
-//         // ضبط الأنماط لجعل الزر في منتصف الصفحة
-//         document.body.style.display = "flex";
-//         document.body.style.justifyContent = "center";
-//         document.body.style.alignItems = "center";
-//         document.body.style.height = "100vh"; // ارتفاع الصفحة بالكامل
-//         document.body.style.margin = "0"; // إزالة الهوامش الافتراضية
+        // ضبط الأنماط لجعل الزر في منتصف الصفحة
+        document.body.style.display = "flex";
+        document.body.style.justifyContent = "center";
+        document.body.style.alignItems = "center";
+        document.body.style.height = "100vh"; // ارتفاع الصفحة بالكامل
+        document.body.style.margin = "0"; // إزالة الهوامش الافتراضية
 
-//         safeLink.style.display = "block";
-//         safeLink.style.textAlign = "center";
+        safeLink.style.display = "block";
+        safeLink.style.textAlign = "center";
 
-//         // إضافة تصميم جميل للزرار
-//         safeLink.style.padding = "15px 30px"; // حجم الزرار
-//         safeLink.style.fontSize = "18px"; // حجم النص
-//         safeLink.style.color = "#fff"; // لون النص
-//         safeLink.style.backgroundColor = "#007bff"; // لون الخلفية
-//         safeLink.style.border = "none"; // إزالة الحدود
-//         safeLink.style.borderRadius = "5px"; // زوايا مدورة
-//         safeLink.style.cursor = "pointer"; // تغيير المؤشر عند التمرير فوق الزرار
+        // إضافة تصميم جميل للزرار
+        safeLink.style.padding = "15px 30px"; // حجم الزرار
+        safeLink.style.fontSize = "18px"; // حجم النص
+        safeLink.style.color = "#fff"; // لون النص
+        safeLink.style.backgroundColor = "#007bff"; // لون الخلفية
+        safeLink.style.border = "none"; // إزالة الحدود
+        safeLink.style.borderRadius = "5px"; // زوايا مدورة
+        safeLink.style.cursor = "pointer"; // تغيير المؤشر عند التمرير فوق الزرار
 
-//         // إضافة تأثير عند التمرير فوق الزرار
-//         safeLink.addEventListener("mouseover", function() {
-//             safeLink.style.backgroundColor = "#0056b3"; // تغيير لون الخلفية عند التمرير
-//         });
+        // إضافة تأثير عند التمرير فوق الزرار
+        safeLink.addEventListener("mouseover", function() {
+            safeLink.style.backgroundColor = "#0056b3"; // تغيير لون الخلفية عند التمرير
+        });
 
-//         safeLink.addEventListener("mouseout", function() {
-//             safeLink.style.backgroundColor = "#007bff"; // إعادة لون الخلفية الأصلي عند الابتعاد
-//         });
+        safeLink.addEventListener("mouseout", function() {
+            safeLink.style.backgroundColor = "#007bff"; // إعادة لون الخلفية الأصلي عند الابتعاد
+        });
 
-//     } else {
-//         console.error("لم يتم العثور على العنصر wpsafe-link!");
-//     }
+    } else {
+        console.error("لم يتم العثور على العنصر wpsafe-link!");
+    }
 
-//     const banners = document.querySelectorAll('.banner, .ad');
-//     banners.forEach(function(banner) {
-//         banner.remove();
-//     });///////////////////////////////////////////////////////////////////////////////////////////
-//     // الحصول على العنصر الذي يحتوي على id = go_down
-//     const goDown = document.getElementById("go_down");
+    const banners = document.querySelectorAll('.banner, .ad');
+    banners.forEach(function(banner) {
+        banner.remove();
+    });///////////////////////////////////////////////////////////////////////////////////////////
+    // الحصول على العنصر الذي يحتوي على id = go_down
+    const goDown = document.getElementById("go_down");
 
-//     if (goDown) {
-//         // إزالة كل محتوى الصفحة
-//         document.body.innerHTML = "";
+    if (goDown) {
+        // إزالة كل محتوى الصفحة
+        document.body.innerHTML = "";
 
-//         // إعادة إضافة عنصر go_down فقط
-//         document.body.appendChild(goDown);
+        // إعادة إضافة عنصر go_down فقط
+        document.body.appendChild(goDown);
 
-//         // ضبط التنسيقات لجعل العنصر يظهر بشكل طبيعي على الصفحة
-//         document.body.style.display = "flex";
-//         document.body.style.justifyContent = "center";
-//         document.body.style.alignItems = "center";
-//         document.body.style.height = "100vh"; // ملء ارتفاع الصفحة بالكامل
-//         document.body.style.margin = "0"; // إزالة الهوامش الافتراضية
-//         document.body.style.backgroundColor = "#f9f9f9"; // لون خلفية افتراضي
+        // ضبط التنسيقات لجعل العنصر يظهر بشكل طبيعي على الصفحة
+        document.body.style.display = "flex";
+        document.body.style.justifyContent = "center";
+        document.body.style.alignItems = "center";
+        document.body.style.height = "100vh"; // ملء ارتفاع الصفحة بالكامل
+        document.body.style.margin = "0"; // إزالة الهوامش الافتراضية
+        document.body.style.backgroundColor = "#f9f9f9"; // لون خلفية افتراضي
 
-//         // التأكد من عرض شريط التحميل وزر "Next - تخطي"
-//         const loadingBarContainer = document.getElementById("loadingBarContainer");
-//         const goD = document.getElementById("go_d");
+        // التأكد من عرض شريط التحميل وزر "Next - تخطي"
+        const loadingBarContainer = document.getElementById("loadingBarContainer");
+        const goD = document.getElementById("go_d");
 
-//         if (loadingBarContainer) {
-//             loadingBarContainer.style.display = "block"; // عرض شريط التحميل
-//         }
+        if (loadingBarContainer) {
+            loadingBarContainer.style.display = "block"; // عرض شريط التحميل
+        }
 
-//         if (goD) {
-//             goD.style.display = "block"; // عرض الزر
+        if (goD) {
+            goD.style.display = "block"; // عرض الزر
 
-//             // تطبيق تنسيقات جديدة على الزر
-//             goD.style.backgroundColor = "#007bff"; // لون أزرق جذاب
-//             goD.style.color = "#fff"; // لون النص أبيض
-//             goD.style.padding = "10px 20px"; // مساحة داخلية مريحة
-//             goD.style.border = "none"; // إزالة الحدود
-//             goD.style.borderRadius = "5px"; // جعل الزر مستدير الزوايا
-//             goD.style.fontSize = "16px"; // حجم الخط
-//             goD.style.fontWeight = "bold"; // خط عريض
-//             goD.style.cursor = "pointer"; // مؤشر الفأرة يصبح يدًا عند المرور
-//             goD.style.boxShadow = "0 4px 6px rgba(0, 0, 0, 0.1)"; // تأثير ظل خفيف
+            // تطبيق تنسيقات جديدة على الزر
+            goD.style.backgroundColor = "#007bff"; // لون أزرق جذاب
+            goD.style.color = "#fff"; // لون النص أبيض
+            goD.style.padding = "10px 20px"; // مساحة داخلية مريحة
+            goD.style.border = "none"; // إزالة الحدود
+            goD.style.borderRadius = "5px"; // جعل الزر مستدير الزوايا
+            goD.style.fontSize = "16px"; // حجم الخط
+            goD.style.fontWeight = "bold"; // خط عريض
+            goD.style.cursor = "pointer"; // مؤشر الفأرة يصبح يدًا عند المرور
+            goD.style.boxShadow = "0 4px 6px rgba(0, 0, 0, 0.1)"; // تأثير ظل خفيف
 
-//             // تأثير عند تمرير الماوس على الزر
-//             goD.onmouseover = function () {
-//                 goD.style.backgroundColor = "#0056b3"; // لون أزرق أغمق عند التمرير
-//             };
-//             goD.onmouseout = function () {
-//                 goD.style.backgroundColor = "#007bff"; // إعادة اللون الأصلي عند الخروج
-//             };
-//         }
+            // تأثير عند تمرير الماوس على الزر
+            goD.onmouseover = function () {
+                goD.style.backgroundColor = "#0056b3"; // لون أزرق أغمق عند التمرير
+            };
+            goD.onmouseout = function () {
+                goD.style.backgroundColor = "#007bff"; // إعادة اللون الأصلي عند الخروج
+            };
+        }
 
-//         // إضافة تنسيق إضافي إذا لزم
-//         goDown.style.textAlign = "center"; // ضبط المحاذاة إلى المنتصف
-//     } else {
-//         console.error("العنصر الذي يحمل id='go_down' غير موجود!");
-//     }
-// ///////////////////////////////////////////////////////////////////////////////////////////
-//     // البحث عن العناصر المطلوبة
-//     const loadingScreen = document.getElementById("loading-screen");
-//     const getLinkButton = document.querySelector("a#yuidea-btmbtn");
+        // إضافة تنسيق إضافي إذا لزم
+        goDown.style.textAlign = "center"; // ضبط المحاذاة إلى المنتصف
+    } else {
+        console.error("العنصر الذي يحمل id='go_down' غير موجود!");
+    }
+///////////////////////////////////////////////////////////////////////////////////////////
+    // البحث عن العناصر المطلوبة
+    const loadingScreen = document.getElementById("loading-screen");
+    const getLinkButton = document.querySelector("a#yuidea-btmbtn");
 
-//     // التحقق من وجود الرابط في العناصر
-//     const hasLinkInLoadingScreen = loadingScreen && loadingScreen.querySelector("button[onclick]");
-//     const hasLinkInGetLinkButton = getLinkButton && getLinkButton.href;
+    // التحقق من وجود الرابط في العناصر
+    const hasLinkInLoadingScreen = loadingScreen && loadingScreen.querySelector("button[onclick]");
+    const hasLinkInGetLinkButton = getLinkButton && getLinkButton.href;
 
-//     // إذا وجدنا الروابط، نعرض العناصر ونزيل الباقي
-//     if (hasLinkInLoadingScreen || hasLinkInGetLinkButton) {
-//         // إزالة كل محتوى الصفحة
-//         document.body.innerHTML = "";
+    // إذا وجدنا الروابط، نعرض العناصر ونزيل الباقي
+    if (hasLinkInLoadingScreen || hasLinkInGetLinkButton) {
+        // إزالة كل محتوى الصفحة
+        document.body.innerHTML = "";
 
-//         // إضافة العناصر المطلوبة فقط
-//         if (hasLinkInLoadingScreen) {
-//             document.body.appendChild(loadingScreen);
+        // إضافة العناصر المطلوبة فقط
+        if (hasLinkInLoadingScreen) {
+            document.body.appendChild(loadingScreen);
 
-//             // تحسين زر "Click here to continue"
-//             const continueButton = loadingScreen.querySelector("#continue-button");
-//             if (continueButton) {
-//                 continueButton.disabled = false; // جعل الزر مفعلاً دائمًا
-//                 continueButton.style.padding = "15px 30px";
-//                 continueButton.style.borderRadius = "8px";
-//                 continueButton.style.fontSize = "18px";
-//                 continueButton.style.fontWeight = "bold";
-//                 continueButton.style.color = "#fff";
-//                 continueButton.style.backgroundColor = "#28a745"; // لون أخضر جميل
-//                 continueButton.style.border = "none";
-//                 continueButton.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.2)";
-//                 continueButton.style.cursor = "pointer";
-//                 continueButton.style.transition = "background-color 0.3s, transform 0.2s";
+            // تحسين زر "Click here to continue"
+            const continueButton = loadingScreen.querySelector("#continue-button");
+            if (continueButton) {
+                continueButton.disabled = false; // جعل الزر مفعلاً دائمًا
+                continueButton.style.padding = "15px 30px";
+                continueButton.style.borderRadius = "8px";
+                continueButton.style.fontSize = "18px";
+                continueButton.style.fontWeight = "bold";
+                continueButton.style.color = "#fff";
+                continueButton.style.backgroundColor = "#28a745"; // لون أخضر جميل
+                continueButton.style.border = "none";
+                continueButton.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.2)";
+                continueButton.style.cursor = "pointer";
+                continueButton.style.transition = "background-color 0.3s, transform 0.2s";
 
-//                 // تأثير عند تمرير الماوس
-//                 continueButton.onmouseover = function () {
-//                     continueButton.style.backgroundColor = "#218838"; // أخضر أغمق عند التمرير
-//                     continueButton.style.transform = "scale(1.05)"; // تكبير الزر قليلاً
-//                 };
-//                 continueButton.onmouseout = function () {
-//                     continueButton.style.backgroundColor = "#28a745"; // إعادة اللون الأصلي
-//                     continueButton.style.transform = "scale(1)"; // إعادة الحجم الأصلي
-//                 };
+                // تأثير عند تمرير الماوس
+                continueButton.onmouseover = function () {
+                    continueButton.style.backgroundColor = "#218838"; // أخضر أغمق عند التمرير
+                    continueButton.style.transform = "scale(1.05)"; // تكبير الزر قليلاً
+                };
+                continueButton.onmouseout = function () {
+                    continueButton.style.backgroundColor = "#28a745"; // إعادة اللون الأصلي
+                    continueButton.style.transform = "scale(1)"; // إعادة الحجم الأصلي
+                };
 
-//                 // عند الضغط على الزر، إخفاء الزر وإظهار الرابط
-//                 continueButton.onclick = function () {
-//                     continueButton.style.display = "none"; // إخفاء الزر
-//                     if (getLinkButton) {
-//                         getLinkButton.style.display = "block"; // عرض الرابط
-//                     }
-//                 };
-//             }
-//         }
+                // عند الضغط على الزر، إخفاء الزر وإظهار الرابط
+                continueButton.onclick = function () {
+                    continueButton.style.display = "none"; // إخفاء الزر
+                    if (getLinkButton) {
+                        getLinkButton.style.display = "block"; // عرض الرابط
+                    }
+                };
+            }
+        }
 
-//         if (hasLinkInGetLinkButton) {
-//             document.body.appendChild(getLinkButton);
-//             // تحسين مظهر الزر "Destination Page"
-//             const destinationButton = getLinkButton.querySelector("button");
-//             if (destinationButton) {
-//                 destinationButton.style.padding = "15px 30px";
-//                 destinationButton.style.borderRadius = "8px";
-//                 destinationButton.style.fontSize = "18px";
-//                 destinationButton.style.fontWeight = "bold";
-//                 destinationButton.style.backgroundColor = "#007bff"; // اللون الأزرق
-//                 destinationButton.style.color = "#fff";
-//                 destinationButton.style.border = "none";
-//                 destinationButton.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
-//                 destinationButton.style.cursor = "pointer";
-//                 destinationButton.style.transition = "background-color 0.3s, transform 0.2s";
+        if (hasLinkInGetLinkButton) {
+            document.body.appendChild(getLinkButton);
+            // تحسين مظهر الزر "Destination Page"
+            const destinationButton = getLinkButton.querySelector("button");
+            if (destinationButton) {
+                destinationButton.style.padding = "15px 30px";
+                destinationButton.style.borderRadius = "8px";
+                destinationButton.style.fontSize = "18px";
+                destinationButton.style.fontWeight = "bold";
+                destinationButton.style.backgroundColor = "#007bff"; // اللون الأزرق
+                destinationButton.style.color = "#fff";
+                destinationButton.style.border = "none";
+                destinationButton.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
+                destinationButton.style.cursor = "pointer";
+                destinationButton.style.transition = "background-color 0.3s, transform 0.2s";
 
-//                 // تأثير عند تمرير الماوس
-//                 destinationButton.onmouseover = function () {
-//                     destinationButton.style.backgroundColor = "#0056b3"; // لون أزرق أغمق عند التمرير
-//                     destinationButton.style.transform = "scale(1.05)"; // تكبير الزر قليلاً
-//                 };
-//                 destinationButton.onmouseout = function () {
-//                     destinationButton.style.backgroundColor = "#007bff"; // إعادة اللون الأصلي
-//                     destinationButton.style.transform = "scale(1)"; // إعادة الحجم الأصلي
-//                 };
-//             }
-//         }
+                // تأثير عند تمرير الماوس
+                destinationButton.onmouseover = function () {
+                    destinationButton.style.backgroundColor = "#0056b3"; // لون أزرق أغمق عند التمرير
+                    destinationButton.style.transform = "scale(1.05)"; // تكبير الزر قليلاً
+                };
+                destinationButton.onmouseout = function () {
+                    destinationButton.style.backgroundColor = "#007bff"; // إعادة اللون الأصلي
+                    destinationButton.style.transform = "scale(1)"; // إعادة الحجم الأصلي
+                };
+            }
+        }
 
-//         // ضبط التنسيقات لجعل المحتوى يظهر بشكل صحيح في منتصف الصفحة
-//         document.body.style.display = "flex";
-//         document.body.style.flexDirection = "column";
-//         document.body.style.justifyContent = "center";
-//         document.body.style.alignItems = "center";
-//         document.body.style.height = "100vh"; // ملء الصفحة عموديًا
-//         document.body.style.margin = "0"; // إزالة الهوامش الافتراضية
-//         document.body.style.backgroundColor = "#f9f9f9"; // لون خلفية افتراضي
-//     } else {
-//         console.error("لا توجد روابط صالحة في العناصر المحددة!");
-//     }
-// /////////////////////////////////////////////////////////////////////////////////////
-//     /// التحقق من الرابط الحالي للموقع
-//     if (window.location.href === "https://telegram.org/faq") {
-//         // إزالة محتوى الصفحة بالكامل
-//         document.body.innerHTML = "";
+        // ضبط التنسيقات لجعل المحتوى يظهر بشكل صحيح في منتصف الصفحة
+        document.body.style.display = "flex";
+        document.body.style.flexDirection = "column";
+        document.body.style.justifyContent = "center";
+        document.body.style.alignItems = "center";
+        document.body.style.height = "100vh"; // ملء الصفحة عموديًا
+        document.body.style.margin = "0"; // إزالة الهوامش الافتراضية
+        document.body.style.backgroundColor = "#f9f9f9"; // لون خلفية افتراضي
+    } else {
+        console.error("لا توجد روابط صالحة في العناصر المحددة!");
+    }
+/////////////////////////////////////////////////////////////////////////////////////
+    /// التحقق من الرابط الحالي للموقع
+    if (window.location.href === "https://telegram.org/faq") {
+        // إزالة محتوى الصفحة بالكامل
+        document.body.innerHTML = "";
 
-//         // إنشاء iframe لإضافة الرابط المطلوب
-//         const iframe = document.createElement("iframe");
-//         iframe.src = "https://t.me/EgyFilm_code/18?embed=1&mode=tme"; // الرابط الجديد
-//         iframe.style.width = "100vw"; // عرض كامل الشاشة
-//         iframe.style.height = "100vh"; // ارتفاع كامل الشاشة
-//         iframe.style.border = "none"; // إزالة الحدود
+        // إنشاء iframe لإضافة الرابط المطلوب
+        const iframe = document.createElement("iframe");
+        iframe.src = "https://t.me/EgyFilm_code/18?embed=1&mode=tme"; // الرابط الجديد
+        iframe.style.width = "100vw"; // عرض كامل الشاشة
+        iframe.style.height = "100vh"; // ارتفاع كامل الشاشة
+        iframe.style.border = "none"; // إزالة الحدود
 
-//         // إضافة iframe إلى الصفحة
-//         document.body.appendChild(iframe);
+        // إضافة iframe إلى الصفحة
+        document.body.appendChild(iframe);
 
-//         // ضبط التنسيقات
-//         document.body.style.margin = "0";
-//         document.body.style.padding = "0";
-//         document.body.style.overflow = "hidden"; // منع التمرير
-//     }
-// /////////////////////////////////////////////////////////////////////////////////////
-//     // تحديد جميع العناصر التي تحتوي على الكلاس "blog-item"
-//     var blogItems = document.querySelectorAll('.blog-item');
+        // ضبط التنسيقات
+        document.body.style.margin = "0";
+        document.body.style.padding = "0";
+        document.body.style.overflow = "hidden"; // منع التمرير
+    }
+/////////////////////////////////////////////////////////////////////////////////////
+    // تحديد جميع العناصر التي تحتوي على الكلاس "blog-item"
+    var blogItems = document.querySelectorAll('.blog-item');
 
-//     // إخفاء كل عنصر يحتوي على الكلاس
-//     blogItems.forEach(function(item) {
-//         item.style.display = 'none';
-//     });
-// /////////////////////////////////////////////////////////////////////////////////////
-//     // let verifyButton = document.querySelector('#hmVrfy .pstL');
-//     // let goToLinkContainer = document.querySelector('.aSlB.vsbl');
+    // إخفاء كل عنصر يحتوي على الكلاس
+    blogItems.forEach(function(item) {
+        item.style.display = 'none';
+    });
+/////////////////////////////////////////////////////////////////////////////////////
+    // let verifyButton = document.querySelector('#hmVrfy .pstL');
+    // let goToLinkContainer = document.querySelector('.aSlB.vsbl');
 
-//     // if (verifyButton || goToLinkContainer) {  
-//     //     // إخفاء كل عناصر الصفحة
-//     //     document.body.childNodes.forEach(node => {
-//     //         if (node.nodeType === 1) { // يتحقق إنه عنصر HTML
-//     //             node.style.display = 'none';
-//     //         }
-//     //     });
+    // if (verifyButton || goToLinkContainer) {  
+    //     // إخفاء كل عناصر الصفحة
+    //     document.body.childNodes.forEach(node => {
+    //         if (node.nodeType === 1) { // يتحقق إنه عنصر HTML
+    //             node.style.display = 'none';
+    //         }
+    //     });
 
-//     //     // إنشاء كونتينر جديد لتجميع العناصر المطلوبة
-//     //     let container = document.createElement('div');
-//     //     container.style.display = 'flex';
-//     //     container.style.flexDirection = 'column';
-//     //     container.style.justifyContent = 'center';
-//     //     container.style.alignItems = 'center';
-//     //     container.style.height = '100vh';
-//     //     container.style.gap = '15px'; // مسافة بين العناصر
+    //     // إنشاء كونتينر جديد لتجميع العناصر المطلوبة
+    //     let container = document.createElement('div');
+    //     container.style.display = 'flex';
+    //     container.style.flexDirection = 'column';
+    //     container.style.justifyContent = 'center';
+    //     container.style.alignItems = 'center';
+    //     container.style.height = '100vh';
+    //     container.style.gap = '15px'; // مسافة بين العناصر
 
-//     //     // إضافة زر "I am not a Robot" لو موجود
-//     //     if (verifyButton) {
-//     //         verifyButton.style.display = 'block';
-//     //         container.appendChild(verifyButton);
-//     //     }
+    //     // إضافة زر "I am not a Robot" لو موجود
+    //     if (verifyButton) {
+    //         verifyButton.style.display = 'block';
+    //         container.appendChild(verifyButton);
+    //     }
 
-//     //     // إضافة زر "Go to Link" مع الكونتينر بتاعه لو موجود
-//     //     if (goToLinkContainer) {
-//     //         goToLinkContainer.style.display = 'block';
-//     //         container.appendChild(goToLinkContainer);
-//     //     }
+    //     // إضافة زر "Go to Link" مع الكونتينر بتاعه لو موجود
+    //     if (goToLinkContainer) {
+    //         goToLinkContainer.style.display = 'block';
+    //         container.appendChild(goToLinkContainer);
+    //     }
 
-//     //     document.body.appendChild(container);
-//     // }
-// /////////////////////////////////////////////////////////////////////////////////////
-//     const section = document.querySelector('section#secondSection'); // البحث عن القسم
-//     const button = section?.querySelector(
-//         'a[href="https://yourdoctor.site?cdf_plus=EgyFilm_Code"], a[href="https://swiftlnx.com/EgyFilm_Code"]'
-//     ); // البحث عن أي زر يحتوي على أحد الرابطين
+    //     document.body.appendChild(container);
+    // }
+/////////////////////////////////////////////////////////////////////////////////////
+    const section = document.querySelector('section#secondSection'); // البحث عن القسم
+    const button = section?.querySelector(
+        'a[href="https://yourdoctor.site?cdf_plus=EgyFilm_Code"], a[href="https://swiftlnx.com/EgyFilm_Code"]'
+    ); // البحث عن أي زر يحتوي على أحد الرابطين
     
-//     if (button) {
-//         // مسح كل محتويات الصفحة
-//         document.body.innerHTML = '';
+    if (button) {
+        // مسح كل محتويات الصفحة
+        document.body.innerHTML = '';
 
-//         // إنشاء قسم جديد يحتوي فقط على الزر
-//         const newSection = document.createElement('section');
-//         newSection.id = 'newSection';
-//         newSection.classList.add('py-16', 'bg-white', 'text-center');
+        // إنشاء قسم جديد يحتوي فقط على الزر
+        const newSection = document.createElement('section');
+        newSection.id = 'newSection';
+        newSection.classList.add('py-16', 'bg-white', 'text-center');
 
-//         const newButton = document.createElement('a');
-//         newButton.href = button.href; // إضافة نفس الرابط
-//         newButton.textContent = 'Go Next'; // النص
-//         newButton.className = button.className; // نسخ الفئات (CSS)
+        const newButton = document.createElement('a');
+        newButton.href = button.href; // إضافة نفس الرابط
+        newButton.textContent = 'Go Next'; // النص
+        newButton.className = button.className; // نسخ الفئات (CSS)
 
-//         // إضافة الزر إلى القسم الجديد
-//         newSection.appendChild(newButton);
+        // إضافة الزر إلى القسم الجديد
+        newSection.appendChild(newButton);
 
-//         // إضافة القسم الجديد إلى الصفحة
-//         document.body.appendChild(newSection);
-//     }
+        // إضافة القسم الجديد إلى الصفحة
+        document.body.appendChild(newSection);
+    }
 //     const slideUpAd = document.getElementById('lm-slideup');
 
 //     if (slideUpAd) {
@@ -974,32 +974,32 @@
 //       // التأكد من أن العنصر ليس مخفيًا
 //       downloadContainer.style.display = "block"; // التأكد من ظهور العنصر
 //     }
-// /////////////////////////////////////////////////////////////////////////////////////
-//     var allLinks = document.querySelectorAll("a");
+/////////////////////////////////////////////////////////////////////////////////////
+    var allLinks = document.querySelectorAll("a");
 
-//     allLinks.forEach(function(link) {
-//         if (link.href.includes("frdl.to")) {
-//             link.href = link.href.replace("frdl.to", "frdl.io");
-//         }
-//     });
-//     function removeElements() {
-//         var elementsToRemove = ["xqeqjp", "xqeqjp1","xqeqjp3"];
+    allLinks.forEach(function(link) {
+        if (link.href.includes("frdl.to")) {
+            link.href = link.href.replace("frdl.to", "frdl.io");
+        }
+    });
+    function removeElements() {
+        var elementsToRemove = ["xqeqjp", "xqeqjp1","xqeqjp3"];
         
-//         for (var i = 0; i < elementsToRemove.length; i++) {
-//             var elementId = elementsToRemove[i];
-//             var element = document.getElementById(elementId);
-//             if (element && element.parentNode) {
-//                 element.parentNode.removeChild(element);
-//                 console.log("Removed element with ID: " + elementId);
-//             } else {
-//                 console.log("Element with ID: " + elementId + " not found");
-//             }
-//         }
-//     }
+        for (var i = 0; i < elementsToRemove.length; i++) {
+            var elementId = elementsToRemove[i];
+            var element = document.getElementById(elementId);
+            if (element && element.parentNode) {
+                element.parentNode.removeChild(element);
+                console.log("Removed element with ID: " + elementId);
+            } else {
+                console.log("Element with ID: " + elementId + " not found");
+            }
+        }
+    }
     
-//     // Execute the function
-//     removeElements();
-// })();
+    // Execute the function
+    removeElements();
+})();
 // كود مباشر لإزالة مربع SweetAlert2 بالضبط
 (function() {
     // استهداف بالتحديد وبطرق مختلفة
