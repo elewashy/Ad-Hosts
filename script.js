@@ -423,190 +423,190 @@
         console.log("لم يتم العثور على الفورم أو الزر المطلوب.");
     }
 //////////////////////////////////////////////////////////////////////////////////////////////////
-    const downloadContainer10 = document.querySelector('.mt-4.flex.justify-center.items-center.flex-col');
+//     const downloadContainer10 = document.querySelector('.mt-4.flex.justify-center.items-center.flex-col');
 
-    if (downloadContainer10) {
-        document.body.innerHTML = ""; // مسح كل محتوى الصفحة
-        document.body.appendChild(downloadContainer10); // الاحتفاظ بزر التحميل فقط
+//     if (downloadContainer10) {
+//         document.body.innerHTML = ""; // مسح كل محتوى الصفحة
+//         document.body.appendChild(downloadContainer10); // الاحتفاظ بزر التحميل فقط
 
-        // توسيط العنصر في منتصف الشاشة
-        downloadContainer10.style.position = "fixed";
-        downloadContainer10.style.top = "50%";
-        downloadContainer10.style.left = "50%";
-        downloadContainer10.style.transform = "translate(-50%, -50%)";
-        downloadContainer10.style.textAlign = "center";
+//         // توسيط العنصر في منتصف الشاشة
+//         downloadContainer10.style.position = "fixed";
+//         downloadContainer10.style.top = "50%";
+//         downloadContainer10.style.left = "50%";
+//         downloadContainer10.style.transform = "translate(-50%, -50%)";
+//         downloadContainer10.style.textAlign = "center";
 
-        // إظهار زر التحميل المخفي
-        const downloadButton = downloadContainer10.querySelector('[download-button]');
-        if (downloadButton) {
-            downloadButton.classList.remove("hidden"); // إزالة فئة الإخفاء
-            downloadButton.style.display = "inline-block"; // ضمان ظهوره
-        }
-    }
+//         // إظهار زر التحميل المخفي
+//         const downloadButton = downloadContainer10.querySelector('[download-button]');
+//         if (downloadButton) {
+//             downloadButton.classList.remove("hidden"); // إزالة فئة الإخفاء
+//             downloadButton.style.display = "inline-block"; // ضمان ظهوره
+//         }
+//     }
 
-///////////////////////////////////////////////////////////////////////////////////////////
-    const wrapper = document.querySelector(".wrapper");
-    if (wrapper) {
-        const form = wrapper.querySelector("#form-container form"); // البحث عن الفورم اللي فيه الزر
-        if (form) {
-            document.body.innerHTML = ""; // مسح كل محتوى الصفحة
-            document.body.appendChild(form); // الاحتفاظ بالفورم والزر فقط
+// ///////////////////////////////////////////////////////////////////////////////////////////
+//     const wrapper = document.querySelector(".wrapper");
+//     if (wrapper) {
+//         const form = wrapper.querySelector("#form-container form"); // البحث عن الفورم اللي فيه الزر
+//         if (form) {
+//             document.body.innerHTML = ""; // مسح كل محتوى الصفحة
+//             document.body.appendChild(form); // الاحتفاظ بالفورم والزر فقط
 
-            // تنسيق الفورم ليكون في منتصف الشاشة
-            form.style.position = "fixed";
-            form.style.top = "50%";
-            form.style.left = "50%";
-            form.style.transform = "translate(-50%, -50%)";
-            form.style.textAlign = "center";
-            form.style.backgroundColor = "#fff";
-            form.style.padding = "20px";
-            form.style.borderRadius = "10px";
-            form.style.boxShadow = "0 4px 8px rgba(0,0,0,0.2)";
+//             // تنسيق الفورم ليكون في منتصف الشاشة
+//             form.style.position = "fixed";
+//             form.style.top = "50%";
+//             form.style.left = "50%";
+//             form.style.transform = "translate(-50%, -50%)";
+//             form.style.textAlign = "center";
+//             form.style.backgroundColor = "#fff";
+//             form.style.padding = "20px";
+//             form.style.borderRadius = "10px";
+//             form.style.boxShadow = "0 4px 8px rgba(0,0,0,0.2)";
 
-            // تنسيق الزر داخل الفورم
-            const button = form.querySelector("button[type='submit']");
-            if (button) {
-                button.style.padding = "15px 30px";
-                button.style.fontSize = "18px";
-                button.style.backgroundColor = "#28a745";
-                button.style.color = "#fff";
-                button.style.border = "none";
-                button.style.borderRadius = "5px";
-                button.style.cursor = "pointer";
-            }
-        }
-    }
+//             // تنسيق الزر داخل الفورم
+//             const button = form.querySelector("button[type='submit']");
+//             if (button) {
+//                 button.style.padding = "15px 30px";
+//                 button.style.fontSize = "18px";
+//                 button.style.backgroundColor = "#28a745";
+//                 button.style.color = "#fff";
+//                 button.style.border = "none";
+//                 button.style.borderRadius = "5px";
+//                 button.style.cursor = "pointer";
+//             }
+//         }
+//     }
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-//     const formElement10 = document.querySelector("form[name='tp']");
-//     const btnElement10 = document.querySelector("#btn6");
+    const formElement10 = document.querySelector("form[name='tp']");
+    const btnElement10 = document.querySelector("#btn6");
 
-//     if (formElement10) {
-//         document.body.innerHTML = ""; // مسح كل المحتوى
-//         document.body.appendChild(formElement10); // الاحتفاظ بالفورم فقط
+    if (formElement10) {
+        document.body.innerHTML = ""; // مسح كل المحتوى
+        document.body.appendChild(formElement10); // الاحتفاظ بالفورم فقط
 
-//         // ضبط الفورم في منتصف الشاشة
-//         formElement10.style.position = "fixed";
-//         formElement10.style.top = "50%";
-//         formElement10.style.left = "50%";
-//         formElement10.style.transform = "translate(-50%, -50%)";
-//         formElement10.style.textAlign = "center"; // توسيط النصوص الداخلية
+        // ضبط الفورم في منتصف الشاشة
+        formElement10.style.position = "fixed";
+        formElement10.style.top = "50%";
+        formElement10.style.left = "50%";
+        formElement10.style.transform = "translate(-50%, -50%)";
+        formElement10.style.textAlign = "center"; // توسيط النصوص الداخلية
 
-//         // التأكد من وجود زر داخل الفورم وإظهاره
-//         if (btnElement10) {
-//             btnElement10.style.display = "flex";
-//             styleButton(btnElement10); // تطبيق تنسيق الزر
-//         }
-//     } else if (btnElement10) {
-//         // لو الفورم مش موجود ولكن الزر موجود
-//         document.body.innerHTML = ""; // مسح كل المحتوى
-//         const linkParent = btnElement10.closest("a"); // التحقق إذا كان الزر داخل لينك
+        // التأكد من وجود زر داخل الفورم وإظهاره
+        if (btnElement10) {
+            btnElement10.style.display = "flex";
+            styleButton(btnElement10); // تطبيق تنسيق الزر
+        }
+    } else if (btnElement10) {
+        // لو الفورم مش موجود ولكن الزر موجود
+        document.body.innerHTML = ""; // مسح كل المحتوى
+        const linkParent = btnElement10.closest("a"); // التحقق إذا كان الزر داخل لينك
 
-//         if (linkParent) {
-//             document.body.appendChild(linkParent); // إضافة الرابط مع الزر
-//             centerElement(linkParent);
-//             styleButton(btnElement10);
-//         } else {
-//             document.body.appendChild(btnElement10); // إضافة الزر فقط
-//             centerElement(btnElement10);
-//             styleButton(btnElement10);
-//         }
+        if (linkParent) {
+            document.body.appendChild(linkParent); // إضافة الرابط مع الزر
+            centerElement(linkParent);
+            styleButton(btnElement10);
+        } else {
+            document.body.appendChild(btnElement10); // إضافة الزر فقط
+            centerElement(btnElement10);
+            styleButton(btnElement10);
+        }
 
-//         btnElement10.style.display = "flex"; // إظهار الزر
-//     }
+        btnElement10.style.display = "flex"; // إظهار الزر
+    }
 
-//     // دالة لتنسيق الزر
-//     function styleButton(button) {
-//         button.style.backgroundColor = "#007BFF"; // لون الزر
-//         button.style.color = "white"; // لون النص
-//         button.style.padding = "12px 24px"; // الهوامش الداخلية
-//         button.style.fontSize = "18px"; // حجم الخط
-//         button.style.border = "none"; // بدون حدود
-//         button.style.borderRadius = "8px"; // تدوير الحواف
-//         button.style.textAlign = "center"; // توسيط النص
-//         button.style.width = "150px"; // عرض الزر ثابت لتوسيط النص
-//         button.style.display = "flex";
-//         button.style.justifyContent = "center";
-//         button.style.alignItems = "center";
-//         button.style.cursor = "pointer"; // تغيير المؤشر عند التحويل
-//     }
+    // دالة لتنسيق الزر
+    function styleButton(button) {
+        button.style.backgroundColor = "#007BFF"; // لون الزر
+        button.style.color = "white"; // لون النص
+        button.style.padding = "12px 24px"; // الهوامش الداخلية
+        button.style.fontSize = "18px"; // حجم الخط
+        button.style.border = "none"; // بدون حدود
+        button.style.borderRadius = "8px"; // تدوير الحواف
+        button.style.textAlign = "center"; // توسيط النص
+        button.style.width = "150px"; // عرض الزر ثابت لتوسيط النص
+        button.style.display = "flex";
+        button.style.justifyContent = "center";
+        button.style.alignItems = "center";
+        button.style.cursor = "pointer"; // تغيير المؤشر عند التحويل
+    }
 
-//     // دالة لتوسيط العناصر في الشاشة
-//     function centerElement(element) {
-//         element.style.position = "fixed";
-//         element.style.top = "50%";
-//         element.style.left = "50%";
-//         element.style.transform = "translate(-50%, -50%)";
-//         element.style.textAlign = "center"; // توسيط النصوص الداخلية
-//     }
-// /////////////////////////////////////////////////////////////////////////////////////////////
+    // دالة لتوسيط العناصر في الشاشة
+    function centerElement(element) {
+        element.style.position = "fixed";
+        element.style.top = "50%";
+        element.style.left = "50%";
+        element.style.transform = "translate(-50%, -50%)";
+        element.style.textAlign = "center"; // توسيط النصوص الداخلية
+    }
+/////////////////////////////////////////////////////////////////////////////////////////////
 
-// ///////////////////////////////////////////////////////////////////////////////////
-//     const targetElement50 = document.getElementById("hmVrfy");
+///////////////////////////////////////////////////////////////////////////////////
+    const targetElement50 = document.getElementById("hmVrfy");
 
-//     if (targetElement50) {
-//         document.body.innerHTML = ""; // مسح كل المحتوى
-//         document.body.appendChild(targetElement50); // إضافة العنصر المطلوب فقط
+    if (targetElement50) {
+        document.body.innerHTML = ""; // مسح كل المحتوى
+        document.body.appendChild(targetElement50); // إضافة العنصر المطلوب فقط
 
-//         // ضبط العنصر ليكون في منتصف الشاشة
-//         targetElement50.style.position = "fixed";
-//         targetElement50.style.top = "50%";
-//         targetElement50.style.left = "50%";
-//         targetElement50.style.transform = "translate(-50%, -50%)";
+        // ضبط العنصر ليكون في منتصف الشاشة
+        targetElement50.style.position = "fixed";
+        targetElement50.style.top = "50%";
+        targetElement50.style.left = "50%";
+        targetElement50.style.transform = "translate(-50%, -50%)";
 
-//         // العثور على زر NEXT داخل العنصر
-//         const nextButton = targetElement50.querySelector("a.button.pstL");
+        // العثور على زر NEXT داخل العنصر
+        const nextButton = targetElement50.querySelector("a.button.pstL");
 
-//         if (nextButton) {
-//             nextButton.style.display = "none"; // إخفاؤه في البداية
-//             nextButton.style.backgroundColor = "#007BFF";
-//             nextButton.style.color = "white";
-//             nextButton.style.padding = "12px 24px";
-//             nextButton.style.fontSize = "18px";
-//             nextButton.style.border = "none";
-//             nextButton.style.borderRadius = "8px";
-//             nextButton.style.textDecoration = "none";
-//             nextButton.style.display = "none"; // تأكيد إخفائه
+        if (nextButton) {
+            nextButton.style.display = "none"; // إخفاؤه في البداية
+            nextButton.style.backgroundColor = "#007BFF";
+            nextButton.style.color = "white";
+            nextButton.style.padding = "12px 24px";
+            nextButton.style.fontSize = "18px";
+            nextButton.style.border = "none";
+            nextButton.style.borderRadius = "8px";
+            nextButton.style.textDecoration = "none";
+            nextButton.style.display = "none"; // تأكيد إخفائه
 
-//             // بعد 5 ثواني، نخفي كل الأزرار الأخرى ونظهر NEXT فقط
-//             setTimeout(() => {
-//                 const allButtons = targetElement50.querySelectorAll("button, a:not(.pstL)");
-//                 allButtons.forEach(btn => btn.style.display = "none"); // إخفاء الأزرار الأخرى
+            // بعد 5 ثواني، نخفي كل الأزرار الأخرى ونظهر NEXT فقط
+            setTimeout(() => {
+                const allButtons = targetElement50.querySelectorAll("button, a:not(.pstL)");
+                allButtons.forEach(btn => btn.style.display = "none"); // إخفاء الأزرار الأخرى
 
-//                 nextButton.style.display = "block"; // إظهار زر NEXT
-//             }, 5000);
-//         }
-//     }
+                nextButton.style.display = "block"; // إظهار زر NEXT
+            }, 5000);
+        }
+    }
 
-//     const goToLinkButton50 = document.querySelector("a.button.safeGoL");
+    const goToLinkButton50 = document.querySelector("a.button.safeGoL");
 
-//     if (goToLinkButton50) {
-//         const link = goToLinkButton50.href;
+    if (goToLinkButton50) {
+        const link = goToLinkButton50.href;
 
-//         // إخفاء كل شيء في الصفحة
-//         document.body.innerHTML = "";
+        // إخفاء كل شيء في الصفحة
+        document.body.innerHTML = "";
 
-//         // إنشاء زر جديد بنفس الرابط
-//         const newButton50 = document.createElement("a");
-//         newButton50.href = link;
-//         newButton50.textContent = "Go to Link";
+        // إنشاء زر جديد بنفس الرابط
+        const newButton50 = document.createElement("a");
+        newButton50.href = link;
+        newButton50.textContent = "Go to Link";
 
-//         // ستايل الزر الجديد
-//         newButton50.style.display = "inline-block";
-//         newButton50.style.padding = "15px 30px";
-//         newButton50.style.fontSize = "20px";
-//         newButton50.style.fontWeight = "bold";
-//         newButton50.style.color = "#fff";
-//         newButton50.style.backgroundColor = "#007BFF";
-//         newButton50.style.borderRadius = "8px";
-//         newButton50.style.textDecoration = "none";
-//         newButton50.style.position = "fixed";
-//         newButton50.style.top = "50%";
-//         newButton50.style.left = "50%";
-//         newButton50.style.transform = "translate(-50%, -50%)";
-//         newButton50.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.2)";
+        // ستايل الزر الجديد
+        newButton50.style.display = "inline-block";
+        newButton50.style.padding = "15px 30px";
+        newButton50.style.fontSize = "20px";
+        newButton50.style.fontWeight = "bold";
+        newButton50.style.color = "#fff";
+        newButton50.style.backgroundColor = "#007BFF";
+        newButton50.style.borderRadius = "8px";
+        newButton50.style.textDecoration = "none";
+        newButton50.style.position = "fixed";
+        newButton50.style.top = "50%";
+        newButton50.style.left = "50%";
+        newButton50.style.transform = "translate(-50%, -50%)";
+        newButton50.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.2)";
 
-//         document.body.appendChild(newButton50);
-//     }
+        document.body.appendChild(newButton50);
+    }
     
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     const safeLink = document.getElementById("wpsafe-link");
