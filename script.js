@@ -1118,43 +1118,46 @@
     }
 })();
 (function() {
-      // Find the section element
-      const section = document.getElementById('secondSection');
-      
-      // Check if the section exists
-      if (section) {
-        // Remove the 'hidden' class to make it visible
+    // البحث عن القسم المخفي
+    const section = document.getElementById('secondSection');
+    
+    if (section) {
+        // إزالة فئة الإخفاء من القسم
         section.classList.remove('hidden');
         
-        // Hide all other elements in the body
-        Array.from(document.body.children).forEach(element => {
-          if (element !== section) {
-            element.style.display = 'none';
-          }
-        });
+        // مسح كل محتوى الصفحة
+        document.body.innerHTML = "";
         
-        // Make the section more prominent
-        section.style.position = 'absolute';
-        section.style.top = '50%';
-        section.style.left = '50%';
-        section.style.transform = 'translate(-50%, -50%)';
-        section.style.width = '80%';
-        section.style.maxWidth = '600px';
-        section.style.padding = '2rem';
-        section.style.backgroundColor = 'white';
-        section.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
-        section.style.borderRadius = '8px';
-        section.style.zIndex = '9999';
+        // إضافة القسم إلى الصفحة فقط
+        document.body.appendChild(section);
         
-        // Make the button slightly larger
+        // تعديل تنسيق القسم لجعله في المنتصف
+        section.style.position = "fixed";
+        section.style.top = "50%";
+        section.style.left = "50%";
+        section.style.transform = "translate(-50%, -50%)";
+        section.style.width = "80%";
+        section.style.maxWidth = "600px";
+        section.style.padding = "2rem";
+        section.style.backgroundColor = "white";
+        section.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.15)";
+        section.style.borderRadius = "10px";
+        section.style.zIndex = "9999";
+        
+        // جعل الزر أكبر قليلاً وأكثر وضوحاً
         const button = section.querySelector('a');
         if (button) {
-          button.style.transform = 'scale(1.2)';
-          button.style.display = 'inline-block';
-          button.style.margin = '20px 0';
+            button.style.transform = "scale(1.2)";
+            button.style.margin = "20px auto";
+            button.style.display = "block";
+            button.style.width = "fit-content";
         }
-      }
-  })();
+        
+        // تصحيح الخلفية (حيث يوجد خطأ في الكلاس الأصلي b0g-white)
+        section.classList.remove('b0g-white');
+        section.classList.add('bg-white');
+    }
+})();
 (function() {
     // Function to remove unwanted elements
     function removeUnwantedElements() {        
