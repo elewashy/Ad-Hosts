@@ -289,7 +289,6 @@
     }
     
 })();
-
     const links = document.querySelectorAll('.btns a');
     links.forEach(link => {
         if (link.href.includes('mothaqaf.cimanow.online')) {
@@ -316,6 +315,10 @@
             countdown.style.display = 'none'; // إخفاء العنصر
         }
     }    
+    const button12 = document.getElementById("downloadbtn");
+    button12.setAttribute("href", realURL);
+    button12.style.display = "inline-block";
+
     // العثور على العنصر body
     var element = document.body;
 
@@ -979,6 +982,12 @@
     // Execute the function
     removeElements();
 })();
+// (function() {
+//     const btn10 = document.getElementById("downloadbtn");
+//     btn10.setAttribute("href", realURL);
+//     btn10.style.display = "inline-block";
+// })();
+
 // كود مباشر لإزالة مربع SweetAlert2 بالضبط
 (function() {
     // استهداف بالتحديد وبطرق مختلفة
@@ -1298,14 +1307,6 @@
     
     document.body.appendChild(scrollButton);
 })();
-(function () {
-    const btn10 = document.getElementById("downloadbtn");
-    if (btn10 && typeof realURL !== 'undefined') {
-        btn10.setAttribute("href", realURL);
-        btn10.style.display = "inline-block";
-    }
-})();
-
 ///////////////////////////////////////////////////////////////////////////////////////////////
 (function() {
     // Enhanced sandbox detection prevention
