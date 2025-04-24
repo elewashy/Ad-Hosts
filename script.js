@@ -1025,10 +1025,9 @@
     console.log("تم إضافة CSS لإخفاء أي مربعات SweetAlert (طريقة 4)");
 })();
 /////////////////////////////////////////////////////////////////////////////////////////////
-// Script to replace links inside BiBplayer div with modified current URL
 (function () {
     var host = window.location.hostname;
-    if (!host.includes("animezid.show") && !host.includes("animezid.cam")) {
+    if (!host.includes("animezid.show") && !host.includes("animezid.cam") && !host.includes("animezid.cc")) {
         console.log("Not a supported host — script will not run.");
         return;
     }
@@ -1038,43 +1037,91 @@
         // Get the BiBplayer element
         var bibPlayer = document.getElementById('BiBplayer');
         
-        // If the element doesn't exist, exit
-        if (!bibPlayer) {
-            console.log('BiBplayer element not found');
-            return;
-        }
-        
-        // Get all links inside the BiBplayer
-        var links = bibPlayer.getElementsByTagName('a');
-        
-        // Get current page URL
-        var currentUrl = window.location.href;
-        
-        // Create the direct play URL by replacing "watch" with "play"
-        var playUrl = currentUrl.replace('/watch.', '/play.');
-        
-        // Log the current URL and the new URL
-        console.log('Current URL: ' + currentUrl);
-        console.log('New play URL: ' + playUrl);
-        
-        // Replace each link's href with the direct play URL
-        for (var i = 0; i < links.length; i++) {
-            var originalHref = links[i].href;
-            links[i].href = playUrl;
-            console.log('Link replaced: ' + originalHref + ' → ' + playUrl);
-            links[i].setAttribute('onclick', '');
-        }
+        // If the element exists, replace its links
+        if (bibPlayer) {
+            // Get all links inside the BiBplayer
+            var links = bibPlayer.getElementsByTagName('a');
+            
+            // Get current page URL
+            var currentUrl = window.location.href;
+            
+            // Create the direct play URL by replacing "watch" with "play"
+            var playUrl = currentUrl.replace('/watch.', '/play.');
+            
+            // Log the current URL and the new URL
+            console.log('Current URL: ' + currentUrl);
+            console.log('New play URL: ' + playUrl);
+            
+            // Replace each link's href with the direct play URL
+            for (var i = 0; i < links.length; i++) {
+                var originalHref = links[i].href;
+                links[i].href = playUrl;
+                console.log('Link replaced: ' + originalHref + ' → ' + playUrl);
+                links[i].setAttribute('onclick', '');
+            }
 
-        console.log('All links in BiBplayer have been replaced with: ' + playUrl);
+            console.log('All links in BiBplayer have been replaced with: ' + playUrl);
+        } else {
+            console.log('BiBplayer element not found');
+        }
+    }
+
+    // Function to handle the button in the d-grid div
+    function replaceButtonLink() {
+        // Find all divs with class "d-grid gap-2"
+        var gridDivs = document.getElementsByClassName('d-grid gap-2');
+        
+        if (gridDivs.length > 0) {
+            for (var i = 0; i < gridDivs.length; i++) {
+                var links = gridDivs[i].getElementsByTagName('a');
+                
+                for (var j = 0; j < links.length; j++) {
+                    if (links[j].href.includes('/play.php')) {
+                        // Get current page URL
+                        var currentUrl = window.location.href;
+                        
+                        // Create the direct play URL by replacing "watch" with "play"
+                        var playUrl = currentUrl.replace('/watch.', '/play.');
+                        
+                        // Store the original href for logging
+                        var originalHref = links[j].href;
+                        
+                        // Replace the href
+                        links[j].href = playUrl;
+                        
+                        console.log('Button link replaced: ' + originalHref + ' → ' + playUrl);
+                        links[j].setAttribute('onclick', '');
+                    }
+                }
+            }
+            console.log('Button links have been processed');
+        } else {
+            console.log('No d-grid divs found');
+        }
+    }
+
+    // Function to run all replacements
+    function runAllReplacements() {
+        replaceBiBplayerLinks();
+        replaceButtonLink();
     }
 
     // Execute immediately
-    replaceBiBplayerLinks();
+    runAllReplacements();
 
     // Also execute when the DOM is fully loaded (in case the script runs too early)
-    document.addEventListener('DOMContentLoaded', replaceBiBplayerLinks);
-})();
+    document.addEventListener('DOMContentLoaded', runAllReplacements);
 
+    // Add a mutation observer to handle dynamically loaded content
+    var observer = new MutationObserver(function(mutations) {
+        runAllReplacements();
+    });
+    
+    observer.observe(document.body, { 
+        childList: true, 
+        subtree: true 
+    });
+})();
 (function() {
     // Function to remove the specific advertising section
     function removeAdSection() {
