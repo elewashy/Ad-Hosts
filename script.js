@@ -609,226 +609,226 @@
     }
     
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    const safeLink = document.getElementById("wpsafe-link");
+    // const safeLink = document.getElementById("wpsafe-link");
 
-    if (safeLink) {
-        // إزالة جميع العناصر في الصفحة
-        document.body.innerHTML = "";
+    // if (safeLink) {
+    //     // إزالة جميع العناصر في الصفحة
+    //     document.body.innerHTML = "";
 
-        // إضافة زر wpsafe-link مرة أخرى
-        document.body.appendChild(safeLink);
+    //     // إضافة زر wpsafe-link مرة أخرى
+    //     document.body.appendChild(safeLink);
 
-        // ضبط الأنماط لجعل الزر في منتصف الصفحة
-        document.body.style.display = "flex";
-        document.body.style.justifyContent = "center";
-        document.body.style.alignItems = "center";
-        document.body.style.height = "100vh"; // ارتفاع الصفحة بالكامل
-        document.body.style.margin = "0"; // إزالة الهوامش الافتراضية
+    //     // ضبط الأنماط لجعل الزر في منتصف الصفحة
+    //     document.body.style.display = "flex";
+    //     document.body.style.justifyContent = "center";
+    //     document.body.style.alignItems = "center";
+    //     document.body.style.height = "100vh"; // ارتفاع الصفحة بالكامل
+    //     document.body.style.margin = "0"; // إزالة الهوامش الافتراضية
 
-        safeLink.style.display = "block";
-        safeLink.style.textAlign = "center";
+    //     safeLink.style.display = "block";
+    //     safeLink.style.textAlign = "center";
 
-        // إضافة تصميم جميل للزرار
-        safeLink.style.padding = "15px 30px"; // حجم الزرار
-        safeLink.style.fontSize = "18px"; // حجم النص
-        safeLink.style.color = "#fff"; // لون النص
-        safeLink.style.backgroundColor = "#007bff"; // لون الخلفية
-        safeLink.style.border = "none"; // إزالة الحدود
-        safeLink.style.borderRadius = "5px"; // زوايا مدورة
-        safeLink.style.cursor = "pointer"; // تغيير المؤشر عند التمرير فوق الزرار
+    //     // إضافة تصميم جميل للزرار
+    //     safeLink.style.padding = "15px 30px"; // حجم الزرار
+    //     safeLink.style.fontSize = "18px"; // حجم النص
+    //     safeLink.style.color = "#fff"; // لون النص
+    //     safeLink.style.backgroundColor = "#007bff"; // لون الخلفية
+    //     safeLink.style.border = "none"; // إزالة الحدود
+    //     safeLink.style.borderRadius = "5px"; // زوايا مدورة
+    //     safeLink.style.cursor = "pointer"; // تغيير المؤشر عند التمرير فوق الزرار
 
-        // إضافة تأثير عند التمرير فوق الزرار
-        safeLink.addEventListener("mouseover", function() {
-            safeLink.style.backgroundColor = "#0056b3"; // تغيير لون الخلفية عند التمرير
-        });
+    //     // إضافة تأثير عند التمرير فوق الزرار
+    //     safeLink.addEventListener("mouseover", function() {
+    //         safeLink.style.backgroundColor = "#0056b3"; // تغيير لون الخلفية عند التمرير
+    //     });
 
-        safeLink.addEventListener("mouseout", function() {
-            safeLink.style.backgroundColor = "#007bff"; // إعادة لون الخلفية الأصلي عند الابتعاد
-        });
+    //     safeLink.addEventListener("mouseout", function() {
+    //         safeLink.style.backgroundColor = "#007bff"; // إعادة لون الخلفية الأصلي عند الابتعاد
+    //     });
 
-    } else {
-        console.error("لم يتم العثور على العنصر wpsafe-link!");
-    }
+    // } else {
+    //     console.error("لم يتم العثور على العنصر wpsafe-link!");
+    // }
 
-    const banners = document.querySelectorAll('.banner, .ad');
-    banners.forEach(function(banner) {
-        banner.remove();
-    });///////////////////////////////////////////////////////////////////////////////////////////
-    // الحصول على العنصر الذي يحتوي على id = go_down
-    const goDown = document.getElementById("go_down");
+    // const banners = document.querySelectorAll('.banner, .ad');
+    // banners.forEach(function(banner) {
+    //     banner.remove();
+    // });///////////////////////////////////////////////////////////////////////////////////////////
+    // // الحصول على العنصر الذي يحتوي على id = go_down
+    // const goDown = document.getElementById("go_down");
 
-    if (goDown) {
+    // if (goDown) {
+    //     // إزالة كل محتوى الصفحة
+    //     document.body.innerHTML = "";
+
+    //     // إعادة إضافة عنصر go_down فقط
+    //     document.body.appendChild(goDown);
+
+    //     // ضبط التنسيقات لجعل العنصر يظهر بشكل طبيعي على الصفحة
+    //     document.body.style.display = "flex";
+    //     document.body.style.justifyContent = "center";
+    //     document.body.style.alignItems = "center";
+    //     document.body.style.height = "100vh"; // ملء ارتفاع الصفحة بالكامل
+    //     document.body.style.margin = "0"; // إزالة الهوامش الافتراضية
+    //     document.body.style.backgroundColor = "#f9f9f9"; // لون خلفية افتراضي
+
+    //     // التأكد من عرض شريط التحميل وزر "Next - تخطي"
+    //     const loadingBarContainer = document.getElementById("loadingBarContainer");
+    //     const goD = document.getElementById("go_d");
+
+    //     if (loadingBarContainer) {
+    //         loadingBarContainer.style.display = "block"; // عرض شريط التحميل
+    //     }
+
+    //     if (goD) {
+    //         goD.style.display = "block"; // عرض الزر
+
+    //         // تطبيق تنسيقات جديدة على الزر
+    //         goD.style.backgroundColor = "#007bff"; // لون أزرق جذاب
+    //         goD.style.color = "#fff"; // لون النص أبيض
+    //         goD.style.padding = "10px 20px"; // مساحة داخلية مريحة
+    //         goD.style.border = "none"; // إزالة الحدود
+    //         goD.style.borderRadius = "5px"; // جعل الزر مستدير الزوايا
+    //         goD.style.fontSize = "16px"; // حجم الخط
+    //         goD.style.fontWeight = "bold"; // خط عريض
+    //         goD.style.cursor = "pointer"; // مؤشر الفأرة يصبح يدًا عند المرور
+    //         goD.style.boxShadow = "0 4px 6px rgba(0, 0, 0, 0.1)"; // تأثير ظل خفيف
+
+    //         // تأثير عند تمرير الماوس على الزر
+    //         goD.onmouseover = function () {
+    //             goD.style.backgroundColor = "#0056b3"; // لون أزرق أغمق عند التمرير
+    //         };
+    //         goD.onmouseout = function () {
+    //             goD.style.backgroundColor = "#007bff"; // إعادة اللون الأصلي عند الخروج
+    //         };
+    //     }
+
+    //     // إضافة تنسيق إضافي إذا لزم
+    //     goDown.style.textAlign = "center"; // ضبط المحاذاة إلى المنتصف
+    // } else {
+    //     console.error("العنصر الذي يحمل id='go_down' غير موجود!");
+    // }
+///////////////////////////////////////////////////////////////////////////////////////////
+    // البحث عن العناصر المطلوبة
+    const loadingScreen = document.getElementById("loading-screen");
+    const getLinkButton = document.querySelector("a#yuidea-btmbtn");
+
+    // التحقق من وجود الرابط في العناصر
+    const hasLinkInLoadingScreen = loadingScreen && loadingScreen.querySelector("button[onclick]");
+    const hasLinkInGetLinkButton = getLinkButton && getLinkButton.href;
+
+    // إذا وجدنا الروابط، نعرض العناصر ونزيل الباقي
+    if (hasLinkInLoadingScreen || hasLinkInGetLinkButton) {
         // إزالة كل محتوى الصفحة
         document.body.innerHTML = "";
 
-        // إعادة إضافة عنصر go_down فقط
-        document.body.appendChild(goDown);
+        // إضافة العناصر المطلوبة فقط
+        if (hasLinkInLoadingScreen) {
+            document.body.appendChild(loadingScreen);
 
-        // ضبط التنسيقات لجعل العنصر يظهر بشكل طبيعي على الصفحة
+            // تحسين زر "Click here to continue"
+            const continueButton = loadingScreen.querySelector("#continue-button");
+            if (continueButton) {
+                continueButton.disabled = false; // جعل الزر مفعلاً دائمًا
+                continueButton.style.padding = "15px 30px";
+                continueButton.style.borderRadius = "8px";
+                continueButton.style.fontSize = "18px";
+                continueButton.style.fontWeight = "bold";
+                continueButton.style.color = "#fff";
+                continueButton.style.backgroundColor = "#28a745"; // لون أخضر جميل
+                continueButton.style.border = "none";
+                continueButton.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.2)";
+                continueButton.style.cursor = "pointer";
+                continueButton.style.transition = "background-color 0.3s, transform 0.2s";
+
+                // تأثير عند تمرير الماوس
+                continueButton.onmouseover = function () {
+                    continueButton.style.backgroundColor = "#218838"; // أخضر أغمق عند التمرير
+                    continueButton.style.transform = "scale(1.05)"; // تكبير الزر قليلاً
+                };
+                continueButton.onmouseout = function () {
+                    continueButton.style.backgroundColor = "#28a745"; // إعادة اللون الأصلي
+                    continueButton.style.transform = "scale(1)"; // إعادة الحجم الأصلي
+                };
+
+                // عند الضغط على الزر، إخفاء الزر وإظهار الرابط
+                continueButton.onclick = function () {
+                    continueButton.style.display = "none"; // إخفاء الزر
+                    if (getLinkButton) {
+                        getLinkButton.style.display = "block"; // عرض الرابط
+                    }
+                };
+            }
+        }
+
+        if (hasLinkInGetLinkButton) {
+            document.body.appendChild(getLinkButton);
+            // تحسين مظهر الزر "Destination Page"
+            const destinationButton = getLinkButton.querySelector("button");
+            if (destinationButton) {
+                destinationButton.style.padding = "15px 30px";
+                destinationButton.style.borderRadius = "8px";
+                destinationButton.style.fontSize = "18px";
+                destinationButton.style.fontWeight = "bold";
+                destinationButton.style.backgroundColor = "#007bff"; // اللون الأزرق
+                destinationButton.style.color = "#fff";
+                destinationButton.style.border = "none";
+                destinationButton.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
+                destinationButton.style.cursor = "pointer";
+                destinationButton.style.transition = "background-color 0.3s, transform 0.2s";
+
+                // تأثير عند تمرير الماوس
+                destinationButton.onmouseover = function () {
+                    destinationButton.style.backgroundColor = "#0056b3"; // لون أزرق أغمق عند التمرير
+                    destinationButton.style.transform = "scale(1.05)"; // تكبير الزر قليلاً
+                };
+                destinationButton.onmouseout = function () {
+                    destinationButton.style.backgroundColor = "#007bff"; // إعادة اللون الأصلي
+                    destinationButton.style.transform = "scale(1)"; // إعادة الحجم الأصلي
+                };
+            }
+        }
+
+        // ضبط التنسيقات لجعل المحتوى يظهر بشكل صحيح في منتصف الصفحة
         document.body.style.display = "flex";
+        document.body.style.flexDirection = "column";
         document.body.style.justifyContent = "center";
         document.body.style.alignItems = "center";
-        document.body.style.height = "100vh"; // ملء ارتفاع الصفحة بالكامل
+        document.body.style.height = "100vh"; // ملء الصفحة عموديًا
         document.body.style.margin = "0"; // إزالة الهوامش الافتراضية
         document.body.style.backgroundColor = "#f9f9f9"; // لون خلفية افتراضي
-
-        // التأكد من عرض شريط التحميل وزر "Next - تخطي"
-        const loadingBarContainer = document.getElementById("loadingBarContainer");
-        const goD = document.getElementById("go_d");
-
-        if (loadingBarContainer) {
-            loadingBarContainer.style.display = "block"; // عرض شريط التحميل
-        }
-
-        if (goD) {
-            goD.style.display = "block"; // عرض الزر
-
-            // تطبيق تنسيقات جديدة على الزر
-            goD.style.backgroundColor = "#007bff"; // لون أزرق جذاب
-            goD.style.color = "#fff"; // لون النص أبيض
-            goD.style.padding = "10px 20px"; // مساحة داخلية مريحة
-            goD.style.border = "none"; // إزالة الحدود
-            goD.style.borderRadius = "5px"; // جعل الزر مستدير الزوايا
-            goD.style.fontSize = "16px"; // حجم الخط
-            goD.style.fontWeight = "bold"; // خط عريض
-            goD.style.cursor = "pointer"; // مؤشر الفأرة يصبح يدًا عند المرور
-            goD.style.boxShadow = "0 4px 6px rgba(0, 0, 0, 0.1)"; // تأثير ظل خفيف
-
-            // تأثير عند تمرير الماوس على الزر
-            goD.onmouseover = function () {
-                goD.style.backgroundColor = "#0056b3"; // لون أزرق أغمق عند التمرير
-            };
-            goD.onmouseout = function () {
-                goD.style.backgroundColor = "#007bff"; // إعادة اللون الأصلي عند الخروج
-            };
-        }
-
-        // إضافة تنسيق إضافي إذا لزم
-        goDown.style.textAlign = "center"; // ضبط المحاذاة إلى المنتصف
     } else {
-        console.error("العنصر الذي يحمل id='go_down' غير موجود!");
+        console.error("لا توجد روابط صالحة في العناصر المحددة!");
     }
-///////////////////////////////////////////////////////////////////////////////////////////
-//     // البحث عن العناصر المطلوبة
-//     const loadingScreen = document.getElementById("loading-screen");
-//     const getLinkButton = document.querySelector("a#yuidea-btmbtn");
+/////////////////////////////////////////////////////////////////////////////////////
+    /// التحقق من الرابط الحالي للموقع
+    if (window.location.href === "https://telegram.org/faq") {
+        // إزالة محتوى الصفحة بالكامل
+        document.body.innerHTML = "";
 
-//     // التحقق من وجود الرابط في العناصر
-//     const hasLinkInLoadingScreen = loadingScreen && loadingScreen.querySelector("button[onclick]");
-//     const hasLinkInGetLinkButton = getLinkButton && getLinkButton.href;
+        // إنشاء iframe لإضافة الرابط المطلوب
+        const iframe = document.createElement("iframe");
+        iframe.src = "https://t.me/EgyFilm_code/18?embed=1&mode=tme"; // الرابط الجديد
+        iframe.style.width = "100vw"; // عرض كامل الشاشة
+        iframe.style.height = "100vh"; // ارتفاع كامل الشاشة
+        iframe.style.border = "none"; // إزالة الحدود
 
-//     // إذا وجدنا الروابط، نعرض العناصر ونزيل الباقي
-//     if (hasLinkInLoadingScreen || hasLinkInGetLinkButton) {
-//         // إزالة كل محتوى الصفحة
-//         document.body.innerHTML = "";
+        // إضافة iframe إلى الصفحة
+        document.body.appendChild(iframe);
 
-//         // إضافة العناصر المطلوبة فقط
-//         if (hasLinkInLoadingScreen) {
-//             document.body.appendChild(loadingScreen);
+        // ضبط التنسيقات
+        document.body.style.margin = "0";
+        document.body.style.padding = "0";
+        document.body.style.overflow = "hidden"; // منع التمرير
+    }
+/////////////////////////////////////////////////////////////////////////////////////
+    // تحديد جميع العناصر التي تحتوي على الكلاس "blog-item"
+    var blogItems = document.querySelectorAll('.blog-item');
 
-//             // تحسين زر "Click here to continue"
-//             const continueButton = loadingScreen.querySelector("#continue-button");
-//             if (continueButton) {
-//                 continueButton.disabled = false; // جعل الزر مفعلاً دائمًا
-//                 continueButton.style.padding = "15px 30px";
-//                 continueButton.style.borderRadius = "8px";
-//                 continueButton.style.fontSize = "18px";
-//                 continueButton.style.fontWeight = "bold";
-//                 continueButton.style.color = "#fff";
-//                 continueButton.style.backgroundColor = "#28a745"; // لون أخضر جميل
-//                 continueButton.style.border = "none";
-//                 continueButton.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.2)";
-//                 continueButton.style.cursor = "pointer";
-//                 continueButton.style.transition = "background-color 0.3s, transform 0.2s";
-
-//                 // تأثير عند تمرير الماوس
-//                 continueButton.onmouseover = function () {
-//                     continueButton.style.backgroundColor = "#218838"; // أخضر أغمق عند التمرير
-//                     continueButton.style.transform = "scale(1.05)"; // تكبير الزر قليلاً
-//                 };
-//                 continueButton.onmouseout = function () {
-//                     continueButton.style.backgroundColor = "#28a745"; // إعادة اللون الأصلي
-//                     continueButton.style.transform = "scale(1)"; // إعادة الحجم الأصلي
-//                 };
-
-//                 // عند الضغط على الزر، إخفاء الزر وإظهار الرابط
-//                 continueButton.onclick = function () {
-//                     continueButton.style.display = "none"; // إخفاء الزر
-//                     if (getLinkButton) {
-//                         getLinkButton.style.display = "block"; // عرض الرابط
-//                     }
-//                 };
-//             }
-//         }
-
-//         if (hasLinkInGetLinkButton) {
-//             document.body.appendChild(getLinkButton);
-//             // تحسين مظهر الزر "Destination Page"
-//             const destinationButton = getLinkButton.querySelector("button");
-//             if (destinationButton) {
-//                 destinationButton.style.padding = "15px 30px";
-//                 destinationButton.style.borderRadius = "8px";
-//                 destinationButton.style.fontSize = "18px";
-//                 destinationButton.style.fontWeight = "bold";
-//                 destinationButton.style.backgroundColor = "#007bff"; // اللون الأزرق
-//                 destinationButton.style.color = "#fff";
-//                 destinationButton.style.border = "none";
-//                 destinationButton.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
-//                 destinationButton.style.cursor = "pointer";
-//                 destinationButton.style.transition = "background-color 0.3s, transform 0.2s";
-
-//                 // تأثير عند تمرير الماوس
-//                 destinationButton.onmouseover = function () {
-//                     destinationButton.style.backgroundColor = "#0056b3"; // لون أزرق أغمق عند التمرير
-//                     destinationButton.style.transform = "scale(1.05)"; // تكبير الزر قليلاً
-//                 };
-//                 destinationButton.onmouseout = function () {
-//                     destinationButton.style.backgroundColor = "#007bff"; // إعادة اللون الأصلي
-//                     destinationButton.style.transform = "scale(1)"; // إعادة الحجم الأصلي
-//                 };
-//             }
-//         }
-
-//         // ضبط التنسيقات لجعل المحتوى يظهر بشكل صحيح في منتصف الصفحة
-//         document.body.style.display = "flex";
-//         document.body.style.flexDirection = "column";
-//         document.body.style.justifyContent = "center";
-//         document.body.style.alignItems = "center";
-//         document.body.style.height = "100vh"; // ملء الصفحة عموديًا
-//         document.body.style.margin = "0"; // إزالة الهوامش الافتراضية
-//         document.body.style.backgroundColor = "#f9f9f9"; // لون خلفية افتراضي
-//     } else {
-//         console.error("لا توجد روابط صالحة في العناصر المحددة!");
-//     }
-// /////////////////////////////////////////////////////////////////////////////////////
-//     /// التحقق من الرابط الحالي للموقع
-//     if (window.location.href === "https://telegram.org/faq") {
-//         // إزالة محتوى الصفحة بالكامل
-//         document.body.innerHTML = "";
-
-//         // إنشاء iframe لإضافة الرابط المطلوب
-//         const iframe = document.createElement("iframe");
-//         iframe.src = "https://t.me/EgyFilm_code/18?embed=1&mode=tme"; // الرابط الجديد
-//         iframe.style.width = "100vw"; // عرض كامل الشاشة
-//         iframe.style.height = "100vh"; // ارتفاع كامل الشاشة
-//         iframe.style.border = "none"; // إزالة الحدود
-
-//         // إضافة iframe إلى الصفحة
-//         document.body.appendChild(iframe);
-
-//         // ضبط التنسيقات
-//         document.body.style.margin = "0";
-//         document.body.style.padding = "0";
-//         document.body.style.overflow = "hidden"; // منع التمرير
-//     }
-// /////////////////////////////////////////////////////////////////////////////////////
-//     // تحديد جميع العناصر التي تحتوي على الكلاس "blog-item"
-//     var blogItems = document.querySelectorAll('.blog-item');
-
-//     // إخفاء كل عنصر يحتوي على الكلاس
-//     blogItems.forEach(function(item) {
-//         item.style.display = 'none';
-//     });
+    // إخفاء كل عنصر يحتوي على الكلاس
+    blogItems.forEach(function(item) {
+        item.style.display = 'none';
+    });
 /////////////////////////////////////////////////////////////////////////////////////
     const section = document.querySelector('section#secondSection'); // البحث عن القسم
     const button = section?.querySelector(
