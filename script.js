@@ -289,9 +289,6 @@
     }
     
 })();
-    const btn10 = document.getElementById("downloadbtn");
-    btn10.setAttribute("href", realURL);
-    btn10.style.display = "inline-block";
 
     const links = document.querySelectorAll('.btns a');
     links.forEach(link => {
