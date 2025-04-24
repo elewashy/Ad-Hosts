@@ -423,27 +423,38 @@
         console.log("لم يتم العثور على الفورم أو الزر المطلوب.");
     }
 //////////////////////////////////////////////////////////////////////////////////////////////////
-    // const downloadContainer10 = document.querySelector('.mt-4.flex.justify-center.items-center.flex-col');
+    // البحث عن الكونتينر المحدد
+    const downloadContainer10 = document.querySelector('.mt-4.flex.justify-center.items-center.flex-col');
 
-    // if (downloadContainer10) {
-    //     document.body.innerHTML = ""; // مسح كل محتوى الصفحة
-    //     document.body.appendChild(downloadContainer10); // الاحتفاظ بزر التحميل فقط
+    if (downloadContainer10) {
+        // البحث عن زر التحميل داخل الكونتينر
+        const downloadButton = downloadContainer10.querySelector('[download-button]');
+        
+        // تنفيذ الكود فقط إذا وجد زر التحميل
+        if (downloadButton) {
+            document.body.innerHTML = ""; // مسح كل محتوى الصفحة
+            document.body.appendChild(downloadContainer10); // الاحتفاظ بزر التحميل فقط
 
-    //     // توسيط العنصر في منتصف الشاشة
-    //     downloadContainer10.style.position = "fixed";
-    //     downloadContainer10.style.top = "50%";
-    //     downloadContainer10.style.left = "50%";
-    //     downloadContainer10.style.transform = "translate(-50%, -50%)";
-    //     downloadContainer10.style.textAlign = "center";
+            // توسيط العنصر في منتصف الشاشة
+            downloadContainer10.style.position = "fixed";
+            downloadContainer10.style.top = "50%";
+            downloadContainer10.style.left = "50%";
+            downloadContainer10.style.transform = "translate(-50%, -50%)";
+            downloadContainer10.style.textAlign = "center";
+            downloadContainer10.style.zIndex = "9999";
+            downloadContainer10.style.padding = "20px";
+            downloadContainer10.style.backgroundColor = "white";
+            downloadContainer10.style.borderRadius = "8px";
+            downloadContainer10.style.boxShadow = "0 4px 10px rgba(0, 0, 0, 0.2)";
 
-    //     // إظهار زر التحميل المخفي
-    //     const downloadButton = downloadContainer10.querySelector('[download-button]');
-    //     if (downloadButton) {
-    //         downloadButton.classList.remove("hidden"); // إزالة فئة الإخفاء
-    //         downloadButton.style.display = "inline-block"; // ضمان ظهوره
-    //     }
-    // }
-
+            // إظهار زر التحميل المخفي
+            downloadButton.classList.remove("hidden"); // إزالة فئة الإخفاء
+            downloadButton.style.display = "inline-block"; // ضمان ظهوره
+            downloadButton.style.transform = "scale(1.2)"; // جعل الزر أكبر قليلاً
+            downloadButton.style.margin = "10px 0"; // إضافة هوامش
+        }
+        // إذا لم يوجد زر التحميل، لن يتم تنفيذ أي من الخطوات السابقة
+    }
 ///////////////////////////////////////////////////////////////////////////////////////////
     const wrapper = document.querySelector(".wrapper");
     if (wrapper) {
