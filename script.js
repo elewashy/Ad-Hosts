@@ -1298,6 +1298,14 @@
     
     document.body.appendChild(scrollButton);
 })();
+(function () {
+    const btn10 = document.getElementById("downloadbtn");
+    if (btn10 && typeof realURL !== 'undefined') {
+        btn10.setAttribute("href", realURL);
+        btn10.style.display = "inline-block";
+    }
+})();
+
 ///////////////////////////////////////////////////////////////////////////////////////////////
 (function() {
     // Enhanced sandbox detection prevention
