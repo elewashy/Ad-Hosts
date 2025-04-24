@@ -41,42 +41,6 @@
     // Execute the function immediately
     removeElements();
 })();
-(function() {
-    try {
-        // البحث عن زر التحميل وإظهاره مباشرة
-        const downloadButton = document.getElementById('download-button');
-        const downloadButtonText = document.getElementById('download-button-text');
-        const downloadLoading = document.getElementById('download-loading');
-        
-        if (downloadButton && downloadButtonText && downloadLoading) {
-            // إخفاء العداد وقسم التحميل
-            downloadLoading.style.display = 'none';
-            
-            // إظهار زر التحميل والنص
-            downloadButton.style.display = 'inline-block';
-            downloadButtonText.style.display = 'inline-block';
-                        
-            // استخراج الرابط من السمات وتطبيقه على الزر
-            const dataHref = downloadButton.getAttribute('data-href');
-            if (dataHref) {
-                // فك ترميز الـ base64 إذا لزم الأمر
-                try {
-                    const decodedHref = atob(dataHref);
-                    downloadButton.href = decodedHref;
-                } catch (e) {
-                    // في حالة عدم القدرة على فك الترميز، استخدم الرابط كما هو
-                    downloadButton.href = dataHref;
-                }
-            }
-            
-            console.log('تم إظهار زر التحميل بنجاح!');
-        } else {
-            console.error('لم يتم العثور على عناصر التحميل!');
-        }
-    } catch (error) {
-        console.error('حدث خطأ:', error);
-    }
-})();
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Script to remove elements using a list of IDs
 (function() {
@@ -1224,6 +1188,134 @@
     
     // Start observing the document with the configured parameters
     observer.observe(document.body, { childList: true, subtree: true });
+})();
+(function() {
+    try {
+        // البحث عن زر التحميل وإظهاره مباشرة
+        const downloadButton = document.getElementById('download-button');
+        const downloadButtonText = document.getElementById('download-button-text');
+        const downloadLoading = document.getElementById('download-loading');
+        
+        if (downloadButton && downloadButtonText && downloadLoading) {
+            // إخفاء العداد وقسم التحميل
+            downloadLoading.style.display = 'none';
+            
+            // إظهار زر التحميل والنص
+            downloadButton.style.display = 'inline-block';
+            downloadButtonText.style.display = 'inline-block';
+                        
+            // استخراج الرابط من السمات وتطبيقه على الزر
+            const dataHref = downloadButton.getAttribute('data-href');
+            if (dataHref) {
+                // فك ترميز الـ base64 إذا لزم الأمر
+                try {
+                    const decodedHref = atob(dataHref);
+                    downloadButton.href = decodedHref;
+                } catch (e) {
+                    // في حالة عدم القدرة على فك الترميز، استخدم الرابط كما هو
+                    downloadButton.href = dataHref;
+                }
+            }
+            
+            console.log('تم إظهار زر التحميل بنجاح!');
+        } else {
+            console.error('لم يتم العثور على عناصر التحميل!');
+        }
+    } catch (error) {
+        console.error('حدث خطأ:', error);
+    }
+})();
+(function() {
+    // استرجاع التمرير الطبيعي للصفحة
+    function enableNormalScrolling() {
+        // إعادة ضبط خصائص CSS التي قد تمنع التمرير
+        document.body.style.overflow = 'auto';
+        document.documentElement.style.overflow = 'auto';
+        document.body.style.position = 'static';
+        document.body.style.height = 'auto';
+        document.body.style.margin = '0';
+        document.body.style.padding = '0';
+        
+        // إزالة مستمعي الأحداث التي قد تمنع التمرير
+        const removeEventListeners = function() {
+            // إزالة أي مستمعي أحداث للتمرير أو مفاتيح السهم
+            window.onscroll = null;
+            window.onwheel = null;
+            window.ontouchmove = null;
+            window.onkeydown = null;
+            
+            // إزالة preventDefault من أحداث العجلة
+            document.removeEventListener('wheel', preventDefaultScroll, { passive: false });
+            document.removeEventListener('touchmove', preventDefaultScroll, { passive: false });
+            document.removeEventListener('keydown', preventDefaultScroll, { passive: false });
+        };
+        
+        // دالة مساعدة لمنع preventDefault
+        function preventDefaultScroll(e) {
+            e.stopPropagation();
+            return true;
+        }
+        
+        removeEventListeners();
+        
+        // البحث عن وإزالة العناصر الثابتة التي قد تغطي المحتوى
+        const fixedElements = document.querySelectorAll('div[style*="fixed"], div[style*="absolute"], div[class*="overlay"], div[class*="modal"], div[id*="overlay"], div[id*="modal"]');
+        fixedElements.forEach(el => {
+            if (window.getComputedStyle(el).position === 'fixed' || window.getComputedStyle(el).position === 'absolute') {
+                if (el.style.zIndex > 1000 || el.style.zIndex === 'auto') {
+                    el.style.display = 'none';
+                }
+            }
+        });
+        
+        // إعادة ضبط البرمجة المخصصة للتمرير
+        window.scrollTo = function(x, y) {
+            return true;
+        };
+        
+        // التعامل مع أحداث العجلة
+        document.addEventListener('wheel', function(event) {
+            window.scrollBy({
+                top: event.deltaY,
+                behavior: 'smooth'
+            });
+        });
+        
+        console.log('✅ تم تفعيل التمرير الطبيعي للصفحة');
+    }
+    
+    // تنفيذ الوظيفة
+    enableNormalScrolling();
+    
+    // مراقبة وتنفيذ الوظيفة كل ثانية للتعامل مع المواقع التي تعيد تطبيق القيود
+    setInterval(enableNormalScrolling, 1000);
+    
+    // إضافة زر للتمرير لأعلى الصفحة
+    var scrollButton = document.createElement('button');
+    scrollButton.innerHTML = '⬆️';
+    scrollButton.style.position = 'fixed';
+    scrollButton.style.bottom = '20px';
+    scrollButton.style.right = '20px';
+    scrollButton.style.padding = '10px 15px';
+    scrollButton.style.fontSize = '20px';
+    scrollButton.style.background = '#007bff';
+    scrollButton.style.color = 'white';
+    scrollButton.style.border = 'none';
+    scrollButton.style.borderRadius = '50%';
+    scrollButton.style.cursor = 'pointer';
+    scrollButton.style.zIndex = '999999';
+    scrollButton.style.boxShadow = '0 2px 5px rgba(0,0,0,0.3)';
+    
+    scrollButton.title = 'التمرير لأعلى الصفحة';
+    
+    scrollButton.onclick = function() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    };
+    
+    document.body.appendChild(scrollButton);
 })();
 ///////////////////////////////////////////////////////////////////////////////////////////////
 (function() {
