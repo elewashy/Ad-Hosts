@@ -1290,30 +1290,6 @@
     // مراقبة وتنفيذ الوظيفة كل ثانية للتعامل مع المواقع التي تعيد تطبيق القيود
     setInterval(enableNormalScrolling, 1000);
     
-    // إضافة زر للتمرير لأعلى الصفحة
-    var scrollButton = document.createElement('button');
-    scrollButton.innerHTML = '⬆️';
-    scrollButton.style.position = 'fixed';
-    scrollButton.style.bottom = '20px';
-    scrollButton.style.right = '20px';
-    scrollButton.style.padding = '10px 15px';
-    scrollButton.style.fontSize = '20px';
-    scrollButton.style.background = '#007bff';
-    scrollButton.style.color = 'white';
-    scrollButton.style.border = 'none';
-    scrollButton.style.borderRadius = '50%';
-    scrollButton.style.cursor = 'pointer';
-    scrollButton.style.zIndex = '999999';
-    scrollButton.style.boxShadow = '0 2px 5px rgba(0,0,0,0.3)';
-    
-    scrollButton.title = 'التمرير لأعلى الصفحة';
-    
-    scrollButton.onclick = function() {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    };
     
     document.body.appendChild(scrollButton);
 })();
