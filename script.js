@@ -307,11 +307,6 @@
     //         link.href = 'watching';
     //     }
     // });
-(function() {
-    const btn10 = document.getElementById("downloadbtn");
-    btn10.setAttribute("href", realURL);
-    btn10.style.display = "inline-block";
-})();
     
 (function() {
     if (["mothaqaf.cimanow.online", "new.cimanow.online", "rm.freex2line.online"].includes(location.hostname)) {
@@ -983,6 +978,12 @@
     // Execute the function
     removeElements();
 })();
+(function() {
+    const btn10 = document.getElementById("downloadbtn");
+    btn10.setAttribute("href", realURL);
+    btn10.style.display = "inline-block";
+})();
+
 // كود مباشر لإزالة مربع SweetAlert2 بالضبط
 (function() {
     // استهداف بالتحديد وبطرق مختلفة
