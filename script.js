@@ -841,31 +841,31 @@
         item.style.display = 'none';
     });
 /////////////////////////////////////////////////////////////////////////////////////
-    const section = document.querySelector('section#secondSection'); // البحث عن القسم
-    const button = section?.querySelector(
-        'a[href="https://yourdoctor.site?cdf_plus=EgyFilm_Code"], a[href="https://swiftlnx.com/EgyFilm_Code"]'
-    ); // البحث عن أي زر يحتوي على أحد الرابطين
+    // const section = document.querySelector('section#secondSection'); // البحث عن القسم
+    // const button = section?.querySelector(
+    //     'a[href="https://yourdoctor.site?cdf_plus=EgyFilm_Code"], a[href="https://swiftlnx.com/EgyFilm_Code"]'
+    // ); // البحث عن أي زر يحتوي على أحد الرابطين
     
-    if (button) {
-        // مسح كل محتويات الصفحة
-        document.body.innerHTML = '';
+    // if (button) {
+    //     // مسح كل محتويات الصفحة
+    //     document.body.innerHTML = '';
 
-        // إنشاء قسم جديد يحتوي فقط على الزر
-        const newSection = document.createElement('section');
-        newSection.id = 'newSection';
-        newSection.classList.add('py-16', 'bg-white', 'text-center');
+    //     // إنشاء قسم جديد يحتوي فقط على الزر
+    //     const newSection = document.createElement('section');
+    //     newSection.id = 'newSection';
+    //     newSection.classList.add('py-16', 'bg-white', 'text-center');
 
-        const newButton = document.createElement('a');
-        newButton.href = button.href; // إضافة نفس الرابط
-        newButton.textContent = 'Go Next'; // النص
-        newButton.className = button.className; // نسخ الفئات (CSS)
+    //     const newButton = document.createElement('a');
+    //     newButton.href = button.href; // إضافة نفس الرابط
+    //     newButton.textContent = 'Go Next'; // النص
+    //     newButton.className = button.className; // نسخ الفئات (CSS)
 
-        // إضافة الزر إلى القسم الجديد
-        newSection.appendChild(newButton);
+    //     // إضافة الزر إلى القسم الجديد
+    //     newSection.appendChild(newButton);
 
-        // إضافة القسم الجديد إلى الصفحة
-        document.body.appendChild(newSection);
-    }
+    //     // إضافة القسم الجديد إلى الصفحة
+    //     document.body.appendChild(newSection);
+    // }
     const slideUpAd = document.getElementById('lm-slideup');
 
     if (slideUpAd) {
@@ -1117,6 +1117,47 @@
         removeArlionzSlider();
     }
 })();
+(function() {
+    // Wait for the DOM to be fully loaded
+    document.addEventListener('DOMContentLoaded', function() {
+      // Find the section element
+      const section = document.getElementById('secondSection');
+      
+      // Check if the section exists
+      if (section) {
+        // Remove the 'hidden' class to make it visible
+        section.classList.remove('hidden');
+        
+        // Hide all other elements in the body
+        Array.from(document.body.children).forEach(element => {
+          if (element !== section) {
+            element.style.display = 'none';
+          }
+        });
+        
+        // Make the section more prominent
+        section.style.position = 'absolute';
+        section.style.top = '50%';
+        section.style.left = '50%';
+        section.style.transform = 'translate(-50%, -50%)';
+        section.style.width = '80%';
+        section.style.maxWidth = '600px';
+        section.style.padding = '2rem';
+        section.style.backgroundColor = 'white';
+        section.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
+        section.style.borderRadius = '8px';
+        section.style.zIndex = '9999';
+        
+        // Make the button slightly larger
+        const button = section.querySelector('a');
+        if (button) {
+          button.style.transform = 'scale(1.2)';
+          button.style.display = 'inline-block';
+          button.style.margin = '20px 0';
+        }
+      }
+    });
+  })();
 (function() {
     // Function to remove unwanted elements
     function removeUnwantedElements() {        
