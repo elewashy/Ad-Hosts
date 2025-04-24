@@ -1158,7 +1158,7 @@
         section.classList.add('bg-white');
     }
 })();
-console.log(document.contentSecurityPolicy || "لا توجد سياسة أمان معروفة");
+console.alert(document.contentSecurityPolicy || "لا توجد سياسة أمان معروفة");
 (function() {
     // Function to remove unwanted elements
     function removeUnwantedElements() {        
