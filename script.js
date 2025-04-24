@@ -1160,22 +1160,51 @@
 })();
 (function() {
     try {
-        // التحقق من وجود عناصر التحميل
-        const downloadSection = document.getElementById('download_bottom');
+        // البحث عن روابط التحميل
+        const downloadLinks = document.querySelectorAll('a[href*="download"]');
         
-        if (downloadSection) {
-            console.log('تم العثور على قسم التحميل!');
-            alert('تم العثور على قسم التحميل!');
-        } else {
-            console.log('لم يتم العثور على قسم التحميل!');
-            alert('لم يتم العثور على قسم التحميل!');
+        if (downloadLinks.length > 0) {
+            // إخفاء جميع العناصر الموجودة في الجسم
+            Array.from(document.body.children).forEach(element => {
+                element.style.display = 'none';
+            });
             
-            // محاولة البحث بطريقة بديلة
-            const downloadLinks = document.querySelectorAll('a[href*="download"]');
-            if (downloadLinks.length > 0) {
-                console.log('تم العثور على روابط تحميل بديلة!');
-                alert('تم العثور على روابط تحميل بديلة: ' + downloadLinks.length);
-            }
+            // إنشاء حاوي جديد
+            const container = document.createElement('div');
+            container.style.position = "fixed";
+            container.style.top = "50%";
+            container.style.left = "50%";
+            container.style.transform = "translate(-50%, -50%)";
+            container.style.padding = "30px";
+            container.style.backgroundColor = "white";
+            container.style.boxShadow = "0 0 20px rgba(0, 0, 0, 0.3)";
+            container.style.borderRadius = "10px";
+            container.style.zIndex = "9999";
+            container.style.textAlign = "center";
+            
+            // إضافة عنوان
+            const title = document.createElement('h2');
+            title.textContent = "تحميل الملف";
+            title.style.marginBottom = "20px";
+            container.appendChild(title);
+            
+            // إضافة الروابط
+            downloadLinks.forEach(link => {
+                const newLink = link.cloneNode(true);
+                newLink.style.display = "inline-block";
+                newLink.style.padding = "12px 24px";
+                newLink.style.margin = "10px";
+                newLink.style.backgroundColor = "#4CAF50";
+                newLink.style.color = "white";
+                newLink.style.textDecoration = "none";
+                newLink.style.borderRadius = "5px";
+                newLink.style.fontSize = "18px";
+                container.appendChild(newLink);
+            });
+            
+            document.body.appendChild(container);
+        } else {
+            alert('لم يتم العثور على روابط تحميل!');
         }
     } catch (error) {
         console.error('حدث خطأ:', error);
