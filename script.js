@@ -1253,6 +1253,11 @@
 (function() {
     // استرجاع التمرير الطبيعي للصفحة
     function enableNormalScrolling() {
+        // إعادة ضبط خصائص CSS التي قد تمنع التمرير
+        document.body.style.overflow = 'auto';
+        document.documentElement.style.overflow = 'auto';
+        document.body.style.position = 'static';
+        document.body.style.height = 'auto';
         
         // إزالة مستمعي الأحداث التي قد تمنع التمرير
         const removeEventListeners = function() {
