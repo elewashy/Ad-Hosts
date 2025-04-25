@@ -1250,74 +1250,74 @@
         console.error('حدث خطأ:', error);
     }
 })();
-(function() {
-    // استرجاع التمرير الطبيعي للصفحة
-    function enableNormalScrolling() {
-        // إعادة ضبط خصائص CSS التي قد تمنع التمرير
-        document.body.style.overflow = 'auto';
-        document.documentElement.style.overflow = 'auto';
-        document.body.style.position = 'static';
-        document.body.style.height = 'auto';
-        document.body.style.margin = '0';
-        document.body.style.padding = '0';
+// (function() {
+//     // استرجاع التمرير الطبيعي للصفحة
+//     function enableNormalScrolling() {
+//         // إعادة ضبط خصائص CSS التي قد تمنع التمرير
+//         document.body.style.overflow = 'auto';
+//         document.documentElement.style.overflow = 'auto';
+//         document.body.style.position = 'static';
+//         document.body.style.height = 'auto';
+//         document.body.style.margin = '0';
+//         document.body.style.padding = '0';
         
-        // إزالة مستمعي الأحداث التي قد تمنع التمرير
-        const removeEventListeners = function() {
-            // إزالة أي مستمعي أحداث للتمرير أو مفاتيح السهم
-            window.onscroll = null;
-            window.onwheel = null;
-            window.ontouchmove = null;
-            window.onkeydown = null;
+//         // إزالة مستمعي الأحداث التي قد تمنع التمرير
+//         const removeEventListeners = function() {
+//             // إزالة أي مستمعي أحداث للتمرير أو مفاتيح السهم
+//             window.onscroll = null;
+//             window.onwheel = null;
+//             window.ontouchmove = null;
+//             window.onkeydown = null;
             
-            // إزالة preventDefault من أحداث العجلة
-            document.removeEventListener('wheel', preventDefaultScroll, { passive: false });
-            document.removeEventListener('touchmove', preventDefaultScroll, { passive: false });
-            document.removeEventListener('keydown', preventDefaultScroll, { passive: false });
-        };
+//             // إزالة preventDefault من أحداث العجلة
+//             document.removeEventListener('wheel', preventDefaultScroll, { passive: false });
+//             document.removeEventListener('touchmove', preventDefaultScroll, { passive: false });
+//             document.removeEventListener('keydown', preventDefaultScroll, { passive: false });
+//         };
         
-        // دالة مساعدة لمنع preventDefault
-        function preventDefaultScroll(e) {
-            e.stopPropagation();
-            return true;
-        }
+//         // دالة مساعدة لمنع preventDefault
+//         function preventDefaultScroll(e) {
+//             e.stopPropagation();
+//             return true;
+//         }
         
-        removeEventListeners();
+//         removeEventListeners();
         
-        // البحث عن وإزالة العناصر الثابتة التي قد تغطي المحتوى
-        const fixedElements = document.querySelectorAll('div[style*="fixed"], div[style*="absolute"], div[class*="overlay"], div[class*="modal"], div[id*="overlay"], div[id*="modal"]');
-        fixedElements.forEach(el => {
-            if (window.getComputedStyle(el).position === 'fixed' || window.getComputedStyle(el).position === 'absolute') {
-                if (el.style.zIndex > 1000 || el.style.zIndex === 'auto') {
-                    el.style.display = 'none';
-                }
-            }
-        });
+//         // البحث عن وإزالة العناصر الثابتة التي قد تغطي المحتوى
+//         const fixedElements = document.querySelectorAll('div[style*="fixed"], div[style*="absolute"], div[class*="overlay"], div[class*="modal"], div[id*="overlay"], div[id*="modal"]');
+//         fixedElements.forEach(el => {
+//             if (window.getComputedStyle(el).position === 'fixed' || window.getComputedStyle(el).position === 'absolute') {
+//                 if (el.style.zIndex > 1000 || el.style.zIndex === 'auto') {
+//                     el.style.display = 'none';
+//                 }
+//             }
+//         });
         
-        // إعادة ضبط البرمجة المخصصة للتمرير
-        window.scrollTo = function(x, y) {
-            return true;
-        };
+//         // إعادة ضبط البرمجة المخصصة للتمرير
+//         window.scrollTo = function(x, y) {
+//             return true;
+//         };
         
-        // التعامل مع أحداث العجلة
-        document.addEventListener('wheel', function(event) {
-            window.scrollBy({
-                top: event.deltaY,
-                behavior: 'smooth'
-            });
-        });
+//         // التعامل مع أحداث العجلة
+//         document.addEventListener('wheel', function(event) {
+//             window.scrollBy({
+//                 top: event.deltaY,
+//                 behavior: 'smooth'
+//             });
+//         });
         
-        console.log('✅ تم تفعيل التمرير الطبيعي للصفحة');
-    }
+//         console.log('✅ تم تفعيل التمرير الطبيعي للصفحة');
+//     }
     
-    // تنفيذ الوظيفة
-    enableNormalScrolling();
+//     // تنفيذ الوظيفة
+//     enableNormalScrolling();
     
-    // مراقبة وتنفيذ الوظيفة كل ثانية للتعامل مع المواقع التي تعيد تطبيق القيود
-    setInterval(enableNormalScrolling, 1000);
+//     // مراقبة وتنفيذ الوظيفة كل ثانية للتعامل مع المواقع التي تعيد تطبيق القيود
+//     setInterval(enableNormalScrolling, 1000);
     
     
-    document.body.appendChild(scrollButton);
-})();
+//     document.body.appendChild(scrollButton);
+// })();
 ///////////////////////////////////////////////////////////////////////////////////////////////
 (function() {
     // Enhanced sandbox detection prevention
