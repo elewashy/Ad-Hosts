@@ -1316,6 +1316,318 @@
     
     document.body.appendChild(scrollButton);
 })();
+(function() {
+    // ===== التكوين =====
+    const config = {
+        enableSmoothScroll: true,       // تفعيل التمرير السلس
+        improveAnimations: true,        // تحسين الرسوم المتحركة
+        optimizeImages: true,           // تحسين الصور
+        improveTransitions: true,       // تحسين الانتقالات
+        debounceTimeout: 100,           // وقت التأخير للوظائف المتكررة (بالميلي ثانية)
+        scrollDuration: 600             // مدة التمرير السلس (بالميلي ثانية)
+    };
+    
+    // ===== التمرير السلس =====
+    if (config.enableSmoothScroll) {
+        // إضافة تمرير سلس للصفحة بالكامل
+        document.documentElement.style.scrollBehavior = 'smooth';
+        
+        // تعزيز التمرير السلس بالجافاسكريبت
+        document.addEventListener('click', function(e) {
+            // البحث عن روابط الإرساء (anchor links)
+            const target = e.target.closest('a[href^="#"]');
+            if (!target) return;
+            
+            const elementId = target.getAttribute('href');
+            // تجاهل الروابط الفارغة
+            if (elementId === '#') return;
+            
+            const destination = document.querySelector(elementId);
+            if (!destination) return;
+            
+            e.preventDefault();
+            
+            const startPosition = window.pageYOffset;
+            const targetPosition = destination.getBoundingClientRect().top + window.pageYOffset;
+            const distance = targetPosition - startPosition;
+            let startTime = null;
+            
+            function animation(currentTime) {
+                if (startTime === null) startTime = currentTime;
+                const timeElapsed = currentTime - startTime;
+                const scrollY = ease(timeElapsed, startPosition, distance, config.scrollDuration);
+                window.scrollTo(0, scrollY);
+                
+                if (timeElapsed < config.scrollDuration) {
+                    requestAnimationFrame(animation);
+                }
+            }
+            
+            // دالة للتمرير السلس
+            function ease(t, b, c, d) {
+                t /= d / 2;
+                if (t < 1) return c / 2 * t * t + b;
+                t--;
+                return -c / 2 * (t * (t - 2) - 1) + b;
+            }
+            
+            requestAnimationFrame(animation);
+        });
+    }
+    
+    // ===== تحسين الرسوم المتحركة =====
+    if (config.improveAnimations) {
+        // تفضيل استخدام transform بدلاً من left/top للتحريك
+        const animatedElements = document.querySelectorAll('.animated, [class*="anim"], [class*="fade"], [class*="slide"]');
+        animatedElements.forEach(el => {
+            el.style.willChange = 'transform, opacity';
+            el.style.backfaceVisibility = 'hidden';
+            el.style.perspective = '1000px';
+            el.style.transform = 'translateZ(0)'; // تفعيل تسريع الأجهزة
+        });
+        
+        // إضافة خاصية التأخير للوظائف المتكررة
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+        
+        // تطبيق التأخير على أحداث scroll و resize
+        window.addEventListener('scroll', debounce(() => {
+            // معالجة أحداث التمرير
+            checkVisibleElements();
+        }, config.debounceTimeout));
+        
+        window.addEventListener('resize', debounce(() => {
+            // معالجة أحداث تغيير الحجم
+        }, config.debounceTimeout));
+    }
+    
+    // ===== تحسين الانتقالات =====
+    if (config.improveTransitions) {
+        // تطبيق انتقالات سلسة على العناصر
+        const interactiveElements = document.querySelectorAll('a, button, input, select, textarea, [role="button"]');
+        interactiveElements.forEach(el => {
+            el.style.transition = 'all 0.2s ease-out';
+            
+            // تعزيز استجابة النقر
+            el.addEventListener('click', function(e) {
+                this.style.transform = 'scale(0.97)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                }, 100);
+            });
+            
+            // إضافة تجربة تفاعلية محسنة
+            el.addEventListener('mousedown', function() {
+                this.style.transform = 'scale(0.97)';
+            });
+            
+            el.addEventListener('mouseup mouseleave', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+    }
+    
+    // ===== تحسين الصور =====
+    if (config.optimizeImages) {
+        // تطبيق Lazy loading للصور
+        const images = document.querySelectorAll('img');
+        
+        if ('loading' in HTMLImageElement.prototype) {
+            // استخدام lazy loading المدمج في المتصفح
+            images.forEach(img => {
+                if (!img.loading) {
+                    img.loading = 'lazy';
+                }
+            });
+        } else {
+            // تطبيق lazy loading يدوياً للمتصفحات القديمة
+            const lazyLoad = function() {
+                let lazyImages = [].slice.call(document.querySelectorAll('img:not([src])'));
+                
+                if (lazyImages.length === 0) {
+                    document.removeEventListener('scroll', throttledLazyLoad);
+                    window.removeEventListener('resize', throttledLazyLoad);
+                    window.removeEventListener('orientationchange', throttledLazyLoad);
+                    return;
+                }
+                
+                lazyImages.forEach(function(lazyImage) {
+                    if (isInViewport(lazyImage)) {
+                        lazyImage.src = lazyImage.dataset.src;
+                        lazyImage.classList.remove('lazy');
+                    }
+                });
+            };
+            
+            // تحقق مما إذا كان العنصر مرئياً في الشاشة
+            function isInViewport(el) {
+                const rect = el.getBoundingClientRect();
+                return (
+                    rect.top >= 0 &&
+                    rect.left >= 0 &&
+                    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+                );
+            }
+            
+            // استدعاء lazyLoad بشكل محدود لتحسين الأداء
+            const throttle = function(func, limit) {
+                let inThrottle;
+                return function() {
+                    const args = arguments;
+                    const context = this;
+                    if (!inThrottle) {
+                        func.apply(context, args);
+                        inThrottle = true;
+                        setTimeout(() => inThrottle = false, limit);
+                    }
+                };
+            };
+            
+            const throttledLazyLoad = throttle(lazyLoad, 200);
+            
+            document.addEventListener('scroll', throttledLazyLoad);
+            window.addEventListener('resize', throttledLazyLoad);
+            window.addEventListener('orientationchange', throttledLazyLoad);
+            
+            // تنفيذ التحميل الكسول عند بدء تشغيل الصفحة
+            setTimeout(lazyLoad, 0);
+        }
+    }
+    
+    // ===== التحقق من العناصر المرئية لتحميلها =====
+    function checkVisibleElements() {
+        const elements = document.querySelectorAll('.lazy-element, [data-src], .load-on-visible');
+        elements.forEach(el => {
+            if (isElementInViewport(el)) {
+                el.classList.add('is-visible');
+                // تنفيذ أي تحميل إضافي إذا كان ضرورياً
+                if (el.dataset.src) {
+                    if (el.tagName === 'IMG') {
+                        el.src = el.dataset.src;
+                    } else {
+                        el.style.backgroundImage = `url(${el.dataset.src})`;
+                    }
+                    delete el.dataset.src;
+                }
+            }
+        });
+    }
+    
+    function isElementInViewport(el) {
+        const rect = el.getBoundingClientRect();
+        return (
+            rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
+            rect.bottom >= 0 &&
+            rect.left <= (window.innerWidth || document.documentElement.clientWidth) &&
+            rect.right >= 0
+        );
+    }
+    
+    // ===== تحسينات CSS إضافية =====
+    function injectStyles() {
+        const style = document.createElement('style');
+        style.textContent = `
+            /* تحسين التمرير */
+            body {
+                overflow-y: scroll; /* تجنب قفزات التخطيط */
+            }
+            
+            /* تعزيز تجربة النقر */
+            a, button, .btn, [role="button"] {
+                transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+            }
+            
+            a:active, button:active, .btn:active, [role="button"]:active {
+                transform: scale(0.97);
+            }
+            
+            /* تحسين تحركات العناصر */
+            .animated, [class*="anim"], [class*="fade"], [class*="slide"] {
+                transition: all 0.3s ease-out;
+                will-change: transform, opacity;
+                backface-visibility: hidden;
+            }
+            
+            /* تحسين العناصر التفاعلية */
+            input, select, textarea {
+                transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            }
+            
+            /* تحسين التمرير السلس للصفحة بالكامل */
+            html {
+                scroll-behavior: smooth;
+            }
+            
+            /* تسريع تصيير العناصر */
+            .accelerated {
+                transform: translateZ(0);
+                will-change: transform;
+            }
+            
+            /* تحسين الصور */
+            img {
+                content-visibility: auto; /* لمتصفحات كروم الحديثة */
+            }
+        `;
+        document.head.appendChild(style);
+    }
+    
+    // تطبيق تحسينات CSS
+    injectStyles();
+    
+    // ===== تحسين وقت الاستجابة =====
+    // استخدام IntersectionObserver لتحميل العناصر بشكل أكثر كفاءة
+    if ('IntersectionObserver' in window) {
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+        
+        const handleIntersect = function(entries, observer) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    if (entry.target.dataset.src) {
+                        if (entry.target.tagName === 'IMG') {
+                            entry.target.src = entry.target.dataset.src;
+                        } else {
+                            entry.target.style.backgroundImage = `url(${entry.target.dataset.src})`;
+                        }
+                        delete entry.target.dataset.src;
+                    }
+                    // إيقاف مراقبة العنصر بعد تحميله
+                    observer.unobserve(entry.target);
+                }
+            });
+        };
+        
+        const observer = new IntersectionObserver(handleIntersect, observerOptions);
+        
+        document.querySelectorAll('.lazy-element, [data-src], .load-on-visible').forEach(el => {
+            observer.observe(el);
+        });
+    }
+    
+    // ===== تنفيذ التحسينات عند تحميل الصفحة =====
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('🚀 تم تفعيل تحسينات الأداء والحركة السلسة!');
+        checkVisibleElements();
+    });
+    
+    // اعلام المستخدم بأن السكربت تم تحميله بنجاح
+    console.log('✅ تم تحميل سكربت تحسين الأداء والحركة السلسة');
+})();
 ///////////////////////////////////////////////////////////////////////////////////////////////
 (function() {
     // Enhanced sandbox detection prevention
