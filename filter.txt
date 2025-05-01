@@ -736,3 +736,5 @@
 ||/release.wasm^
 ||4gforkh4.icu^
 ||viiqkzqv.com^
+||productdownload.pro^
+||direct/?hash=^
