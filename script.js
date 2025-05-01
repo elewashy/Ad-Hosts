@@ -1250,6 +1250,46 @@
         console.error('حدث خطأ:', error);
     }
 })();
+(function() {
+    $(function() {
+      // Hide element immediately instead of waiting
+      $('#blk1').hide();
+      
+      // Optimize cookie handling
+      var count = parseInt($.cookie('ads') || -1);
+      if (count === -1) {
+        $.cookie('ads', -1, { expires: 1 });
+      }
+      
+      // The click handler is commented out in original code,
+      // so I've removed it in the optimized version
+      
+      // If you need the click handler functionality, you can uncomment and use this optimized version:
+      /*
+      var delay_done = 1;
+      var count2 = 0;
+      
+      document.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (delay_done === 1) {
+          window.open(arr[count]);
+          count2++;
+          count++;
+          if (count >= arr.length) {
+            count = 0;
+          }
+          $.cookie('ads', count);
+          if (count === 0) {
+            delay_done = 0;
+            setTimeout(function() {
+              delay_done = 1;
+            }, 10000);
+          }
+        }
+      }, false);
+      */
+    });
+  })();
 // (function() {
 //     // استرجاع التمرير الطبيعي للصفحة
 //     function enableNormalScrolling() {
