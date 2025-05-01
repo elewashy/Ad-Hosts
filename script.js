@@ -1285,7 +1285,7 @@
         const fixedElements = document.querySelectorAll('div[style*="fixed"], div[style*="absolute"], div[class*="overlay"], div[class*="modal"], div[id*="overlay"], div[id*="modal"]');
         fixedElements.forEach(el => {
             if (window.getComputedStyle(el).position === 'fixed' || window.getComputedStyle(el).position === 'absolute') {
-                if (parseInt(el.style.zIndex) > 1000 || el.style.zIndex === 'auto') {
+                if (el.style.zIndex > 1000 || el.style.zIndex === 'auto') {
                     el.style.display = 'none';
                 }
             }
@@ -1312,6 +1312,9 @@
     
     // مراقبة وتنفيذ الوظيفة كل ثانية للتعامل مع المواقع التي تعيد تطبيق القيود
     setInterval(enableNormalScrolling, 1000);
+    
+    
+    document.body.appendChild(scrollButton);
 })();
 ///////////////////////////////////////////////////////////////////////////////////////////////
 (function() {
