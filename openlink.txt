@@ -4,3 +4,4 @@
 !egyfilm-app-server.vercel.app
 ||t.me/EgyFilm_code^
 ||.veevcdn.co/^
+||href.li/^
