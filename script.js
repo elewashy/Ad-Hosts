@@ -1250,15 +1250,6 @@
         console.error('حدث خطأ:', error);
     }
 })();
-(function() {
-    // نحذف أي تايمر قديم (لو كنت عارف الـ ID بتاعه ممكن تستخدم clearTimeout)
-    
-    // نخلي العنصر يختفي بعد ثانية
-    setTimeout(function() {
-        $('#blk1').hide();
-    }, 1000); // 1 ثانية
-})();
-
 // (function() {
 //     // استرجاع التمرير الطبيعي للصفحة
 //     function enableNormalScrolling() {
