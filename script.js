@@ -1250,6 +1250,21 @@
         console.error('حدث خطأ:', error);
     }
 })();
+(function() {
+    // Wait for the page to be fully loaded
+    window.addEventListener('load', function() {
+        // Immediately hide the #blk1 element
+        document.getElementById('blk1')?.style.display = 'none';
+        
+        // Alternatively, you can use jQuery if it's already loaded
+        // $('#blk1').hide();
+        
+        // This will also prevent the original setTimeout from having any visible effect
+        // since the element will already be hidden
+        
+        console.log('Delay removed - #blk1 hidden immediately');
+    });
+})();
 // (function() {
 //     // استرجاع التمرير الطبيعي للصفحة
 //     function enableNormalScrolling() {
