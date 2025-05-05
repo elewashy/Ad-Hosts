@@ -1251,19 +1251,22 @@
     }
 })();
 (function() {
-    // Wait for the page to be fully loaded
-    window.addEventListener('load', function() {
-        // Immediately hide the #blk1 element
-        document.getElementById('blk1')?.style.display = 'none';
+    // Store the original setTimeout function
+    const originalSetTimeout = window.setTimeout;
+    
+    // Override setTimeout to intercept the specific delay function
+    window.setTimeout = function(callback, delay) {
+        // Check if this is the specific setTimeout we want to block
+        if (delay === 5000 && callback.toString().includes('blk1')) {
+            console.log('5 second delay for #blk1 blocked');
+            // Execute it immediately instead of waiting
+            callback();
+            return null; // Return a dummy timeout ID
+        }
         
-        // Alternatively, you can use jQuery if it's already loaded
-        // $('#blk1').hide();
-        
-        // This will also prevent the original setTimeout from having any visible effect
-        // since the element will already be hidden
-        
-        console.log('Delay removed - #blk1 hidden immediately');
-    });
+        // For all other setTimeout calls, use the original function
+        return originalSetTimeout.apply(this, arguments);
+    };
 })();
 // (function() {
 //     // استرجاع التمرير الطبيعي للصفحة
