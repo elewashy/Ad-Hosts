@@ -1251,23 +1251,17 @@
     }
 })();
 (function() {
-    // Store the original setTimeout function
-    const originalSetTimeout = window.setTimeout;
+    var timers = setTimeout(function() {}, 0); // ناخد آخر ID للتايمر
+    for (var i = 0; i <= timers; i++) {
+        clearTimeout(i); // نوقف كل التايمرز اللي شغالة
+    }
     
-    // Override setTimeout to intercept the specific delay function
-    window.setTimeout = function(callback, delay) {
-        // Check if this is the specific setTimeout we want to block
-        if (delay === 5000 && callback.toString().includes('blk1')) {
-            console.log('5 second delay for #blk1 blocked');
-            // Execute it immediately instead of waiting
-            callback();
-            return null; // Return a dummy timeout ID
-        }
-        
-        // For all other setTimeout calls, use the original function
-        return originalSetTimeout.apply(this, arguments);
-    };
+    // بعد ما نوقفهم، نحط تايمرنا
+    setTimeout(function() {
+        $('#blk1').hide();
+    }, 1000);
 })();
+
 // (function() {
 //     // استرجاع التمرير الطبيعي للصفحة
 //     function enableNormalScrolling() {
