@@ -13,6 +13,7 @@
         '.separator',
         '.banner-inner',
         '.ad-unit',
+        '.hydratv',
         // Add more selectors here, such as:
         // '.another-ad-class',
         // '#specific-ad-id',
