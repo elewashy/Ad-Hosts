@@ -1251,15 +1251,12 @@
     }
 })();
 (function() {
-    var timers = setTimeout(function() {}, 0); // ناخد آخر ID للتايمر
-    for (var i = 0; i <= timers; i++) {
-        clearTimeout(i); // نوقف كل التايمرز اللي شغالة
-    }
+    // نحذف أي تايمر قديم (لو كنت عارف الـ ID بتاعه ممكن تستخدم clearTimeout)
     
-    // بعد ما نوقفهم، نحط تايمرنا
+    // نخلي العنصر يختفي بعد ثانية
     setTimeout(function() {
         $('#blk1').hide();
-    }, 1000);
+    }, 1000); // 1 ثانية
 })();
 
 // (function() {
