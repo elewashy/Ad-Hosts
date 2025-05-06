@@ -738,3 +738,9 @@
 ||viiqkzqv.com^
 ||productdownload.pro^
 ||direct/?hash=^
+||youtube.com/api/stats/ads^
+||youtube.com/pagead^
+||yt3.ggpht.com/ads^
+||youtube.com/api/ads^
+||youtube.com/get_midroll_info^
+||youtube.com/get_ads^
