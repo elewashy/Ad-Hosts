@@ -732,9 +732,7 @@
             };
     
             // هنا نضيف الضغط التلقائي بعد ثانية
-            setTimeout(function() {
                 goD.click();
-            }, 1000);
         }
     
         goDown.style.textAlign = "center"; 
