@@ -777,17 +777,6 @@
                     continueButton.style.backgroundColor = "#28a745";
                     continueButton.style.transform = "scale(1)";
                 };
-    
-                continueButton.onclick = function () {
-                    continueButton.style.display = "none";
-                    if (getLinkButton) {
-                        getLinkButton.style.display = "block";
-    
-                        // اضغط على getLinkButton مباشرة بعد الضغط على continueButton
-                        getLinkButton.click();
-                        console.log("تم الضغط على زر Get Link بعد الضغط على زر Continue مباشرة");
-                    }
-                };
             }
         }
     
@@ -826,10 +815,15 @@
         document.body.style.margin = "0";
         document.body.style.backgroundColor = "#f9f9f9";
     
-        // لو مفيش continueButton أصلاً نضغط على getLinkButton مباشرة
-        if (!continueButton && getLinkButton) {
-            getLinkButton.click();
-            console.log("تم الضغط مباشرة على زر Get Link (بدون زر Continue)");
+        // دلوقتي نضغط تلقائيًا على الزرين بالترتيب
+        if (continueButton) {
+            continueButton.click(); // اضغط أولاً على الزر Continue
+            console.log("ضغطنا على زر Continue");
+        }
+    
+        if (getLinkButton) {
+            getLinkButton.click(); // بعدها مباشرة اضغط على الزر الثاني
+            console.log("ضغطنا على زر Get Link");
         }
     
     } else {
