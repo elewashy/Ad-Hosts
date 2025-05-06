@@ -1270,6 +1270,30 @@
         console.error('حدث خطأ:', error);
     }
 })();
+(function() {
+    // إخفاء جميع العناصر في الصفحة
+    document.body.style.visibility = "hidden";
+
+    // إظهار العنصر المطلوب فقط
+    const boxMain = document.querySelector('.box-main');
+    if (boxMain) {
+        document.body.innerHTML = "";  // إزالة كل المحتوى الحالي
+        document.body.appendChild(boxMain);  // إضافة العنصر فقط إلى الصفحة
+        document.body.style.visibility = "visible";  // جعل المحتوى مرئيًا
+    }
+
+    // التأكد من تفعيل الزر عند تفعيله تلقائيًا
+    const getLinkButton = document.querySelector('.btn-success.get-link');
+    if (getLinkButton) {
+        // محاكاة تفعيل الزر بعد فترة قصيرة (دون استخدام setTimeout)
+        setInterval(() => {
+            if (!getLinkButton.classList.contains('disabled')) {
+                getLinkButton.click();  // الضغط على الزر تلقائيًا
+            }
+        }, 1000); // التحقق من حالة الزر كل ثانية
+    }
+})();
+
 // (function() {
 //     // استرجاع التمرير الطبيعي للصفحة
 //     function enableNormalScrolling() {
