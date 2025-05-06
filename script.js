@@ -663,15 +663,16 @@
         safeLink.addEventListener("mouseout", function() {
             safeLink.style.backgroundColor = "#007bff"; // إعادة لون الخلفية الأصلي عند الابتعاد
         });
+        safeLink.click();
 
     } else {
         console.error("لم يتم العثور على العنصر wpsafe-link!");
     }
-
+///////////////////////////////////////////////////////////////////////////////////////////
     const banners = document.querySelectorAll('.banner, .ad');
     banners.forEach(function(banner) {
         banner.remove();
-    });///////////////////////////////////////////////////////////////////////////////////////////
+    });
     // الحصول على العنصر الذي يحتوي على id = go_down
     const goDown = document.getElementById("go_down");
 
