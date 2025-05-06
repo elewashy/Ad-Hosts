@@ -668,10 +668,7 @@
         const linkInside = safeLink.querySelector("a");
 
         if (linkInside) {
-            // الضغط تلقائي على اللينك بعد تجهيز الصفحة
-            setTimeout(function() {
                 linkInside.click();
-            }, 1000); // تأخير ثانية واحدة
         } else {
             console.error("لم يتم العثور على الرابط داخل wpsafe-link!");
         }
