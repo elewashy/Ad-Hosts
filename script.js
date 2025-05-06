@@ -1162,7 +1162,7 @@
 (function() {
     // البحث عن القسم المخفي
     const section = document.getElementById('secondSection');
-    
+
     if (section) {
         // إزالة فئة الإخفاء من القسم
         section.classList.remove('hidden');
@@ -1193,8 +1193,12 @@
             button.style.margin = "20px auto";
             button.style.display = "block";
             button.style.width = "fit-content";
+            
+            // الضغط تلقائيًا على الزر بعد إضافة القسم إلى الصفحة
+            button.click();
+            console.log("تم الضغط تلقائيًا على الزر داخل القسم");
         }
-        
+    
         // تصحيح الخلفية (حيث يوجد خطأ في الكلاس الأصلي b0g-white)
         section.classList.remove('b0g-white');
         section.classList.add('bg-white');
