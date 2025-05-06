@@ -646,30 +646,40 @@
         safeLink.style.display = "block";
         safeLink.style.textAlign = "center";
 
-        // إضافة تصميم جميل للزرار
-        safeLink.style.padding = "15px 30px"; // حجم الزرار
-        safeLink.style.fontSize = "18px"; // حجم النص
-        safeLink.style.color = "#fff"; // لون النص
-        safeLink.style.backgroundColor = "#007bff"; // لون الخلفية
-        safeLink.style.border = "none"; // إزالة الحدود
-        safeLink.style.borderRadius = "5px"; // زوايا مدورة
-        safeLink.style.cursor = "pointer"; // تغيير المؤشر عند التمرير فوق الزرار
+        // تصميم للعنصر نفسه
+        safeLink.style.padding = "15px 30px";
+        safeLink.style.fontSize = "18px";
+        safeLink.style.color = "#fff";
+        safeLink.style.backgroundColor = "#007bff";
+        safeLink.style.border = "none";
+        safeLink.style.borderRadius = "5px";
+        safeLink.style.cursor = "pointer";
 
-        // إضافة تأثير عند التمرير فوق الزرار
+        // إضافة تأثير عند التمرير
         safeLink.addEventListener("mouseover", function() {
-            safeLink.style.backgroundColor = "#0056b3"; // تغيير لون الخلفية عند التمرير
+            safeLink.style.backgroundColor = "#0056b3";
         });
 
         safeLink.addEventListener("mouseout", function() {
-            safeLink.style.backgroundColor = "#007bff"; // إعادة لون الخلفية الأصلي عند الابتعاد
+            safeLink.style.backgroundColor = "#007bff";
         });
 
-        // الضغط تلقائيًا على الزر بعد ما يجهز
-        safeLink.click();
+        // هنا المهم: نلاقي اللينك (a) اللي جوه الـ div
+        const linkInside = safeLink.querySelector("a");
+
+        if (linkInside) {
+            // الضغط تلقائي على اللينك بعد تجهيز الصفحة
+            setTimeout(function() {
+                linkInside.click();
+            }, 1000); // تأخير ثانية واحدة
+        } else {
+            console.error("لم يتم العثور على الرابط داخل wpsafe-link!");
+        }
 
     } else {
         console.error("لم يتم العثور على العنصر wpsafe-link!");
     }
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////
     const banners = document.querySelectorAll('.banner, .ad');
