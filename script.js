@@ -1271,30 +1271,16 @@
     }
 })();
 (function() {
-    // تحقق إذا كان القسم موجودًا في الصفحة
-    const blogSection = document.querySelector('.blog-block.inner-section-padding.blog-page');
-    if (blogSection) {
-
-        // إخفاء جميع العناصر في الصفحة
-        document.body.style.visibility = "hidden";
-
-        // إظهار العنصر المطلوب فقط
-        const boxMain = document.querySelector('.box-main');
-        if (boxMain) {
-            document.body.innerHTML = "";  // إزالة كل المحتوى الحالي
-            document.body.appendChild(blogSection);  // إضافة القسم إلى الصفحة
-            document.body.style.visibility = "visible";  // جعل المحتوى مرئيًا
+    if (window.location.href === "https://nitro-link.com/KnIw") {
+        const header = document.querySelector('header');
+        const footer = document.querySelector('footer');
+        
+        if (header) {
+            header.style.display = 'none';  // إخفاء الهيدر
         }
-
-        // التأكد من تفعيل الزر عند تفعيله تلقائيًا
-        const getLinkButton = document.querySelector('.btn-success.get-link');
-        if (getLinkButton) {
-            // محاكاة تفعيل الزر بعد فترة قصيرة (دون استخدام setTimeout)
-            setInterval(() => {
-                if (!getLinkButton.classList.contains('disabled')) {
-                    getLinkButton.click();  // الضغط على الزر تلقائيًا
-                }
-            }, 1000); // التحقق من حالة الزر كل ثانية
+        
+        if (footer) {
+            footer.style.display = 'none';  // إخفاء الفوتر
         }
     }
 })();
