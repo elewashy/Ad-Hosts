@@ -744,18 +744,14 @@
     const loadingScreen = document.getElementById("loading-screen");
     const getLinkButton = document.querySelector("a#yuidea-btmbtn");
     
-    // التحقق من وجود الرابط في العناصر
     const hasLinkInLoadingScreen = loadingScreen && loadingScreen.querySelector("button[onclick]");
     const hasLinkInGetLinkButton = getLinkButton && getLinkButton.href;
     
-    // إذا وجدنا الروابط، نعرض العناصر ونزيل الباقي
     if (hasLinkInLoadingScreen || hasLinkInGetLinkButton) {
-        // إزالة كل محتوى الصفحة
         document.body.innerHTML = "";
     
-        let continueButton = null; // هنخزن هنا الزر لو لقيناه
+        let continueButton = null;
     
-        // إضافة العناصر المطلوبة فقط
         if (hasLinkInLoadingScreen) {
             document.body.appendChild(loadingScreen);
     
@@ -786,6 +782,10 @@
                     continueButton.style.display = "none";
                     if (getLinkButton) {
                         getLinkButton.style.display = "block";
+    
+                        // اضغط على getLinkButton مباشرة بعد الضغط على continueButton
+                        getLinkButton.click();
+                        console.log("تم الضغط على زر Get Link بعد الضغط على زر Continue مباشرة");
                     }
                 };
             }
@@ -818,7 +818,6 @@
             }
         }
     
-        // ضبط تنسيقات الصفحة
         document.body.style.display = "flex";
         document.body.style.flexDirection = "column";
         document.body.style.justifyContent = "center";
@@ -827,11 +826,11 @@
         document.body.style.margin = "0";
         document.body.style.backgroundColor = "#f9f9f9";
     
-            if (continueButton) {
-                continueButton.click();
-            } else if (getLinkButton) {
-                getLinkButton.click();
-            }
+        // لو مفيش continueButton أصلاً نضغط على getLinkButton مباشرة
+        if (!continueButton && getLinkButton) {
+            getLinkButton.click();
+            console.log("تم الضغط مباشرة على زر Get Link (بدون زر Continue)");
+        }
     
     } else {
         console.error("لا توجد روابط صالحة في العناصر المحددة!");
