@@ -1275,6 +1275,7 @@
         window.location.href === "https://swiftlnx.com/EgyFilm_Code" ||
         window.location.href === "https://cut4money.com/N2zx7") {
 
+        // إخفاء الهيدر والفوتر
         const header = document.querySelector('header');
         const footer = document.querySelector('footer');
         
@@ -1285,6 +1286,15 @@
         if (footer) {
             footer.style.display = 'none';  // إخفاء الفوتر
         }
+
+        // البحث عن الزرار "get link" بشكل دوري
+        const intervalId = setInterval(function() {
+            const getLinkButton = document.querySelector('button.get-link');
+            if (getLinkButton) {
+                getLinkButton.click();  // الضغط على الزرار تلقائيًا
+                clearInterval(intervalId);  // إيقاف البحث بعد ما نضغط الزرار
+            }
+        }, 1000);  // كل ثانية
     }
 })();
 
