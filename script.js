@@ -1287,45 +1287,6 @@
         }
     }
 })();
-(function() {
-    if (window.location.hostname === "finestart.online") {
-        // مسح محتوى الصفحة بالكامل
-        document.body.innerHTML = "";
-
-        // إنشاء زرار
-        const button = document.createElement("button");
-        button.textContent = "اذهب إلى الرابط";
-        button.style.position = "fixed";
-        button.style.top = "50%";
-        button.style.left = "50%";
-        button.style.transform = "translate(-50%, -50%)";
-        button.style.padding = "30px 60px"; // أكبر
-        button.style.fontSize = "32px"; // أكبر
-        button.style.backgroundColor = "#28a745"; // لون مميز
-        button.style.color = "white";
-        button.style.border = "none";
-        button.style.borderRadius = "15px";
-        button.style.cursor = "pointer";
-        button.style.zIndex = "9999";
-        button.style.boxShadow = "0 8px 16px rgba(0,0,0,0.3)";
-
-        // عند الضغط عليه، يفتح الرابط
-        button.onclick = function() {
-            window.location.href = "https://nitro-link.com/KnIw";
-        };
-
-        // إضافة الزرار للصفحة
-        document.body.appendChild(button);
-
-        // تغيير لون الخلفية
-        document.body.style.backgroundColor = "#f8f9fa";
-
-        // الضغط تلقائي بعد ما يتحمل الزرار
-        setTimeout(function() {
-            button.click();
-        }, 500); // نصف ثانية بعد ظهور الزرار
-    }
-})();
 
 // (function() {
 //     // استرجاع التمرير الطبيعي للصفحة
