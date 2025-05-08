@@ -627,7 +627,7 @@
     }
     
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    const safeLink = document.getElementById("wpsafe-link");
+    const safeLink = document.getElementById("wpsafe-wait2");
 
     if (safeLink) {
         // إزالة جميع العناصر في الصفحة
