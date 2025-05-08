@@ -381,54 +381,54 @@
     }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////                                               
     // البحث عن الزر المطلوب
-    var targetForm = document.querySelector("#wpsafelink-landing");
-    var targetButton = document.querySelector("#wpsafelinkhuman");
+    // var targetForm = document.querySelector("#wpsafelink-landing");
+    // var targetButton = document.querySelector("#wpsafelinkhuman");
     
-    // التحقق إذا كان الفورم والزر موجودين
-    if (targetForm && targetButton) {
-        // حذف جميع العناصر داخل الـ body
-        document.body.innerHTML = "";
+    // // التحقق إذا كان الفورم والزر موجودين
+    // if (targetForm && targetButton) {
+    //     // حذف جميع العناصر داخل الـ body
+    //     document.body.innerHTML = "";
     
-        // إعادة إضافة الفورم بالكامل مع محتوياته
-        document.body.appendChild(targetForm);
+    //     // إعادة إضافة الفورم بالكامل مع محتوياته
+    //     document.body.appendChild(targetForm);
     
-        // تعديل خصائص CSS للتوسيط
-        targetForm.style.display = "flex";
-        targetForm.style.flexDirection = "column";
-        targetForm.style.justifyContent = "center";
-        targetForm.style.alignItems = "center";
-        targetForm.style.height = "100vh"; // ملء الشاشة عموديًا
+    //     // تعديل خصائص CSS للتوسيط
+    //     targetForm.style.display = "flex";
+    //     targetForm.style.flexDirection = "column";
+    //     targetForm.style.justifyContent = "center";
+    //     targetForm.style.alignItems = "center";
+    //     targetForm.style.height = "100vh"; // ملء الشاشة عموديًا
     
-        // التأكد من أن الزر يظهر في منتصف الصفحة
-        targetButton.style.display = "block";
-        targetButton.style.margin = "0 auto"; // للتوسيط الأفقي
+    //     // التأكد من أن الزر يظهر في منتصف الصفحة
+    //     targetButton.style.display = "block";
+    //     targetButton.style.margin = "0 auto"; // للتوسيط الأفقي
     
-        // إضافة تصميم جميل للزرار
-        targetButton.style.padding = "15px 30px"; // حجم الزرار
-        targetButton.style.fontSize = "18px"; // حجم النص
-        targetButton.style.color = "#fff"; // لون النص
-        targetButton.style.backgroundColor = "#007bff"; // لون الخلفية
-        targetButton.style.border = "none"; // إزالة الحدود
-        targetButton.style.borderRadius = "5px"; // زوايا مدورة
-        targetButton.style.cursor = "pointer"; // تغيير المؤشر عند التمرير فوق الزرار
+    //     // إضافة تصميم جميل للزرار
+    //     targetButton.style.padding = "15px 30px"; // حجم الزرار
+    //     targetButton.style.fontSize = "18px"; // حجم النص
+    //     targetButton.style.color = "#fff"; // لون النص
+    //     targetButton.style.backgroundColor = "#007bff"; // لون الخلفية
+    //     targetButton.style.border = "none"; // إزالة الحدود
+    //     targetButton.style.borderRadius = "5px"; // زوايا مدورة
+    //     targetButton.style.cursor = "pointer"; // تغيير المؤشر عند التمرير فوق الزرار
     
-        // إضافة تأثير عند التمرير فوق الزرار
-        targetButton.addEventListener("mouseover", function() {
-            targetButton.style.backgroundColor = "#0056b3"; // تغيير لون الخلفية عند التمرير
-        });
+    //     // إضافة تأثير عند التمرير فوق الزرار
+    //     targetButton.addEventListener("mouseover", function() {
+    //         targetButton.style.backgroundColor = "#0056b3"; // تغيير لون الخلفية عند التمرير
+    //     });
     
-        targetButton.addEventListener("mouseout", function() {
-            targetButton.style.backgroundColor = "#007bff"; // إعادة لون الخلفية الأصلي عند الابتعاد
-        });
+    //     targetButton.addEventListener("mouseout", function() {
+    //         targetButton.style.backgroundColor = "#007bff"; // إعادة لون الخلفية الأصلي عند الابتعاد
+    //     });
     
-        console.log("تم الإبقاء على النموذج والزر المطلوب فقط.");
+    //     console.log("تم الإبقاء على النموذج والزر المطلوب فقط.");
     
-        // الضغط تلقائيًا على الزر
-        targetButton.click();
+    //     // الضغط تلقائيًا على الزر
+    //     targetButton.click();
     
-    } else {
-        console.log("لم يتم العثور على الفورم أو الزر المطلوب.");
-    }
+    // } else {
+    //     console.log("لم يتم العثور على الفورم أو الزر المطلوب.");
+    // }
 //////////////////////////////////////////////////////////////////////////////////////////////////
     // البحث عن الكونتينر المحدد
     const downloadContainer10 = document.querySelector('.mt-4.flex.justify-center.items-center.flex-col');
