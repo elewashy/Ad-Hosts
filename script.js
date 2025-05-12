@@ -1288,41 +1288,47 @@
     }
 })();
 (function() {
-    // نتأكد إننا في الموقع الصح
     if (window.location.hostname === "traidmod.org") {
         window.addEventListener('load', function() {
-            let buttonContainer = null;
-
-            const downloadBottom = document.getElementById('download_bottom');
-            const downloadCounter = document.getElementById('download');
-
-            if (downloadBottom) {
-                buttonContainer = downloadBottom.cloneNode(true);
-            } else if (downloadCounter) {
-                buttonContainer = downloadCounter.cloneNode(true);
-            }
-
-            if (buttonContainer) {
-                // نمسح كل حاجة ف الصفحة
+            function createCenteredButton(buttonContainer) {
                 document.body.innerHTML = "";
 
-                // نخلي الزرار في نص الشاشة
-                buttonContainer.style.position = "fixed";
-                buttonContainer.style.top = "50%";
-                buttonContainer.style.left = "50%";
-                buttonContainer.style.transform = "translate(-50%, -50%)";
-                buttonContainer.style.zIndex = "9999";
+                const clone = buttonContainer.cloneNode(true);
 
-                // نكبر كل الأزرار اللي جوه
-                const allButtons = buttonContainer.querySelectorAll('a');
+                clone.style.position = "fixed";
+                clone.style.top = "50%";
+                clone.style.left = "50%";
+                clone.style.transform = "translate(-50%, -50%)";
+                clone.style.zIndex = "9999";
+
+                const allButtons = clone.querySelectorAll('a, button');
                 allButtons.forEach(btn => {
                     btn.style.padding = "30px 60px";
                     btn.style.fontSize = "28px";
                     btn.style.borderRadius = "20px";
                 });
 
-                // نحط الزرار المعدل في الصفحة
-                document.body.appendChild(buttonContainer);
+                document.body.appendChild(clone);
+            }
+
+            const downloadBottom = document.getElementById('download_bottom');
+            const downloadButton = document.querySelector('[download-button]');
+
+            if (downloadBottom) {
+                createCenteredButton(downloadBottom);
+            } else if (downloadButton) {
+                createCenteredButton(downloadButton.parentElement);
+            } else {
+                // لو مش موجود لسه، نرائب الصفحة لحد ما يظهر
+                const observer = new MutationObserver((mutations, obs) => {
+                    const downloadButtonDynamic = document.querySelector('[download-button]');
+                    if (downloadButtonDynamic) {
+                        obs.disconnect();
+                        createCenteredButton(downloadButtonDynamic.parentElement);
+                    }
+                });
+
+                observer.observe(document.body, { childList: true, subtree: true });
             }
         });
     }
