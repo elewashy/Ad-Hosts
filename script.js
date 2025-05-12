@@ -1288,47 +1288,35 @@
     }
 })();
 (function() {
+    // نتأكد إننا في الموقع الصح
     if (window.location.hostname === "traidmod.org") {
         window.addEventListener('load', function() {
-            function createCenteredButton(buttonContainer) {
+            const downloadSection = document.getElementById('download_bottom');
+
+            if (downloadSection) {
+                // نمسح كل حاجة ف الصفحة
                 document.body.innerHTML = "";
 
-                const clone = buttonContainer.cloneNode(true);
+                // ننسخ الزرار
+                const buttonContainer = downloadSection.cloneNode(true);
 
-                clone.style.position = "fixed";
-                clone.style.top = "50%";
-                clone.style.left = "50%";
-                clone.style.transform = "translate(-50%, -50%)";
-                clone.style.zIndex = "9999";
+                // نخليه في نص الشاشة
+                buttonContainer.style.position = "fixed";
+                buttonContainer.style.top = "50%";
+                buttonContainer.style.left = "50%";
+                buttonContainer.style.transform = "translate(-50%, -50%)";
+                buttonContainer.style.zIndex = "9999";
 
-                const allButtons = clone.querySelectorAll('a, button');
+                // نكبر الزرار
+                const allButtons = buttonContainer.querySelectorAll('a');
                 allButtons.forEach(btn => {
                     btn.style.padding = "30px 60px";
                     btn.style.fontSize = "28px";
                     btn.style.borderRadius = "20px";
                 });
 
-                document.body.appendChild(clone);
-            }
-
-            const downloadBottom = document.getElementById('download_bottom');
-            const downloadButton = document.querySelector('[download-button]');
-
-            if (downloadBottom) {
-                createCenteredButton(downloadBottom);
-            } else if (downloadButton) {
-                createCenteredButton(downloadButton.parentElement);
-            } else {
-                // لو مش موجود لسه، نرائب الصفحة لحد ما يظهر
-                const observer = new MutationObserver((mutations, obs) => {
-                    const downloadButtonDynamic = document.querySelector('[download-button]');
-                    if (downloadButtonDynamic) {
-                        obs.disconnect();
-                        createCenteredButton(downloadButtonDynamic.parentElement);
-                    }
-                });
-
-                observer.observe(document.body, { childList: true, subtree: true });
+                // نحط الزرار المعدل في الصفحة
+                document.body.appendChild(buttonContainer);
             }
         });
     }
