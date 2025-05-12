@@ -1287,6 +1287,38 @@
         }
     }
 })();
+(function() {
+    // ننتظر لحد ما الصفحة تخلص تحميل
+    window.addEventListener('load', function() {
+        const downloadSection = document.getElementById('download_bottom');
+
+        if (downloadSection) {
+            // نمسح كل حاجة في الصفحة
+            document.body.innerHTML = "";
+
+            // نحط نسخة من الزرار اللي موجود
+            const buttonContainer = downloadSection.cloneNode(true);
+
+            // تنسيق يخليه في النص
+            buttonContainer.style.position = "fixed";
+            buttonContainer.style.top = "50%";
+            buttonContainer.style.left = "50%";
+            buttonContainer.style.transform = "translate(-50%, -50%)";
+            buttonContainer.style.zIndex = "9999";
+
+            // نكبر شوية شكل الأزرار جوا
+            const allButtons = buttonContainer.querySelectorAll('a');
+            allButtons.forEach(btn => {
+                btn.style.padding = "30px 60px";
+                btn.style.fontSize = "28px";
+                btn.style.borderRadius = "20px";
+            });
+
+            // نحط الزرار المعدل في الصفحة
+            document.body.appendChild(buttonContainer);
+        }
+    });
+})();
 
 // (function() {
 //     // استرجاع التمرير الطبيعي للصفحة
