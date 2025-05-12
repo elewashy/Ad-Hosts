@@ -1288,44 +1288,41 @@
     }
 })();
 (function() {
+    // نتأكد إننا في الموقع الصح
     if (window.location.hostname === "traidmod.org") {
         window.addEventListener('load', function() {
-            // ندور على العداد
-            var counterContainer = document.querySelector('[download-process-box]');
-            var downloadButton = document.querySelector('[download-button]');
-            
-            if (counterContainer && downloadButton) {
-                // نحذف العداد نهائي
-                counterContainer.parentElement.removeChild(counterContainer);
-                
-                // نظهر الزرار
-                downloadButton.classList.remove('hidden');
-                
-                // نعدله ونحطه في النص
-                var container = document.createElement('div');
-                container.style.position = "fixed";
-                container.style.top = "50%";
-                container.style.left = "50%";
-                container.style.transform = "translate(-50%, -50%)";
-                container.style.zIndex = "9999";
-                container.style.textAlign = "center";
+            let buttonContainer = null;
 
-                downloadButton.style.padding = "20px 50px";
-                downloadButton.style.fontSize = "24px";
-                downloadButton.style.borderRadius = "15px";
-                downloadButton.style.backgroundColor = "#28a745";
-                downloadButton.style.color = "#fff";
-                downloadButton.style.textDecoration = "none";
-                downloadButton.style.display = "inline-flex";
-                downloadButton.style.alignItems = "center";
-                downloadButton.style.justifyContent = "center";
+            const downloadBottom = document.getElementById('download_bottom');
+            const downloadCounter = document.getElementById('download');
 
-                container.appendChild(downloadButton);
-                document.body.innerHTML = '';
-                document.body.appendChild(container);
+            if (downloadBottom) {
+                buttonContainer = downloadBottom.cloneNode(true);
+            } else if (downloadCounter) {
+                buttonContainer = downloadCounter.cloneNode(true);
+            }
 
-                // تضغط عليه أوتوماتيك بعد نص ثانية لو حابب
-                // setTimeout(function() { downloadButton.click(); }, 500);
+            if (buttonContainer) {
+                // نمسح كل حاجة ف الصفحة
+                document.body.innerHTML = "";
+
+                // نخلي الزرار في نص الشاشة
+                buttonContainer.style.position = "fixed";
+                buttonContainer.style.top = "50%";
+                buttonContainer.style.left = "50%";
+                buttonContainer.style.transform = "translate(-50%, -50%)";
+                buttonContainer.style.zIndex = "9999";
+
+                // نكبر كل الأزرار اللي جوه
+                const allButtons = buttonContainer.querySelectorAll('a');
+                allButtons.forEach(btn => {
+                    btn.style.padding = "30px 60px";
+                    btn.style.fontSize = "28px";
+                    btn.style.borderRadius = "20px";
+                });
+
+                // نحط الزرار المعدل في الصفحة
+                document.body.appendChild(buttonContainer);
             }
         });
     }
