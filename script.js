@@ -1290,22 +1290,19 @@
 (function() {
     if (window.location.hostname === "traidmod.org") {
         window.addEventListener('load', function() {
-            let downloadSection = document.getElementById('download_bottom');
-            let downloadButton = document.querySelector('[download-button]');
-
-            if (downloadSection) {
-                cleanPageAndShow(downloadSection);
-            } else if (downloadButton) {
-                cleanPageAndShow(downloadButton);
-            }
-
-            function cleanPageAndShow(element) {
-                document.body.innerHTML = ""; // نمسح كل الصفحة
-
-                let cloneElement = element.cloneNode(true); // ناخد نسخة من الزرار أو القسم
-
-                // نخليه ف نص الشاشة
-                let container = document.createElement('div');
+            // ندور على العداد
+            var counterContainer = document.querySelector('[download-process-box]');
+            var downloadButton = document.querySelector('[download-button]');
+            
+            if (counterContainer && downloadButton) {
+                // نحذف العداد نهائي
+                counterContainer.parentElement.removeChild(counterContainer);
+                
+                // نظهر الزرار
+                downloadButton.classList.remove('hidden');
+                
+                // نعدله ونحطه في النص
+                var container = document.createElement('div');
                 container.style.position = "fixed";
                 container.style.top = "50%";
                 container.style.left = "50%";
@@ -1313,28 +1310,22 @@
                 container.style.zIndex = "9999";
                 container.style.textAlign = "center";
 
-                // نكبر الزرار أو الرابط
-                if (cloneElement.tagName.toLowerCase() === 'a') {
-                    cloneElement.style.padding = "30px 60px";
-                    cloneElement.style.fontSize = "28px";
-                    cloneElement.style.borderRadius = "20px";
-                    cloneElement.style.backgroundColor = "#4CAF50"; // لون زرار
-                    cloneElement.style.color = "#fff";
-                    cloneElement.style.textDecoration = "none";
-                    cloneElement.style.display = "inline-block";
-                } else {
-                    const allButtons = cloneElement.querySelectorAll('a');
-                    allButtons.forEach(btn => {
-                        btn.style.padding = "30px 60px";
-                        btn.style.fontSize = "28px";
-                        btn.style.borderRadius = "20px";
-                    });
-                }
+                downloadButton.style.padding = "20px 50px";
+                downloadButton.style.fontSize = "24px";
+                downloadButton.style.borderRadius = "15px";
+                downloadButton.style.backgroundColor = "#28a745";
+                downloadButton.style.color = "#fff";
+                downloadButton.style.textDecoration = "none";
+                downloadButton.style.display = "inline-flex";
+                downloadButton.style.alignItems = "center";
+                downloadButton.style.justifyContent = "center";
 
-                container.appendChild(cloneElement);
+                container.appendChild(downloadButton);
+                document.body.innerHTML = '';
                 document.body.appendChild(container);
 
-
+                // تضغط عليه أوتوماتيك بعد نص ثانية لو حابب
+                // setTimeout(function() { downloadButton.click(); }, 500);
             }
         });
     }
