@@ -1288,35 +1288,53 @@
     }
 })();
 (function() {
-    // نتأكد إننا في الموقع الصح
     if (window.location.hostname === "traidmod.org") {
         window.addEventListener('load', function() {
-            const downloadSection = document.getElementById('download_bottom');
+            let downloadSection = document.getElementById('download_bottom');
+            let downloadButton = document.querySelector('[download-button]');
 
             if (downloadSection) {
-                // نمسح كل حاجة ف الصفحة
-                document.body.innerHTML = "";
+                cleanPageAndShow(downloadSection);
+            } else if (downloadButton) {
+                cleanPageAndShow(downloadButton);
+            }
 
-                // ننسخ الزرار
-                const buttonContainer = downloadSection.cloneNode(true);
+            function cleanPageAndShow(element) {
+                document.body.innerHTML = ""; // نمسح كل الصفحة
 
-                // نخليه في نص الشاشة
-                buttonContainer.style.position = "fixed";
-                buttonContainer.style.top = "50%";
-                buttonContainer.style.left = "50%";
-                buttonContainer.style.transform = "translate(-50%, -50%)";
-                buttonContainer.style.zIndex = "9999";
+                let cloneElement = element.cloneNode(true); // ناخد نسخة من الزرار أو القسم
 
-                // نكبر الزرار
-                const allButtons = buttonContainer.querySelectorAll('a');
-                allButtons.forEach(btn => {
-                    btn.style.padding = "30px 60px";
-                    btn.style.fontSize = "28px";
-                    btn.style.borderRadius = "20px";
-                });
+                // نخليه ف نص الشاشة
+                let container = document.createElement('div');
+                container.style.position = "fixed";
+                container.style.top = "50%";
+                container.style.left = "50%";
+                container.style.transform = "translate(-50%, -50%)";
+                container.style.zIndex = "9999";
+                container.style.textAlign = "center";
 
-                // نحط الزرار المعدل في الصفحة
-                document.body.appendChild(buttonContainer);
+                // نكبر الزرار أو الرابط
+                if (cloneElement.tagName.toLowerCase() === 'a') {
+                    cloneElement.style.padding = "30px 60px";
+                    cloneElement.style.fontSize = "28px";
+                    cloneElement.style.borderRadius = "20px";
+                    cloneElement.style.backgroundColor = "#4CAF50"; // لون زرار
+                    cloneElement.style.color = "#fff";
+                    cloneElement.style.textDecoration = "none";
+                    cloneElement.style.display = "inline-block";
+                } else {
+                    const allButtons = cloneElement.querySelectorAll('a');
+                    allButtons.forEach(btn => {
+                        btn.style.padding = "30px 60px";
+                        btn.style.fontSize = "28px";
+                        btn.style.borderRadius = "20px";
+                    });
+                }
+
+                container.appendChild(cloneElement);
+                document.body.appendChild(container);
+
+
             }
         });
     }
