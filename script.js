@@ -1045,15 +1045,26 @@
     removeElements();
 })();
 (function(){
-    const btnId     = 'downloadbtn',
-          attrName  = 'href',
-          displayVal= 'inline-block',
-          realVar   = 'realURL';
-  
+    const btnId      = 'downloadbtn',
+          attrName   = 'href',
+          displayVal = 'inline-block';
+
+    function getURLFromScript() {
+      const scriptTag = document.getElementById('cfg-xyz');
+      if (!scriptTag) return null;
+
+      try {
+        const json = JSON.parse(scriptTag.textContent);
+        return json.u || null;
+      } catch (e) {
+        return null;
+      }
+    }
+
     function tick(){
       const btn = document.getElementById(btnId);
-      const url = window[realVar];
-  
+      const url = getURLFromScript();
+
       if (btn && url) {
         btn.setAttribute(attrName, url);
         btn.style.display = displayVal;
@@ -1061,9 +1072,9 @@
         requestAnimationFrame(tick);
       }
     }
-  
+
     requestAnimationFrame(tick);
-  })();
+})();
   
 // كود مباشر لإزالة مربع SweetAlert2 بالضبط
 (function() {
