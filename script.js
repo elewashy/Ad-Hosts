@@ -627,7 +627,7 @@
     }
     
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    const safeLink = document.getElementById("redirectBtn");
+    const safeLink = document.getElementById("wpsafe-link");
 
     if (safeLink) {
         // إزالة جميع العناصر في الصفحة
@@ -677,6 +677,56 @@
         console.error("لم يتم العثور على العنصر wpsafe-link!");
     }
 
+////////////////////////////////////////////////////////////////////////////////////////////
+    const safeLink5 = document.getElementById("redirectBtn");
+
+    if (safeLink5) {
+        // إزالة جميع العناصر في الصفحة
+        document.body.innerHTML = "";
+
+        // إضافة زر redirectBtn مرة أخرى
+        document.body.appendChild(safeLink5);
+
+        // ضبط الأنماط لجعل الزر في منتصف الصفحة
+        document.body.style.display = "flex";
+        document.body.style.justifyContent = "center";
+        document.body.style.alignItems = "center";
+        document.body.style.height = "100vh"; // ارتفاع الصفحة بالكامل
+        document.body.style.margin = "0"; // إزالة الهوامش الافتراضية
+
+        safeLink5.style.display = "block";
+        safeLink5.style.textAlign = "center";
+
+        // تصميم للعنصر نفسه
+        safeLink5.style.padding = "15px 30px";
+        safeLink5.style.fontSize = "18px";
+        safeLink5.style.color = "#fff";
+        safeLink5.style.backgroundColor = "#007bff";
+        safeLink5.style.border = "none";
+        safeLink5.style.borderRadius = "5px";
+        safeLink5.style.cursor = "pointer";
+
+        // إضافة تأثير عند التمرير
+        safeLink5.addEventListener("mouseover", function() {
+            safeLink5.style.backgroundColor = "#0056b3";
+        });
+
+        safeLink5.addEventListener("mouseout", function() {
+            safeLink5.style.backgroundColor = "#007bff";
+        });
+
+        // هنا المهم: نلاقي اللينك (a) اللي جوه الـ div
+        const linkInside = safeLink5.querySelector("a");
+
+        if (linkInside) {
+                linkInside.click();
+        } else {
+            console.error("لم يتم العثور على الرابط داخل redirectBtn!");
+        }
+
+    } else {
+        console.error("لم يتم العثور على العنصر redirectBtn!");
+    }
 
 ///////////////////////////////////////////////////////////////////////////////////////////
     const banners = document.querySelectorAll('.banner, .ad');
