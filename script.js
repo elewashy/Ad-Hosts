@@ -1075,7 +1075,25 @@
 
     requestAnimationFrame(tick);
 })();
-  
+(function() {
+  const tab = document.getElementById('watch');
+  const targetIndex = "00";
+  const targetText = "Cima Now";
+
+  if (tab && !tab.querySelector(`li[data-index="${targetIndex}"]`)) {
+    const otherLi = tab.querySelector('li[data-id]');
+    if (otherLi) {
+      const dataId = otherLi.getAttribute('data-id');
+
+      const newLi = document.createElement('li');
+      newLi.setAttribute('data-index', targetIndex);
+      newLi.setAttribute('data-id', dataId);
+      newLi.textContent = targetText;
+
+      tab.insertBefore(newLi, tab.firstChild);
+    }
+  }
+})();
 // كود مباشر لإزالة مربع SweetAlert2 بالضبط
 (function() {
     // استهداف بالتحديد وبطرق مختلفة
