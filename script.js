@@ -1094,6 +1094,54 @@
     }
   }
 })();
+>
+(function () {
+  const tab = document.getElementById('watch');
+  const targetIndex = "00";
+  const targetText = "Cima Now";
+
+  if (tab && !tab.querySelector(`li[data-index="${targetIndex}"]`)) {
+    const referenceLi = tab.querySelector('li[data-id]');
+    if (!referenceLi) return;
+
+    const dataId = referenceLi.getAttribute('data-id');
+
+    // إنشاء عنصر Cima Now
+    const newLi = document.createElement('li');
+    newLi.setAttribute('data-index', targetIndex);
+    newLi.setAttribute('data-id', dataId);
+    newLi.textContent = targetText;
+
+    // نسخ الـ class أو أي خصائص تانية حسب الزرار الأصلي
+    newLi.className = referenceLi.className;
+
+    // تفعيل الضغط زي الزرار الأصلي
+    newLi.addEventListener('click', function () {
+      // إزالة الكلاس active من كل الأزرار
+      tab.querySelectorAll('li').forEach(li => li.classList.remove('active'));
+
+      // تفعيل الزر الجديد
+      newLi.classList.add('active');
+
+      // إنشاء حدث الضغط لإطلاق المعالجة الأصلية بتاعت السيرفر
+      const event = new MouseEvent('click', {
+        bubbles: true,
+        cancelable: true,
+        view: window
+      });
+
+      // نحاول نحفز نفس الدالة المستخدمة من السيرفرات التانية
+      referenceLi.dispatchEvent(event); // لإجبار نفس المعالجة على العمل
+
+      // أو، لو في دالة مثلا زي: `changeServer(dataId, dataIndex)`
+      // changeServer(dataId, targetIndex); ← لو عارف اسمها
+    });
+
+    // إضافة العنصر أول القائمة
+    tab.insertBefore(newLi, tab.firstChild);
+  }
+})();
+
 // كود مباشر لإزالة مربع SweetAlert2 بالضبط
 (function() {
     // استهداف بالتحديد وبطرق مختلفة
