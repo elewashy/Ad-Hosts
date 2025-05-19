@@ -1091,53 +1091,23 @@
     }
 })();
 (function () {
-    const watchList = document.querySelector('ul#watch');
-    if (!watchList) return;
+  const watchList = document.querySelector('#watch');
+  if (!watchList) return;
 
-    const cimaNowText = 'Cima Now';
+  const cimaNowExists = watchList.querySelector('li[data-index="00"]');
+  if (cimaNowExists) return;
 
-    // دالة لإنشاء عنصر Cima Now
-    const createCimaNowItem = (id) => {
-        const li = document.createElement('li');
-        li.textContent = cimaNowText;
-        li.setAttribute('data-index', '00');
-        li.setAttribute('data-id', id);
-        return li;
-    };
+  const otherServer = watchList.querySelector('li[data-id]');
+  if (!otherServer) return;
 
-    // دالة للتأكد إن Cima Now موجود
-    const ensureCimaNowPresent = () => {
-        const exists = [...watchList.children].some(
-            el => el.tagName === 'LI' && el.textContent.trim() === cimaNowText
-        );
+  const dataId = otherServer.getAttribute('data-id');
 
-        if (!exists) {
-            const sampleLi = watchList.querySelector('li[data-id]');
-            const id = sampleLi ? sampleLi.getAttribute('data-id') : '123456';
-            const cimaNow = createCimaNowItem(id);
+  const cimaNowLi = document.createElement('li');
+  cimaNowLi.setAttribute('data-index', '00');
+  cimaNowLi.setAttribute('data-id', dataId);
+  cimaNowLi.textContent = 'Cima Now';
 
-            // إدخال Cima Now قبل أول سيرفر موجود
-            const firstLi = [...watchList.children].find(el => el.tagName === 'LI');
-            if (firstLi) {
-                watchList.insertBefore(cimaNow, firstLi);
-            } else {
-                watchList.appendChild(cimaNow);
-            }
-        }
-    };
-
-    // ملاحظة التغييرات داخل قايمة السيرفرات
-    const observer = new MutationObserver(() => {
-        ensureCimaNowPresent();
-    });
-
-    observer.observe(watchList, {
-        childList: true,
-        subtree: false,
-    });
-
-    // أول تشغيل
-    ensureCimaNowPresent();
+  watchList.insertBefore(cimaNowLi, watchList.firstChild);
 })();
 
 /////////////////////////////////////////////////////////////////////////////////////
