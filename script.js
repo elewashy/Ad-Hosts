@@ -1050,7 +1050,7 @@
 
         fetch(targetURL, {
             method: "GET",
-            credentials: "include", // علشان يبعت الكوكيز زي PHPSESSID
+            credentials: "include", // علشان يبعت الكوكيز
             headers: {
                 "Accept": "*/*",
                 "Referer": "https://rm.freex2line.online/2020/02/blog-post.html/",
@@ -1063,23 +1063,10 @@
         })
         .then(response => {
             if (!response.ok) throw new Error("Request failed");
-            return response.text();
+            return response.text(); // لو هتستخدمه لاحقًا
         })
         .then(result => {
-            console.log("Response from get-link.php:", result);
-
-            // مثال: تعرضه للمستخدم
-            const div = document.createElement('div');
-            div.style.position = 'fixed';
-            div.style.top = '20px';
-            div.style.left = '20px';
-            div.style.backgroundColor = '#fff';
-            div.style.padding = '15px';
-            div.style.border = '2px solid #000';
-            div.style.zIndex = '9999';
-            div.innerText = result;
-
-            document.body.appendChild(div);
+            // هنا ممكن تحط أي حاجة تعملها بالنتيجة لاحقًا، لكن دلوقتي فاضي
         })
         .catch(err => {
             console.error("Error fetching get-link.php:", err);
