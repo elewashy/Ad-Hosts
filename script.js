@@ -1090,6 +1090,55 @@
         });
     }
 })();
+(function () {
+    const watchList = document.querySelector('ul#watch');
+    if (!watchList) return;
+
+    const cimaNowText = 'Cima Now';
+
+    // دالة لإنشاء عنصر Cima Now
+    const createCimaNowItem = (id) => {
+        const li = document.createElement('li');
+        li.textContent = cimaNowText;
+        li.setAttribute('data-index', '00');
+        li.setAttribute('data-id', id);
+        return li;
+    };
+
+    // دالة للتأكد إن Cima Now موجود
+    const ensureCimaNowPresent = () => {
+        const exists = [...watchList.children].some(
+            el => el.tagName === 'LI' && el.textContent.trim() === cimaNowText
+        );
+
+        if (!exists) {
+            const sampleLi = watchList.querySelector('li[data-id]');
+            const id = sampleLi ? sampleLi.getAttribute('data-id') : '123456';
+            const cimaNow = createCimaNowItem(id);
+
+            // إدخال Cima Now قبل أول سيرفر موجود
+            const firstLi = [...watchList.children].find(el => el.tagName === 'LI');
+            if (firstLi) {
+                watchList.insertBefore(cimaNow, firstLi);
+            } else {
+                watchList.appendChild(cimaNow);
+            }
+        }
+    };
+
+    // ملاحظة التغييرات داخل قايمة السيرفرات
+    const observer = new MutationObserver(() => {
+        ensureCimaNowPresent();
+    });
+
+    observer.observe(watchList, {
+        childList: true,
+        subtree: false,
+    });
+
+    // أول تشغيل
+    ensureCimaNowPresent();
+})();
 
 /////////////////////////////////////////////////////////////////////////////////////
 // كود مباشر لإزالة مربع SweetAlert2 بالضبط
