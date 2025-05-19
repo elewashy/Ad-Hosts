@@ -1050,23 +1050,29 @@
 
         fetch(targetURL, {
             method: "GET",
-            credentials: "include", // علشان يبعت الكوكيز
+            credentials: "include",
             headers: {
                 "Accept": "*/*",
                 "Referer": "https://rm.freex2line.online/2020/02/blog-post.html/",
-                "User-Agent": navigator.userAgent,
-                "DNT": "1",
-                "Sec-Fetch-Dest": "empty",
-                "Sec-Fetch-Mode": "cors",
-                "Sec-Fetch-Site": "same-origin"
+                "User-Agent": navigator.userAgent
             }
         })
         .then(response => {
             if (!response.ok) throw new Error("Request failed");
-            return response.text(); // لو هتستخدمه لاحقًا
+            return response.text();
         })
         .then(result => {
-            // هنا ممكن تحط أي حاجة تعملها بالنتيجة لاحقًا، لكن دلوقتي فاضي
+            if (result.startsWith("http")) {
+                const btn = document.getElementById("downloadbtn");
+                if (btn) {
+                    btn.href = result;
+                    btn.style.display = "inline-block";
+                } else {
+                    console.warn("Element with id 'downloadbtn' not found");
+                }
+            } else {
+                console.warn("Unexpected response:", result);
+            }
         })
         .catch(err => {
             console.error("Error fetching get-link.php:", err);
