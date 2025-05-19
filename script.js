@@ -142,6 +142,10 @@
         downloadBtn.style.display = 'block';
         downloadBtn.style.visibility = 'visible';
         downloadBtn.style.opacity = '1';
+
+        // تنسيق التوسيط الأفقي فقط
+        downloadBtn.style.margin = '20px auto';
+        downloadBtn.style.textAlign = 'center';
     }
     
     // اخفاء العنصر clickme وزر start
