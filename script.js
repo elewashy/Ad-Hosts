@@ -1359,15 +1359,15 @@
 })();
 (function() {
     const interval = setInterval(() => {
-        // دور على الزر اللي فيه "Get Link" ومش معطّل
-        const getLinkButton = document.querySelector('a.get-link:not(.disabled)');
+        // ابحث عن الزر اللي فيه class get-link وميبقاش فيه disabled
+        const button = document.querySelector('a.get-link:not(.disabled)');
 
-        if (getLinkButton && getLinkButton.textContent.trim().toLowerCase().includes("get link")) {
-            console.log("✅ الزر جاهز، بيتم الضغط عليه...");
+        if (button && button.textContent.trim().toLowerCase() === "get link") {
             clearInterval(interval); // وقف التكرار
-            getLinkButton.click();   // اضغط عليه
+            console.log("الزر جاهز... بيتم الضغط عليه");
+            button.click(); // اضغط على الزر
         }
-    }, 500); // كل نصف ثانية
+    }, 500); // كرر كل نصف ثانية
 })();
 
 (function() {
