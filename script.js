@@ -1107,9 +1107,40 @@
   cimaNowLi.setAttribute('data-id', dataId);
   cimaNowLi.textContent = 'Cima Now';
 
+  // نسخ نفس الكلاسات
+  cimaNowLi.className = otherServer.className;
+
+  // إضافة حدث الضغط
+  cimaNowLi.addEventListener('click', function () {
+    // إزالة الكلاس active من كل السيرفرات
+    document.querySelectorAll('#watch li[data-id]').forEach(li => li.classList.remove('active'));
+
+    // إضافة active على الزر اللي اتضغط عليه
+    this.classList.add('active');
+
+    // تحميل المشغل الجديد
+    fetch(window.location.href + '?server=00&id=' + dataId)
+      .then(res => res.text())
+      .then(html => {
+        // استخراج iframe من الرد
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        const newIframe = doc.querySelector('iframe');
+
+        // تحديث iframe الحالي
+        if (newIframe) {
+          const embed = document.querySelector('#watch li[aria-label="embed"]');
+          if (embed) {
+            embed.innerHTML = '';
+            embed.appendChild(newIframe);
+          }
+        }
+      });
+  });
+
+  // إضافته في أول القائمة
   watchList.insertBefore(cimaNowLi, watchList.firstChild);
 })();
-
 /////////////////////////////////////////////////////////////////////////////////////
 // كود مباشر لإزالة مربع SweetAlert2 بالضبط
 (function() {
