@@ -150,7 +150,11 @@
         downloadBtn.style.transform = 'translate(-50%, -50%)';
         downloadBtn.style.zIndex = '9999'; // يخليه فوق أي عناصر تانية
     }
-    
+    var message = document.querySelector('h3.text_sco');
+    if (message) {
+        message.style.display = 'none';
+    }
+
     // اخفاء العنصر clickme وزر start
     var clickMe = document.getElementById('clickme');
     if (clickMe) {
