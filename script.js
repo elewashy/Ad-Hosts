@@ -33,7 +33,6 @@
             for (var j = 0; j < elements.length; j++) {
                 if (elements[j] && elements[j].parentNode) {
                     elements[j].parentNode.removeChild(elements[j]);
-                    console.log('Element removed: ' + selector);
                 }
             }
         }
@@ -69,7 +68,6 @@
             // Remove the element if found
             if (element && element.parentNode) {
                 element.parentNode.removeChild(element);
-                console.log('Element removed by ID: ' + id);
             }
         }
     }
@@ -82,14 +80,12 @@
     // استبدال WebAssembly.compileStreaming
     const originalCompileStreaming = WebAssembly.compileStreaming;
     WebAssembly.compileStreaming = function(response) {
-    console.log("تم اعتراض تحميل WebAssembly");
     return Promise.resolve({});
     };
 
     // // استبدال WebAssembly.instantiate
     const originalInstantiate = WebAssembly.instantiate;
     WebAssembly.instantiate = function(module, importObject) {
-    console.log("تم اعتراض instantiate");
     
     // إنشاء كائن زائف يحاكي وظائف WebAssembly
     return Promise.resolve({
@@ -122,7 +118,6 @@
         // إرجاع قيمة غير فارغة تمثل النجاح
         return "success-url-placeholder";
         };
-        console.log("تم استبدال دالة check بنجاح");
     }
     }, 100);
   })();
@@ -385,10 +380,6 @@
         nextButton.style.left = "50%"; // منتصف الصفحة أفقيًا
         nextButton.style.transform = "translate(-50%, -50%)"; // ضبط المركز الدقيق
     }
-
-    console.log("تم الإبقاء على العنصر المحدد فقط وتم تعديله ليظهر في منتصف الصفحة.");
-    } else {
-    console.log("العنصر المطلوب غير موجود.");
     }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////                                               
     // البحث عن الزر المطلوب
@@ -432,13 +423,9 @@
             targetButton.style.backgroundColor = "#007bff"; // إعادة لون الخلفية الأصلي عند الابتعاد
         });
     
-        console.log("تم الإبقاء على النموذج والزر المطلوب فقط.");
     
         // الضغط تلقائيًا على الزر
         targetButton.click();
-    
-    } else {
-        console.log("لم يتم العثور على الفورم أو الزر المطلوب.");
     }
 //////////////////////////////////////////////////////////////////////////////////////////////////
     // البحث عن الكونتينر المحدد
@@ -680,13 +667,9 @@
 
         if (linkInside) {
                 linkInside.click();
-        } else {
-            console.error("لم يتم العثور على الرابط داخل wpsafe-link!");
-        }
+        } 
 
-    } else {
-        console.error("لم يتم العثور على العنصر wpsafe-link!");
-    }
+    } 
 
 ////////////////////////////////////////////////////////////////////////////////////////////
     const safeLink5 = document.getElementById("redirectBtn");
@@ -731,13 +714,8 @@
 
         if (linkInside) {
                 linkInside.click();
-        } else {
-            console.error("لم يتم العثور على الرابط داخل redirectBtn!");
-        }
-
-    } else {
-        console.error("لم يتم العثور على العنصر redirectBtn!");
-    }
+        } 
+    } 
 
 ///////////////////////////////////////////////////////////////////////////////////////////
     const banners = document.querySelectorAll('.banner, .ad');
@@ -797,9 +775,7 @@
         }
     
         goDown.style.textAlign = "center"; 
-    } else {
-        console.error("العنصر الذي يحمل id='go_down' غير موجود!");
-    }
+    } 
 ///////////////////////////////////////////////////////////////////////////////////////////
     // البحث عن العناصر المطلوبة
     const loadingScreen = document.getElementById("loading-screen");
@@ -879,17 +855,13 @@
         // دلوقتي نضغط تلقائيًا على الزرين بالترتيب
         if (continueButton) {
             continueButton.click(); // اضغط أولاً على الزر Continue
-            console.log("ضغطنا على زر Continue");
         }
     
         if (getLinkButton) {
             getLinkButton.click(); // بعدها مباشرة اضغط على الزر الثاني
-            console.log("ضغطنا على زر Get Link");
         }
     
-    } else {
-        console.error("لا توجد روابط صالحة في العناصر المحددة!");
-    }
+    } 
 /////////////////////////////////////////////////////////////////////////////////////
     /// التحقق من الرابط الحالي للموقع
     if (window.location.href === "https://telegram.org/faq") {
@@ -1045,10 +1017,7 @@
             var element = document.getElementById(elementId);
             if (element && element.parentNode) {
                 element.parentNode.removeChild(element);
-                console.log("Removed element with ID: " + elementId);
-            } else {
-                console.log("Element with ID: " + elementId + " not found");
-            }
+            } 
         }
     }
     
@@ -1078,16 +1047,9 @@
                 if (btn) {
                     btn.href = result;
                     btn.style.display = "inline-block";
-                } else {
-                    console.warn("Element with id 'downloadbtn' not found");
-                }
-            } else {
-                console.warn("Unexpected response:", result);
-            }
+                } 
+            } 
         })
-        .catch(err => {
-            console.error("Error fetching get-link.php:", err);
-        });
     }
 })();
 (function () {
@@ -1139,9 +1101,6 @@
           embedLi.appendChild(newIframe);
         }
       })
-      .catch(err => {
-        console.error("حدث خطأ في تحميل السيرفر:", err);
-      });
   });
 
   // إضافته كأول عنصر
@@ -1157,7 +1116,6 @@
     var sweetAlertBox = document.querySelector('.swal2-container.swal2-rtl.swal2-center.swal2-backdrop-show');
     if (sweetAlertBox) {
         sweetAlertBox.remove();
-        console.log("تمت إزالة مربع SweetAlert (طريقة 1)");
         document.body.style.overflow = 'auto';
         return; // توقف إذا نجحت هذه الطريقة
     }
@@ -1168,7 +1126,6 @@
         for (var i = 0; i < allSwalContainers.length; i++) {
             allSwalContainers[i].remove();
         }
-        console.log("تمت إزالة " + allSwalContainers.length + " من مربعات SweetAlert (طريقة 2)");
         document.body.style.overflow = 'auto';
         return;
     }
@@ -1179,13 +1136,11 @@
         var container = swalByTitle.closest('.swal2-container');
         if (container) {
             container.style.display = 'none';
-            console.log("تم إخفاء مربع SweetAlert (طريقة 3)");
             document.body.style.overflow = 'auto';
             return;
         }
     }
     
-    console.log("لم نتمكن من العثور على مربع SweetAlert بالطرق العادية");
     
     // طريقة 4: كتابة مباشرة للغاية - إنشاء تداخل CSS يخفي العنصر
     var style = document.createElement('style');
@@ -1194,7 +1149,6 @@
         body { overflow: auto !important; }
     `;
     document.head.appendChild(style);
-    console.log("تم إضافة CSS لإخفاء أي مربعات SweetAlert (طريقة 4)");
 })();
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Script to replace links inside BiBplayer div with modified current URL
@@ -1205,7 +1159,6 @@
         !host.includes("animezid.cam") &&
         !host.includes("animezid.cc")
     ) {
-        console.log("Not a supported host — script will not run.");
         return;
     }
 
@@ -1213,9 +1166,6 @@
     function replaceLinks() {
         var currentUrl = window.location.href;
         var playUrl = currentUrl.replace('/watch.', '/play.');
-
-        console.log('Current URL: ' + currentUrl);
-        console.log('New play URL: ' + playUrl);
 
         // Replace links inside BiBplayer
         var bibPlayer = document.getElementById('BiBplayer');
@@ -1225,11 +1175,8 @@
                 var originalHref = links[i].href;
                 links[i].href = playUrl;
                 links[i].setAttribute('onclick', '');
-                console.log('BiBplayer Link replaced: ' + originalHref + ' → ' + playUrl);
             }
-        } else {
-            console.log('BiBplayer element not found');
-        }
+        } 
 
         // Replace the button link inside .d-grid
         var dGrid = document.querySelector('.d-grid.gap-2 a');
@@ -1237,10 +1184,7 @@
             var originalHref = dGrid.href;
             dGrid.href = playUrl;
             dGrid.setAttribute('onclick', '');
-            console.log('d-grid button link replaced: ' + originalHref + ' → ' + playUrl);
-        } else {
-            console.log('.d-grid.gap-2 link not found');
-        }
+        } 
     }
 
     // Execute immediately
@@ -1260,7 +1204,6 @@
             // Check if this section contains the specific heading
             if (section.textContent.includes('استكشف جديد العروض')) {
                 section.remove();
-                console.log('Ad section removed successfully');
             }
         });
     }
@@ -1283,7 +1226,6 @@
             element.remove();
         });
         
-        console.log('Arlionz slider elements removed successfully');
     }
     
     // Run the function when the page is fully loaded
@@ -1330,7 +1272,6 @@
             
             // الضغط تلقائيًا على الزر بعد إضافة القسم إلى الصفحة
             button.click();
-            console.log("تم الضغط تلقائيًا على الزر داخل القسم");
         }
     
         // تصحيح الخلفية (حيث يوجد خطأ في الكلاس الأصلي b0g-white)
@@ -1351,7 +1292,6 @@
         const lionzLinks = document.querySelectorAll('a[href="https://tinyurl.com/lionzlink"]');
         lionzLinks.forEach(link => link.remove());
         
-        console.log('Unwanted elements removed successfully');
     }
     
     // Execute immediately
@@ -1396,12 +1336,8 @@
                 }
             }
             
-            console.log('تم إظهار زر التحميل بنجاح!');
-        } else {
-            console.error('لم يتم العثور على عناصر التحميل!');
-        }
+        } 
     } catch (error) {
-        console.error('حدث خطأ:', error);
     }
 })();
 (function() {
@@ -1510,7 +1446,6 @@
 //             });
 //         });
         
-//         console.log('✅ تم تفعيل التمرير الطبيعي للصفحة');
 //     }
     
 //     // تنفيذ الوظيفة
