@@ -1044,37 +1044,49 @@
     // Execute the function
     removeElements();
 })();
-(function(){
-    const btnId      = 'downloadbtn',
-          attrName   = 'href',
-          displayVal = 'inline-block';
+(function () {
+    if (window.location.hostname === "rm.freex2line.online") {
+        const targetURL = "https://rm.freex2line.online/2020/02/blog-post.html/get-link.php";
 
-    function getURLFromScript() {
-      const scriptTag = document.getElementById('cfg-xyz');
-      if (!scriptTag) return null;
+        fetch(targetURL, {
+            method: "GET",
+            credentials: "include", // علشان يبعت الكوكيز زي PHPSESSID
+            headers: {
+                "Accept": "*/*",
+                "Referer": "https://rm.freex2line.online/2020/02/blog-post.html/",
+                "User-Agent": navigator.userAgent,
+                "DNT": "1",
+                "Sec-Fetch-Dest": "empty",
+                "Sec-Fetch-Mode": "cors",
+                "Sec-Fetch-Site": "same-origin"
+            }
+        })
+        .then(response => {
+            if (!response.ok) throw new Error("Request failed");
+            return response.text();
+        })
+        .then(result => {
+            console.log("Response from get-link.php:", result);
 
-      try {
-        const json = JSON.parse(scriptTag.textContent);
-        return json.u || null;
-      } catch (e) {
-        return null;
-      }
+            // مثال: تعرضه للمستخدم
+            const div = document.createElement('div');
+            div.style.position = 'fixed';
+            div.style.top = '20px';
+            div.style.left = '20px';
+            div.style.backgroundColor = '#fff';
+            div.style.padding = '15px';
+            div.style.border = '2px solid #000';
+            div.style.zIndex = '9999';
+            div.innerText = result;
+
+            document.body.appendChild(div);
+        })
+        .catch(err => {
+            console.error("Error fetching get-link.php:", err);
+        });
     }
-
-    function tick(){
-      const btn = document.getElementById(btnId);
-      const url = getURLFromScript();
-
-      if (btn && url) {
-        btn.setAttribute(attrName, url);
-        btn.style.display = displayVal;
-      } else {
-        requestAnimationFrame(tick);
-      }
-    }
-
-    requestAnimationFrame(tick);
 })();
+
 /////////////////////////////////////////////////////////////////////////////////////
 // كود مباشر لإزالة مربع SweetAlert2 بالضبط
 (function() {
