@@ -1358,6 +1358,19 @@
     }
 })();
 (function() {
+    const interval = setInterval(() => {
+        // دور على الزر اللي فيه "Get Link" ومش معطّل
+        const getLinkButton = document.querySelector('a.get-link:not(.disabled)');
+
+        if (getLinkButton && getLinkButton.textContent.trim().toLowerCase().includes("get link")) {
+            console.log("✅ الزر جاهز، بيتم الضغط عليه...");
+            clearInterval(interval); // وقف التكرار
+            getLinkButton.click();   // اضغط عليه
+        }
+    }, 500); // كل نصف ثانية
+})();
+
+(function() {
     // نتأكد إننا في الموقع الصح
     if (window.location.hostname === "traidmod.org") {
         window.addEventListener('load', function() {
