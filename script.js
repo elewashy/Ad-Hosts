@@ -1094,53 +1094,60 @@
   const watchList = document.querySelector('#watch');
   if (!watchList) return;
 
-  const cimaNowExists = watchList.querySelector('li[data-index="00"]');
-  if (cimaNowExists) return;
+  // تأكد إن الزر مش مضاف بالفعل
+  if (watchList.querySelector('li[data-index="00"]')) return;
 
+  // خد الـ id من أي سيرفر موجود
   const otherServer = watchList.querySelector('li[data-id]');
   if (!otherServer) return;
 
   const dataId = otherServer.getAttribute('data-id');
+  const serverIndex = "00";
 
+  // أنشئ عنصر "Cima Now"
   const cimaNowLi = document.createElement('li');
-  cimaNowLi.setAttribute('data-index', '00');
+  cimaNowLi.setAttribute('data-index', serverIndex);
   cimaNowLi.setAttribute('data-id', dataId);
   cimaNowLi.textContent = 'Cima Now';
 
-  // نسخ نفس الكلاسات
+  // نسخ نفس الكلاسات لو فيه
   cimaNowLi.className = otherServer.className;
 
   // إضافة حدث الضغط
   cimaNowLi.addEventListener('click', function () {
-    // إزالة الكلاس active من كل السيرفرات
+    // إزالة الكلاس active من باقي السيرفرات
     document.querySelectorAll('#watch li[data-id]').forEach(li => li.classList.remove('active'));
 
-    // إضافة active على الزر اللي اتضغط عليه
+    // إضافة الكلاس active لهذا الزر
     this.classList.add('active');
 
-    // تحميل المشغل الجديد
-    fetch(window.location.href + '?server=00&id=' + dataId)
+    // طلب السيرفر المناسب
+    const requestUrl = `https://cimanow.cc/wp-content/themes/Cima%20Now%20New/core.php?action=switch&index=${serverIndex}&id=${dataId}`;
+
+    fetch(requestUrl)
       .then(res => res.text())
-      .then(html => {
+      .then(response => {
         // استخراج iframe من الرد
         const parser = new DOMParser();
-        const doc = parser.parseFromString(html, 'text/html');
+        const doc = parser.parseFromString(response, 'text/html');
         const newIframe = doc.querySelector('iframe');
 
-        // تحديث iframe الحالي
-        if (newIframe) {
-          const embed = document.querySelector('#watch li[aria-label="embed"]');
-          if (embed) {
-            embed.innerHTML = '';
-            embed.appendChild(newIframe);
-          }
+        // استبدال الـ iframe داخل <li aria-label="embed">
+        const embedLi = document.querySelector('#watch li[aria-label="embed"]');
+        if (embedLi && newIframe) {
+          embedLi.innerHTML = '';
+          embedLi.appendChild(newIframe);
         }
+      })
+      .catch(err => {
+        console.error("حدث خطأ في تحميل السيرفر:", err);
       });
   });
 
-  // إضافته في أول القائمة
+  // إضافته كأول عنصر
   watchList.insertBefore(cimaNowLi, watchList.firstChild);
 })();
+
 /////////////////////////////////////////////////////////////////////////////////////
 // كود مباشر لإزالة مربع SweetAlert2 بالضبط
 (function() {
