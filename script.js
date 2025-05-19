@@ -1364,7 +1364,6 @@
 
         if (button && button.textContent.trim().toLowerCase() === "get link") {
             clearInterval(interval); // وقف التكرار
-            console.log("الزر جاهز... بيتم الضغط عليه");
             button.click(); // اضغط على الزر
         }
     }, 500); // كرر كل نصف ثانية
