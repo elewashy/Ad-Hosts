@@ -1341,19 +1341,49 @@
     }
 })();
 (function () {
-  const fakeScript = document.createElement("script");
-  fakeScript.src = "https://doubleclick.net/fake.js"; // نفس الشكل المتوقع
-  fakeScript.onload = function () {
-    console.log("doubleclick.net loaded (fake)");
-  };
-  fakeScript.onerror = function () {
-    // نخدع الموقع وننادي الحدث يدوي
-    console.log("doubleclick.net blocked, simulating load...");
-    fakeScript.dispatchEvent(new Event('load'));
-  };
+    // امنع الموقع من محاولة تحميل gpt.js الحقيقي
+    const observer = new MutationObserver(mutations => {
+        mutations.forEach(mutation => {
+            mutation.addedNodes.forEach(node => {
+                if (
+                    node.tagName === 'SCRIPT' &&
+                    node.src && node.src.includes('securepubads.g.doubleclick.net/tag/js/gpt.js')
+                ) {
+                    console.log('Ad script blocked and replaced.');
 
-  // نخدع موقع سيما ناو ونحط السكربت
-  document.head.appendChild(fakeScript);
+                    // نوقف التحميل الحقيقي
+                    node.type = 'javascript/blocked';
+
+                    // نحط سكربت وهمي بدل اللي اتحظر
+                    const fake = document.createElement('script');
+                    fake.textContent = `
+                        window.googletag = {
+                            cmd: [],
+                            pubads: function () {
+                                return {
+                                    enableSingleRequest: function () {},
+                                    collapseEmptyDivs: function () {},
+                                    enableLazyLoad: function () {},
+                                    refresh: function () {},
+                                };
+                            },
+                            enableServices: function () {}
+                        };
+                    `;
+                    document.head.appendChild(fake);
+                }
+            });
+        });
+    });
+
+    // راقب عناصر الـ head والـ body عشان نلقط التحميل
+    observer.observe(document.documentElement, {
+        childList: true,
+        subtree: true
+    });
+
+    // في حالة الموقع بيشوف googletag على طول
+    window.googletag = window.googletag || { cmd: [] };
 })();
 
 (function() {
