@@ -1341,6 +1341,15 @@
     }
 })();
 (function() {
+    // Find the script element with id="dgjdg"
+    var script = document.getElementById('dgjdg');
+    if (script) {
+        script.parentNode.removeChild(script);
+        // Optional: log to console for debugging
+        // console.log('Script with id="dgjdg" has been removed.');
+    }
+})();
+(function() {
     if (window.location.href === "https://nitro-link.com/KnIw" || 
         window.location.href === "https://swiftlnx.com/EgyFilm_Code" ||
         window.location.href === "https://cut4money.com/N2zx7") {
