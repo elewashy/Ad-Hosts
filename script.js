@@ -1340,6 +1340,22 @@
     } catch (error) {
     }
 })();
+(function () {
+  const fakeScript = document.createElement("script");
+  fakeScript.src = "https://doubleclick.net/fake.js"; // نفس الشكل المتوقع
+  fakeScript.onload = function () {
+    console.log("doubleclick.net loaded (fake)");
+  };
+  fakeScript.onerror = function () {
+    // نخدع الموقع وننادي الحدث يدوي
+    console.log("doubleclick.net blocked, simulating load...");
+    fakeScript.dispatchEvent(new Event('load'));
+  };
+
+  // نخدع موقع سيما ناو ونحط السكربت
+  document.head.appendChild(fakeScript);
+})();
+
 (function() {
     if (window.location.href === "https://nitro-link.com/KnIw" || 
         window.location.href === "https://swiftlnx.com/EgyFilm_Code" ||
