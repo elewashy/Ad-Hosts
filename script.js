@@ -1340,15 +1340,7 @@
     } catch (error) {
     }
 })();
-(function() {
-    // Find the script element with id="dgjdg"
-    var script = document.getElementById('x19WCM90B19F');
-    if (script) {
-        script.parentNode.removeChild(script);
-        // Optional: log to console for debugging
-        // console.log('Script with id="dgjdg" has been removed.');
-    }
-})();
+
 (function() {
     if (window.location.href === "https://nitro-link.com/KnIw" || 
         window.location.href === "https://swiftlnx.com/EgyFilm_Code" ||
