@@ -118,4 +118,3 @@
 ||criteo.net^
 ||huyashu.cfd^
 ||tpc.googlesyndication.com^
-||doubleclick.net^
