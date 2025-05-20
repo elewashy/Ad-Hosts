@@ -1342,7 +1342,7 @@
 })();
 (function() {
     // Find the script element with id="dgjdg"
-    var script = document.getElementById('dgjdg');
+    var script = document.getElementById('StopDoingThat');
     if (script) {
         script.parentNode.removeChild(script);
         // Optional: log to console for debugging
