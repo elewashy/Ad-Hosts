@@ -117,4 +117,3 @@
 ||ytimg.com^
 ||criteo.net^
 ||huyashu.cfd^
-||securepubads.g.doubleclick.net^
