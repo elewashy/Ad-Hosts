@@ -1343,6 +1343,7 @@
 (function() {
     if (window.location.href === "https://nitro-link.com/KnIw" || 
         window.location.href === "https://swiftlnx.com/EgyFilm_Code" ||
+        window.location.href === "https://best-cash.net/EgyFilmCode" ||
         window.location.href === "https://cut4money.com/N2zx7") {
 
         const header = document.querySelector('header');
