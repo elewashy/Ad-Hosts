@@ -119,3 +119,4 @@
 ||tpc.googlesyndication.com^
 ||swiftlnx.com^
 ||cut4money.com^
+||doubleclick.net$domain=cimanow.cc
