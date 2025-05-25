@@ -119,4 +119,3 @@
 ||tpc.googlesyndication.com^
 ||swiftlnx.com^
 ||cut4money.com^
-||doubleclick.net^->validurl=cimanow.cc
