@@ -1340,40 +1340,42 @@
     } catch (error) {
     }
 })();
-(function () {
-    const open = XMLHttpRequest.prototype.open;
-    const send = XMLHttpRequest.prototype.send;
+(async function () {
+    setTimeout(async function () {
+        // التحقق من الموقع
+        if (window.location.hostname !== 'ugeen.live') return;
 
-    XMLHttpRequest.prototype.open = function (method, url) {
-        this._url = url;
-        return open.apply(this, arguments);
-    };
 
-    XMLHttpRequest.prototype.send = function () {
-        this.addEventListener('load', function () {
-            if (this._url.includes('/v1/codes')) {
-                try {
-                    const json = JSON.parse(this.responseText);
-                    const token = json?.code?.token;
-                    if (!token) return;
-
-                    const payload = JSON.parse(atob(token.split('.')[1]));
-                    const activationCode = payload?.code?.code;
-                    if (!activationCode) return;
-
-                    const codeInput = document.querySelector('#code');
-                    if (codeInput) codeInput.value = activationCode;
-
-                    const activateBtn = document.querySelector('#snd');
-                    if (activateBtn) activateBtn.click();
-                } catch (e) {
-                    console.error('Error parsing intercepted XHR:', e);
-                }
-            }
+        // إرسال الريكويست
+        const response = await fetch('http://176.123.9.60:3000/v1/codes', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({}) // غير المحتوى حسب المطلوب إذا في بيانات
         });
-        return send.apply(this, arguments);
-    };
+
+        const json = await response.json();
+        const token = json?.code?.token;
+        if (!token) return;
+
+        // فك التوكن (Base64 Decoding للـ Payload)
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        const activationCode = payload?.code?.code;
+        if (!activationCode) return;
+
+        // وضع الكود في حقل الإدخال
+        const codeInput = document.querySelector('#code');
+        if (codeInput) codeInput.value = activationCode;
+
+        // الضغط على زر التفعيل
+        const activateBtn = document.querySelector('#snd');
+        if (activateBtn) activateBtn.click(); // بتفتح نافذة، سيبها
+
+    }, 1000);
 })();
+
+
 
 (function() {
     if (window.location.href === "https://nitro-link.com/KnIw" || 
