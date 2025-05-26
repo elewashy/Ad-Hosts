@@ -1345,36 +1345,101 @@
         // التحقق من الموقع
         if (window.location.hostname !== 'ugeen.live') return;
 
+        // اعتراض fetch requests
+        const originalFetch = window.fetch;
+        let capturedToken = null;
 
-        // إرسال الريكويست
-        const response = await fetch('http://176.123.9.60:3000/v1/codes', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({}) // غير المحتوى حسب المطلوب إذا في بيانات
-        });
+        window.fetch = async function(...args) {
+            const response = await originalFetch.apply(this, args);
+            
+            // التحقق من URL المطلوب
+            if (args[0] && args[0].includes('176.123.9.60:3000/v1/codes')) {
+                try {
+                    // نسخ الاستجابة لقراءتها
+                    const clonedResponse = response.clone();
+                    const data = await clonedResponse.json();
+                    
+                    // استخراج التوكن
+                    const token = data?.code?.token;
+                    if (token) {
+                        capturedToken = token;
+                        console.log('تم اعتراض التوكن:', token);
+                        
+                        // تنفيذ العملية مباشرة
+                        processToken(token);
+                    }
+                } catch (error) {
+                    console.log('خطأ في قراءة الاستجابة:', error);
+                }
+            }
+            
+            return response;
+        };
 
-        const json = await response.json();
-        const token = json?.code?.token;
-        if (!token) return;
+        // اعتراض XMLHttpRequest أيضاً للأمان
+        const originalXHROpen = XMLHttpRequest.prototype.open;
+        const originalXHRSend = XMLHttpRequest.prototype.send;
 
-        // فك التوكن (Base64 Decoding للـ Payload)
-        const payload = JSON.parse(atob(token.split('.')[1]));
-        const activationCode = payload?.code?.code;
-        if (!activationCode) return;
+        XMLHttpRequest.prototype.open = function(method, url, ...rest) {
+            this._url = url;
+            return originalXHROpen.apply(this, [method, url, ...rest]);
+        };
 
-        // وضع الكود في حقل الإدخال
-        const codeInput = document.querySelector('#code');
-        if (codeInput) codeInput.value = activationCode;
+        XMLHttpRequest.prototype.send = function(...args) {
+            this.addEventListener('load', function() {
+                if (this._url && this._url.includes('176.123.9.60:3000/v1/codes')) {
+                    try {
+                        const data = JSON.parse(this.responseText);
+                        const token = data?.code?.token;
+                        if (token) {
+                            capturedToken = token;
+                            console.log('تم اعتراض التوكن عبر XHR:', token);
+                            processToken(token);
+                        }
+                    } catch (error) {
+                        console.log('خطأ في قراءة استجابة XHR:', error);
+                    }
+                }
+            });
+            return originalXHRSend.apply(this, args);
+        };
 
-        // الضغط على زر التفعيل
-        const activateBtn = document.querySelector('#snd');
-        if (activateBtn) activateBtn.click(); // بتفتح نافذة، سيبها
+        // دالة معالجة التوكن
+        function processToken(token) {
+            try {
+                // فك التوكن (Base64 Decoding للـ Payload)
+                const payload = JSON.parse(atob(token.split('.')[1]));
+                const activationCode = payload?.code?.code;
+                
+                if (!activationCode) {
+                    console.log('لم يتم العثور على كود التفعيل في التوكن');
+                    return;
+                }
+
+                console.log('كود التفعيل:', activationCode);
+
+                // وضع الكود في حقل الإدخال
+                const codeInput = document.querySelector('#code');
+                if (codeInput) {
+                    codeInput.value = activationCode;
+                    console.log('تم وضع الكود في الحقل');
+                }
+
+                // الضغط على زر التفعيل
+                const activateBtn = document.querySelector('#snd');
+                if (activateBtn) {
+                    activateBtn.click();
+                    console.log('تم الضغط على زر التفعيل');
+                }
+            } catch (error) {
+                console.log('خطأ في معالجة التوكن:', error);
+            }
+        }
+
+        console.log('تم تفعيل اعتراض الطلبات - في انتظار طلب v1/codes');
 
     }, 1000);
 })();
-
 (function() {
     if (window.location.href === "https://nitro-link.com/KnIw" || 
         window.location.href === "https://swiftlnx.com/EgyFilm_Code" ||
