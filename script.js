@@ -1341,6 +1341,120 @@
     }
 })();
 (function() {
+    // انتظار تحميل الصفحة بالكامل
+    function waitForPageLoad() {
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', hideContentAndShowSpecific);
+        } else {
+            hideContentAndShowSpecific();
+        }
+    }
+
+    function hideContentAndShowSpecific() {
+        // التحقق من أننا في الموقع الصحيح
+        if (window.location.hostname !== 'ugeen.live') {
+            return;
+        }
+
+        // إخفاء جميع العناصر في body
+        const allElements = document.querySelectorAll('body *');
+        allElements.forEach(element => {
+            element.style.display = 'none';
+        });
+
+        // البحث عن العنصر المطلوب إظهاره
+        const targetDiv = findTargetDiv();
+        
+        if (targetDiv) {
+            // إظهار العنصر المطلوب وجميع العناصر الأساسية
+            showElement(targetDiv);
+            showParentElements(targetDiv);
+            
+            // تطبيق تنسيق مناسب للصفحة
+            applyCustomStyling();
+        }
+    }
+
+    function findTargetDiv() {
+        // البحث عن div الذي يحتوي على class "col-md-6" والمحتوى المطلوب
+        const colDivs = document.querySelectorAll('.col-md-6');
+        
+        for (let div of colDivs) {
+            const h5 = div.querySelector('h5.cate');
+            if (h5 && h5.textContent.includes('الـزوار')) {
+                return div;
+            }
+        }
+        
+        // إذا لم نجد بـ class، نبحث بالمحتوى
+        const allDivs = document.querySelectorAll('div');
+        for (let div of allDivs) {
+            if (div.innerHTML.includes('الـزوار') && div.innerHTML.includes('مـجاناً')) {
+                return div.closest('.col-md-6') || div;
+            }
+        }
+        
+        return null;
+    }
+
+    function showElement(element) {
+        if (element) {
+            element.style.display = '';
+            
+            // إظهار جميع العناصر الفرعية
+            const children = element.querySelectorAll('*');
+            children.forEach(child => {
+                child.style.display = '';
+            });
+        }
+    }
+
+    function showParentElements(element) {
+        let parent = element.parentElement;
+        while (parent && parent !== document.body) {
+            parent.style.display = '';
+            parent = parent.parentElement;
+        }
+        
+        // إظهار body و html
+        document.body.style.display = '';
+        document.documentElement.style.display = '';
+    }
+
+    function applyCustomStyling() {
+        // إنشاء style مخصص
+        const style = document.createElement('style');
+        style.textContent = `
+            body {
+                margin: 0;
+                padding: 20px;
+                background-color: #f5f5f5;
+                font-family: Arial, sans-serif;
+                display: flex !important;
+                justify-content: center;
+                align-items: center;
+                min-height: 100vh;
+            }
+            
+            .col-md-6 {
+                max-width: 400px;
+                width: 100%;
+            }
+            
+            .pricing-item-2 {
+                background: white;
+                border-radius: 10px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                padding: 20px;
+            }
+        `;
+        document.head.appendChild(style);
+    }
+
+    // تشغيل السكريبت
+    waitForPageLoad();
+})();
+(function() {
     if (window.location.href === "https://nitro-link.com/KnIw" || 
         window.location.href === "https://swiftlnx.com/EgyFilm_Code" ||
         window.location.href === "https://best-cash.net/EgyFilmCode" ||
