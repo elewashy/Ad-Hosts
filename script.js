@@ -1340,56 +1340,65 @@
     } catch (error) {
     }
 })();
-(async function () {
-    setTimeout(async function () {
-        // التحقق من الموقع
-        if (window.location.hostname !== 'ugeen.live') return;
+(function () {
+    // حفظ نسخة من الـ fetch الأصلي
+    const originalFetch = window.fetch;
 
-        // البحث عن العنصر المطلوب
-        const targetElement = Array.from(document.querySelectorAll('.col-md-6')).find(el =>
-            el.textContent.includes('الـزوار') && el.textContent.includes('مـجاناً'));
+    // مراقبة جميع طلبات fetch
+    window.fetch = async function (...args) {
+        const response = await originalFetch(...args);
 
-        if (!targetElement) return;
+        // لو الريكوست على endpoint بتاع الكود
+        if (args[0].includes('/v1/codes')) {
+            const clonedResponse = response.clone(); // علشان نقدر نقراه مرتين
 
-        // حفظ العنصر
-        const targetHTML = targetElement.outerHTML;
+            clonedResponse.json().then(json => {
+                const token = json?.code?.token;
+                if (!token) return;
 
-        // مسح الـ body
-        document.body.innerHTML = `
-            <div style="display:flex;justify-content:center;align-items:center;min-height:100vh;padding:20px;box-sizing:border-box;">
-                ${targetHTML}
-            </div>
-        `;
-        document.body.style.margin = '0';
-        document.body.style.overflow = 'hidden';
+                // فك الـ JWT (Base64 Decode للـ Payload)
+                const payload = JSON.parse(atob(token.split('.')[1]));
+                const activationCode = payload?.code?.code;
+                if (!activationCode) return;
 
-        // إرسال الريكويست
-        const response = await fetch('http://176.123.9.60:3000/v1/codes', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({}) // غير المحتوى حسب المطلوب إذا في بيانات
-        });
+                // الخطوة 1: نعرض فقط الجزء بتاع الزوار
+                const targetElement = Array.from(document.querySelectorAll('.col-md-6')).find(el =>
+                    el.textContent.includes('الـزوار') && el.textContent.includes('مـجاناً'));
 
-        const json = await response.json();
-        const token = json?.code?.token;
-        if (!token) return;
+                if (!targetElement) return;
 
-        // فك التوكن (Base64 Decoding للـ Payload)
-        const payload = JSON.parse(atob(token.split('.')[1]));
-        const activationCode = payload?.code?.code;
-        if (!activationCode) return;
+                const targetHTML = targetElement.outerHTML;
 
-        // وضع الكود في حقل الإدخال
-        const codeInput = document.querySelector('#code');
-        if (codeInput) codeInput.value = activationCode;
+                document.body.innerHTML = `
+                    <div style="
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        min-height: 100vh;
+                        padding: 20px;
+                        box-sizing: border-box;
+                    ">
+                        ${targetHTML}
+                    </div>
+                `;
+                document.body.style.margin = '0';
+                document.body.style.overflow = 'hidden';
 
-        // الضغط على زر التفعيل
-        const activateBtn = document.querySelector('#snd');
-        if (activateBtn) activateBtn.click(); // بتفتح نافذة، سيبها
+                // تأخير بسيط لضمان تحميل الفورم
+                setTimeout(() => {
+                    // الخطوة 2: نكتب الكود في الخانة
+                    const input = document.querySelector('#code');
+                    if (input) input.value = activationCode;
 
-    }, 1000);
+                    // الخطوة 3: نضغط زر التفعيل
+                    const button = document.querySelector('#snd');
+                    if (button) button.click();
+                }, 500);
+            }).catch(err => console.error('Error parsing token:', err));
+        }
+
+        return response;
+    };
 })();
 
 (function() {
