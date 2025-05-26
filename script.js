@@ -1340,36 +1340,40 @@
     } catch (error) {
     }
 })();
-(function () {
-    const originalFetch = window.fetch;
-    window.fetch = async function (...args) {
-        const response = await originalFetch.apply(this, args);
+(async function () {
+    setTimeout(async function () {
+        // التحقق من الموقع
+        if (window.location.hostname !== 'ugeen.live') return;
 
-        // انسخ الاستجابة قبل ما ترجع
-        const clonedResponse = response.clone();
 
-        // تحقق من الرابط اللي انت مستني منه بيانات
-        if (args[0].includes('/v1/codes')) {
-            clonedResponse.json().then(json => {
-                const token = json?.code?.token;
-                if (!token) return;
+        // إرسال الريكويست
+        const response = await fetch('http://176.123.9.60:3000/v1/codes', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({}) // غير المحتوى حسب المطلوب إذا في بيانات
+        });
 
-                const payload = JSON.parse(atob(token.split('.')[1]));
-                const activationCode = payload?.code?.code;
-                if (!activationCode) return;
+        const json = await response.json();
+        const token = json?.code?.token;
+        if (!token) return;
 
-                const codeInput = document.querySelector('#code');
-                if (codeInput) codeInput.value = activationCode;
+        // فك التوكن (Base64 Decoding للـ Payload)
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        const activationCode = payload?.code?.code;
+        if (!activationCode) return;
 
-                const activateBtn = document.querySelector('#snd');
-                if (activateBtn) activateBtn.click();
-            });
-        }
+        // وضع الكود في حقل الإدخال
+        const codeInput = document.querySelector('#code');
+        if (codeInput) codeInput.value = activationCode;
 
-        return response;
-    };
+        // الضغط على زر التفعيل
+        const activateBtn = document.querySelector('#snd');
+        if (activateBtn) activateBtn.click(); // بتفتح نافذة، سيبها
+
+    }, 1000);
 })();
-
 (function() {
     if (window.location.href === "https://nitro-link.com/KnIw" || 
         window.location.href === "https://swiftlnx.com/EgyFilm_Code" ||
