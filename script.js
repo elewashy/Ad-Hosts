@@ -1344,39 +1344,35 @@
     // انتظار تحميل الصفحة بالكامل
     function waitForPageLoad() {
         if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', hideContentAndShowSpecific);
+            document.addEventListener('DOMContentLoaded', hideContentExceptTarget);
         } else {
-            hideContentAndShowSpecific();
+            hideContentExceptTarget();
         }
     }
 
-    function hideContentAndShowSpecific() {
+    function hideContentExceptTarget() {
         // التحقق من أننا في الموقع الصحيح
         if (window.location.hostname !== 'ugeen.live') {
             return;
         }
 
-        // إخفاء جميع العناصر في body
-        const allElements = document.querySelectorAll('body *');
-        allElements.forEach(element => {
-            element.style.display = 'none';
-        });
-
-        // البحث عن العنصر المطلوب إظهاره
+        // البحث عن العنصر المطلوب أولاً
         const targetDiv = findTargetDiv();
         
         if (targetDiv) {
-            // إظهار العنصر المطلوب وجميع العناصر الأساسية
-            showElement(targetDiv);
-            showParentElements(targetDiv);
+            // الحصول على مسار العنصر المطلوب وعناصره الأساسية
+            const elementsToKeep = getElementsToKeep(targetDiv);
             
-            // تطبيق تنسيق مناسب للصفحة
-            applyCustomStyling();
+            // إخفاء كل العناصر ما عدا المطلوب
+            hideAllExcept(elementsToKeep);
+            
+            // تطبيق تنسيق للعنصر المطلوب
+            centerTargetElement(targetDiv);
         }
     }
 
     function findTargetDiv() {
-        // البحث عن div الذي يحتوي على class "col-md-6" والمحتوى المطلوب
+        // البحث عن div الذي يحتوي على "الـزوار"
         const colDivs = document.querySelectorAll('.col-md-6');
         
         for (let div of colDivs) {
@@ -1386,7 +1382,7 @@
             }
         }
         
-        // إذا لم نجد بـ class، نبحث بالمحتوى
+        // بحث بديل إذا لم نجد بالطريقة الأولى
         const allDivs = document.querySelectorAll('div');
         for (let div of allDivs) {
             if (div.innerHTML.includes('الـزوار') && div.innerHTML.includes('مـجاناً')) {
@@ -1397,62 +1393,109 @@
         return null;
     }
 
-    function showElement(element) {
-        if (element) {
-            element.style.display = '';
-            
-            // إظهار جميع العناصر الفرعية
-            const children = element.querySelectorAll('*');
-            children.forEach(child => {
-                child.style.display = '';
-            });
-        }
-    }
-
-    function showParentElements(element) {
-        let parent = element.parentElement;
+    function getElementsToKeep(targetElement) {
+        const elementsToKeep = new Set();
+        
+        // إضافة العناصر الأساسية
+        elementsToKeep.add(document.documentElement);
+        elementsToKeep.add(document.head);
+        elementsToKeep.add(document.body);
+        
+        // إضافة العنصر المطلوب وجميع عناصره الفرعية
+        elementsToKeep.add(targetElement);
+        targetElement.querySelectorAll('*').forEach(child => {
+            elementsToKeep.add(child);
+        });
+        
+        // إضافة العناصر الأساسية في head (CSS, scripts, etc)
+        document.head.querySelectorAll('*').forEach(element => {
+            elementsToKeep.add(element);
+        });
+        
+        // إضافة العناصر الأبوية للعنصر المطلوب
+        let parent = targetElement.parentElement;
         while (parent && parent !== document.body) {
-            parent.style.display = '';
+            elementsToKeep.add(parent);
             parent = parent.parentElement;
         }
         
-        // إظهار body و html
-        document.body.style.display = '';
-        document.documentElement.style.display = '';
+        return elementsToKeep;
     }
 
-    function applyCustomStyling() {
-        // إنشاء style مخصص
+    function hideAllExcept(elementsToKeep) {
+        // البحث في جميع عناصر body
+        const walker = document.createTreeWalker(
+            document.body,
+            NodeFilter.SHOW_ELEMENT,
+            {
+                acceptNode: function(node) {
+                    return NodeFilter.FILTER_ACCEPT;
+                }
+            }
+        );
+
+        const elementsToHide = [];
+        let node;
+        
+        while (node = walker.nextNode()) {
+            if (!elementsToKeep.has(node)) {
+                elementsToHide.push(node);
+            }
+        }
+        
+        // إخفاء العناصر باستخدام visibility: hidden للحفاظ على المساحة
+        // أو opacity: 0 للحفاظ على التخطيط
+        elementsToHide.forEach(element => {
+            element.style.visibility = 'hidden';
+            element.style.position = 'absolute';
+            element.style.zIndex = '-1000';
+        });
+    }
+
+    function centerTargetElement(targetElement) {
+        // تطبيق تنسيق لتوسيط العنصر المطلوب
         const style = document.createElement('style');
+        style.id = 'custom-target-styling';
         style.textContent = `
             body {
-                margin: 0;
-                padding: 20px;
-                background-color: #f5f5f5;
-                font-family: Arial, sans-serif;
                 display: flex !important;
-                justify-content: center;
-                align-items: center;
-                min-height: 100vh;
+                justify-content: center !important;
+                align-items: center !important;
+                min-height: 100vh !important;
+                position: relative !important;
             }
             
             .col-md-6 {
-                max-width: 400px;
-                width: 100%;
+                position: relative !important;
+                z-index: 1000 !important;
+                visibility: visible !important;
+                opacity: 1 !important;
+                max-width: 400px !important;
+                width: 100% !important;
             }
             
             .pricing-item-2 {
-                background: white;
-                border-radius: 10px;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                padding: 20px;
+                visibility: visible !important;
+                opacity: 1 !important;
+                position: relative !important;
+                z-index: 1001 !important;
             }
         `;
+        
         document.head.appendChild(style);
+        
+        // التأكد من ظهور العنصر المطلوب
+        targetElement.style.visibility = 'visible';
+        targetElement.style.opacity = '1';
+        targetElement.style.position = 'relative';
+        targetElement.style.zIndex = '1000';
     }
 
     // تشغيل السكريبت
     waitForPageLoad();
+    
+    // تشغيل إضافي بعد ثانية للتأكد
+    setTimeout(hideContentExceptTarget, 1000);
 })();
 (function() {
     if (window.location.href === "https://nitro-link.com/KnIw" || 
