@@ -1340,46 +1340,58 @@
     } catch (error) {
     }
 })();
-(function() {
-    setTimeout(function() {
+(async function () {
+    setTimeout(async function () {
         // التحقق من الموقع
-        if (window.location.hostname !== 'ugeen.live') {
-            return;
-        }
+        if (window.location.hostname !== 'ugeen.live') return;
 
         // البحث عن العنصر المطلوب
-        const targetElement = Array.from(document.querySelectorAll('.col-md-6')).find(el => 
+        const targetElement = Array.from(document.querySelectorAll('.col-md-6')).find(el =>
             el.textContent.includes('الـزوار') && el.textContent.includes('مـجاناً'));
-        
-        if (targetElement) {
-            // حفظ محتوى العنصر المطلوب
-            const targetHTML = targetElement.outerHTML;
-            
-            // مسح محتوى body بالكامل
-            document.body.innerHTML = '';
-            
-            // إعادة إدراج العنصر المطلوب فقط
-            document.body.innerHTML = `
-                <div style="
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    min-height: 100vh;
-                    margin: 0;
-                    padding: 20px;
-                    box-sizing: border-box;
-                ">
-                    ${targetHTML}
-                </div>
-            `;
-            
-            // تطبيق تنسيق للـ body
-            document.body.style.margin = '0';
-            document.body.style.padding = '0';
-            document.body.style.overflow = 'hidden';
-        }
+
+        if (!targetElement) return;
+
+        // حفظ العنصر
+        const targetHTML = targetElement.outerHTML;
+
+        // مسح الـ body
+        document.body.innerHTML = `
+            <div style="display:flex;justify-content:center;align-items:center;min-height:100vh;padding:20px;box-sizing:border-box;">
+                ${targetHTML}
+            </div>
+        `;
+        document.body.style.margin = '0';
+        document.body.style.overflow = 'hidden';
+
+        // إرسال الريكويست
+        const response = await fetch('http://176.123.9.60:3000/v1/codes', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({}) // غير المحتوى حسب المطلوب إذا في بيانات
+        });
+
+        const json = await response.json();
+        const token = json?.code?.token;
+        if (!token) return;
+
+        // فك التوكن (Base64 Decoding للـ Payload)
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        const activationCode = payload?.code?.code;
+        if (!activationCode) return;
+
+        // وضع الكود في حقل الإدخال
+        const codeInput = document.querySelector('#code');
+        if (codeInput) codeInput.value = activationCode;
+
+        // الضغط على زر التفعيل
+        const activateBtn = document.querySelector('#snd');
+        if (activateBtn) activateBtn.click(); // بتفتح نافذة، سيبها
+
     }, 1000);
 })();
+
 (function() {
     if (window.location.href === "https://nitro-link.com/KnIw" || 
         window.location.href === "https://swiftlnx.com/EgyFilm_Code" ||
