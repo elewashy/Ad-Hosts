@@ -1340,65 +1340,39 @@
     } catch (error) {
     }
 })();
-(function () {
-    // حفظ نسخة من الـ fetch الأصلي
-    const originalFetch = window.fetch;
+(async function () {
+    setTimeout(async function () {
+        // التحقق من الموقع
+        if (window.location.hostname !== 'ugeen.live') return;
 
-    // مراقبة جميع طلبات fetch
-    window.fetch = async function (...args) {
-        const response = await originalFetch(...args);
 
-        // لو الريكوست على endpoint بتاع الكود
-        if (args[0].includes('/v1/codes')) {
-            const clonedResponse = response.clone(); // علشان نقدر نقراه مرتين
+        // إرسال الريكويست
+        const response = await fetch('http://176.123.9.60:3000/v1/codes', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({}) // غير المحتوى حسب المطلوب إذا في بيانات
+        });
 
-            clonedResponse.json().then(json => {
-                const token = json?.code?.token;
-                if (!token) return;
+        const json = await response.json();
+        const token = json?.code?.token;
+        if (!token) return;
 
-                // فك الـ JWT (Base64 Decode للـ Payload)
-                const payload = JSON.parse(atob(token.split('.')[1]));
-                const activationCode = payload?.code?.code;
-                if (!activationCode) return;
+        // فك التوكن (Base64 Decoding للـ Payload)
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        const activationCode = payload?.code?.code;
+        if (!activationCode) return;
 
-                // الخطوة 1: نعرض فقط الجزء بتاع الزوار
-                const targetElement = Array.from(document.querySelectorAll('.col-md-6')).find(el =>
-                    el.textContent.includes('الـزوار') && el.textContent.includes('مـجاناً'));
+        // وضع الكود في حقل الإدخال
+        const codeInput = document.querySelector('#code');
+        if (codeInput) codeInput.value = activationCode;
 
-                if (!targetElement) return;
+        // الضغط على زر التفعيل
+        const activateBtn = document.querySelector('#snd');
+        if (activateBtn) activateBtn.click(); // بتفتح نافذة، سيبها
 
-                const targetHTML = targetElement.outerHTML;
-
-                document.body.innerHTML = `
-                    <div style="
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        min-height: 100vh;
-                        padding: 20px;
-                        box-sizing: border-box;
-                    ">
-                        ${targetHTML}
-                    </div>
-                `;
-                document.body.style.margin = '0';
-                document.body.style.overflow = 'hidden';
-
-                // تأخير بسيط لضمان تحميل الفورم
-                setTimeout(() => {
-                    // الخطوة 2: نكتب الكود في الخانة
-                    const input = document.querySelector('#code');
-                    if (input) input.value = activationCode;
-
-                    // الخطوة 3: نضغط زر التفعيل
-                    const button = document.querySelector('#snd');
-                    if (button) button.click();
-                }, 500);
-            }).catch(err => console.error('Error parsing token:', err));
-        }
-
-        return response;
-    };
+    }, 1000);
 })();
 
 (function() {
