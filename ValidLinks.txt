@@ -116,6 +116,7 @@
 ||googleapis.com^
 ||ytimg.com^
 ||huyashu.cfd^
+||tpc.googlesyndication.com^
 ||swiftlnx.com^
 ||cut4money.com^
 ||securepubads.g.doubleclick.net^
