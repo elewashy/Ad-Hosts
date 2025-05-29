@@ -1025,47 +1025,60 @@
     removeElements();
 })();
 (function () { 
-    if (window.location.hostname === "rm.freex2line.online") {
-        // البحث عن العنصر الذي يحتوي على التوكين
-        const downloadBtn = document.getElementById("downloadbtn");
-        
-        if (downloadBtn) {
-            // استخراج التوكين من الـ data-token attribute
-            const token = downloadBtn.getAttribute("data-token");
+    function initializeScript() {
+        if (window.location.hostname === "rm.freex2line.online") {
+            // البحث عن العنصر الذي يحتوي على التوكين
+            const downloadBtn = document.getElementById("downloadbtn");
             
-            if (token) {
-                // إنشاء رابط الـ API مع التوكين
-                const targetURL = `https://rm.freex2line.online/2020/02/blog-post.html/get-link.php?token=${token}`;
+            if (downloadBtn) {
+                // استخراج التوكين من الـ data-token attribute
+                const token = downloadBtn.getAttribute("data-token");
+                
+                if (token) {
+                    // إنشاء رابط الـ API مع التوكين
+                    const targetURL = `https://rm.freex2line.online/2020/02/blog-post.html/get-link.php?token=${token}`;
 
-                fetch(targetURL, {
-                    method: "GET",
-                    credentials: "include",
-                    headers: {
-                    }
-                })
-                .then(response => {
-                    if (!response.ok) throw new Error("Request failed");
-                    return response.text();
-                })
-                .then(result => {
-                    if (result.startsWith("http")) {
-                        // تحديث الرابط في نفس العنصر
-                        downloadBtn.href = result;
-                        downloadBtn.style.display = "inline-block";
-                        console.log("تم تحديث الرابط بنجاح:", result);
-                    } else {
-                        console.log("الاستجابة غير صالحة:", result);
-                    }
-                })
-                .catch(error => {
-                    console.error("خطأ في جلب الرابط:", error);
-                });
+                    fetch(targetURL, {
+                        method: "GET",
+                        credentials: "include",
+                        headers: {
+                            "Accept": "*/*",
+                            "Referer": "https://rm.freex2line.online/2020/02/blog-post.html/",
+                            "User-Agent": navigator.userAgent
+                        }
+                    })
+                    .then(response => {
+                        if (!response.ok) throw new Error("Request failed");
+                        return response.text();
+                    })
+                    .then(result => {
+                        if (result.startsWith("http")) {
+                            // تحديث الرابط في نفس العنصر
+                            downloadBtn.href = result;
+                            downloadBtn.style.display = "inline-block";
+                            console.log("تم تحديث الرابط بنجاح:", result);
+                        } else {
+                            console.log("الاستجابة غير صالحة:", result);
+                        }
+                    })
+                    .catch(error => {
+                        console.error("خطأ في جلب الرابط:", error);
+                    });
+                } else {
+                    console.error("لم يتم العثور على التوكين في العنصر");
+                }
             } else {
-                console.error("لم يتم العثور على التوكين في العنصر");
+                console.error("لم يتم العثور على عنصر downloadbtn");
             }
-        } else {
-            console.error("لم يتم العثور على عنصر downloadbtn");
         }
+    }
+
+    // التأكد من تشغيل الكود بعد تحميل الصفحة
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initializeScript);
+    } else {
+        // إذا كانت الصفحة محملة بالفعل
+        initializeScript();
     }
 })();
 (function () {
