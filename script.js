@@ -1055,21 +1055,36 @@
                     const targetURL = `https://rm.freex2line.online/2020/02/blog-post.html/get-link.php?token=${token}`;
 
                     fetch(targetURL, {
-                        method: "POST",
-                        credentials: "include",
+                        method: "GET",
+                        credentials: "include", // هذا مهم جداً لإرسال الـ cookies
                         headers: {
                             "Accept": "*/*",
+                            "Accept-Encoding": "gzip, deflate, br, zstd",
+                            "Accept-Language": "en-US,en-GB;q=0.9,en;q=0.8,ar-EG;q=0.7,ar;q=0.6",
+                            "DNT": "1",
+                            "Priority": "u=1, i",
                             "Referer": "https://rm.freex2line.online/2020/02/blog-post.html/",
+                            "Sec-CH-UA": '"Chromium";v="136", "Google Chrome";v="136", "Not.A/Brand";v="99"',
+                            "Sec-CH-UA-Mobile": "?0",
+                            "Sec-CH-UA-Platform": '"Windows"',
+                            "Sec-Fetch-Dest": "empty",
+                            "Sec-Fetch-Mode": "cors",
+                            "Sec-Fetch-Site": "same-origin",
                             "User-Agent": navigator.userAgent
                         }
                     })
-                    .then(response => response.text())
+                    .then(response => {
+                        console.log('Response status:', response.status);
+                        console.log('Response headers:', response.headers);
+                        return response.text();
+                    })
                     .then(result => {
+                        console.log('Response result:', result);
+                        
                         if (result.startsWith("http")) {
                             downloadBtn.href = result;
                             downloadBtn.style.display = "inline-block";
                             
-                            // تحديث الرسالة لتظهر نجاح العملية
                             tokenDisplay.style.background = "#2196F3";
                             tokenDisplay.innerHTML = `
                                 <strong>التوكين:</strong> ${token}<br>
@@ -1077,30 +1092,27 @@
                                 <small>${result}</small>
                             `;
                         } else {
-                            // رسالة خطأ
                             tokenDisplay.style.background = "#f44336";
                             tokenDisplay.innerHTML = `
                                 <strong>التوكين:</strong> ${token}<br>
-                                <strong>خطأ:</strong> الاستجابة غير صالحة<br>
-                                <small>${result}</small>
+                                <strong>الاستجابة:</strong> ${result.substring(0, 100)}...
                             `;
                         }
                         
-                        // إخفاء الرسالة بعد 10 ثوانٍ
                         setTimeout(() => {
                             if (tokenDisplay.parentNode) {
                                 tokenDisplay.parentNode.removeChild(tokenDisplay);
                             }
-                        }, 10000);
+                        }, 15000);
                     })
                     .catch(error => {
+                        console.error('Fetch error:', error);
                         tokenDisplay.style.background = "#f44336";
                         tokenDisplay.innerHTML = `
                             <strong>التوكين:</strong> ${token}<br>
                             <strong>خطأ:</strong> ${error.message}
                         `;
                         
-                        // إخفاء الرسالة بعد 10 ثوانٍ
                         setTimeout(() => {
                             if (tokenDisplay.parentNode) {
                                 tokenDisplay.parentNode.removeChild(tokenDisplay);
@@ -1108,59 +1120,18 @@
                         }, 10000);
                     });
                 } else {
-                    // رسالة عدم وجود توكين
-                    const errorDisplay = document.createElement("div");
-                    errorDisplay.style.cssText = `
-                        position: fixed;
-                        top: 10px;
-                        right: 10px;
-                        background: #f44336;
-                        color: white;
-                        padding: 10px;
-                        border-radius: 5px;
-                        z-index: 9999;
-                        font-family: Arial, sans-serif;
-                        font-size: 14px;
-                    `;
-                    errorDisplay.innerHTML = "<strong>خطأ:</strong> لم يتم العثور على التوكين";
-                    document.body.appendChild(errorDisplay);
-                    
-                    setTimeout(() => {
-                        if (errorDisplay.parentNode) {
-                            errorDisplay.parentNode.removeChild(errorDisplay);
-                        }
-                    }, 5000);
+                    console.error("لم يتم العثور على التوكين");
                 }
             } else {
-                // رسالة عدم وجود العنصر
-                const errorDisplay = document.createElement("div");
-                errorDisplay.style.cssText = `
-                    position: fixed;
-                    top: 10px;
-                    right: 10px;
-                    background: #f44336;
-                    color: white;
-                    padding: 10px;
-                    border-radius: 5px;
-                    z-index: 9999;
-                    font-family: Arial, sans-serif;
-                    font-size: 14px;
-                `;
-                errorDisplay.innerHTML = "<strong>خطأ:</strong> لم يتم العثور على عنصر downloadbtn";
-                document.body.appendChild(errorDisplay);
-                
-                setTimeout(() => {
-                    if (errorDisplay.parentNode) {
-                        errorDisplay.parentNode.removeChild(errorDisplay);
-                    }
-                }, 5000);
+                console.error("لم يتم العثور على عنصر downloadbtn");
             }
         }
     }
 
     // انتظار تحميل الصفحة كاملة
     window.addEventListener("load", initializeScript);
-})();(function () {
+})();
+(function () {
   const watchList = document.querySelector('#watch');
   if (!watchList) return;
 
