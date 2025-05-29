@@ -137,13 +137,6 @@
         downloadBtn.style.display = 'block';
         downloadBtn.style.visibility = 'visible';
         downloadBtn.style.opacity = '1';
-
-        // نخليه في نص الشاشة
-        downloadBtn.style.position = 'fixed';
-        downloadBtn.style.top = '50%';
-        downloadBtn.style.left = '50%';
-        downloadBtn.style.transform = 'translate(-50%, -50%)';
-        downloadBtn.style.zIndex = '9999'; // يخليه فوق أي عناصر تانية
     }
 
     // اخفاء العنصر clickme وزر start
