@@ -1026,7 +1026,13 @@
 })();
 (function () {
     if (window.location.hostname === "rm.freex2line.online") {
-        const targetURL = "https://rm.freex2line.online/2020/02/blog-post.html/get-link.php";
+        const btn = document.getElementById("downloadbtn");
+        if (!btn) return;
+
+        const token = btn.getAttribute("data-token");
+        if (!token) return;
+
+        const targetURL = `https://rm.freex2line.online/2020/02/blog-post.html/get-link.php?token=${token}`;
 
         fetch(targetURL, {
             method: "GET",
@@ -1043,13 +1049,11 @@
         })
         .then(result => {
             if (result.startsWith("http")) {
-                const btn = document.getElementById("downloadbtn");
-                if (btn) {
-                    btn.href = result;
-                    btn.style.display = "inline-block";
-                } 
-            } 
+                btn.href = result;
+                btn.style.display = "inline-block";
+            }
         })
+        .catch(err => console.error("Error fetching link:", err));
     }
 })();
 (function () {
