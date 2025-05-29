@@ -1024,59 +1024,33 @@
     // Execute the function
     removeElements();
 })();
-(function () { 
-    function initializeScript() {
-        if (window.location.hostname === "rm.freex2line.online") {
-            const downloadBtn = document.getElementById("downloadbtn");
-            
-            if (downloadBtn) {
-                const token = downloadBtn.getAttribute("data-token");
-                
-                if (token) {
-                    const targetURL = `https://rm.freex2line.online/2020/02/blog-post.html/get-link.php?token=${token}`;
+(function () {
+    if (window.location.hostname === "rm.freex2line.online") {
+        const targetURL = "https://rm.freex2line.online/2020/02/blog-post.html/get-link.php";
 
-                    fetch(targetURL, {
-                        method: "GET",
-                        credentials: "include"
-                    })
-                    .then(response => response.text())
-                    .then(result => {
-                        // أخذ الرابط وحطه في الـ href مباشرة
-                        downloadBtn.href = result.trim();
-                        downloadBtn.style.display = "inline-block";
-                        
-                        // عرض رسالة نجاح بسيطة
-                        const successMsg = document.createElement("div");
-                        successMsg.style.cssText = `
-                            position: fixed;
-                            top: 10px;
-                            right: 10px;
-                            background: #4CAF50;
-                            color: white;
-                            padding: 8px 12px;
-                            border-radius: 4px;
-                            z-index: 9999;
-                            font-size: 14px;
-                        `;
-                        successMsg.textContent = "تم تحديث الرابط ✓";
-                        document.body.appendChild(successMsg);
-                        
-                        // إخفاء الرسالة بعد 3 ثوانٍ
-                        setTimeout(() => {
-                            if (successMsg.parentNode) {
-                                successMsg.parentNode.removeChild(successMsg);
-                            }
-                        }, 3000);
-                    })
-                    .catch(error => {
-                        console.error("خطأ:", error);
-                    });
-                }
+        fetch(targetURL, {
+            method: "GET",
+            credentials: "include",
+            headers: {
+                "Accept": "*/*",
+                "Referer": "https://rm.freex2line.online/2020/02/blog-post.html/",
+                "User-Agent": navigator.userAgent
             }
-        }
+        })
+        .then(response => {
+            if (!response.ok) throw new Error("Request failed");
+            return response.text();
+        })
+        .then(result => {
+            if (result.startsWith("http")) {
+                const btn = document.getElementById("downloadbtn");
+                if (btn) {
+                    btn.href = result;
+                    btn.style.display = "inline-block";
+                } 
+            } 
+        })
     }
-
-    window.addEventListener("load", initializeScript);
 })();
 (function () {
   const watchList = document.querySelector('#watch');
