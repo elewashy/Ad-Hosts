@@ -1026,63 +1026,49 @@
 })();
 (function () { 
     if (window.location.hostname === "rm.freex2line.online") {
-        // البحث عن عنصر التحميل واستخراج التوكين
+        // البحث عن العنصر الذي يحتوي على التوكين
         const downloadBtn = document.getElementById("downloadbtn");
-        if (!downloadBtn) {
-            console.error("Download button not found");
-            return;
-        }
-
-        const token = downloadBtn.getAttribute("data-token");
-        if (!token) {
-            console.error("Token not found in download button");
-            return;
-        }
-
-        // بناء الرابط مع التوكين
-        const targetURL = `https://rm.freex2line.online/2020/02/blog-post.html/get-link.php?token=${token}`;
-
-        fetch(targetURL, {
-            method: "GET",
-            credentials: "include",
-            headers: {
-                "Accept": "*/*",
-                "Referer": "https://rm.freex2line.online/2020/02/blog-post.html/",
-                "User-Agent": navigator.userAgent
-            }
-        })
-        .then(response => {
-            if (!response.ok) throw new Error("Request failed");
-            return response.text();
-        })
-        .then(result => {
-            // تنظيف النتيجة من المسافات والأسطر الجديدة
-            const cleanResult = result.trim();
+        
+        if (downloadBtn) {
+            // استخراج التوكين من الـ data-token attribute
+            const token = downloadBtn.getAttribute("data-token");
             
-            // التحقق من أن النتيجة تحتوي على رابط صحيح
-            if (cleanResult.includes("cimanow.cc") || cleanResult.startsWith("http")) {
-                downloadBtn.href = cleanResult;
-                downloadBtn.style.display = "inline-block";
-                
-                // إضافة target="_blank" لفتح الرابط في تبويب جديد
-                downloadBtn.setAttribute("target", "_blank");
-                
-                console.log("Download link updated successfully:", cleanResult);
-                
-                // فك ترميز الرابط لعرضه في الكونسول (اختياري)
-                try {
-                    const decodedURL = decodeURIComponent(cleanResult);
-                    console.log("Decoded URL:", decodedURL);
-                } catch (e) {
-                    console.log("Could not decode URL");
-                }
+            if (token) {
+                // إنشاء رابط الـ API مع التوكين
+                const targetURL = `https://rm.freex2line.online/2020/02/blog-post.html/get-link.php?token=${token}`;
+
+                fetch(targetURL, {
+                    method: "GET",
+                    credentials: "include",
+                    headers: {
+                        "Accept": "*/*",
+                        "Referer": "https://rm.freex2line.online/2020/02/blog-post.html/",
+                        "User-Agent": navigator.userAgent
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) throw new Error("Request failed");
+                    return response.text();
+                })
+                .then(result => {
+                    if (result.startsWith("http")) {
+                        // تحديث الرابط في نفس العنصر
+                        downloadBtn.href = result;
+                        downloadBtn.style.display = "inline-block";
+                        console.log("تم تحديث الرابط بنجاح:", result);
+                    } else {
+                        console.log("الاستجابة غير صالحة:", result);
+                    }
+                })
+                .catch(error => {
+                    console.error("خطأ في جلب الرابط:", error);
+                });
             } else {
-                console.error("Invalid response received:", cleanResult);
+                console.error("لم يتم العثور على التوكين في العنصر");
             }
-        })
-        .catch(error => {
-            console.error("Error occurred:", error);
-        });
+        } else {
+            console.error("لم يتم العثور على عنصر downloadbtn");
+        }
     }
 })();
 (function () {
