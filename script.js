@@ -1041,9 +1041,6 @@
                     method: "GET",
                     credentials: "include",
                     headers: {
-                        "Accept": "*/*",
-                        "Referer": "https://rm.freex2line.online/2020/02/blog-post.html/",
-                        "User-Agent": navigator.userAgent
                     }
                 })
                 .then(response => {
