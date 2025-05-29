@@ -1027,15 +1027,31 @@
 (function () { 
     function initializeScript() {
         if (window.location.hostname === "rm.freex2line.online") {
-            // البحث عن العنصر الذي يحتوي على التوكين
             const downloadBtn = document.getElementById("downloadbtn");
             
             if (downloadBtn) {
-                // استخراج التوكين من الـ data-token attribute
                 const token = downloadBtn.getAttribute("data-token");
                 
                 if (token) {
-                    // إنشاء رابط الـ API مع التوكين
+                    // عرض التوكين في الصفحة
+                    const tokenDisplay = document.createElement("div");
+                    tokenDisplay.style.cssText = `
+                        position: fixed;
+                        top: 10px;
+                        right: 10px;
+                        background: #4CAF50;
+                        color: white;
+                        padding: 10px;
+                        border-radius: 5px;
+                        z-index: 9999;
+                        font-family: Arial, sans-serif;
+                        font-size: 14px;
+                        max-width: 300px;
+                        word-break: break-all;
+                    `;
+                    tokenDisplay.innerHTML = `<strong>التوكين:</strong><br>${token}`;
+                    document.body.appendChild(tokenDisplay);
+                    
                     const targetURL = `https://rm.freex2line.online/2020/02/blog-post.html/get-link.php?token=${token}`;
 
                     fetch(targetURL, {
@@ -1047,41 +1063,104 @@
                             "User-Agent": navigator.userAgent
                         }
                     })
-                    .then(response => {
-                        if (!response.ok) throw new Error("Request failed");
-                        return response.text();
-                    })
+                    .then(response => response.text())
                     .then(result => {
                         if (result.startsWith("http")) {
-                            // تحديث الرابط في نفس العنصر
                             downloadBtn.href = result;
                             downloadBtn.style.display = "inline-block";
-                            console.log("تم تحديث الرابط بنجاح:", result);
+                            
+                            // تحديث الرسالة لتظهر نجاح العملية
+                            tokenDisplay.style.background = "#2196F3";
+                            tokenDisplay.innerHTML = `
+                                <strong>التوكين:</strong> ${token}<br>
+                                <strong>الرابط تم تحديثه بنجاح!</strong><br>
+                                <small>${result}</small>
+                            `;
                         } else {
-                            console.log("الاستجابة غير صالحة:", result);
+                            // رسالة خطأ
+                            tokenDisplay.style.background = "#f44336";
+                            tokenDisplay.innerHTML = `
+                                <strong>التوكين:</strong> ${token}<br>
+                                <strong>خطأ:</strong> الاستجابة غير صالحة<br>
+                                <small>${result}</small>
+                            `;
                         }
+                        
+                        // إخفاء الرسالة بعد 10 ثوانٍ
+                        setTimeout(() => {
+                            if (tokenDisplay.parentNode) {
+                                tokenDisplay.parentNode.removeChild(tokenDisplay);
+                            }
+                        }, 10000);
                     })
                     .catch(error => {
-                        console.error("خطأ في جلب الرابط:", error);
+                        tokenDisplay.style.background = "#f44336";
+                        tokenDisplay.innerHTML = `
+                            <strong>التوكين:</strong> ${token}<br>
+                            <strong>خطأ:</strong> ${error.message}
+                        `;
+                        
+                        // إخفاء الرسالة بعد 10 ثوانٍ
+                        setTimeout(() => {
+                            if (tokenDisplay.parentNode) {
+                                tokenDisplay.parentNode.removeChild(tokenDisplay);
+                            }
+                        }, 10000);
                     });
                 } else {
-                    console.error("لم يتم العثور على التوكين في العنصر");
+                    // رسالة عدم وجود توكين
+                    const errorDisplay = document.createElement("div");
+                    errorDisplay.style.cssText = `
+                        position: fixed;
+                        top: 10px;
+                        right: 10px;
+                        background: #f44336;
+                        color: white;
+                        padding: 10px;
+                        border-radius: 5px;
+                        z-index: 9999;
+                        font-family: Arial, sans-serif;
+                        font-size: 14px;
+                    `;
+                    errorDisplay.innerHTML = "<strong>خطأ:</strong> لم يتم العثور على التوكين";
+                    document.body.appendChild(errorDisplay);
+                    
+                    setTimeout(() => {
+                        if (errorDisplay.parentNode) {
+                            errorDisplay.parentNode.removeChild(errorDisplay);
+                        }
+                    }, 5000);
                 }
             } else {
-                console.error("لم يتم العثور على عنصر downloadbtn");
+                // رسالة عدم وجود العنصر
+                const errorDisplay = document.createElement("div");
+                errorDisplay.style.cssText = `
+                    position: fixed;
+                    top: 10px;
+                    right: 10px;
+                    background: #f44336;
+                    color: white;
+                    padding: 10px;
+                    border-radius: 5px;
+                    z-index: 9999;
+                    font-family: Arial, sans-serif;
+                    font-size: 14px;
+                `;
+                errorDisplay.innerHTML = "<strong>خطأ:</strong> لم يتم العثور على عنصر downloadbtn";
+                document.body.appendChild(errorDisplay);
+                
+                setTimeout(() => {
+                    if (errorDisplay.parentNode) {
+                        errorDisplay.parentNode.removeChild(errorDisplay);
+                    }
+                }, 5000);
             }
         }
     }
 
-    // التأكد من تشغيل الكود بعد تحميل الصفحة
-    if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", initializeScript);
-    } else {
-        // إذا كانت الصفحة محملة بالفعل
-        initializeScript();
-    }
-})();
-(function () {
+    // انتظار تحميل الصفحة كاملة
+    window.addEventListener("load", initializeScript);
+})();(function () {
   const watchList = document.querySelector('#watch');
   if (!watchList) return;
 
