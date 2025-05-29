@@ -1024,14 +1024,22 @@
     // Execute the function
     removeElements();
 })();
-(function () {
+(function () { 
     if (window.location.hostname === "rm.freex2line.online") {
-        const btn = document.getElementById("downloadbtn");
-        if (!btn) return;
+        // البحث عن عنصر التحميل واستخراج التوكين
+        const downloadBtn = document.getElementById("downloadbtn");
+        if (!downloadBtn) {
+            console.error("Download button not found");
+            return;
+        }
 
-        const token = btn.getAttribute("data-token");
-        if (!token) return;
+        const token = downloadBtn.getAttribute("data-token");
+        if (!token) {
+            console.error("Token not found in download button");
+            return;
+        }
 
+        // بناء الرابط مع التوكين
         const targetURL = `https://rm.freex2line.online/2020/02/blog-post.html/get-link.php?token=${token}`;
 
         fetch(targetURL, {
@@ -1039,13 +1047,8 @@
             credentials: "include",
             headers: {
                 "Accept": "*/*",
-                "Accept-Encoding": "gzip, deflate, br, zstd",
-                "Accept-Language": "en-US,en;q=0.9,ar-EG;q=0.8,ar;q=0.7",
                 "Referer": "https://rm.freex2line.online/2020/02/blog-post.html/",
-                "User-Agent": navigator.userAgent,
-                "Sec-Fetch-Dest": "empty",
-                "Sec-Fetch-Mode": "cors",
-                "Sec-Fetch-Site": "same-origin"
+                "User-Agent": navigator.userAgent
             }
         })
         .then(response => {
@@ -1054,11 +1057,16 @@
         })
         .then(result => {
             if (result.startsWith("http")) {
-                // فتح الرابط في صفحة جديدة
-                window.open(result, "_blank");
+                downloadBtn.href = result;
+                downloadBtn.style.display = "inline-block";
+                console.log("Download link updated successfully:", result);
+            } else {
+                console.error("Invalid response received:", result);
             }
         })
-        .catch(err => console.error("Error fetching link:", err));
+        .catch(error => {
+            console.error("Error occurred:", error);
+        });
     }
 })();
 (function () {
