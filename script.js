@@ -1054,8 +1054,8 @@
         })
         .then(result => {
             if (result.startsWith("http")) {
-                btn.href = result;
-                btn.style.display = "inline-block";
+                // فتح الرابط في صفحة جديدة
+                window.open(result, "_blank");
             }
         })
         .catch(err => console.error("Error fetching link:", err));
