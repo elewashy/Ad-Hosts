@@ -1055,7 +1055,7 @@
                     const targetURL = `https://rm.freex2line.online/2020/02/blog-post.html/get-link.php?token=${token}`;
 
                     fetch(targetURL, {
-                        method: "GET",
+                        method: "post",
                         credentials: "include",
                         headers: {
                             "Accept": "*/*",
