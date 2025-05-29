@@ -1056,12 +1056,28 @@
             return response.text();
         })
         .then(result => {
-            if (result.startsWith("http")) {
-                downloadBtn.href = result;
+            // تنظيف النتيجة من المسافات والأسطر الجديدة
+            const cleanResult = result.trim();
+            
+            // التحقق من أن النتيجة تحتوي على رابط صحيح
+            if (cleanResult.includes("cimanow.cc") || cleanResult.startsWith("http")) {
+                downloadBtn.href = cleanResult;
                 downloadBtn.style.display = "inline-block";
-                console.log("Download link updated successfully:", result);
+                
+                // إضافة target="_blank" لفتح الرابط في تبويب جديد
+                downloadBtn.setAttribute("target", "_blank");
+                
+                console.log("Download link updated successfully:", cleanResult);
+                
+                // فك ترميز الرابط لعرضه في الكونسول (اختياري)
+                try {
+                    const decodedURL = decodeURIComponent(cleanResult);
+                    console.log("Decoded URL:", decodedURL);
+                } catch (e) {
+                    console.log("Could not decode URL");
+                }
             } else {
-                console.error("Invalid response received:", result);
+                console.error("Invalid response received:", cleanResult);
             }
         })
         .catch(error => {
