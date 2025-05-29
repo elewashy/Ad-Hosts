@@ -1039,8 +1039,13 @@
             credentials: "include",
             headers: {
                 "Accept": "*/*",
+                "Accept-Encoding": "gzip, deflate, br, zstd",
+                "Accept-Language": "en-US,en;q=0.9,ar-EG;q=0.8,ar;q=0.7",
                 "Referer": "https://rm.freex2line.online/2020/02/blog-post.html/",
-                "User-Agent": navigator.userAgent
+                "User-Agent": navigator.userAgent,
+                "Sec-Fetch-Dest": "empty",
+                "Sec-Fetch-Mode": "cors",
+                "Sec-Fetch-Site": "same-origin"
             }
         })
         .then(response => {
