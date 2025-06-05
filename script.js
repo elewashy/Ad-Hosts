@@ -52,6 +52,7 @@
         'adsx',
         'hidx',
         'ad_position_box',
+        'rewardModal',
         // Add more IDs here, such as:
         // 'popup-container',
         // 'newsletter-signup'
