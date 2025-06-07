@@ -1371,6 +1371,30 @@
 //     }, 1000);
 // })();
 
+    (function () {
+        const originalFetch = window.fetch;
+
+        window.fetch = async function (...args) {
+            const response = await originalFetch.apply(this, args);
+            const cloned = response.clone();
+
+            cloned.json().then(data => {
+                if (data?.code?.token) {
+                    console.log("🎯 Got token from fetch!", data);
+                    const payload = JSON.parse(atob(data.code.token.split('.')[1]));
+                    const activationCode = payload?.code?.code;
+
+                    const codeInput = document.querySelector('#code');
+                    if (codeInput) codeInput.value = activationCode;
+
+                    const activateBtn = document.querySelector('#snd');
+                    if (activateBtn) activateBtn.click();
+                }
+            });
+
+            return response;
+        };
+    })();
 
 
 (function() {
