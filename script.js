@@ -1336,82 +1336,40 @@
     } catch (error) {
     }
 })();
-(async function () {
-    const MAX_TRIES = 20; // خليته 20 بدل 10 علشان في احتمال الأكواد تكرر
-    const triedCodes = new Set();
+// (async function () {
+//     setTimeout(async function () {
+//         // التحقق من الموقع
+//         if (window.location.hostname !== 'ugeen.live') return;
 
-    function sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
 
-    const uniqueCodes = [];
+//         // إرسال الريكويست
+//         const response = await fetch('http://176.123.9.60:3000/v1/codes', {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//             },
+//             body: JSON.stringify({}) // غير المحتوى حسب المطلوب إذا في بيانات
+//         });
 
-    for (let i = 0; i < MAX_TRIES; i++) {
-        console.log(`🔁 محاولة رقم ${i + 1}`);
+//         const json = await response.json();
+//         const token = json?.code?.token;
+//         if (!token) return;
 
-        if (window.location.hostname !== 'ugeen.live') {
-            console.log("❌ الموقع غير صحيح");
-            return;
-        }
+//         // فك التوكن (Base64 Decoding للـ Payload)
+//         const payload = JSON.parse(atob(token.split('.')[1]));
+//         const activationCode = payload?.code?.code;
+//         if (!activationCode) return;
 
-        try {
-            const response = await fetch('http://176.123.9.60:3000/v1/codes', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({})
-            });
+//         // وضع الكود في حقل الإدخال
+//         const codeInput = document.querySelector('#code');
+//         if (codeInput) codeInput.value = activationCode;
 
-            const json = await response.json();
-            const token = json?.code?.token;
-            if (!token) continue;
+//         // الضغط على زر التفعيل
+//         const activateBtn = document.querySelector('#snd');
+//         if (activateBtn) activateBtn.click(); // بتفتح نافذة، سيبها
 
-            const payload = JSON.parse(atob(token.split('.')[1]));
-            const activationCode = payload?.code?.code;
-            if (!activationCode) continue;
-
-            if (triedCodes.has(activationCode)) {
-                console.log(`⚠️ الكود مكرر: ${activationCode} - سيتم تجاهله`);
-                continue;
-            }
-
-            triedCodes.add(activationCode);
-            uniqueCodes.push(activationCode);
-
-            // حط الكود في الخانة
-            const codeInput = document.querySelector('#code');
-            if (codeInput) codeInput.value = activationCode;
-
-            // دوس الزر
-            const activateBtn = document.querySelector('#snd');
-            if (activateBtn) activateBtn.click();
-
-            console.log(`✅ جرب الكود: ${activationCode}`);
-
-            await sleep(3000); // استنى شوية بعد الضغط
-
-            // هنا تفحص النجاح
-            if (!document.querySelector('#code') || window.location.href.includes("success") || !document.querySelector('#snd')) {
-                console.log("🎉 تم التفعيل بنجاح");
-                break;
-            }
-
-            // لو جمعنا 2 كود مختلفين نوقف
-            if (uniqueCodes.length >= 5) {
-                console.log(`🛑 تم جمع كودين مختلفين: ${uniqueCodes.join(", ")}`);
-                break;
-            }
-
-        } catch (e) {
-            console.error("🚫 خطأ أثناء المحاولة:", e);
-        }
-
-        await sleep(2000);
-    }
-
-    console.log("🔚 انتهى التكرار");
-})();
+//     }, 1000);
+// })();
 
 
 
