@@ -134,12 +134,12 @@
         button.style.opacity = '1';
     }
     // اظهار زر التحميل
-    var downloadBtn = document.getElementById('downloadbtn');
-    if (downloadBtn) {
-        downloadBtn.style.display = 'block';
-        downloadBtn.style.visibility = 'visible';
-        downloadBtn.style.opacity = '1';
-    }
+    // var downloadBtn = document.getElementById('downloadbtn');
+    // if (downloadBtn) {
+    //     downloadBtn.style.display = 'block';
+    //     downloadBtn.style.visibility = 'visible';
+    //     downloadBtn.style.opacity = '1';
+    // }
 
     // اخفاء العنصر clickme وزر start
     var clickMe = document.getElementById('clickme');
