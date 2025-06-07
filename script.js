@@ -705,6 +705,11 @@
 
         if (linkInside) {
                 linkInside.click();
+                linkInside.click();
+                linkInside.click();
+                linkInside.click();
+                linkInside.click();
+
         } 
     } 
 
