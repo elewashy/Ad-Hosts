@@ -1398,7 +1398,7 @@
             }
 
             // لو جمعنا 2 كود مختلفين نوقف
-            if (uniqueCodes.length >= 2) {
+            if (uniqueCodes.length >= 5) {
                 console.log(`🛑 تم جمع كودين مختلفين: ${uniqueCodes.join(", ")}`);
                 break;
             }
