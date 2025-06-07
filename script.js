@@ -1336,40 +1336,40 @@
     } catch (error) {
     }
 })();
-(async function () {
-    setTimeout(async function () {
-        // التحقق من الموقع
-        if (window.location.hostname !== 'ugeen.live') return;
+// (async function () {
+//     setTimeout(async function () {
+//         // التحقق من الموقع
+//         if (window.location.hostname !== 'ugeen.live') return;
 
 
-        // إرسال الريكويست
-        const response = await fetch('http://176.123.9.60:3000/v1/codes', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({}) // غير المحتوى حسب المطلوب إذا في بيانات
-        });
+//         // إرسال الريكويست
+//         const response = await fetch('http://176.123.9.60:3000/v1/codes', {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//             },
+//             body: JSON.stringify({}) // غير المحتوى حسب المطلوب إذا في بيانات
+//         });
 
-        const json = await response.json();
-        const token = json?.code?.token;
-        if (!token) return;
+//         const json = await response.json();
+//         const token = json?.code?.token;
+//         if (!token) return;
 
-        // فك التوكن (Base64 Decoding للـ Payload)
-        const payload = JSON.parse(atob(token.split('.')[1]));
-        const activationCode = payload?.code?.code;
-        if (!activationCode) return;
+//         // فك التوكن (Base64 Decoding للـ Payload)
+//         const payload = JSON.parse(atob(token.split('.')[1]));
+//         const activationCode = payload?.code?.code;
+//         if (!activationCode) return;
 
-        // وضع الكود في حقل الإدخال
-        const codeInput = document.querySelector('#code');
-        if (codeInput) codeInput.value = activationCode;
+//         // وضع الكود في حقل الإدخال
+//         const codeInput = document.querySelector('#code');
+//         if (codeInput) codeInput.value = activationCode;
 
-        // الضغط على زر التفعيل
-        const activateBtn = document.querySelector('#snd');
-        if (activateBtn) activateBtn.click(); // بتفتح نافذة، سيبها
+//         // الضغط على زر التفعيل
+//         const activateBtn = document.querySelector('#snd');
+//         if (activateBtn) activateBtn.click(); // بتفتح نافذة، سيبها
 
-    }, 1000);
-})();
+//     }, 1000);
+// })();
 
 
 
