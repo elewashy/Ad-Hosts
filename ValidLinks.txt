@@ -132,3 +132,4 @@
 ||vidroba.com^
 ||dialymotion.online^
 ||vk.com^
+||googlevideo.com^
