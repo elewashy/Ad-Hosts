@@ -140,3 +140,4 @@
 ||animezid.show^
 ||netdna.bootstrapcdn.com^
 ||emturbovid.com^
+||raw.githubusercontent.com^
