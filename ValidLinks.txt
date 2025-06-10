@@ -122,3 +122,6 @@
 ||hs1.up4stream.com^
 ||ups2up.fun^
 ||up4stream.com^
+||streamtape.cc^
+||tapecontent.net^
+||tapepops.com^
