@@ -135,3 +135,6 @@
 ||googlevideo.com^
 ||sportzonline.si^
 ||andrenalynrushplay.cfd^
+||challenges.cloudflare.com^
+||animezid.cam^
+||animezid.show^
