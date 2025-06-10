@@ -53,6 +53,7 @@
         'hidx',
         'ad_position_box',
         'rewardModal',
+        'tme-alert',
         // Add more IDs here, such as:
         // 'popup-container',
         // 'newsletter-signup'
