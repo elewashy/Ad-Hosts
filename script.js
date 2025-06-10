@@ -1,6 +1,8 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+var domScripts = [];
+
 // Script to remove elements using a list of selectors
-(function() {
+domScripts.push(function() {
     // List of selectors you want to remove
     // You can add more selectors here in the future
     var selectorsToRemove = [
@@ -43,7 +45,7 @@
 })();
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Script to remove elements using a list of IDs
-(function() {
+domScripts.push(function() {
     // List of IDs you want to remove
     // You can add more IDs here in the future
     var idsToRemove = [
@@ -79,7 +81,7 @@
     removeElementsById();
 })();
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-(function() {
+domScripts.push(function() {
     // استبدال WebAssembly.compileStreaming
     const originalCompileStreaming = WebAssembly.compileStreaming;
     WebAssembly.compileStreaming = function(response) {
@@ -113,7 +115,7 @@
     };
 
     // تعريض دالة نقطة انطلاق لنسخة مزيفة من check
-    setTimeout(function() {
+    setTimeoutdomScripts.push(function() {
     if (typeof i !== 'undefined' && typeof i.check === 'function') {
         // استبدال دالة check
         const originalCheck = i.check;
@@ -126,7 +128,7 @@
   })();
   
 ///////////////////////////////////////////////////////////////////////////////////////
-(function() {
+domScripts.push(function() {
     // اظهار العنصر الأول
     var button = document.getElementById('btn');
     if (button) {
@@ -307,7 +309,7 @@
     //     }
     // });
     
-(function() {
+domScripts.push(function() {
     if (["mothaqaf.cimanow.online", "new.cimanow.online", "rm.freex2line.online"].includes(location.hostname)) {
         var countdown = document.getElementById('countdown');
         if (countdown) {
@@ -338,7 +340,7 @@
     );
 })();
 
-(function() {
+domScripts.push(function() {
     // حفظ العنصر المطلوب فقط
     var targetElement = document.querySelector("center.oto");
 
@@ -1106,7 +1108,7 @@
 
 /////////////////////////////////////////////////////////////////////////////////////
 // كود مباشر لإزالة مربع SweetAlert2 بالضبط
-(function() {
+domScripts.push(function() {
     // استهداف بالتحديد وبطرق مختلفة
     
     // طريقة 1: الإزالة المباشرة بناءً على الكلاس
@@ -1191,7 +1193,7 @@
     document.addEventListener('DOMContentLoaded', replaceLinks);
 })();
 
-(function() {
+domScripts.push(function() {
     // Function to remove the specific advertising section
     function removeAdSection() {
         // Look for sections that contain the specific text "استكشف جديد العروض"
@@ -1212,7 +1214,7 @@
         removeAdSection();
     }
 })();
-(function() {
+domScripts.push(function() {
     // Function to remove all arlionz--slider elements
     function removeArlionzSlider() {
         // Target the specific arlionz--slider elements
@@ -1232,7 +1234,7 @@
         removeArlionzSlider();
     }
 })();
-(function() {
+domScripts.push(function() {
     // البحث عن القسم المخفي
     const section = document.getElementById('secondSection');
 
@@ -1276,7 +1278,7 @@
         section.classList.add('bg-white');
     }
 })();
-(function() {
+domScripts.push(function() {
     // Function to remove unwanted elements
     function removeUnwantedElements() {        
         // Remove singular--bg elements
@@ -1305,7 +1307,7 @@
     // Start observing the document with the configured parameters
     observer.observe(document.body, { childList: true, subtree: true });
 })();
-(function() {
+domScripts.push(function() {
     try {
         // البحث عن زر التحميل وإظهاره مباشرة
         const downloadButton = document.getElementById('download-button');
@@ -1374,7 +1376,7 @@
 
 
 
-(function() {
+domScripts.push(function() {
     if (window.location.href === "https://nitro-link.com/KnIw" || 
         window.location.href === "https://swiftlnx.com/EgyFilm_Code" ||
         window.location.href === "https://best-cash.net/EgyFilmCode" ||
@@ -1392,7 +1394,7 @@
         }
     }
 })();
-(function() {
+domScripts.push(function() {
     const interval = setInterval(() => {
         // ابحث عن الزر اللي فيه class get-link وميبقاش فيه disabled
         const button = document.querySelector('a.get-link:not(.disabled)');
@@ -1404,7 +1406,7 @@
     }, 500); // كرر كل نصف ثانية
 })();
 
-(function() {
+domScripts.push(function() {
     // نتأكد إننا في الموقع الصح
     if (window.location.hostname === "traidmod.org") {
         window.addEventListener('load', function() {
@@ -1439,7 +1441,7 @@
     }
 })();
 
-// (function() {
+// domScripts.push(function() {
 //     // استرجاع التمرير الطبيعي للصفحة
 //     function enableNormalScrolling() {
 //         // إعادة ضبط خصائص CSS التي قد تمنع التمرير
@@ -1505,7 +1507,7 @@
 //     document.body.appendChild(scrollButton);
 // })();
 ///////////////////////////////////////////////////////////////////////////////////////////////
-(function() {
+domScripts.push(function() {
     // Enhanced sandbox detection prevention
     const setupAdvancedSandboxBypass = () => {
         const sandboxProps = {
@@ -1650,7 +1652,7 @@
         // Advanced detection prevention
         const script = document.createElement('script');
         script.innerHTML = `
-            (function() {
+            domScripts.push(function() {
                 const originalCreateElement = document.createElement.bind(document);
                 document.createElement = function(tagName) {
                     const element = originalCreateElement(tagName);
@@ -1983,3 +1985,13 @@
     setInterval(cleanup, 1000);
 })();
 /////////////////////////////////////////////////////////////////////////////////////
+// === Run all scripts after DOM is ready ===
+document.addEventListener('DOMContentLoaded', function() {
+    domScripts.forEach(function(fn) {
+        try {
+            fn();
+        } catch (e) {
+            console.error("Error in DOM script:", e);
+        }
+    });
+});
