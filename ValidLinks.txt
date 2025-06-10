@@ -127,3 +127,4 @@
 ||tapepops.com^
 ||arablionztv.com^
 ||arlionztv.ink^
+||cdn.lordicon.com^
