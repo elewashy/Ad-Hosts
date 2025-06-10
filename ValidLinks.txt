@@ -139,3 +139,4 @@
 ||animezid.cam^
 ||animezid.show^
 ||netdna.bootstrapcdn.com^
+||emturbovid.com^
