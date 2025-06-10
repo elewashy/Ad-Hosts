@@ -1,8 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-var domScripts = [];
-
 // Script to remove elements using a list of selectors
-domScripts.push(function() {
+(function() {
     // List of selectors you want to remove
     // You can add more selectors here in the future
     var selectorsToRemove = [
@@ -45,7 +43,7 @@ domScripts.push(function() {
 })();
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Script to remove elements using a list of IDs
-domScripts.push(function() {
+(function() {
     // List of IDs you want to remove
     // You can add more IDs here in the future
     var idsToRemove = [
@@ -81,7 +79,7 @@ domScripts.push(function() {
     removeElementsById();
 })();
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-domScripts.push(function() {
+(function() {
     // استبدال WebAssembly.compileStreaming
     const originalCompileStreaming = WebAssembly.compileStreaming;
     WebAssembly.compileStreaming = function(response) {
@@ -115,7 +113,7 @@ domScripts.push(function() {
     };
 
     // تعريض دالة نقطة انطلاق لنسخة مزيفة من check
-    setTimeoutdomScripts.push(function() {
+    setTimeout(function() {
     if (typeof i !== 'undefined' && typeof i.check === 'function') {
         // استبدال دالة check
         const originalCheck = i.check;
@@ -128,7 +126,7 @@ domScripts.push(function() {
   })();
   
 ///////////////////////////////////////////////////////////////////////////////////////
-domScripts.push(function() {
+(function() {
     // اظهار العنصر الأول
     var button = document.getElementById('btn');
     if (button) {
@@ -309,7 +307,7 @@ domScripts.push(function() {
     //     }
     // });
     
-domScripts.push(function() {
+(function() {
     if (["mothaqaf.cimanow.online", "new.cimanow.online", "rm.freex2line.online"].includes(location.hostname)) {
         var countdown = document.getElementById('countdown');
         if (countdown) {
@@ -340,7 +338,7 @@ domScripts.push(function() {
     );
 })();
 
-domScripts.push(function() {
+(function() {
     // حفظ العنصر المطلوب فقط
     var targetElement = document.querySelector("center.oto");
 
@@ -1108,7 +1106,7 @@ domScripts.push(function() {
 
 /////////////////////////////////////////////////////////////////////////////////////
 // كود مباشر لإزالة مربع SweetAlert2 بالضبط
-domScripts.push(function() {
+(function() {
     // استهداف بالتحديد وبطرق مختلفة
     
     // طريقة 1: الإزالة المباشرة بناءً على الكلاس
@@ -1193,7 +1191,7 @@ domScripts.push(function() {
     document.addEventListener('DOMContentLoaded', replaceLinks);
 })();
 
-domScripts.push(function() {
+(function() {
     // Function to remove the specific advertising section
     function removeAdSection() {
         // Look for sections that contain the specific text "استكشف جديد العروض"
@@ -1214,7 +1212,7 @@ domScripts.push(function() {
         removeAdSection();
     }
 })();
-domScripts.push(function() {
+(function() {
     // Function to remove all arlionz--slider elements
     function removeArlionzSlider() {
         // Target the specific arlionz--slider elements
@@ -1234,7 +1232,7 @@ domScripts.push(function() {
         removeArlionzSlider();
     }
 })();
-domScripts.push(function() {
+(function() {
     // البحث عن القسم المخفي
     const section = document.getElementById('secondSection');
 
@@ -1278,7 +1276,7 @@ domScripts.push(function() {
         section.classList.add('bg-white');
     }
 })();
-domScripts.push(function() {
+(function() {
     // Function to remove unwanted elements
     function removeUnwantedElements() {        
         // Remove singular--bg elements
@@ -1307,7 +1305,7 @@ domScripts.push(function() {
     // Start observing the document with the configured parameters
     observer.observe(document.body, { childList: true, subtree: true });
 })();
-domScripts.push(function() {
+(function() {
     try {
         // البحث عن زر التحميل وإظهاره مباشرة
         const downloadButton = document.getElementById('download-button');
@@ -1376,7 +1374,7 @@ domScripts.push(function() {
 
 
 
-domScripts.push(function() {
+(function() {
     if (window.location.href === "https://nitro-link.com/KnIw" || 
         window.location.href === "https://swiftlnx.com/EgyFilm_Code" ||
         window.location.href === "https://best-cash.net/EgyFilmCode" ||
@@ -1394,7 +1392,7 @@ domScripts.push(function() {
         }
     }
 })();
-domScripts.push(function() {
+(function() {
     const interval = setInterval(() => {
         // ابحث عن الزر اللي فيه class get-link وميبقاش فيه disabled
         const button = document.querySelector('a.get-link:not(.disabled)');
@@ -1406,7 +1404,7 @@ domScripts.push(function() {
     }, 500); // كرر كل نصف ثانية
 })();
 
-domScripts.push(function() {
+(function() {
     // نتأكد إننا في الموقع الصح
     if (window.location.hostname === "traidmod.org") {
         window.addEventListener('load', function() {
@@ -1441,7 +1439,7 @@ domScripts.push(function() {
     }
 })();
 
-// domScripts.push(function() {
+// (function() {
 //     // استرجاع التمرير الطبيعي للصفحة
 //     function enableNormalScrolling() {
 //         // إعادة ضبط خصائص CSS التي قد تمنع التمرير
@@ -1507,7 +1505,7 @@ domScripts.push(function() {
 //     document.body.appendChild(scrollButton);
 // })();
 ///////////////////////////////////////////////////////////////////////////////////////////////
-domScripts.push(function() {
+(function() {
     // Enhanced sandbox detection prevention
     const setupAdvancedSandboxBypass = () => {
         const sandboxProps = {
@@ -1652,7 +1650,7 @@ domScripts.push(function() {
         // Advanced detection prevention
         const script = document.createElement('script');
         script.innerHTML = `
-            domScripts.push(function() {
+            (function() {
                 const originalCreateElement = document.createElement.bind(document);
                 document.createElement = function(tagName) {
                     const element = originalCreateElement(tagName);
@@ -1985,13 +1983,3 @@ domScripts.push(function() {
     setInterval(cleanup, 1000);
 })();
 /////////////////////////////////////////////////////////////////////////////////////
-// === Run all scripts after DOM is ready ===
-document.addEventListener('DOMContentLoaded', function() {
-    domScripts.forEach(function(fn) {
-        try {
-            fn();
-        } catch (e) {
-            console.error("Error in DOM script:", e);
-        }
-    });
-});
