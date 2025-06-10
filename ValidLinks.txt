@@ -133,3 +133,4 @@
 ||dialymotion.online^
 ||vk.com^
 ||googlevideo.com^
+||sportzonline.si^
