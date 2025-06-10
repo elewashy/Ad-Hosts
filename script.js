@@ -1556,6 +1556,12 @@
             platform: 'Win32',
         }
 
+        // Apply to multiple contexts
+        [window, Window.prototype, Navigator.prototype].forEach(context => {
+            Object.keys(sandboxProps).forEach(prop => {
+                observe(context, prop, sandboxProps[prop]);
+            });
+        });
 
         // Navigator properties
         Object.keys(mockProto).forEach(prop => {
