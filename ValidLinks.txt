@@ -128,3 +128,7 @@
 ||arablionztv.com^
 ||arlionztv.ink^
 ||cdn.lordicon.com^
+||ok.ru^
+||vidroba.com^
+||dialymotion.online^
+||vk.com^
