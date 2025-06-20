@@ -140,4 +140,3 @@
 ||netdna.bootstrapcdn.com^
 ||emturbovid.com^
 ||raw.githubusercontent.com^
-||1.daddy-livetv.live^
