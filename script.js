@@ -83,6 +83,40 @@
     function removeAdBlockDetector() {
         try {
 
+            // طريقة 2: البحث عن العناصر بخصائص محددة
+            const suspiciousSelectors = [
+                '[class*="jjube"]',
+                '[id*="jjube"]',
+                'div[style*="position: fixed"]',
+                'div[style*="position: absolute"]'
+            ];
+            
+            suspiciousSelectors.forEach(selector => {
+                const elements = document.querySelectorAll(selector);
+                elements.forEach(element => {
+                    if (element.textContent && 
+                        (element.textContent.includes('Ads Blocker') || 
+                         element.textContent.includes('block ads') ||
+                         element.textContent.includes('disable') && element.textContent.includes('ads'))) {
+                        
+                        // التأكد إن العنصر ده مش جزء من المحتوى الأساسي
+                        if (element.offsetHeight < window.innerHeight && 
+                            element.offsetWidth < window.innerWidth &&
+                            !element.textContent.includes('menu') &&
+                            !element.textContent.includes('navigation')) {
+                            
+                            element.style.transition = 'opacity 0.3s ease-out';
+                            element.style.opacity = '0';
+                            setTimeout(() => {
+                                if (element && element.parentNode) {
+                                    element.remove();
+                                }
+                            }, 300);
+                        }
+                    }
+                });
+            });
+            
             // طريقة 3: إخفاء بدلاً من الحذف (كبديل آمن)
             const adBlockElements = document.querySelectorAll('*');
             adBlockElements.forEach(element => {
