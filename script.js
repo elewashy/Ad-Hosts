@@ -80,53 +80,58 @@
     removeElementsById();
 })();
 (function () {
-    function removeAdBlockElements() {
-        try {
-            const elements = document.querySelectorAll('[id$="cisp"], [class$="cisp"]'); // أي id أو class بينتهي بـ cisp
+    function isAdblockElement(el) {
+        const text = (el.textContent || "").toLowerCase();
+        const html = (el.innerHTML || "").toLowerCase();
 
-            elements.forEach(el => {
-                const text = el.textContent.toLowerCase();
-                const html = el.innerHTML;
+        // كلمات ومحتوى واضح إنه تابع لـ AdBlock
+        const suspiciousText =
+            text.includes("ads blocker") ||
+            text.includes("disable") && text.includes("ads") ||
+            text.includes("block ads") ||
+            html.includes("chp-ads-block-detector") ||
+            html.includes("icon.png") ||
+            html.includes("d.svg");
 
-                const hasAdblockText =
-                    text.includes("ads blocker") ||
-                    text.includes("block ads") ||
-                    text.includes("disable") && text.includes("ads");
+        // نضيف كمان شروط على الشكل والمكان
+        const rect = el.getBoundingClientRect();
+        const isOverlay = rect.width >= window.innerWidth * 0.5 &&
+                          rect.height >= window.innerHeight * 0.3 &&
+                          (window.getComputedStyle(el).position === "fixed" ||
+                           window.getComputedStyle(el).position === "absolute");
 
-                const hasAdblockImages =
-                    html.includes("icon.png") ||
-                    html.includes("d.svg") ||
-                    html.includes("chp-ads-block-detector");
+        return suspiciousText || isOverlay;
+    }
 
-                const isSuspicious =
-                    hasAdblockText || hasAdblockImages;
+    function removeAdblockElementsSmart() {
+        const allDivs = document.querySelectorAll("div, section, aside");
 
-                if (isSuspicious) {
+        allDivs.forEach(el => {
+            try {
+                if (isAdblockElement(el)) {
                     el.remove();
                 }
-            });
-        } catch (err) {
-            console.log('Error removing adblock elements:', err);
-        }
+            } catch (err) {
+                console.warn("Error while checking/removing adblock element", err);
+            }
+        });
     }
 
-    function runCleaner() {
-        removeAdBlockElements();
+    function runAll() {
+        removeAdblockElementsSmart();
     }
 
-    // شغله أول ما يبدأ
-    runCleaner();
+    // شغلها فورًا
+    runAll();
 
-    // شغله بعد تحميل الصفحة بالكامل
-    window.addEventListener('load', () => {
-        setTimeout(runCleaner, 500);
+    // عند تحميل الصفحة
+    window.addEventListener("load", () => {
+        setTimeout(runAll, 500);
     });
 
-    // شغله كل ثانية ونص علشان لو العنصر اتأخر
-    const interval = setInterval(runCleaner, 1500);
-
-    // وقف الفحص بعد 30 ثانية (كفاية)
-    setTimeout(() => clearInterval(interval), 30000);
+    // كل ثانية ونص علشان لو ظهر بعدين
+    const interval = setInterval(runAll, 1500);
+    setTimeout(() => clearInterval(interval), 30000); // وقف التكرار بعد 30 ثانية
 })();
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
