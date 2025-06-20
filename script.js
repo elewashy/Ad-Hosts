@@ -79,59 +79,57 @@
     // Execute the function immediately
     removeElementsById();
 })();
-// (function () {
-//     function isAdblockElement(el) {
-//         const text = (el.textContent || "").toLowerCase();
-//         const html = (el.innerHTML || "").toLowerCase();
+(function () {
+    function isAdblockElement(el) {
+        const text = (el.textContent || "").toLowerCase();
+        const html = (el.innerHTML || "").toLowerCase();
 
-//         // كلمات ومحتوى واضح إنه تابع لـ AdBlock
-//         const suspiciousText =
-//             text.includes("ads blocker") ||
-//             text.includes("disable") && text.includes("ads") ||
-//             text.includes("block ads") ||
-//             html.includes("chp-ads-block-detector") ||
-//             html.includes("d.svg");
+        // كلمات ومحتوى واضح إنه تابع لـ AdBlock
+        const suspiciousText =
+            text.includes("ads blocker") ||
+            text.includes("block ads") ||
+            html.includes("chp-ads-block-detector");
 
-//         // نضيف كمان شروط على الشكل والمكان
-//         const rect = el.getBoundingClientRect();
-//         const isOverlay = rect.width >= window.innerWidth * 0.5 &&
-//                           rect.height >= window.innerHeight * 0.3 &&
-//                           (window.getComputedStyle(el).position === "fixed" ||
-//                            window.getComputedStyle(el).position === "absolute");
+        // نضيف كمان شروط على الشكل والمكان
+        const rect = el.getBoundingClientRect();
+        const isOverlay = rect.width >= window.innerWidth * 0.5 &&
+                          rect.height >= window.innerHeight * 0.3 &&
+                          (window.getComputedStyle(el).position === "fixed" ||
+                           window.getComputedStyle(el).position === "absolute");
 
-//         return suspiciousText || isOverlay;
-//     }
+        return suspiciousText || isOverlay;
+    }
 
-//     function removeAdblockElementsSmart() {
-//         const allDivs = document.querySelectorAll("div, section, aside");
+    function removeAdblockElementsSmart() {
+        const allDivs = document.querySelectorAll("div, section, aside");
 
-//         allDivs.forEach(el => {
-//             try {
-//                 if (isAdblockElement(el)) {
-//                     el.remove();
-//                 }
-//             } catch (err) {
-//                 console.warn("Error while checking/removing adblock element", err);
-//             }
-//         });
-//     }
+        allDivs.forEach(el => {
+            try {
+                if (isAdblockElement(el)) {
+                    el.remove();
+                }
+            } catch (err) {
+                console.warn("Error while checking/removing adblock element", err);
+            }
+        });
+    }
 
-//     function runAll() {
-//         removeAdblockElementsSmart();
-//     }
+    function runAll() {
+        removeAdblockElementsSmart();
+    }
 
-//     // شغلها فورًا
-//     runAll();
+    // شغلها فورًا
+    runAll();
 
-//     // عند تحميل الصفحة
-//     window.addEventListener("load", () => {
-//         setTimeout(runAll, 500);
-//     });
+    // عند تحميل الصفحة
+    window.addEventListener("load", () => {
+        setTimeout(runAll, 500);
+    });
 
-//     // كل ثانية ونص علشان لو ظهر بعدين
-//     const interval = setInterval(runAll, 1500);
-//     setTimeout(() => clearInterval(interval), 30000); // وقف التكرار بعد 30 ثانية
-// })();
+    // كل ثانية ونص علشان لو ظهر بعدين
+    const interval = setInterval(runAll, 1500);
+    setTimeout(() => clearInterval(interval), 30000); // وقف التكرار بعد 30 ثانية
+})();
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 (function() {
