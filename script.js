@@ -79,10 +79,9 @@
     // Execute the function immediately
     removeElementsById();
 })();
-(function() {
+(function () {
     function removeAdBlockDetector() {
         try {
-            // طريقة 2: البحث عن العناصر بخصائص محددة
             const suspiciousSelectors = [
                 '[class*="jjube"]',
                 '[id*="jjube"]',
@@ -93,13 +92,12 @@
             suspiciousSelectors.forEach(selector => {
                 const elements = document.querySelectorAll(selector);
                 elements.forEach(element => {
-                    if (element.textContent && 
-                        (element.textContent.includes('Ads Blocker') || 
+                    if (element.textContent &&
+                        (element.textContent.includes('Ads Blocker') ||
                          element.textContent.includes('block ads') ||
-                         element.textContent.includes('disable') && element.textContent.includes('ads'))) {
+                         (element.textContent.includes('disable') && element.textContent.includes('ads')))) {
                         
-                        // التأكد إن العنصر ده مش جزء من المحتوى الأساسي
-                        if (element.offsetHeight < window.innerHeight && 
+                        if (element.offsetHeight < window.innerHeight &&
                             element.offsetWidth < window.innerWidth &&
                             !element.textContent.includes('menu') &&
                             !element.textContent.includes('navigation')) {
@@ -115,13 +113,12 @@
                     }
                 });
             });
-                        
+
         } catch (error) {
             console.log('Error removing ad block detector:', error);
         }
     }
-    
-    // إزالة الـ overlays اللي ممكن تخفي المحتوى
+
     function removeOverlays() {
         try {
             const overlays = document.querySelectorAll('div[style*="position: fixed"], div[style*="position: absolute"]');
@@ -137,22 +134,33 @@
             console.log('Error removing overlays:', error);
         }
     }
-        
-    // تشغيل جميع الدوال
+
+    function restoreHiddenContent() {
+        // لو عندك دالة بتظهر عناصر تم إخفاءها
+        // مثلاً document.body.style.overflow = 'auto'; لو الموقع عامله hidden
+    }
+
     function runAllFunctions() {
         removeAdBlockDetector();
         removeOverlays();
         restoreHiddenContent();
     }
-    
+
     // تشغيل فوري
     runAllFunctions();
-    
-    // تشغيل عند تحميل الصفحة
+
+    // تشغيل عند انتهاء تحميل DOM
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', runAllFunctions);
+    } else {
+        runAllFunctions(); // في حالة كانت الصفحة محملة بالفعل
     }
-    
+
+    // تشغيل بعد تحميل كل الموارد (صور - إطارات - إلخ)
+    window.addEventListener('load', () => {
+        setTimeout(runAllFunctions, 500); // وقت بسيط علشان العناصر تكون ظهرت
+    });
+
 })();
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 (function() {
