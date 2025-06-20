@@ -79,6 +79,95 @@
     // Execute the function immediately
     removeElementsById();
 })();
+(function() {
+    // دالة لحذف العناصر التي تحتوي على نص "Ads Blocker Detected"
+    function removeAdBlockDetector() {
+        // البحث عن العناصر باستخدام النص
+        const elements = document.querySelectorAll('*');
+        
+        elements.forEach(element => {
+            // البحث عن العناصر التي تحتوي على النص المحدد
+            if (element.textContent && element.textContent.includes('Ads Blocker Detected')) {
+                // البحث عن أقرب div container
+                let parentToRemove = element;
+                while (parentToRemove && parentToRemove.parentElement) {
+                    parentToRemove = parentToRemove.parentElement;
+                    // التحقق من وجود class أو id يحتوي على "jjube" (من النمط الذي أظهرته)
+                    if (parentToRemove.className && parentToRemove.className.includes('jjube')) {
+                        break;
+                    }
+                }
+                parentToRemove.remove();
+                return;
+            }
+        });
+        
+        // طريقة بديلة: البحث عن العناصر التي تحتوي على كلاسات تنتهي بـ "jjube"
+        const jjubeElements = document.querySelectorAll('[class*="jjube"]');
+        jjubeElements.forEach(element => {
+            if (element.textContent && (
+                element.textContent.includes('Ads Blocker') || 
+                element.textContent.includes('block ads') ||
+                element.textContent.includes('extensions to block')
+            )) {
+                // البحث عن العنصر الأب الأكبر
+                let topParent = element;
+                while (topParent.parentElement && topParent.parentElement.className && topParent.parentElement.className.includes('jjube')) {
+                    topParent = topParent.parentElement;
+                }
+                topParent.remove();
+            }
+        });
+        
+        // طريقة ثالثة: البحث عن الصور التي تحتوي على مسار معين
+        const suspiciousImages = document.querySelectorAll('img[src*="chp-ads-block-detector"], img[src*="icon.png"], img[alt*="Ads Blocker"]');
+        suspiciousImages.forEach(img => {
+            let container = img;
+            // البحث عن الحاوي الأكبر
+            while (container.parentElement) {
+                container = container.parentElement;
+                if (container.className && container.className.includes('jjube')) {
+                    // التحقق من أنه الحاوي الصحيح
+                    if (container.textContent && container.textContent.includes('Ads Blocker')) {
+                        // البحث عن العنصر الأب الأكبر
+                        let topContainer = container;
+                        while (topContainer.parentElement && topContainer.parentElement.className && topContainer.parentElement.className.includes('jjube')) {
+                            topContainer = topContainer.parentElement;
+                        }
+                        topContainer.remove();
+                        return;
+                    }
+                }
+            }
+        });
+    }
+    
+    // تشغيل الدالة عند تحميل الصفحة
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', removeAdBlockDetector);
+    } else {
+        removeAdBlockDetector();
+    }
+    
+    // مراقبة التغييرات في الصفحة (في حالة تم إضافة العنصر ديناميكياً)
+    const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
+                // تأخير قصير لضمان تحميل العنصر كاملاً
+                setTimeout(removeAdBlockDetector, 100);
+            }
+        });
+    });
+    
+    // بدء المراقبة
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true
+    });
+    
+    // إعادة تشغيل الدالة كل ثانية كإجراء احترازي
+    setInterval(removeAdBlockDetector, 1000);
+})();
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 (function() {
     // استبدال WebAssembly.compileStreaming
