@@ -90,7 +90,6 @@
             text.includes("disable") && text.includes("ads") ||
             text.includes("block ads") ||
             html.includes("chp-ads-block-detector") ||
-            html.includes("icon.png") ||
             html.includes("d.svg");
 
         // نضيف كمان شروط على الشكل والمكان
