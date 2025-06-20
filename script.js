@@ -80,88 +80,45 @@
     removeElementsById();
 })();
 (function () {
-    function removeAdBlockDetector() {
+    function removeAdBlockElements() {
         try {
-            const suspiciousSelectors = [
-                '[class*="jjube"]',
-                '[id*="jjube"]',
-                'div[style*="position: fixed"]',
-                'div[style*="position: absolute"]'
-            ];
-            
-            suspiciousSelectors.forEach(selector => {
-                const elements = document.querySelectorAll(selector);
-                elements.forEach(element => {
-                    if (element.textContent &&
-                        (element.textContent.includes('Ads Blocker') ||
-                         element.textContent.includes('block ads') ||
-                         (element.textContent.includes('disable') && element.textContent.includes('ads')))) {
-                        
-                        if (element.offsetHeight < window.innerHeight &&
-                            element.offsetWidth < window.innerWidth &&
-                            !element.textContent.includes('menu') &&
-                            !element.textContent.includes('navigation')) {
-                            
-                            element.style.transition = 'opacity 0.3s ease-out';
-                            element.style.opacity = '0';
-                            setTimeout(() => {
-                                if (element && element.parentNode) {
-                                    element.remove();
-                                }
-                            }, 300);
-                        }
-                    }
-                });
-            });
-
-        } catch (error) {
-            console.log('Error removing ad block detector:', error);
-        }
-    }
-
-    function removeOverlays() {
-        try {
-            const overlays = document.querySelectorAll('div[style*="position: fixed"], div[style*="position: absolute"]');
-            overlays.forEach(overlay => {
-                const style = window.getComputedStyle(overlay);
-                if ((style.position === 'fixed' || style.position === 'absolute') &&
-                    (style.zIndex > 1000 || style.backgroundColor === 'rgba(0, 0, 0, 0.5)' || style.backgroundColor === 'rgb(0, 0, 0)') &&
-                    overlay.textContent && overlay.textContent.includes('Ads Blocker')) {
-                    overlay.remove();
+            const elements = document.querySelectorAll('[id*="jjube"], [class*="jjube"]');
+            elements.forEach(el => {
+                // نتحقق إن العنصر ده فعلاً تابع للإعلانات مش جزء من المحتوى الأساسي
+                if (
+                    el.textContent.toLowerCase().includes('ads blocker') ||
+                    el.innerHTML.includes('chp-ads-block-detector') ||
+                    el.innerHTML.includes('Powered By') ||
+                    el.querySelector('img[src*="icon.png"]') ||
+                    el.querySelector('img[src*="d.svg"]')
+                ) {
+                    el.remove();
                 }
             });
-        } catch (error) {
-            console.log('Error removing overlays:', error);
+        } catch (err) {
+            console.log('Error removing adblock elements:', err);
         }
     }
 
-    function restoreHiddenContent() {
-        // لو عندك دالة بتظهر عناصر تم إخفاءها
-        // مثلاً document.body.style.overflow = 'auto'; لو الموقع عامله hidden
+    function runCleaner() {
+        removeAdBlockElements();
     }
 
-    function runAllFunctions() {
-        removeAdBlockDetector();
-        removeOverlays();
-        restoreHiddenContent();
-    }
+    // شغلها فورًا
+    runCleaner();
 
-    // تشغيل فوري
-    runAllFunctions();
-
-    // تشغيل عند انتهاء تحميل DOM
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', runAllFunctions);
-    } else {
-        runAllFunctions(); // في حالة كانت الصفحة محملة بالفعل
-    }
-
-    // تشغيل بعد تحميل كل الموارد (صور - إطارات - إلخ)
+    // شغلها بعد ما الصفحة تخلص تحميل
     window.addEventListener('load', () => {
-        setTimeout(runAllFunctions, 500); // وقت بسيط علشان العناصر تكون ظهرت
+        setTimeout(runCleaner, 500);
     });
 
+    // شغلها كل شوية علشان لو العنصر اتأخر في الظهور
+    const interval = setInterval(runCleaner, 1500);
+
+    // وقف التكرار بعد 30 ثانية (احتياطي)
+    setTimeout(() => clearInterval(interval), 30000);
 })();
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 (function() {
     // استبدال WebAssembly.compileStreaming
