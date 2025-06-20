@@ -99,20 +99,6 @@
                          element.textContent.includes('block ads') ||
                          element.textContent.includes('disable') && element.textContent.includes('ads'))) {
                         
-                        // التأكد إن العنصر ده مش جزء من المحتوى الأساسي
-                        if (element.offsetHeight < window.innerHeight && 
-                            element.offsetWidth < window.innerWidth &&
-                            !element.textContent.includes('menu') &&
-                            !element.textContent.includes('navigation')) {
-                            
-                            element.style.transition = 'opacity 0.3s ease-out';
-                            element.style.opacity = '0';
-                            setTimeout(() => {
-                                if (element && element.parentNode) {
-                                    element.remove();
-                                }
-                            }, 300);
-                        }
                     }
                 });
             });
