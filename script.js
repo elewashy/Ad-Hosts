@@ -79,45 +79,6 @@
     // Execute the function immediately
     removeElementsById();
 })();
-(function () {
-    function removeAdBlockElements() {
-        try {
-            const elements = document.querySelectorAll('[id*="jjube"], [class*="jjube"]');
-            elements.forEach(el => {
-                // نتحقق إن العنصر ده فعلاً تابع للإعلانات مش جزء من المحتوى الأساسي
-                if (
-                    el.textContent.toLowerCase().includes('ads blocker') ||
-                    el.innerHTML.includes('chp-ads-block-detector') ||
-                    el.innerHTML.includes('Powered By') ||
-                    el.querySelector('img[src*="icon.png"]') ||
-                    el.querySelector('img[src*="d.svg"]')
-                ) {
-                    el.remove();
-                }
-            });
-        } catch (err) {
-            console.log('Error removing adblock elements:', err);
-        }
-    }
-
-    function runCleaner() {
-        removeAdBlockElements();
-    }
-
-    // شغلها فورًا
-    runCleaner();
-
-    // شغلها بعد ما الصفحة تخلص تحميل
-    window.addEventListener('load', () => {
-        setTimeout(runCleaner, 500);
-    });
-
-    // شغلها كل شوية علشان لو العنصر اتأخر في الظهور
-    const interval = setInterval(runCleaner, 1500);
-
-    // وقف التكرار بعد 30 ثانية (احتياطي)
-    setTimeout(() => clearInterval(interval), 30000);
-})();
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 (function() {
