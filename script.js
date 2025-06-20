@@ -1460,106 +1460,41 @@
     }, 500); // كرر كل نصف ثانية
 })();
 
-(function() {
-    // نتأكد إننا في الموقع الصح
-    if (window.location.hostname === "traidmod.org") {
-        window.addEventListener('load', function() {
-            const downloadSection = document.getElementById('download_bottom');
-
-            if (downloadSection) {
-                // نمسح كل حاجة ف الصفحة
-                document.body.innerHTML = "";
-
-                // ننسخ الزرار
-                const buttonContainer = downloadSection.cloneNode(true);
-
-                // نخليه في نص الشاشة
-                buttonContainer.style.position = "fixed";
-                buttonContainer.style.top = "50%";
-                buttonContainer.style.left = "50%";
-                buttonContainer.style.transform = "translate(-50%, -50%)";
-                buttonContainer.style.zIndex = "9999";
-
-                // نكبر الزرار
-                const allButtons = buttonContainer.querySelectorAll('a');
-                allButtons.forEach(btn => {
-                    btn.style.padding = "30px 60px";
-                    btn.style.fontSize = "28px";
-                    btn.style.borderRadius = "20px";
-                });
-
-                // نحط الزرار المعدل في الصفحة
-                document.body.appendChild(buttonContainer);
-            }
-        });
-    }
-})();
-
 // (function() {
-//     // استرجاع التمرير الطبيعي للصفحة
-//     function enableNormalScrolling() {
-//         // إعادة ضبط خصائص CSS التي قد تمنع التمرير
-//         document.body.style.overflow = 'auto';
-//         document.documentElement.style.overflow = 'auto';
-//         document.body.style.position = 'static';
-//         document.body.style.height = 'auto';
-        
-//         // إزالة مستمعي الأحداث التي قد تمنع التمرير
-//         const removeEventListeners = function() {
-//             // إزالة أي مستمعي أحداث للتمرير أو مفاتيح السهم
-//             window.onscroll = null;
-//             window.onwheel = null;
-//             window.ontouchmove = null;
-//             window.onkeydown = null;
-            
-//             // إزالة preventDefault من أحداث العجلة
-//             document.removeEventListener('wheel', preventDefaultScroll, { passive: false });
-//             document.removeEventListener('touchmove', preventDefaultScroll, { passive: false });
-//             document.removeEventListener('keydown', preventDefaultScroll, { passive: false });
-//         };
-        
-//         // دالة مساعدة لمنع preventDefault
-//         function preventDefaultScroll(e) {
-//             e.stopPropagation();
-//             return true;
-//         }
-        
-//         removeEventListeners();
-        
-//         // البحث عن وإزالة العناصر الثابتة التي قد تغطي المحتوى
-//         const fixedElements = document.querySelectorAll('div[style*="fixed"], div[style*="absolute"], div[class*="overlay"], div[class*="modal"], div[id*="overlay"], div[id*="modal"]');
-//         fixedElements.forEach(el => {
-//             if (window.getComputedStyle(el).position === 'fixed' || window.getComputedStyle(el).position === 'absolute') {
-//                 if (el.style.zIndex > 1000 || el.style.zIndex === 'auto') {
-//                     el.style.display = 'none';
-//                 }
+//     // نتأكد إننا في الموقع الصح
+//     if (window.location.hostname === "traidmod.org") {
+//         window.addEventListener('load', function() {
+//             const downloadSection = document.getElementById('download_bottom');
+
+//             if (downloadSection) {
+//                 // نمسح كل حاجة ف الصفحة
+//                 document.body.innerHTML = "";
+
+//                 // ننسخ الزرار
+//                 const buttonContainer = downloadSection.cloneNode(true);
+
+//                 // نخليه في نص الشاشة
+//                 buttonContainer.style.position = "fixed";
+//                 buttonContainer.style.top = "50%";
+//                 buttonContainer.style.left = "50%";
+//                 buttonContainer.style.transform = "translate(-50%, -50%)";
+//                 buttonContainer.style.zIndex = "9999";
+
+//                 // نكبر الزرار
+//                 const allButtons = buttonContainer.querySelectorAll('a');
+//                 allButtons.forEach(btn => {
+//                     btn.style.padding = "30px 60px";
+//                     btn.style.fontSize = "28px";
+//                     btn.style.borderRadius = "20px";
+//                 });
+
+//                 // نحط الزرار المعدل في الصفحة
+//                 document.body.appendChild(buttonContainer);
 //             }
 //         });
-        
-//         // إعادة ضبط البرمجة المخصصة للتمرير
-//         window.scrollTo = function(x, y) {
-//             return true;
-//         };
-        
-//         // التعامل مع أحداث العجلة
-//         document.addEventListener('wheel', function(event) {
-//             window.scrollBy({
-//                 top: event.deltaY,
-//                 behavior: 'smooth'
-//             });
-//         });
-        
 //     }
-    
-//     // تنفيذ الوظيفة
-//     enableNormalScrolling();
-    
-//     // مراقبة وتنفيذ الوظيفة كل ثانية للتعامل مع المواقع التي تعيد تطبيق القيود
-//     setInterval(enableNormalScrolling, 1000);
-    
-    
-//     document.body.appendChild(scrollButton);
 // })();
+
 ///////////////////////////////////////////////////////////////////////////////////////////////
 (function() {
     // Enhanced sandbox detection prevention
