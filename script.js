@@ -82,7 +82,6 @@
 (function() {
     function removeAdBlockDetector() {
         try {
-
             // طريقة 2: البحث عن العناصر بخصائص محددة
             const suspiciousSelectors = [
                 '[class*="jjube"]',
@@ -99,29 +98,24 @@
                          element.textContent.includes('block ads') ||
                          element.textContent.includes('disable') && element.textContent.includes('ads'))) {
                         
+                        // التأكد إن العنصر ده مش جزء من المحتوى الأساسي
+                        if (element.offsetHeight < window.innerHeight && 
+                            element.offsetWidth < window.innerWidth &&
+                            !element.textContent.includes('menu') &&
+                            !element.textContent.includes('navigation')) {
+                            
+                            element.style.transition = 'opacity 0.3s ease-out';
+                            element.style.opacity = '0';
+                            setTimeout(() => {
+                                if (element && element.parentNode) {
+                                    element.remove();
+                                }
+                            }, 300);
+                        }
                     }
                 });
             });
-            
-            // طريقة 3: إخفاء بدلاً من الحذف (كبديل آمن)
-            const adBlockElements = document.querySelectorAll('*');
-            adBlockElements.forEach(element => {
-                if (element.textContent && 
-                    element.textContent.includes('Ads Blocker Detected') &&
-                    element.offsetHeight < 500 && // العنصر مش كبير أوي
-                    element.offsetWidth < 800) {
-                    
-                    element.style.display = 'none !important';
-                    element.style.visibility = 'hidden !important';
-                    element.style.opacity = '0 !important';
-                    element.style.height = '0 !important';
-                    element.style.width = '0 !important';
-                    element.style.overflow = 'hidden !important';
-                    element.style.position = 'absolute !important';
-                    element.style.left = '-9999px !important';
-                }
-            });
-            
+                        
         } catch (error) {
             console.log('Error removing ad block detector:', error);
         }
@@ -143,31 +137,7 @@
             console.log('Error removing overlays:', error);
         }
     }
-    
-    // استعادة إظهار المحتوى المخفي
-    function restoreHiddenContent() {
-        try {
-            // إزالة أي style يخفي الـ body أو المحتوى الرئيسي
-            document.body.style.overflow = 'auto';
-            document.body.style.position = 'static';
-            document.documentElement.style.overflow = 'auto';
-            
-            // إظهار العناصر المخفية
-            const hiddenElements = document.querySelectorAll('[style*="display: none"], [style*="visibility: hidden"]');
-            hiddenElements.forEach(element => {
-                if (!element.textContent.includes('Ads Blocker') && 
-                    !element.className.includes('jjube') &&
-                    !element.id.includes('jjube')) {
-                    element.style.display = '';
-                    element.style.visibility = '';
-                    element.style.opacity = '';
-                }
-            });
-        } catch (error) {
-            console.log('Error restoring content:', error);
-        }
-    }
-    
+        
     // تشغيل جميع الدوال
     function runAllFunctions() {
         removeAdBlockDetector();
@@ -182,35 +152,6 @@
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', runAllFunctions);
     }
-    
-    // مراقبة التغييرات مع حماية من التكرار المفرط
-    let lastRun = 0;
-    const observer = new MutationObserver(function(mutations) {
-        const now = Date.now();
-        if (now - lastRun > 500) { // تشغيل كل نص ثانية بحد أقصى
-            lastRun = now;
-            mutations.forEach(function(mutation) {
-                if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
-                    setTimeout(runAllFunctions, 100);
-                }
-            });
-        }
-    });
-    
-    observer.observe(document.body, {
-        childList: true,
-        subtree: true
-    });
-    
-    // تشغيل دوري محدود
-    let intervalCount = 0;
-    const interval = setInterval(() => {
-        runAllFunctions();
-        intervalCount++;
-        if (intervalCount > 20) { // إيقاف بعد 20 مرة (20 ثانية)
-            clearInterval(interval);
-        }
-    }, 1000);
     
 })();
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
