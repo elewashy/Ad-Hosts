@@ -86,8 +86,6 @@
 
         // كلمات ومحتوى واضح إنه تابع لـ AdBlock
         const suspiciousText =
-            text.includes("ads blocker") ||
-            text.includes("block ads") ||
             html.includes("chp-ads-block-detector");
 
         // نضيف كمان شروط على الشكل والمكان
