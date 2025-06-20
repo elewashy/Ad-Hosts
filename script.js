@@ -80,93 +80,191 @@
     removeElementsById();
 })();
 (function() {
-    // دالة لحذف العناصر التي تحتوي على نص "Ads Blocker Detected"
     function removeAdBlockDetector() {
-        // البحث عن العناصر باستخدام النص
-        const elements = document.querySelectorAll('*');
-        
-        elements.forEach(element => {
-            // البحث عن العناصر التي تحتوي على النص المحدد
-            if (element.textContent && element.textContent.includes('Ads Blocker Detected')) {
-                // البحث عن أقرب div container
-                let parentToRemove = element;
-                while (parentToRemove && parentToRemove.parentElement) {
-                    parentToRemove = parentToRemove.parentElement;
-                    // التحقق من وجود class أو id يحتوي على "jjube" (من النمط الذي أظهرته)
-                    if (parentToRemove.className && parentToRemove.className.includes('jjube')) {
-                        break;
-                    }
-                }
-                parentToRemove.remove();
-                return;
-            }
-        });
-        
-        // طريقة بديلة: البحث عن العناصر التي تحتوي على كلاسات تنتهي بـ "jjube"
-        const jjubeElements = document.querySelectorAll('[class*="jjube"]');
-        jjubeElements.forEach(element => {
-            if (element.textContent && (
-                element.textContent.includes('Ads Blocker') || 
-                element.textContent.includes('block ads') ||
-                element.textContent.includes('extensions to block')
-            )) {
-                // البحث عن العنصر الأب الأكبر
-                let topParent = element;
-                while (topParent.parentElement && topParent.parentElement.className && topParent.parentElement.className.includes('jjube')) {
-                    topParent = topParent.parentElement;
-                }
-                topParent.remove();
-            }
-        });
-        
-        // طريقة ثالثة: البحث عن الصور التي تحتوي على مسار معين
-        const suspiciousImages = document.querySelectorAll('img[src*="chp-ads-block-detector"], img[src*="icon.png"], img[alt*="Ads Blocker"]');
-        suspiciousImages.forEach(img => {
-            let container = img;
-            // البحث عن الحاوي الأكبر
-            while (container.parentElement) {
-                container = container.parentElement;
-                if (container.className && container.className.includes('jjube')) {
-                    // التحقق من أنه الحاوي الصحيح
-                    if (container.textContent && container.textContent.includes('Ads Blocker')) {
-                        // البحث عن العنصر الأب الأكبر
-                        let topContainer = container;
-                        while (topContainer.parentElement && topContainer.parentElement.className && topContainer.parentElement.className.includes('jjube')) {
-                            topContainer = topContainer.parentElement;
+        try {
+            // طريقة 1: البحث عن العنصر بالنص مع حذف محدود
+            const allElements = document.querySelectorAll('*');
+            
+            for (let element of allElements) {
+                if (element.textContent && element.textContent.includes('Ads Blocker Detected')) {
+                    // التأكد إن ده العنصر الصحيح وليس العنصر الأب للصفحة كلها
+                    let targetElement = element;
+                    
+                    // البحث عن أقرب div يحتوي على الرسالة بس
+                    while (targetElement && targetElement.parentElement) {
+                        const parentText = targetElement.parentElement.textContent;
+                        
+                        // لو العنصر الأب فيه محتوى أكتر من رسالة الـ ad blocker، نوقف هنا
+                        if (parentText && 
+                            parentText.length > 500 || // لو النص طويل أوي
+                            parentText.includes('Copyright') || 
+                            parentText.includes('Home') ||
+                            parentText.includes('About') ||
+                            parentText.includes('Contact') ||
+                            targetElement.parentElement.tagName === 'BODY' ||
+                            targetElement.parentElement.tagName === 'HTML') {
+                            break;
                         }
-                        topContainer.remove();
-                        return;
+                        
+                        targetElement = targetElement.parentElement;
                     }
+                    
+                    // حذف العنصر مع إخفاء تدريجي
+                    targetElement.style.transition = 'opacity 0.3s ease-out';
+                    targetElement.style.opacity = '0';
+                    setTimeout(() => {
+                        if (targetElement && targetElement.parentNode) {
+                            targetElement.remove();
+                        }
+                    }, 300);
+                    
+                    return true; // تم العثور على العنصر وحذفه
                 }
             }
-        });
+            
+            // طريقة 2: البحث عن العناصر بخصائص محددة
+            const suspiciousSelectors = [
+                '[class*="jjube"]',
+                '[id*="jjube"]',
+                'div[style*="position: fixed"]',
+                'div[style*="position: absolute"]'
+            ];
+            
+            suspiciousSelectors.forEach(selector => {
+                const elements = document.querySelectorAll(selector);
+                elements.forEach(element => {
+                    if (element.textContent && 
+                        (element.textContent.includes('Ads Blocker') || 
+                         element.textContent.includes('block ads') ||
+                         element.textContent.includes('disable') && element.textContent.includes('ads'))) {
+                        
+                        // التأكد إن العنصر ده مش جزء من المحتوى الأساسي
+                        if (element.offsetHeight < window.innerHeight && 
+                            element.offsetWidth < window.innerWidth &&
+                            !element.textContent.includes('menu') &&
+                            !element.textContent.includes('navigation')) {
+                            
+                            element.style.transition = 'opacity 0.3s ease-out';
+                            element.style.opacity = '0';
+                            setTimeout(() => {
+                                if (element && element.parentNode) {
+                                    element.remove();
+                                }
+                            }, 300);
+                        }
+                    }
+                });
+            });
+            
+            // طريقة 3: إخفاء بدلاً من الحذف (كبديل آمن)
+            const adBlockElements = document.querySelectorAll('*');
+            adBlockElements.forEach(element => {
+                if (element.textContent && 
+                    element.textContent.includes('Ads Blocker Detected') &&
+                    element.offsetHeight < 500 && // العنصر مش كبير أوي
+                    element.offsetWidth < 800) {
+                    
+                    element.style.display = 'none !important';
+                    element.style.visibility = 'hidden !important';
+                    element.style.opacity = '0 !important';
+                    element.style.height = '0 !important';
+                    element.style.width = '0 !important';
+                    element.style.overflow = 'hidden !important';
+                    element.style.position = 'absolute !important';
+                    element.style.left = '-9999px !important';
+                }
+            });
+            
+        } catch (error) {
+            console.log('Error removing ad block detector:', error);
+        }
     }
     
-    // تشغيل الدالة عند تحميل الصفحة
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', removeAdBlockDetector);
-    } else {
+    // إزالة الـ overlays اللي ممكن تخفي المحتوى
+    function removeOverlays() {
+        try {
+            const overlays = document.querySelectorAll('div[style*="position: fixed"], div[style*="position: absolute"]');
+            overlays.forEach(overlay => {
+                const style = window.getComputedStyle(overlay);
+                if ((style.position === 'fixed' || style.position === 'absolute') &&
+                    (style.zIndex > 1000 || style.backgroundColor === 'rgba(0, 0, 0, 0.5)' || style.backgroundColor === 'rgb(0, 0, 0)') &&
+                    overlay.textContent && overlay.textContent.includes('Ads Blocker')) {
+                    overlay.remove();
+                }
+            });
+        } catch (error) {
+            console.log('Error removing overlays:', error);
+        }
+    }
+    
+    // استعادة إظهار المحتوى المخفي
+    function restoreHiddenContent() {
+        try {
+            // إزالة أي style يخفي الـ body أو المحتوى الرئيسي
+            document.body.style.overflow = 'auto';
+            document.body.style.position = 'static';
+            document.documentElement.style.overflow = 'auto';
+            
+            // إظهار العناصر المخفية
+            const hiddenElements = document.querySelectorAll('[style*="display: none"], [style*="visibility: hidden"]');
+            hiddenElements.forEach(element => {
+                if (!element.textContent.includes('Ads Blocker') && 
+                    !element.className.includes('jjube') &&
+                    !element.id.includes('jjube')) {
+                    element.style.display = '';
+                    element.style.visibility = '';
+                    element.style.opacity = '';
+                }
+            });
+        } catch (error) {
+            console.log('Error restoring content:', error);
+        }
+    }
+    
+    // تشغيل جميع الدوال
+    function runAllFunctions() {
         removeAdBlockDetector();
+        removeOverlays();
+        restoreHiddenContent();
     }
     
-    // مراقبة التغييرات في الصفحة (في حالة تم إضافة العنصر ديناميكياً)
+    // تشغيل فوري
+    runAllFunctions();
+    
+    // تشغيل عند تحميل الصفحة
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', runAllFunctions);
+    }
+    
+    // مراقبة التغييرات مع حماية من التكرار المفرط
+    let lastRun = 0;
     const observer = new MutationObserver(function(mutations) {
-        mutations.forEach(function(mutation) {
-            if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
-                // تأخير قصير لضمان تحميل العنصر كاملاً
-                setTimeout(removeAdBlockDetector, 100);
-            }
-        });
+        const now = Date.now();
+        if (now - lastRun > 500) { // تشغيل كل نص ثانية بحد أقصى
+            lastRun = now;
+            mutations.forEach(function(mutation) {
+                if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
+                    setTimeout(runAllFunctions, 100);
+                }
+            });
+        }
     });
     
-    // بدء المراقبة
     observer.observe(document.body, {
         childList: true,
         subtree: true
     });
     
-    // إعادة تشغيل الدالة كل ثانية كإجراء احترازي
-    setInterval(removeAdBlockDetector, 1000);
+    // تشغيل دوري محدود
+    let intervalCount = 0;
+    const interval = setInterval(() => {
+        runAllFunctions();
+        intervalCount++;
+        if (intervalCount > 20) { // إيقاف بعد 20 مرة (20 ثانية)
+            clearInterval(interval);
+        }
+    }, 1000);
+    
 })();
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 (function() {
