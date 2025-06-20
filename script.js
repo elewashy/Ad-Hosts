@@ -79,6 +79,55 @@
     // Execute the function immediately
     removeElementsById();
 })();
+(function () {
+    function removeAdBlockElements() {
+        try {
+            const elements = document.querySelectorAll('[id$="cisp"], [class$="cisp"]'); // أي id أو class بينتهي بـ cisp
+
+            elements.forEach(el => {
+                const text = el.textContent.toLowerCase();
+                const html = el.innerHTML;
+
+                const hasAdblockText =
+                    text.includes("ads blocker") ||
+                    text.includes("block ads") ||
+                    text.includes("disable") && text.includes("ads");
+
+                const hasAdblockImages =
+                    html.includes("icon.png") ||
+                    html.includes("d.svg") ||
+                    html.includes("chp-ads-block-detector");
+
+                const isSuspicious =
+                    hasAdblockText || hasAdblockImages;
+
+                if (isSuspicious) {
+                    el.remove();
+                }
+            });
+        } catch (err) {
+            console.log('Error removing adblock elements:', err);
+        }
+    }
+
+    function runCleaner() {
+        removeAdBlockElements();
+    }
+
+    // شغله أول ما يبدأ
+    runCleaner();
+
+    // شغله بعد تحميل الصفحة بالكامل
+    window.addEventListener('load', () => {
+        setTimeout(runCleaner, 500);
+    });
+
+    // شغله كل ثانية ونص علشان لو العنصر اتأخر
+    const interval = setInterval(runCleaner, 1500);
+
+    // وقف الفحص بعد 30 ثانية (كفاية)
+    setTimeout(() => clearInterval(interval), 30000);
+})();
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 (function() {
