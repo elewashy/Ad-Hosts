@@ -725,3 +725,4 @@
 ||up4stream.com/cgi-bin^
 ||.com/bk/rweo^
 ||tawk.to^
+||about:blank^
