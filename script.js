@@ -80,6 +80,9 @@
     removeElementsById();
 })();
 (function () {
+    // اشتغل فقط على yallateri.com
+    if (!location.hostname.includes("yallateri.com")) return;
+
     function isAdblockElement(el) {
         const text = (el.textContent || "").toLowerCase();
         const html = (el.innerHTML || "").toLowerCase();
@@ -87,10 +90,9 @@
         // كلمات ومحتوى واضح إنه تابع لـ AdBlock
         const suspiciousText =
             text.includes("ads blocker") ||
-            text.includes("disable") && text.includes("ads") ||
+            (text.includes("disable") && text.includes("ads")) ||
             text.includes("block ads") ||
-            html.includes("icon.png") ||
-            html.includes("d.svg");
+            html.includes("chp-ads-block-detector");
 
         // نضيف كمان شروط على الشكل والمكان
         const rect = el.getBoundingClientRect();
