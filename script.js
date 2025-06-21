@@ -192,12 +192,12 @@
         button.style.opacity = '1';
     }
     // اظهار زر التحميل
-    var downloadBtn = document.getElementById('downloadbtn');
-    if (downloadBtn) {
-        downloadBtn.style.display = 'block';
-        downloadBtn.style.visibility = 'visible';
-        downloadBtn.style.opacity = '1';
-    }
+    // var downloadBtn = document.getElementById('downloadbtn');
+    // if (downloadBtn) {
+    //     downloadBtn.style.display = 'block';
+    //     downloadBtn.style.visibility = 'visible';
+    //     downloadBtn.style.opacity = '1';
+    // }
 
     // اخفاء العنصر clickme وزر start
     var clickMe = document.getElementById('clickme');
@@ -1080,43 +1080,30 @@
 })();
 (function () {
     if (window.location.hostname === "rm.freex2line.online") {
-        const injectedScript = document.createElement("script");
-        injectedScript.textContent = `
-            (function () {
+        const targetURL = "https://rm.freex2line.online/2020/02/blog-post.html/get-link.php";
+
+        fetch(targetURL, {
+            method: "GET",
+            credentials: "include",
+            headers: {
+                "Accept": "*/*",
+                "Referer": "https://rm.freex2line.online/2020/02/blog-post.html/",
+                "User-Agent": navigator.userAgent
+            }
+        })
+        .then(response => {
+            if (!response.ok) throw new Error("Request failed");
+            return response.text();
+        })
+        .then(result => {
+            if (result.startsWith("http")) {
                 const btn = document.getElementById("downloadbtn");
-                if (!btn) return;
-
-                const token = btn.getAttribute("data-token");
-                if (!token) return;
-
-                const targetURL = "https://rm.freex2line.online/2020/02/blog-post.html/get-link.php?token=" + encodeURIComponent(token);
-
-                fetch(targetURL, {
-                    method: "GET",
-                    credentials: "include",
-                    headers: {
-                        "Accept": "*/*",
-                        "Referer": window.location.href,
-                        "User-Agent": navigator.userAgent
-                    }
-                })
-                .then(response => {
-                    if (!response.ok) throw new Error("Request failed");
-                    return response.text();
-                })
-                .then(result => {
-                    if (result.startsWith("http")) {
-                        btn.href = result;
-                        btn.style.display = "inline-block";
-                        btn.textContent = "تحميل مباشر";
-                    }
-                })
-                .catch(error => {
-                    console.error("Error fetching link:", error);
-                });
-            })();
-        `;
-        document.documentElement.appendChild(injectedScript);
+                if (btn) {
+                    btn.href = result;
+                    btn.style.display = "inline-block";
+                } 
+            } 
+        })
     }
 })();
 (function () {
