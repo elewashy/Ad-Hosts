@@ -1079,32 +1079,51 @@
     removeElements();
 })();
 (function () {
-    if (window.location.hostname === "rm.freex2line.online") {
-        const targetURL = "https://rm.freex2line.online/2020/02/blog-post.html/get-link.php";
+  const currentURL = window.location.href;
+  const referrer = document.referrer;
 
-        fetch(targetURL, {
-            method: "GET",
-            credentials: "include",
-            headers: {
-                "Accept": "*/*",
-                "Referer": "https://rm.freex2line.online/2020/02/blog-post.html/",
-                "User-Agent": navigator.userAgent
-            }
-        })
-        .then(response => {
-            if (!response.ok) throw new Error("Request failed");
-            return response.text();
-        })
-        .then(result => {
-            if (result.startsWith("http")) {
-                const btn = document.getElementById("downloadbtn");
-                if (btn) {
-                    btn.href = result;
-                    btn.style.display = "inline-block";
-                } 
-            } 
-        })
+  const isCorrectReferrer = (() => {
+    try {
+      const url = new URL(referrer);
+      const hostMatch = url.hostname.includes("cimanow.cc");
+      const path = decodeURIComponent(url.pathname);
+
+      const isMovieOrEpisode =
+        /^\/(فيلم|مسلسل)-.+-(مترجم|مترجمة)\/?$/.test(path) ||
+        /الحلقة-\d+-/.test(path);
+
+      const isSeasonPage = /\/selary\//.test(url.pathname);
+
+      return hostMatch && isMovieOrEpisode && !isSeasonPage;
+    } catch (e) {
+      return false;
     }
+  })();
+
+  if (isCorrectReferrer) {
+    const watchingURL = currentURL.replace(/(\/)?$/, "/watching/");
+
+    // إنشاء الزر
+    const button = document.createElement("a");
+    button.href = watchingURL;
+    button.textContent = "📺 المشاهدة والتحميل";
+    button.style.cssText = `
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 20px 40px;
+      font-size: 24px;
+      background-color: #e50914;
+      color: white;
+      text-decoration: none;
+      border-radius: 10px;
+      z-index: 9999;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    `;
+
+    document.body.appendChild(button);
+  }
 })();
 (function () {
   const watchList = document.querySelector('#watch');
