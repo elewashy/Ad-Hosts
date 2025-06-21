@@ -1079,6 +1079,53 @@
     removeElements();
 })();
 (function () {
+  const _elewashy_currentURL = window.location.href;
+  const _elewashy_referrer = document.referrer;
+
+  const _elewashy_isValidReferrer = (() => {
+    try {
+      const _elewashy_url = new URL(_elewashy_referrer);
+      const _elewashy_hostCheck = _elewashy_url.hostname.includes("cimanow.cc");
+      const _elewashy_path = decodeURIComponent(_elewashy_url.pathname);
+
+      const _elewashy_isMovieOrEpisode =
+        /^\/(فيلم|مسلسل)-.+-(مترجم|مترجمة)\/?$/.test(_elewashy_path) ||
+        /الحلقة-\d+-/.test(_elewashy_path);
+
+      const _elewashy_isSeasonPage = /\/selary\//.test(_elewashy_url.pathname);
+
+      return _elewashy_hostCheck && _elewashy_isMovieOrEpisode && !_elewashy_isSeasonPage;
+    } catch (_elewashy_err) {
+      return false;
+    }
+  })();
+
+  if (_elewashy_isValidReferrer) {
+    const _elewashy_targetURL = _elewashy_currentURL.replace(/(\/)?$/, "/watching/");
+
+    const _elewashy_button = document.createElement("a");
+    _elewashy_button.href = _elewashy_targetURL;
+    _elewashy_button.textContent = "📺 المشاهدة والتحميل";
+    _elewashy_button.style.cssText = `
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 20px 40px;
+      font-size: 24px;
+      background-color: #e50914;
+      color: white;
+      text-decoration: none;
+      border-radius: 10px;
+      z-index: 9999;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    `;
+
+    document.body.appendChild(_elewashy_button);
+  }
+})();
+
+(function () {
   const watchList = document.querySelector('#watch');
   if (!watchList) return;
 
