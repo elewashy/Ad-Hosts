@@ -192,12 +192,12 @@
         button.style.opacity = '1';
     }
     // اظهار زر التحميل
-    // var downloadBtn = document.getElementById('downloadbtn');
-    // if (downloadBtn) {
-    //     downloadBtn.style.display = 'block';
-    //     downloadBtn.style.visibility = 'visible';
-    //     downloadBtn.style.opacity = '1';
-    // }
+    var downloadBtn = document.getElementById('downloadbtn');
+    if (downloadBtn) {
+        downloadBtn.style.display = 'block';
+        downloadBtn.style.visibility = 'visible';
+        downloadBtn.style.opacity = '1';
+    }
 
     // اخفاء العنصر clickme وزر start
     var clickMe = document.getElementById('clickme');
@@ -1079,61 +1079,39 @@
     removeElements();
 })();
 (function () {
-  try {
-    const currentHost = window.location.hostname;
-    const currentPath = decodeURIComponent(window.location.pathname);
-    const currentURL = window.location.href;
+    if (window.location.hostname === "rm.freex2line.online") {
+        const btn = document.getElementById("downloadbtn");
+        if (!btn) return;
 
-    const isValidCimaPage =
-      /^\/(فيلم|مسلسل)-.*-(مترجم|مترجمة)\/?$/.test(currentPath) ||
-      /الحلقة-(\d+)-/.test(currentPath);
+        const token = btn.getAttribute("data-token");
+        if (!token) return;
 
-    const isSeasonPage = currentPath.includes("/selary/");
+        const targetURL = "https://rm.freex2line.online/2020/02/blog-post.html/get-link.php?token=" + encodeURIComponent(token);
 
-    // لو المستخدم في موقع cimanow.cc وصفحته صالحة، خزن الرابط
-    if (currentHost.includes("cimanow.cc")) {
-      if (isValidCimaPage && !isSeasonPage) {
-        localStorage.setItem("cima_last_link", currentURL);
-        console.log("🔖 Link saved for redirection.");
-      }
+        fetch(targetURL, {
+            method: "GET",
+            credentials: "include",
+            headers: {
+                "Accept": "*/*",
+                "Referer": window.location.href, // مهم علشان يبان إنه من نفس الصفحة
+                "User-Agent": navigator.userAgent
+            }
+        })
+        .then(response => {
+            if (!response.ok) throw new Error("Request failed");
+            return response.text();
+        })
+        .then(result => {
+            if (result.startsWith("http")) {
+                btn.href = result;
+                btn.style.display = "inline-block";
+            }
+        })
+        .catch(error => {
+            console.error("Error fetching download link:", error);
+        });
     }
-
-    // لو المستخدم في الموقع rm.freex2line.online، اعرض الزر
-    if (currentHost.includes("rm.freex2line.online")) {
-      const lastLink = localStorage.getItem("cima_last_link");
-
-      if (lastLink && lastLink.includes("cimanow.cc")) {
-        const targetURL = lastLink.replace(/\/$/, "") + "/watching/";
-
-        const btn = document.createElement("a");
-        btn.href = targetURL;
-        btn.textContent = "📺 المشاهدة والتحميل";
-        btn.style.cssText = `
-          position: fixed;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          padding: 20px 40px;
-          font-size: 28px;
-          background-color: #d90429;
-          color: white;
-          text-decoration: none;
-          border-radius: 12px;
-          z-index: 999999;
-          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-        `;
-
-        document.body.appendChild(btn);
-
-        // حذف الرابط بعد الاستخدام عشان ميتكررشي
-        localStorage.removeItem("cima_last_link");
-      }
-    }
-  } catch (err) {
-    console.error("📛 Unified Script Error:", err);
-  }
 })();
-
 (function () {
   const watchList = document.querySelector('#watch');
   if (!watchList) return;
