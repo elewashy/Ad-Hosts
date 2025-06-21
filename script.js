@@ -1080,50 +1080,57 @@
 })();
 (function () {
   try {
+    const currentHost = window.location.hostname;
+    const currentPath = decodeURIComponent(window.location.pathname);
     const currentURL = window.location.href;
-    const referrer = document.referrer;
 
-    // تأكد إن الزائر جاي من cimanow.cc
-    const fromCimanow = referrer.includes("cimanow.cc");
+    const isValidCimaPage =
+      /^\/(فيلم|مسلسل)-.*-(مترجم|مترجمة)\/?$/.test(currentPath) ||
+      /الحلقة-(\d+)-/.test(currentPath);
 
-    if (!fromCimanow) return;
+    const isSeasonPage = currentPath.includes("/selary/");
 
-    // استخرج الـ pathname فقط من الرابط
-    const refURL = new URL(referrer);
-    const refPath = decodeURIComponent(refURL.pathname);
+    // لو المستخدم في موقع cimanow.cc وصفحته صالحة، خزن الرابط
+    if (currentHost.includes("cimanow.cc")) {
+      if (isValidCimaPage && !isSeasonPage) {
+        localStorage.setItem("cima_last_link", currentURL);
+        console.log("🔖 Link saved for redirection.");
+      }
+    }
 
-    // فلترة الصفحات المسموح بها
-    const isValidPage =
-      /^\/(فيلم|مسلسل)-.*-(مترجم|مترجمة)\/?$/.test(refPath) ||
-      /الحلقة-(\d+)-/.test(refPath);
+    // لو المستخدم في الموقع rm.freex2line.online، اعرض الزر
+    if (currentHost.includes("rm.freex2line.online")) {
+      const lastLink = localStorage.getItem("cima_last_link");
 
-    const isSeasonPage = refPath.includes("/selary/");
+      if (lastLink && lastLink.includes("cimanow.cc")) {
+        const targetURL = lastLink.replace(/\/$/, "") + "/watching/";
 
-    if (isValidPage && !isSeasonPage) {
-      const finalURL = currentURL.replace(/\/$/, "") + "/watching/";
+        const btn = document.createElement("a");
+        btn.href = targetURL;
+        btn.textContent = "📺 المشاهدة والتحميل";
+        btn.style.cssText = `
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          padding: 20px 40px;
+          font-size: 28px;
+          background-color: #d90429;
+          color: white;
+          text-decoration: none;
+          border-radius: 12px;
+          z-index: 999999;
+          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+        `;
 
-      const btn = document.createElement("a");
-      btn.href = finalURL;
-      btn.textContent = "📺 المشاهدة والتحميل";
-      btn.style.cssText = `
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        padding: 20px 40px;
-        font-size: 28px;
-        background-color: #d90429;
-        color: white;
-        text-decoration: none;
-        border-radius: 12px;
-        z-index: 999999;
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-      `;
+        document.body.appendChild(btn);
 
-      document.body.appendChild(btn);
+        // حذف الرابط بعد الاستخدام عشان ميتكررشي
+        localStorage.removeItem("cima_last_link");
+      }
     }
   } catch (err) {
-    console.error("Custom Script Error:", err);
+    console.error("📛 Unified Script Error:", err);
   }
 })();
 
