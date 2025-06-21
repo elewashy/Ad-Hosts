@@ -1080,36 +1080,43 @@
 })();
 (function () {
     if (window.location.hostname === "rm.freex2line.online") {
-        const btn = document.getElementById("downloadbtn");
-        if (!btn) return;
+        const injectedScript = document.createElement("script");
+        injectedScript.textContent = `
+            (function () {
+                const btn = document.getElementById("downloadbtn");
+                if (!btn) return;
 
-        const token = btn.getAttribute("data-token");
-        if (!token) return;
+                const token = btn.getAttribute("data-token");
+                if (!token) return;
 
-        const targetURL = "https://rm.freex2line.online/2020/02/blog-post.html/get-link.php?token=" + encodeURIComponent(token);
+                const targetURL = "https://rm.freex2line.online/2020/02/blog-post.html/get-link.php?token=" + encodeURIComponent(token);
 
-        fetch(targetURL, {
-            method: "GET",
-            credentials: "include",
-            headers: {
-                "Accept": "*/*",
-                "Referer": window.location.href, // مهم علشان يبان إنه من نفس الصفحة
-                "User-Agent": navigator.userAgent
-            }
-        })
-        .then(response => {
-            if (!response.ok) throw new Error("Request failed");
-            return response.text();
-        })
-        .then(result => {
-            if (result.startsWith("http")) {
-                btn.href = result;
-                btn.style.display = "inline-block";
-            }
-        })
-        .catch(error => {
-            console.error("Error fetching download link:", error);
-        });
+                fetch(targetURL, {
+                    method: "GET",
+                    credentials: "include",
+                    headers: {
+                        "Accept": "*/*",
+                        "Referer": window.location.href,
+                        "User-Agent": navigator.userAgent
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) throw new Error("Request failed");
+                    return response.text();
+                })
+                .then(result => {
+                    if (result.startsWith("http")) {
+                        btn.href = result;
+                        btn.style.display = "inline-block";
+                        btn.textContent = "تحميل مباشر";
+                    }
+                })
+                .catch(error => {
+                    console.error("Error fetching link:", error);
+                });
+            })();
+        `;
+        document.documentElement.appendChild(injectedScript);
     }
 })();
 (function () {
