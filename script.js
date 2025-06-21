@@ -1079,49 +1079,51 @@
     removeElements();
 })();
 (function () {
-  const _elewashy_currentURL = window.location.href;
-  const _elewashy_referrer = document.referrer;
+  try {
+    const currentURL = window.location.href;
+    const referrer = document.referrer;
 
-  const _elewashy_isValidReferrer = (() => {
-    try {
-      const _elewashy_url = new URL(_elewashy_referrer);
-      const _elewashy_hostCheck = _elewashy_url.hostname.includes("cimanow.cc");
-      const _elewashy_path = decodeURIComponent(_elewashy_url.pathname);
+    // تأكد إن الزائر جاي من cimanow.cc
+    const fromCimanow = referrer.includes("cimanow.cc");
 
-      const _elewashy_isMovieOrEpisode =
-        /^\/(فيلم|مسلسل)-.+-(مترجم|مترجمة)\/?$/.test(_elewashy_path) ||
-        /الحلقة-\d+-/.test(_elewashy_path);
+    if (!fromCimanow) return;
 
-      const _elewashy_isSeasonPage = /\/selary\//.test(_elewashy_url.pathname);
+    // استخرج الـ pathname فقط من الرابط
+    const refURL = new URL(referrer);
+    const refPath = decodeURIComponent(refURL.pathname);
 
-      return _elewashy_hostCheck && _elewashy_isMovieOrEpisode && !_elewashy_isSeasonPage;
-    } catch (_elewashy_err) {
-      return false;
+    // فلترة الصفحات المسموح بها
+    const isValidPage =
+      /^\/(فيلم|مسلسل)-.*-(مترجم|مترجمة)\/?$/.test(refPath) ||
+      /الحلقة-(\d+)-/.test(refPath);
+
+    const isSeasonPage = refPath.includes("/selary/");
+
+    if (isValidPage && !isSeasonPage) {
+      const finalURL = currentURL.replace(/\/$/, "") + "/watching/";
+
+      const btn = document.createElement("a");
+      btn.href = finalURL;
+      btn.textContent = "📺 المشاهدة والتحميل";
+      btn.style.cssText = `
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 20px 40px;
+        font-size: 28px;
+        background-color: #d90429;
+        color: white;
+        text-decoration: none;
+        border-radius: 12px;
+        z-index: 999999;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+      `;
+
+      document.body.appendChild(btn);
     }
-  })();
-
-  if (_elewashy_isValidReferrer) {
-    const _elewashy_targetURL = _elewashy_currentURL.replace(/(\/)?$/, "/watching/");
-
-    const _elewashy_button = document.createElement("a");
-    _elewashy_button.href = _elewashy_targetURL;
-    _elewashy_button.textContent = "📺 المشاهدة والتحميل";
-    _elewashy_button.style.cssText = `
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      padding: 20px 40px;
-      font-size: 24px;
-      background-color: #e50914;
-      color: white;
-      text-decoration: none;
-      border-radius: 10px;
-      z-index: 9999;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    `;
-
-    document.body.appendChild(_elewashy_button);
+  } catch (err) {
+    console.error("Custom Script Error:", err);
   }
 })();
 
