@@ -1079,53 +1079,6 @@
     removeElements();
 })();
 (function () {
-  const currentURL = window.location.href;
-  const referrer = document.referrer;
-
-  const isCorrectReferrer = (() => {
-    try {
-      const url = new URL(referrer);
-      const hostMatch = url.hostname.includes("cimanow.cc");
-      const path = decodeURIComponent(url.pathname);
-
-      const isMovieOrEpisode =
-        /^\/(فيلم|مسلسل)-.+-(مترجم|مترجمة)\/?$/.test(path) ||
-        /الحلقة-\d+-/.test(path);
-
-      const isSeasonPage = /\/selary\//.test(url.pathname);
-
-      return hostMatch && isMovieOrEpisode && !isSeasonPage;
-    } catch (e) {
-      return false;
-    }
-  })();
-
-  if (isCorrectReferrer) {
-    const watchingURL = currentURL.replace(/(\/)?$/, "/watching/");
-
-    // إنشاء الزر
-    const button = document.createElement("a");
-    button.href = watchingURL;
-    button.textContent = "📺 المشاهدة والتحميل";
-    button.style.cssText = `
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      padding: 20px 40px;
-      font-size: 24px;
-      background-color: #e50914;
-      color: white;
-      text-decoration: none;
-      border-radius: 10px;
-      z-index: 9999;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    `;
-
-    document.body.appendChild(button);
-  }
-})();
-(function () {
   const watchList = document.querySelector('#watch');
   if (!watchList) return;
 
