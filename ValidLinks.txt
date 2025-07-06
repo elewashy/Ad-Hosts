@@ -140,3 +140,4 @@
 ||netdna.bootstrapcdn.com^
 ||emturbovid.com^
 ||raw.githubusercontent.com^
+||faselhd.cafe^

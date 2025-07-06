@@ -1462,481 +1462,481 @@
 })();
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
-(function() {
-    // Enhanced sandbox detection prevention
-    const setupAdvancedSandboxBypass = () => {
-        const sandboxProps = {
-            hidden: false,
-            webdriver: false,
-            selenium: false,
-            __webdriver_evaluate: undefined,
-            __selenium_evaluate: undefined,
-            __webdriver_script_fn: undefined,
-            _Selenium_IDE_Recorder: undefined,
-            _selenium: undefined,
-            calledSelenium: undefined,
-            domAutomation: undefined,
-            domAutomationController: undefined,
-            // Additional sandbox detection properties
-            _phantom: false,
-            callPhantom: undefined,
-            _cordovaNative: false,
-            __nightmare: undefined,
-            __phantomas: undefined,
-            Buffer: undefined,
-            emit: undefined,
-            spawn: undefined,
-            outerWidth: window.innerWidth,
-            outerHeight: window.innerHeight,
-            devicePixelRatio: 1,
-            chrome: { runtime: {} },
-            __BROWSERTOOLS_CONSOLE: undefined
-        };
+// (function() {
+//     // Enhanced sandbox detection prevention
+//     const setupAdvancedSandboxBypass = () => {
+//         const sandboxProps = {
+//             hidden: false,
+//             webdriver: false,
+//             selenium: false,
+//             __webdriver_evaluate: undefined,
+//             __selenium_evaluate: undefined,
+//             __webdriver_script_fn: undefined,
+//             _Selenium_IDE_Recorder: undefined,
+//             _selenium: undefined,
+//             calledSelenium: undefined,
+//             domAutomation: undefined,
+//             domAutomationController: undefined,
+//             // Additional sandbox detection properties
+//             _phantom: false,
+//             callPhantom: undefined,
+//             _cordovaNative: false,
+//             __nightmare: undefined,
+//             __phantomas: undefined,
+//             Buffer: undefined,
+//             emit: undefined,
+//             spawn: undefined,
+//             outerWidth: window.innerWidth,
+//             outerHeight: window.innerHeight,
+//             devicePixelRatio: 1,
+//             chrome: { runtime: {} },
+//             __BROWSERTOOLS_CONSOLE: undefined
+//         };
 
-        // Enhanced property observation
-        const observe = (object, property, value) => {
-            try {
-                Object.defineProperty(object, property, {
-                    get: () => typeof value === 'function' ? value.bind(object) : value,
-                    set: () => {},
-                    configurable: false,
-                    enumerable: true
-                });
-            } catch(e) {}
-        };
+//         // Enhanced property observation
+//         const observe = (object, property, value) => {
+//             try {
+//                 Object.defineProperty(object, property, {
+//                     get: () => typeof value === 'function' ? value.bind(object) : value,
+//                     set: () => {},
+//                     configurable: false,
+//                     enumerable: true
+//                 });
+//             } catch(e) {}
+//         };
 
-        // Advanced fingerprint masking
-        const mockProto = {
-            hardwareConcurrency: 4,
-            maxTouchPoints: 0,
-            vendor: 'Google Inc.',
-            platform: 'Win32',
-        }
+//         // Advanced fingerprint masking
+//         const mockProto = {
+//             hardwareConcurrency: 4,
+//             maxTouchPoints: 0,
+//             vendor: 'Google Inc.',
+//             platform: 'Win32',
+//         }
 
-        // Apply to multiple contexts
-        [window, Window.prototype, Navigator.prototype].forEach(context => {
-            Object.keys(sandboxProps).forEach(prop => {
-                observe(context, prop, sandboxProps[prop]);
-            });
-        });
+//         // Apply to multiple contexts
+//         [window, Window.prototype, Navigator.prototype].forEach(context => {
+//             Object.keys(sandboxProps).forEach(prop => {
+//                 observe(context, prop, sandboxProps[prop]);
+//             });
+//         });
 
-        // Navigator properties
-        Object.keys(mockProto).forEach(prop => {
-            observe(Navigator.prototype, prop, mockProto[prop]);
-        });
+//         // Navigator properties
+//         Object.keys(mockProto).forEach(prop => {
+//             observe(Navigator.prototype, prop, mockProto[prop]);
+//         });
 
-        // Enhanced frame element handling
-        const secureFrameGetter = {
-            get: function() {
-                try {
-                    const fe = window.frameElement;
-                    return fe && fe.tagName === 'IFRAME' ? fe : null;
-                } catch(e) {
-                    return null;
-                }
-            }
-        };
+//         // Enhanced frame element handling
+//         const secureFrameGetter = {
+//             get: function() {
+//                 try {
+//                     const fe = window.frameElement;
+//                     return fe && fe.tagName === 'IFRAME' ? fe : null;
+//                 } catch(e) {
+//                     return null;
+//                 }
+//             }
+//         };
 
-        // Apply enhanced frame protection
-        try {
-            Object.defineProperty(Window.prototype, 'frameElement', secureFrameGetter);
-            Object.defineProperty(window, 'frameElement', secureFrameGetter);
-        } catch(e) {}
+//         // Apply enhanced frame protection
+//         try {
+//             Object.defineProperty(Window.prototype, 'frameElement', secureFrameGetter);
+//             Object.defineProperty(window, 'frameElement', secureFrameGetter);
+//         } catch(e) {}
 
-        // Prevent common detection methods
-        const blockDetection = `
-            (() => {
-                const raw = Function.prototype.toString;
-                Function.prototype.toString = function() {
-                    if (this === Function.prototype.toString) return raw.call(this);
-                    if (this === Function.prototype.bind) return 'function bind() { [native code] }';
-                    return raw.call(this).replace(/\[native code\]/g, '');
-                };
-            })();
-        `;
-        const script = document.createElement('script');
-        script.textContent = blockDetection;
-        document.documentElement.appendChild(script);
-        script.remove();
-    };
+//         // Prevent common detection methods
+//         const blockDetection = `
+//             (() => {
+//                 const raw = Function.prototype.toString;
+//                 Function.prototype.toString = function() {
+//                     if (this === Function.prototype.toString) return raw.call(this);
+//                     if (this === Function.prototype.bind) return 'function bind() { [native code] }';
+//                     return raw.call(this).replace(/\[native code\]/g, '');
+//                 };
+//             })();
+//         `;
+//         const script = document.createElement('script');
+//         script.textContent = blockDetection;
+//         document.documentElement.appendChild(script);
+//         script.remove();
+//     };
 
-    // Initialize enhanced sandbox protection
-    setupAdvancedSandboxBypass();
+//     // Initialize enhanced sandbox protection
+//     setupAdvancedSandboxBypass();
 
-    // Enhanced anti-adblock detection bypass
-    const setupAdvancedAntiAdblockBypass = () => {
-        // Common adblock detection properties
-        const adBlockProps = [
-            'adBlockEnabled', 'adBlocker', 'blockAdBlock', 'isAdBlockEnabled',
-            'canRunAds', 'isAdBlockActive', 'showAd', 'google_ad_status',
-            'adsbygoogle', 'google_ad_slot', 'google_ad_client',
-            'google_ad_width', 'google_ad_height', 'google_ad_format',
-            'google_ad_type', 'google_ad_unit', 'google_ad_url',
-            'adblock', 'ads', 'adsbox', 'AdBox'
-        ];
+//     // Enhanced anti-adblock detection bypass
+//     const setupAdvancedAntiAdblockBypass = () => {
+//         // Common adblock detection properties
+//         const adBlockProps = [
+//             'adBlockEnabled', 'adBlocker', 'blockAdBlock', 'isAdBlockEnabled',
+//             'canRunAds', 'isAdBlockActive', 'showAd', 'google_ad_status',
+//             'adsbygoogle', 'google_ad_slot', 'google_ad_client',
+//             'google_ad_width', 'google_ad_height', 'google_ad_format',
+//             'google_ad_type', 'google_ad_unit', 'google_ad_url',
+//             'adblock', 'ads', 'adsbox', 'AdBox'
+//         ];
 
-        // Create fake ad elements
-        const fakeAd = document.createElement('div');
-        fakeAd.id = 'gpt-ad';
-        fakeAd.className = 'banner_ad';
-        fakeAd.style.cssText = 'position:absolute;top:-9999px;left:-9999px;width:1px;height:1px;';
-        document.body.appendChild(fakeAd);
+//         // Create fake ad elements
+//         const fakeAd = document.createElement('div');
+//         fakeAd.id = 'gpt-ad';
+//         fakeAd.className = 'banner_ad';
+//         fakeAd.style.cssText = 'position:absolute;top:-9999px;left:-9999px;width:1px;height:1px;';
+//         document.body.appendChild(fakeAd);
 
-        // Create fake Google ad functions
-        window.google_ad_status = 1;
-        window.canRunAds = true;
-        window.isAdBlockActive = false;
-        window.googletag = {
-            cmd: [],
-            pubads: () => ({
-                addEventListener: () => {},
-                setRequestNonPersonalizedAds: () => {},
-                enableSingleRequest: () => {}
-            }),
-            enableServices: () => {}
-        };
+//         // Create fake Google ad functions
+//         window.google_ad_status = 1;
+//         window.canRunAds = true;
+//         window.isAdBlockActive = false;
+//         window.googletag = {
+//             cmd: [],
+//             pubads: () => ({
+//                 addEventListener: () => {},
+//                 setRequestNonPersonalizedAds: () => {},
+//                 enableSingleRequest: () => {}
+//             }),
+//             enableServices: () => {}
+//         };
 
-        // Override ad-related properties
-        adBlockProps.forEach(prop => {
-            observe(window, prop, () => {
-                if (prop === 'canRunAds' || prop.includes('google_ad')) return true;
-                return false;
-            });
-        });
+//         // Override ad-related properties
+//         adBlockProps.forEach(prop => {
+//             observe(window, prop, () => {
+//                 if (prop === 'canRunAds' || prop.includes('google_ad')) return true;
+//                 return false;
+//             });
+//         });
 
-        // Advanced detection prevention
-        const script = document.createElement('script');
-        script.innerHTML = `
-            (function() {
-                const originalCreateElement = document.createElement.bind(document);
-                document.createElement = function(tagName) {
-                    const element = originalCreateElement(tagName);
-                    if (tagName.toLowerCase() === 'script') {
-                        Object.defineProperty(element, 'src', {
-                            set: function(value) {
-                                if (!value.includes('pagead2.googlesyndication.com')) {
-                                    element.setAttribute('src', value);
-                                }
-                            }
-                        });
-                    }
-                    return element;
-                };
-            })();
-        `;
-        document.documentElement.appendChild(script);
-    };
+//         // Advanced detection prevention
+//         const script = document.createElement('script');
+//         script.innerHTML = `
+//             (function() {
+//                 const originalCreateElement = document.createElement.bind(document);
+//                 document.createElement = function(tagName) {
+//                     const element = originalCreateElement(tagName);
+//                     if (tagName.toLowerCase() === 'script') {
+//                         Object.defineProperty(element, 'src', {
+//                             set: function(value) {
+//                                 if (!value.includes('pagead2.googlesyndication.com')) {
+//                                     element.setAttribute('src', value);
+//                                 }
+//                             }
+//                         });
+//                     }
+//                     return element;
+//                 };
+//             })();
+//         `;
+//         document.documentElement.appendChild(script);
+//     };
 
-    // Remove ad-related elements
-    const removeAdElements = () => {
-        const selectors = [
-            'div[id*="adblock"]', 'div[class*="adblock"]',
-            'div[id*="AdBlock"]', 'div[class*="AdBlock"]',
-            'div[class*="ad-"]', 'div[id*="ad-"]',
-            '.adsbygoogle', '[id*="gpt"]', '[class*="gpt"]',
-            '[data-ad]', '[data-ads]', '[data-adunit]'
-        ];
-        document.querySelectorAll(selectors.join(',')).forEach(el => {
-            el.style.display = 'block';
-            el.style.visibility = 'hidden';
-            el.style.opacity = '0';
-        });
-    };
+//     // Remove ad-related elements
+//     const removeAdElements = () => {
+//         const selectors = [
+//             'div[id*="adblock"]', 'div[class*="adblock"]',
+//             'div[id*="AdBlock"]', 'div[class*="AdBlock"]',
+//             'div[class*="ad-"]', 'div[id*="ad-"]',
+//             '.adsbygoogle', '[id*="gpt"]', '[class*="gpt"]',
+//             '[data-ad]', '[data-ads]', '[data-adunit]'
+//         ];
+//         document.querySelectorAll(selectors.join(',')).forEach(el => {
+//             el.style.display = 'block';
+//             el.style.visibility = 'hidden';
+//             el.style.opacity = '0';
+//         });
+//     };
     
-    // Ultra-aggressive popup blocking
-    const handleIframes = () => {
-        // Global popup blocking
-        const nullFn = () => null;
-        const emptyObj = {};
+//     // Ultra-aggressive popup blocking
+//     const handleIframes = () => {
+//         // Global popup blocking
+//         const nullFn = () => null;
+//         const emptyObj = {};
         
-        // Override window.open and iframe-related methods at all levels
-        delete window.open;
-        window.open = nullFn;
-        Window.prototype.open = nullFn;
+//         // Override window.open and iframe-related methods at all levels
+//         delete window.open;
+//         window.open = nullFn;
+//         Window.prototype.open = nullFn;
         
-        // Block iframe APIs
-        HTMLIFrameElement.prototype.contentWindow = null;
-        HTMLIFrameElement.prototype.contentDocument = null;
+//         // Block iframe APIs
+//         HTMLIFrameElement.prototype.contentWindow = null;
+//         HTMLIFrameElement.prototype.contentDocument = null;
         
-        // Make iframes non-interactive
-        const secureIframes = () => {
-            document.querySelectorAll('iframe').forEach(iframe => {
-                // Create blocking overlay
-                const overlay = document.createElement('div');
-                overlay.style.cssText = 'position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2147483647; cursor: default;';
+//         // Make iframes non-interactive
+//         const secureIframes = () => {
+//             document.querySelectorAll('iframe').forEach(iframe => {
+//                 // Create blocking overlay
+//                 const overlay = document.createElement('div');
+//                 overlay.style.cssText = 'position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2147483647; cursor: default;';
                 
-                // Add click handler to overlay
-                overlay.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    return false;
-                }, true);
+//                 // Add click handler to overlay
+//                 overlay.addEventListener('click', (e) => {
+//                     e.preventDefault();
+//                     e.stopPropagation();
+//                     return false;
+//                 }, true);
                 
-                // Position container for iframe
-                const container = document.createElement('div');
-                container.style.position = 'relative';
-                iframe.parentNode.insertBefore(container, iframe);
-                container.appendChild(iframe);
-                container.appendChild(overlay);
+//                 // Position container for iframe
+//                 const container = document.createElement('div');
+//                 container.style.position = 'relative';
+//                 iframe.parentNode.insertBefore(container, iframe);
+//                 container.appendChild(iframe);
+//                 container.appendChild(overlay);
                 
-                // Disable pointer events
-                iframe.style.cssText = 'pointer-events: none !important;';
+//                 // Disable pointer events
+//                 iframe.style.cssText = 'pointer-events: none !important;';
                 
-                // Force strict sandbox
-                iframe.setAttribute('sandbox', '');
-                const originalSetAttribute = iframe.setAttribute;
-                iframe.setAttribute = function(attr, value) {
-                    if (attr === 'sandbox') return;
-                    originalSetAttribute.call(this, attr, value);
-                };
+//                 // Force strict sandbox
+//                 iframe.setAttribute('sandbox', '');
+//                 const originalSetAttribute = iframe.setAttribute;
+//                 iframe.setAttribute = function(attr, value) {
+//                     if (attr === 'sandbox') return;
+//                     originalSetAttribute.call(this, attr, value);
+//                 };
                 
-                // Block all interactions with iframe content
-                if (iframe.contentWindow) {
-                    try {
-                        // Block event listeners
-                        const blockedEvents = ['click', 'mousedown', 'mouseup', 'mousemove', 'touchstart', 'touchend', 'touchmove', 'keydown', 'keyup', 'keypress'];
-                        blockedEvents.forEach(event => {
-                            iframe.contentWindow.addEventListener(event, (e) => {
-                                e.preventDefault();
-                                e.stopPropagation();
-                                return false;
-                            }, true);
-                        });
+//                 // Block all interactions with iframe content
+//                 if (iframe.contentWindow) {
+//                     try {
+//                         // Block event listeners
+//                         const blockedEvents = ['click', 'mousedown', 'mouseup', 'mousemove', 'touchstart', 'touchend', 'touchmove', 'keydown', 'keyup', 'keypress'];
+//                         blockedEvents.forEach(event => {
+//                             iframe.contentWindow.addEventListener(event, (e) => {
+//                                 e.preventDefault();
+//                                 e.stopPropagation();
+//                                 return false;
+//                             }, true);
+//                         });
                         
-                        // Block all navigation and window methods
-                        const blockedMethods = [
-                            'open', 'close', 'focus', 'blur',
-                            'print', 'confirm', 'alert', 'prompt',
-                            'showModalDialog', 'postMessage',
-                            'requestFullscreen'
-                        ];
+//                         // Block all navigation and window methods
+//                         const blockedMethods = [
+//                             'open', 'close', 'focus', 'blur',
+//                             'print', 'confirm', 'alert', 'prompt',
+//                             'showModalDialog', 'postMessage',
+//                             'requestFullscreen'
+//                         ];
                         
-                        // Block location methods
-                        Object.defineProperty(iframe.contentWindow, 'location', {
-                            get: () => ({ href: 'about:blank' }),
-                            set: () => {},
-                            configurable: false
-                        });
+//                         // Block location methods
+//                         Object.defineProperty(iframe.contentWindow, 'location', {
+//                             get: () => ({ href: 'about:blank' }),
+//                             set: () => {},
+//                             configurable: false
+//                         });
                         
-                        blockedMethods.forEach(method => {
-                            Object.defineProperty(iframe.contentWindow, method, {
-                                value: () => null,
-                                writable: false,
-                                configurable: false
-                            });
-                        });
+//                         blockedMethods.forEach(method => {
+//                             Object.defineProperty(iframe.contentWindow, method, {
+//                                 value: () => null,
+//                                 writable: false,
+//                                 configurable: false
+//                             });
+//                         });
                         
-                        // Block history manipulation
-                        Object.defineProperty(iframe.contentWindow, 'history', {
-                            value: {
-                                pushState: () => {},
-                                replaceState: () => {},
-                                go: () => {},
-                                back: () => {},
-                                forward: () => {}
-                            },
-                            writable: false,
-                            configurable: false
-                        });
-                    } catch(e) {}
-                }
-            });
-        };
+//                         // Block history manipulation
+//                         Object.defineProperty(iframe.contentWindow, 'history', {
+//                             value: {
+//                                 pushState: () => {},
+//                                 replaceState: () => {},
+//                                 go: () => {},
+//                                 back: () => {},
+//                                 forward: () => {}
+//                             },
+//                             writable: false,
+//                             configurable: false
+//                         });
+//                     } catch(e) {}
+//                 }
+//             });
+//         };
         
-        // Monitor for new iframes
-        const observer = new MutationObserver((mutations) => {
-            mutations.forEach(mutation => {
-                mutation.addedNodes.forEach(node => {
-                    if (node.tagName === 'IFRAME') {
-                        secureIframes();
-                    }
-                });
-            });
-        });
-        observer.observe(document.documentElement, {
-            childList: true,
-            subtree: true
-        });
+//         // Monitor for new iframes
+//         const observer = new MutationObserver((mutations) => {
+//             mutations.forEach(mutation => {
+//                 mutation.addedNodes.forEach(node => {
+//                     if (node.tagName === 'IFRAME') {
+//                         secureIframes();
+//                     }
+//                 });
+//             });
+//         });
+//         observer.observe(document.documentElement, {
+//             childList: true,
+//             subtree: true
+//         });
         
-        // Initial setup
-        secureIframes();
+//         // Initial setup
+//         secureIframes();
         
-        // Periodic check
-        setInterval(secureIframes, 1000);
+//         // Periodic check
+//         setInterval(secureIframes, 1000);
         
-        // Block all window creation methods
-        ['showModalDialog', 'showModelessDialog', 'openDialog', 'createPopup'].forEach(method => {
-            delete window[method];
-            Object.defineProperty(window, method, {
-                get: () => nullFn,
-                set: () => {},
-                configurable: false
-            });
-        });
+//         // Block all window creation methods
+//         ['showModalDialog', 'showModelessDialog', 'openDialog', 'createPopup'].forEach(method => {
+//             delete window[method];
+//             Object.defineProperty(window, method, {
+//                 get: () => nullFn,
+//                 set: () => {},
+//                 configurable: false
+//             });
+//         });
 
-        // Intercept window properties
-        Object.defineProperty(window, 'opener', { value: null });
-        Object.defineProperty(window, 'name', { value: '' });
+//         // Intercept window properties
+//         Object.defineProperty(window, 'opener', { value: null });
+//         Object.defineProperty(window, 'name', { value: '' });
         
-        // Block return value of window.open
-        const fakeWindow = new Proxy(emptyObj, {
-            get: () => nullFn,
-            set: () => true
-        });
+//         // Block return value of window.open
+//         const fakeWindow = new Proxy(emptyObj, {
+//             get: () => nullFn,
+//             set: () => true
+//         });
 
-        // Enhanced iframe blocking
-        const blockIframePopups = (iframe) => {
-            if (!iframe) return;
+//         // Enhanced iframe blocking
+//         const blockIframePopups = (iframe) => {
+//             if (!iframe) return;
 
-            try {
-                // Force sandbox attribute
-                iframe.setAttribute('sandbox', 'allow-same-origin allow-scripts');
+//             try {
+//                 // Force sandbox attribute
+//                 iframe.setAttribute('sandbox', 'allow-same-origin allow-scripts');
                 
-                // Prevent removal of sandbox
-                const originalRemoveAttribute = iframe.removeAttribute;
-                iframe.removeAttribute = function(attr) {
-                    if (attr !== 'sandbox') originalRemoveAttribute.call(this, attr);
-                };
-            } catch(e) {}
-            try {
-                if (iframe.contentWindow) {
-                    // Block window.open
-                    Object.defineProperty(iframe.contentWindow, 'open', {
-                        value: () => null,
-                        writable: false,
-                        configurable: false
-                    });
+//                 // Prevent removal of sandbox
+//                 const originalRemoveAttribute = iframe.removeAttribute;
+//                 iframe.removeAttribute = function(attr) {
+//                     if (attr !== 'sandbox') originalRemoveAttribute.call(this, attr);
+//                 };
+//             } catch(e) {}
+//             try {
+//                 if (iframe.contentWindow) {
+//                     // Block window.open
+//                     Object.defineProperty(iframe.contentWindow, 'open', {
+//                         value: () => null,
+//                         writable: false,
+//                         configurable: false
+//                     });
 
-                    // Extended method blocking
-                    const blockMethods = [
-                        'open', 'showModalDialog', 'showModelessDialog', 'openDialog', 
-                        'createPopup', 'prompt', 'alert', 'confirm', 'print', 'close',
-                        'showOpenFilePicker', 'showDirectoryPicker', 'showSaveFilePicker',
-                        'requestFullscreen', 'webkitRequestFullscreen', 'mozRequestFullScreen', 
-                        'msRequestFullscreen'
-                    ];
+//                     // Extended method blocking
+//                     const blockMethods = [
+//                         'open', 'showModalDialog', 'showModelessDialog', 'openDialog', 
+//                         'createPopup', 'prompt', 'alert', 'confirm', 'print', 'close',
+//                         'showOpenFilePicker', 'showDirectoryPicker', 'showSaveFilePicker',
+//                         'requestFullscreen', 'webkitRequestFullscreen', 'mozRequestFullScreen', 
+//                         'msRequestFullscreen'
+//                     ];
                     
-                    popupMethods.forEach(method => {
-                        try {
-                            Object.defineProperty(iframe.contentWindow, method, {
-                                value: () => null,
-                                writable: false,
-                                configurable: false
-                            });
-                        } catch(e) {}
-                    });
+//                     popupMethods.forEach(method => {
+//                         try {
+//                             Object.defineProperty(iframe.contentWindow, method, {
+//                                 value: () => null,
+//                                 writable: false,
+//                                 configurable: false
+//                             });
+//                         } catch(e) {}
+//                     });
 
-                    // Block script execution
-                    if (iframe.contentDocument) {
-                        // Remove existing scripts
-                        iframe.contentDocument.querySelectorAll('script').forEach(s => s.remove());
+//                     // Block script execution
+//                     if (iframe.contentDocument) {
+//                         // Remove existing scripts
+//                         iframe.contentDocument.querySelectorAll('script').forEach(s => s.remove());
                         
-                        // Block new scripts and popups
-                        const createElementDescriptor = Object.getOwnPropertyDescriptor(Document.prototype, 'createElement');
-                        Object.defineProperty(iframe.contentDocument, 'createElement', {
-                            value: function(...args) {
-                                const el = createElementDescriptor.value.apply(this, args);
-                                if (args[0].toLowerCase() === 'script') {
-                                    // Neuter script element
-                                    Object.defineProperties(el, {
-                                        'src': { set: () => {} },
-                                        'textContent': { set: () => {} },
-                                        'innerHTML': { set: () => {} }
-                                    });
-                                    // Prevent execution
-                                    el.setAttribute('type', 'text/plain');
-                                }
-                                if (args[0].toLowerCase() === 'iframe') {
-                                    el.setAttribute('sandbox', '');
-                                }
-                                return el;
-                            },
-                            writable: false,
-                            configurable: false
-                        });
-                    }
-                }
-            } catch(e) {}
-        };
+//                         // Block new scripts and popups
+//                         const createElementDescriptor = Object.getOwnPropertyDescriptor(Document.prototype, 'createElement');
+//                         Object.defineProperty(iframe.contentDocument, 'createElement', {
+//                             value: function(...args) {
+//                                 const el = createElementDescriptor.value.apply(this, args);
+//                                 if (args[0].toLowerCase() === 'script') {
+//                                     // Neuter script element
+//                                     Object.defineProperties(el, {
+//                                         'src': { set: () => {} },
+//                                         'textContent': { set: () => {} },
+//                                         'innerHTML': { set: () => {} }
+//                                     });
+//                                     // Prevent execution
+//                                     el.setAttribute('type', 'text/plain');
+//                                 }
+//                                 if (args[0].toLowerCase() === 'iframe') {
+//                                     el.setAttribute('sandbox', '');
+//                                 }
+//                                 return el;
+//                             },
+//                             writable: false,
+//                             configurable: false
+//                         });
+//                     }
+//                 }
+//             } catch(e) {}
+//         };
 
-        // Handle existing iframes
-        const iframes = document.getElementsByTagName('iframe');
-        Array.from(iframes).forEach(blockIframePopups);
-        const config = {
-            childList: true,
-            subtree: true,
-            attributes: true,
-            characterData: true
-        };
+//         // Handle existing iframes
+//         const iframes = document.getElementsByTagName('iframe');
+//         Array.from(iframes).forEach(blockIframePopups);
+//         const config = {
+//             childList: true,
+//             subtree: true,
+//             attributes: true,
+//             characterData: true
+//         };
 
-        // Enhanced DOM observation
-        observer.observe(document.documentElement, config);
+//         // Enhanced DOM observation
+//         observer.observe(document.documentElement, config);
         
-        // Advanced iframe removal
-        const removeAllIframes = () => {
-            document.querySelectorAll('iframe').forEach(iframe => {
-                iframe.remove();
-            });
-        };
+//         // Advanced iframe removal
+//         const removeAllIframes = () => {
+//             document.querySelectorAll('iframe').forEach(iframe => {
+//                 iframe.remove();
+//             });
+//         };
         
-        // Block link propagation in iframes
-        document.addEventListener('click', (e) => {
-            const closest = e.target.closest('iframe, embed, object');
-            if (closest) {
-                e.preventDefault();
-                e.stopPropagation();
-                return false;
-            }
-        }, true);
+//         // Block link propagation in iframes
+//         document.addEventListener('click', (e) => {
+//             const closest = e.target.closest('iframe, embed, object');
+//             if (closest) {
+//                 e.preventDefault();
+//                 e.stopPropagation();
+//                 return false;
+//             }
+//         }, true);
         
-        // Handle existing iframes
-        removeAllIframes();
+//         // Handle existing iframes
+//         removeAllIframes();
         
-        // Block periodic iframe checks
-        const iframeBlocker = () => {
-            removeAllIframes();
-            document.querySelectorAll('a[target="popup"], a[target="_blank"]').forEach(link => {
-                link.target = '_self';
-            });
-        };
-        setInterval(iframeBlocker, 500);
+//         // Block periodic iframe checks
+//         const iframeBlocker = () => {
+//             removeAllIframes();
+//             document.querySelectorAll('a[target="popup"], a[target="_blank"]').forEach(link => {
+//                 link.target = '_self';
+//             });
+//         };
+//         setInterval(iframeBlocker, 500);
         
-        // Block keyboard shortcuts and prevent iframe element access
-        document.addEventListener('keydown', (e) => {
-            if ((e.ctrlKey && e.key === 'n') || 
-                (e.ctrlKey && e.key === 'p') ||
-                (e.altKey && e.key === 'p')) {
-                e.preventDefault();
-                e.stopPropagation();
-            }
-        }, true);
-    };
+//         // Block keyboard shortcuts and prevent iframe element access
+//         document.addEventListener('keydown', (e) => {
+//             if ((e.ctrlKey && e.key === 'n') || 
+//                 (e.ctrlKey && e.key === 'p') ||
+//                 (e.altKey && e.key === 'p')) {
+//                 e.preventDefault();
+//                 e.stopPropagation();
+//             }
+//         }, true);
+//     };
     
-    // Run protection and cleanup
-    const cleanup = () => {
-        setupAdvancedAntiAdblockBypass();
-        removeAdElements();
-        handleIframes();
-    };
+//     // Run protection and cleanup
+//     const cleanup = () => {
+//         setupAdvancedAntiAdblockBypass();
+//         removeAdElements();
+//         handleIframes();
+//     };
 
-    // Monitor for dynamic changes
-    const observer = new MutationObserver(() => {
-        removeAdElements();
-    });
+//     // Monitor for dynamic changes
+//     const observer = new MutationObserver(() => {
+//         removeAdElements();
+//     });
     
-    observer.observe(document.body, {
-        childList: true,
-        subtree: true
-    });
+//     observer.observe(document.body, {
+//         childList: true,
+//         subtree: true
+//     });
     
-    // Run on load and periodically
-    if(document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', cleanup);
-    } else {
-        cleanup();
-    }
+//     // Run on load and periodically
+//     if(document.readyState === 'loading') {
+//         document.addEventListener('DOMContentLoaded', cleanup);
+//     } else {
+//         cleanup();
+//     }
     
-    // Check periodically for new iframes
-    setInterval(cleanup, 1000);
-})();
+//     // Check periodically for new iframes
+//     setInterval(cleanup, 1000);
+// })();
 /////////////////////////////////////////////////////////////////////////////////////
