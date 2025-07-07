@@ -142,3 +142,5 @@
 ||raw.githubusercontent.com^
 ||faselhd.cafe^
 ||faselhds.care^
+||faselhds.center^
+||w1.faselhdxwatch.top^
