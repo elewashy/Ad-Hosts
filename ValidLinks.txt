@@ -146,3 +146,4 @@
 ||w1.faselhdxwatch.top^
 ||maxcdn.bootstrapcdn.com^
 ||ssl.p.jwpcdn.com^
+||img.scdns.io^
