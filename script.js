@@ -136,51 +136,51 @@
 })();
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-(function() {
-    // استبدال WebAssembly.compileStreaming
-    const originalCompileStreaming = WebAssembly.compileStreaming;
-    WebAssembly.compileStreaming = function(response) {
-    return Promise.resolve({});
-    };
+// (function() {
+//     // استبدال WebAssembly.compileStreaming
+//     const originalCompileStreaming = WebAssembly.compileStreaming;
+//     WebAssembly.compileStreaming = function(response) {
+//     return Promise.resolve({});
+//     };
 
-    // // استبدال WebAssembly.instantiate
-    const originalInstantiate = WebAssembly.instantiate;
-    WebAssembly.instantiate = function(module, importObject) {
+//     // // استبدال WebAssembly.instantiate
+//     const originalInstantiate = WebAssembly.instantiate;
+//     WebAssembly.instantiate = function(module, importObject) {
     
-    // إنشاء كائن زائف يحاكي وظائف WebAssembly
-    return Promise.resolve({
-        exports: {
-        memory: { buffer: new ArrayBuffer(1024) },
-        __new: function() { return 1; },
-        check: function(input) {
-            // إرجاع قيمة تمثل عنوان URL صالح
-            // هذا سيخدع النظام ليظن أنه لا يوجد مانع إعلانات
-            return 42;  // رقم عشوائي سيتم تفسيره كمؤشر للذاكرة
-        }
-        }
-    });
-    };
+//     // إنشاء كائن زائف يحاكي وظائف WebAssembly
+//     return Promise.resolve({
+//         exports: {
+//         memory: { buffer: new ArrayBuffer(1024) },
+//         __new: function() { return 1; },
+//         check: function(input) {
+//             // إرجاع قيمة تمثل عنوان URL صالح
+//             // هذا سيخدع النظام ليظن أنه لا يوجد مانع إعلانات
+//             return 42;  // رقم عشوائي سيتم تفسيره كمؤشر للذاكرة
+//         }
+//         }
+//     });
+//     };
 
-    // الاحتفاظ بنسخة من الدالة الأصلية u قبل استبدالها
-    const originalU = window.u;
+//     // الاحتفاظ بنسخة من الدالة الأصلية u قبل استبدالها
+//     const originalU = window.u;
 
-    // إعادة تعريف دالة u لتعيد وعدًا ناجحًا دائمًا
-    window.u = function(str) {
-    return Promise.resolve("success-url-placeholder");
-    };
+//     // إعادة تعريف دالة u لتعيد وعدًا ناجحًا دائمًا
+//     window.u = function(str) {
+//     return Promise.resolve("success-url-placeholder");
+//     };
 
-    // تعريض دالة نقطة انطلاق لنسخة مزيفة من check
-    setTimeout(function() {
-    if (typeof i !== 'undefined' && typeof i.check === 'function') {
-        // استبدال دالة check
-        const originalCheck = i.check;
-        i.check = function() {
-        // إرجاع قيمة غير فارغة تمثل النجاح
-        return "success-url-placeholder";
-        };
-    }
-    }, 100);
-  })();
+//     // تعريض دالة نقطة انطلاق لنسخة مزيفة من check
+//     setTimeout(function() {
+//     if (typeof i !== 'undefined' && typeof i.check === 'function') {
+//         // استبدال دالة check
+//         const originalCheck = i.check;
+//         i.check = function() {
+//         // إرجاع قيمة غير فارغة تمثل النجاح
+//         return "success-url-placeholder";
+//         };
+//     }
+//     }, 100);
+//   })();
   
 ///////////////////////////////////////////////////////////////////////////////////////
 (function() {
