@@ -712,7 +712,6 @@
 ||/player/jw8/vast.js^
 ||cvvczlcg.com^
 ||mazgeyfpbvv.com^
-||/release.wasm^
 ||4gforkh4.icu^
 ||viiqkzqv.com^
 ||productdownload.pro^
