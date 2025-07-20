@@ -6,3 +6,4 @@
 ||.veevcdn.co/^
 ||acek-cdn.com^
 ||cdn-centaurus.com^
+||premilkyway.com^
