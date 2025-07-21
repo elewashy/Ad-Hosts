@@ -1457,19 +1457,24 @@
         "https://swiftlnx.com/EgyFilm_Code"
     ];
 
-    let currentIndex = parseInt(localStorage.getItem("autoRedirectIndex") || "0");
+    // نحفظ رقم المرة داخل localStorage
+    let currentIndex = parseInt(localStorage.getItem("linkToggleIndex") || "0");
 
-    function openNextLink() {
+    // لو إحنا على صفحة Telegram FAQ فقط
+    if (window.location.href === "https://telegram.org/faq") {
+        // نجيب اللينك الحالي حسب الفهرس
+        const currentLink = links[currentIndex];
+
+        // نحدث الفهرس للمرة الجاية
         currentIndex = (currentIndex + 1) % links.length;
-        localStorage.setItem("autoRedirectIndex", currentIndex.toString());
-        window.location.href = links[currentIndex];
-    }
+        localStorage.setItem("linkToggleIndex", currentIndex.toString());
 
-    function createAndClickButton() {
+        // ننضف الصفحة
         document.body.innerHTML = "";
 
+        // نعمل الزر
         const button = document.createElement("button");
-        button.textContent = "التالي";
+        button.textContent = "اضغط للمتابعة";
         button.style.padding = "20px";
         button.style.fontSize = "20px";
         button.style.position = "fixed";
@@ -1478,25 +1483,14 @@
         button.style.transform = "translate(-50%, -50%)";
         button.style.zIndex = "9999";
 
+        // عند الضغط عليه نروح للينك
         button.onclick = () => {
-            openNextLink();
+            window.location.href = currentLink;
         };
 
+        // نضيف الزر ونضغطه فورًا
         document.body.appendChild(button);
-
-        // الضغط التلقائي فورًا
         button.click();
-    }
-
-    if (window.location.href === "https://telegram.org/faq") {
-        document.body.innerHTML = "";
-        currentIndex = 0;
-        localStorage.setItem("autoRedirectIndex", "0");
-        window.location.href = links[0];
-    }
-
-    if (links.includes(window.location.href)) {
-        createAndClickButton();
     }
 })();
 
