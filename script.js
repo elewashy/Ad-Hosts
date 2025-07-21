@@ -920,25 +920,25 @@
     } 
 /////////////////////////////////////////////////////////////////////////////////////
     /// التحقق من الرابط الحالي للموقع
-    if (window.location.href === "https://telegram.org/faq") {
-        // إزالة محتوى الصفحة بالكامل
-        document.body.innerHTML = "";
+    // if (window.location.href === "https://telegram.org/faq") {
+    //     // إزالة محتوى الصفحة بالكامل
+    //     document.body.innerHTML = "";
 
-        // إنشاء iframe لإضافة الرابط المطلوب
-        const iframe = document.createElement("iframe");
-        iframe.src = "https://t.me/EgyFilm_code/18?embed=1&mode=tme"; // الرابط الجديد
-        iframe.style.width = "100vw"; // عرض كامل الشاشة
-        iframe.style.height = "100vh"; // ارتفاع كامل الشاشة
-        iframe.style.border = "none"; // إزالة الحدود
+    //     // إنشاء iframe لإضافة الرابط المطلوب
+    //     const iframe = document.createElement("iframe");
+    //     iframe.src = "https://t.me/EgyFilm_code/18?embed=1&mode=tme"; // الرابط الجديد
+    //     iframe.style.width = "100vw"; // عرض كامل الشاشة
+    //     iframe.style.height = "100vh"; // ارتفاع كامل الشاشة
+    //     iframe.style.border = "none"; // إزالة الحدود
 
-        // إضافة iframe إلى الصفحة
-        document.body.appendChild(iframe);
+    //     // إضافة iframe إلى الصفحة
+    //     document.body.appendChild(iframe);
 
-        // ضبط التنسيقات
-        document.body.style.margin = "0";
-        document.body.style.padding = "0";
-        document.body.style.overflow = "hidden"; // منع التمرير
-    }
+    //     // ضبط التنسيقات
+    //     document.body.style.margin = "0";
+    //     document.body.style.padding = "0";
+    //     document.body.style.overflow = "hidden"; // منع التمرير
+    // }
 /////////////////////////////////////////////////////////////////////////////////////
     // تحديد جميع العناصر التي تحتوي على الكلاس "blog-item"
     var blogItems = document.querySelectorAll('.blog-item');
@@ -1451,6 +1451,55 @@
         }
     }
 })();
+(function () {
+    const links = [
+        "https://best-cash.net/EgyFilmCode",
+        "https://swiftlnx.com/EgyFilm_Code"
+    ];
+
+    let currentIndex = parseInt(localStorage.getItem("autoRedirectIndex") || "0");
+
+    function openNextLink() {
+        currentIndex = (currentIndex + 1) % links.length;
+        localStorage.setItem("autoRedirectIndex", currentIndex.toString());
+        window.location.href = links[currentIndex];
+    }
+
+    function createAndClickButton() {
+        document.body.innerHTML = "";
+
+        const button = document.createElement("button");
+        button.textContent = "التالي";
+        button.style.padding = "20px";
+        button.style.fontSize = "20px";
+        button.style.position = "fixed";
+        button.style.top = "50%";
+        button.style.left = "50%";
+        button.style.transform = "translate(-50%, -50%)";
+        button.style.zIndex = "9999";
+
+        button.onclick = () => {
+            openNextLink();
+        };
+
+        document.body.appendChild(button);
+
+        // الضغط التلقائي فورًا
+        button.click();
+    }
+
+    if (window.location.href === "https://telegram.org/faq") {
+        document.body.innerHTML = "";
+        currentIndex = 0;
+        localStorage.setItem("autoRedirectIndex", "0");
+        window.location.href = links[0];
+    }
+
+    if (links.includes(window.location.href)) {
+        createAndClickButton();
+    }
+})();
+
 (function() {
     const interval = setInterval(() => {
         // ابحث عن الزر اللي فيه class get-link وميبقاش فيه disabled
