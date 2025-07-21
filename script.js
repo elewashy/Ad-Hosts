@@ -1453,8 +1453,8 @@
 })();
 (function () {
     const links = [
-        "https://best-cash.net/EgyFilmCode",
-        "https://swiftlnx.com/EgyFilm_Code"
+        "https://swiftlnx.com/EgyFilm_Code",
+        "https://best-cash.net/EgyFilmCode"
     ];
 
     // نحفظ رقم المرة داخل localStorage
