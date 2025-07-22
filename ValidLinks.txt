@@ -144,3 +144,4 @@
 ||faselhds.care^
 ||faselhds.center^
 ||w1.faselhdxwatch.top^
+||1cloudfile.com^
