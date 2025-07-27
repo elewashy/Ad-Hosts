@@ -1397,26 +1397,10 @@
     }
 })();
 (async function () {
-    // إعدادات السكربت
     const API_URL = 'http://176.123.9.60:3000/v1/codes';
-    const REQUEST_COUNT = 15; // زيادة العدد لفرصة أفضل في العثور على الكود
+    const REQUEST_COUNT = 15;
 
-    // دالة لطباعة الرسائل بشكل منظم
-    function log(message) {
-        console.log(`[UGEEN Helper] ${message}`);
-    }
-
-    // ----- بداية التنفيذ -----
-    log("بدأ تشغيل السكربت...");
-
-    // 1. التحقق من أننا في الموقع الصحيح
-    if (window.location.hostname !== 'ugeen.live') {
-        log("❌ تم الإيقاف. السكربت يعمل فقط على موقع ugeen.live");
-        return;
-    }
-
-    // 2. إرسال طلبات متعددة وجلب الأكواد
-    log(`[1/4] يتم إرسال ${REQUEST_COUNT} طلبًا إلى الـ API...`);
+    if (window.location.hostname !== 'ugeen.live') return;
 
     const fetchPromises = [];
     for (let i = 0; i < REQUEST_COUNT; i++) {
@@ -1425,21 +1409,14 @@
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({})
-            }).catch(err => {
-                // تجاهل الأخطاء في الطلبات الفردية حتى لا يتوقف Promise.all
-                console.error("طلب فاشل:", err);
-                return null;
-            })
+            }).catch(() => null)
         );
     }
-    
-    // استخدام Map لضمان عدم تكرار الروابط وتسهيل البحث
-    const uniqueCodesMap = new Map();
 
+    const uniqueCodesMap = new Map();
     const responses = await Promise.all(fetchPromises);
 
     for (const response of responses) {
-        // تحقق من أن الطلب لم يفشل وأن الاستجابة ناجحة (status 2xx)
         if (response && response.ok) {
             try {
                 const json = await response.json();
@@ -1449,76 +1426,34 @@
                 if (token && uri) {
                     const payload = JSON.parse(atob(token.split('.')[1]));
                     const activationCode = payload?.code?.code;
-                    
+
                     if (activationCode && !uniqueCodesMap.has(uri)) {
                         uniqueCodesMap.set(uri, activationCode);
                     }
                 }
-            } catch (e) {
-                console.error("خطأ في معالجة الاستجابة:", e);
-            }
+            } catch {}
         }
     }
 
-    log(`[2/4] تم جلب وتصفية ${uniqueCodesMap.size} كود/رابط فريد.`);
-
-    if (uniqueCodesMap.size === 0) {
-        log("❌ لم يتم العثور على أي أكواد صالحة. حاول زيادة REQUEST_COUNT أو إعادة المحاولة لاحقًا.");
-        return;
-    }
-    
-    // طباعة النتائج (اختياري)
-    uniqueCodesMap.forEach((code, uri) => {
-        console.log(`  - الرابط: ${uri}, الكود: ${code}`);
-    });
-
-
-    // 3. قراءة الرابط المستهدف من الصفحة
-    log("[3/4] يتم البحث عن الرابط المستهدف في الصفحة...");
     const linkElement = document.querySelector('a.header-button.navActionDownload');
+    if (!linkElement || !linkElement.href) return;
 
-    if (!linkElement || !linkElement.href) {
-        log("❌ لم يتم العثور على رابط التحميل في الصفحة. تأكد من أنك في الصفحة الصحيحة.");
-        return;
-    }
     const targetUrl = linkElement.href;
-    log(`  [+] تم العثور على الرابط: ${targetUrl}`);
-
-
-    // 4. مقارنة الرابط والعثور على الكود المطابق وتفعيله
-    log("[4/4] تتم مقارنة الرابط مع القائمة...");
     const matchingCode = uniqueCodesMap.get(targetUrl);
 
     if (matchingCode) {
-        console.log("=============================================");
-        log(`✅ نجاح! تم العثور على الكود المطابق.`);
-        log(`   ==> كود التفعيل: ${matchingCode}`);
-        console.log("=============================================");
-
         const codeInput = document.querySelector('#code');
         const activateBtn = document.querySelector('#snd');
 
-        if (codeInput) {
-            codeInput.value = matchingCode;
-            log("   [+] تم وضع الكود في حقل الإدخال.");
-        } else {
-            log("   [!] لم يتم العثور على حقل إدخال الكود (#code).");
-        }
-
+        if (codeInput) codeInput.value = matchingCode;
         if (activateBtn) {
-            log("   [*] سيتم الضغط على زر التفعيل الآن...");
-            // تأخير بسيط لإعطاء المتصفح فرصة لتحديث قيمة الحقل
             setTimeout(() => {
-                 activateBtn.click();
+                activateBtn.click();
             }, 200);
-        } else {
-            log("   [!] لم يتم العثور على زر التفعيل (#snd).");
         }
-    } else {
-        log(`❌ فشل: لم يتم العثور على كود يطابق الرابط "${targetUrl}" في القائمة التي تم جلبها.`);
     }
-
 })();
+
 
 
 (function() {
