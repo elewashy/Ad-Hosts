@@ -1398,67 +1398,35 @@
 })();
 (async function () {
     setTimeout(async function () {
+        // التحقق من الموقع
         if (window.location.hostname !== 'ugeen.live') return;
 
-        const codes = [];
 
-        // إرسال 6 ريكويستات
-        for (let i = 0; i < 6; i++) {
-            try {
-                const response = await fetch('http://176.123.9.60:3000/v1/codes', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({})
-                });
+        // إرسال الريكويست
+        const response = await fetch('http://176.123.9.60:3000/v1/codes', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({}) // غير المحتوى حسب المطلوب إذا في بيانات
+        });
 
-                const json = await response.json();
-                const token = json?.code?.token;
+        const json = await response.json();
+        const token = json?.code?.token;
+        if (!token) return;
 
-                if (!token) continue;
-
-                const payload = JSON.parse(atob(token.split('.')[1]));
-                const activationCode = payload?.code?.code;
-                const uri = payload?.code?.uri;
-
-                if (activationCode && uri) {
-                    codes.push({ code: activationCode, uri });
-                }
-            } catch (err) {
-                console.error("Request failed", err);
-            }
-        }
-
-        // إزالة العناصر المتكررة (حسب الرابط والكود)
-        const unique = [];
-        const seen = new Set();
-        for (const item of codes) {
-            const key = `${item.uri}-${item.code}`;
-            if (!seen.has(key)) {
-                unique.push(item);
-                seen.add(key);
-            }
-        }
-
-        // جلب الرابط من الصفحة
-        const linkElement = document.querySelector('.header-right a');
-        if (!linkElement) return;
-
-        const pageLink = linkElement.getAttribute('href');
-        if (!pageLink) return;
-
-        // البحث عن تطابق
-        const match = unique.find(item => pageLink.includes(item.uri));
-        if (!match) return;
+        // فك التوكن (Base64 Decoding للـ Payload)
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        const activationCode = payload?.code?.code;
+        if (!activationCode) return;
 
         // وضع الكود في حقل الإدخال
         const codeInput = document.querySelector('#code');
-        if (codeInput) codeInput.value = match.code;
+        if (codeInput) codeInput.value = activationCode;
 
         // الضغط على زر التفعيل
         const activateBtn = document.querySelector('#snd');
-        if (activateBtn) activateBtn.click();
+        if (activateBtn) activateBtn.click(); // بتفتح نافذة، سيبها
 
     }, 1000);
 })();
