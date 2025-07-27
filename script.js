@@ -1397,39 +1397,84 @@
     }
 })();
 (async function () {
+    const delay = ms => new Promise(res => setTimeout(res, ms));
+
     setTimeout(async function () {
-        // التحقق من الموقع
         if (window.location.hostname !== 'ugeen.live') return;
 
+        const fetchCodes = async () => {
+            const promises = [];
+            for (let i = 0; i < 4; i++) {
+                promises.push(
+                    fetch('http://176.123.9.60:3000/v1/codes', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({})
+                    }).then(res => res.json()).catch(() => null)
+                );
+                await delay(200); // لتجنب الضغط على السيرفر
+            }
+            return Promise.all(promises);
+        };
 
-        // إرسال الريكويست
-        const response = await fetch('http://176.123.9.60:3000/v1/codes', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({}) // غير المحتوى حسب المطلوب إذا في بيانات
-        });
+        const responses = await fetchCodes();
+        const codes = [];
 
-        const json = await response.json();
-        const token = json?.code?.token;
-        if (!token) return;
+        for (const json of responses) {
+            try {
+                const token = json?.code?.token;
+                if (!token) continue;
 
-        // فك التوكن (Base64 Decoding للـ Payload)
-        const payload = JSON.parse(atob(token.split('.')[1]));
-        const activationCode = payload?.code?.code;
-        if (!activationCode) return;
+                const payload = JSON.parse(atob(token.split('.')[1]));
+                const code = payload?.code?.code;
+                const uri = payload?.code?.uri;
 
-        // وضع الكود في حقل الإدخال
-        const codeInput = document.querySelector('#code');
-        if (codeInput) codeInput.value = activationCode;
+                if (code && uri) {
+                    codes.push({ code, uri });
+                }
+            } catch (err) {
+                console.warn("خطأ في تحليل التوكن:", err);
+            }
+        }
 
-        // الضغط على زر التفعيل
-        const activateBtn = document.querySelector('#snd');
-        if (activateBtn) activateBtn.click(); // بتفتح نافذة، سيبها
+        // إزالة التكرارات حسب الكود والرابط
+        const uniqueCodes = [];
+        const seen = new Set();
+
+        for (const item of codes) {
+            const key = `${item.uri}-${item.code}`;
+            if (!seen.has(key)) {
+                seen.add(key);
+                uniqueCodes.push(item);
+            }
+        }
+
+        // جلب الرابط الموجود في الصفحة
+        const linkEl = document.querySelector('.header-right a[href]');
+        if (!linkEl) return;
+
+        const pageLink = linkEl.getAttribute('href');
+        if (!pageLink) return;
+
+        // مقارنة الرابط
+        const matched = uniqueCodes.find(item => pageLink.includes(item.uri));
+        if (!matched) {
+            console.warn("لم يتم العثور على كود مطابق للرابط");
+            return;
+        }
+
+        // إدخال الكود والضغط
+        const input = document.querySelector('#code');
+        if (input) input.value = matched.code;
+
+        const button = document.querySelector('#snd');
+        if (button) button.click();
 
     }, 1000);
 })();
+
 
 
 
