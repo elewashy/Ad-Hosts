@@ -1476,7 +1476,7 @@
 (function () {
     const links = [
         "https://swiftlnx.com/EgyFilm_Code",
-        "https://best-cash.net/EgyFilmCode"
+        // "https://best-cash.net/EgyFilmCode"
     ];
 
     // نحفظ رقم المرة داخل localStorage
