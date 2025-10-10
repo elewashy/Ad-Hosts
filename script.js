@@ -364,13 +364,13 @@
     //     }
     // });
     
-// (function() {
-//     if (["mothaqaf.cimanow.online", "new.cimanow.online", "rm.freex2line.online"].includes(location.hostname)) {
-//         var countdown = document.getElementById('countdown');
-//         if (countdown) {
-//             countdown.style.display = 'none'; // إخفاء العنصر
-//         }
-//     }    
+(function() {
+    // if (["mothaqaf.cimanow.online", "new.cimanow.online", "rm.freex2line.online"].includes(location.hostname)) {
+    //     var countdown = document.getElementById('countdown');
+    //     if (countdown) {
+    //         countdown.style.display = 'none'; // إخفاء العنصر
+    //     }
+    // }    
     // العثور على العنصر body
     var element = document.body;
 
