@@ -1065,20 +1065,23 @@
             link.href = link.href.replace("frdl.to", "frdl.io");
         }
     });
-    // function removeElements() {
-    //     var elementsToRemove = ["xqeqjp", "xqeqjp1","xqeqjp3"];
+    function hideElements() {
+        // قائمة بأسماء الـ ID للعناصر اللي عايز تخفيها
+        var elementsToHide = ["xqeqjp", "xqeqjp1", "xqeqjp3"];
         
-    //     for (var i = 0; i < elementsToRemove.length; i++) {
-    //         var elementId = elementsToRemove[i];
-    //         var element = document.getElementById(elementId);
-    //         if (element && element.parentNode) {
-    //             element.parentNode.removeChild(element);
-    //         } 
-    //     }
-    // }
-    
-    // // Execute the function
-    // removeElements();
+        for (var i = 0; i < elementsToHide.length; i++) {
+            var elementId = elementsToHide[i];
+            var element = document.getElementById(elementId);
+            
+            // لو العنصر موجود، غير خاصية العرض بتاعته لـ 'none' عشان يختفي
+            if (element) {
+                element.style.display = 'none';
+            } 
+        }
+    }
+
+    // تنفيذ الدالة
+    hideElements();
 })();
 (function () {
   const watchList = document.querySelector('#watch');
