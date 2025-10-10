@@ -1065,20 +1065,20 @@
             link.href = link.href.replace("frdl.to", "frdl.io");
         }
     });
-    function removeElements() {
-        var elementsToRemove = ["xqeqjp", "xqeqjp1","xqeqjp3"];
+    // function removeElements() {
+    //     var elementsToRemove = ["xqeqjp", "xqeqjp1","xqeqjp3"];
         
-        for (var i = 0; i < elementsToRemove.length; i++) {
-            var elementId = elementsToRemove[i];
-            var element = document.getElementById(elementId);
-            if (element && element.parentNode) {
-                element.parentNode.removeChild(element);
-            } 
-        }
-    }
+    //     for (var i = 0; i < elementsToRemove.length; i++) {
+    //         var elementId = elementsToRemove[i];
+    //         var element = document.getElementById(elementId);
+    //         if (element && element.parentNode) {
+    //             element.parentNode.removeChild(element);
+    //         } 
+    //     }
+    // }
     
-    // Execute the function
-    removeElements();
+    // // Execute the function
+    // removeElements();
 })();
 (function () {
     if (window.location.hostname === "rm.freex2line.online") {
