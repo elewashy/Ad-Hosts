@@ -1081,34 +1081,6 @@
     // removeElements();
 })();
 (function () {
-    if (window.location.hostname === "rm.freex2line.online") {
-        const targetURL = "https://rm.freex2line.online/2020/02/blog-post.html/get-link.php";
-
-        fetch(targetURL, {
-            method: "GET",
-            credentials: "include",
-            headers: {
-                "Accept": "*/*",
-                "Referer": "https://rm.freex2line.online/2020/02/blog-post.html/",
-                "User-Agent": navigator.userAgent
-            }
-        })
-        .then(response => {
-            if (!response.ok) throw new Error("Request failed");
-            return response.text();
-        })
-        .then(result => {
-            if (result.startsWith("http")) {
-                const btn = document.getElementById("downloadbtn");
-                if (btn) {
-                    btn.href = result;
-                    btn.style.display = "inline-block";
-                } 
-            } 
-        })
-    }
-})();
-(function () {
   const watchList = document.querySelector('#watch');
   if (!watchList) return;
 
