@@ -1115,7 +1115,7 @@
     this.classList.add('active');
 
     // طلب السيرفر المناسب
-    const requestUrl = `https://cimanow.cc/wp-content/themes/Cima%20Now%20New/core.php?action=switch&index=${serverIndex}&id=${dataId}`;
+    const requestUrl = `https://cimanowinc.com/wp-content/themes/Cima%20Now%20New/core.php?action=switch&index=${serverIndex}&id=${dataId}`;
 
     fetch(requestUrl)
       .then(res => res.text())
