@@ -149,3 +149,4 @@
 ||wecima.show^
 ||videoland.cfd^
 ||darkibox.com^
+||short.icu^
