@@ -725,3 +725,4 @@
 ||dryfaxot.com^
 ||badnessgimmickposted.com^
 ||stinafulltiukmep.org^
+||/ads/smartlink8.js^
