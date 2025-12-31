@@ -1502,4 +1502,20 @@
         }
     }, 500); // كرر كل نصف ثانية
 })();
+(function () {
+    const targetHost = "w.megatukmax.xyz";
+
+    function handleLinks() {
+        document.querySelectorAll("a[href]").forEach(link => {
+            if (link.href.includes(targetHost)) {
+                link.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    window.location.href = "intent://" + targetHost;
+                });
+            }
+        });
+    }
+
+    handleLinks();
+})();
 
