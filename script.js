@@ -1502,43 +1502,4 @@
         }
     }, 500); // كرر كل نصف ثانية
 })();
-(function () {
-
-    function fixLinks() {
-        document.querySelectorAll('a.smart-external-link').forEach(a => {
-
-            const realUrl = a.getAttribute("href");
-            if (!realUrl || a.dataset.fixed === "1") return;
-
-            // نسمح بالكليك
-            a.style.pointerEvents = "auto";
-            a.style.cursor = "pointer";
-
-            const inner = a.querySelector(".download--item");
-            if (inner) {
-                inner.style.pointerEvents = "auto";
-                inner.style.cursor = "pointer";
-            }
-
-            // نمسك الكليك غصب (capture phase)
-            a.addEventListener("click", function (e) {
-                e.preventDefault();
-                e.stopImmediatePropagation();
-
-                // فتح إجباري
-                window.location.assign(realUrl);
-            }, true);
-
-            a.dataset.fixed = "1";
-        });
-    }
-
-    fixLinks();
-
-    new MutationObserver(fixLinks).observe(document.documentElement, {
-        childList: true,
-        subtree: true
-    });
-
-})();
 
