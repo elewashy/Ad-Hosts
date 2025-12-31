@@ -1503,19 +1503,27 @@
     }, 500); // كرر كل نصف ثانية
 })();
 (function () {
-    const targetHost = "w.megatukmax.xyz";
+    function fixSmartLinks() {
+        document.querySelectorAll('a.smart-external-link[data-real-url]').forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
 
-    function handleLinks() {
-        document.querySelectorAll("a[href]").forEach(link => {
-            if (link.href.includes(targetHost)) {
-                link.addEventListener("click", function (e) {
-                    e.preventDefault();
-                    window.location.href = "intent://" + targetHost;
-                });
-            }
+                const realUrl = link.getAttribute('data-real-url');
+                if (!realUrl) return;
+
+                // فتح الرابط الحقيقي داخل WebView
+                window.location.href = realUrl;
+            }, true);
         });
     }
 
-    handleLinks();
+    fixSmartLinks();
+
+    // لو الصفحة بتتحمل ديناميك
+    new MutationObserver(fixSmartLinks).observe(document.documentElement, {
+        childList: true,
+        subtree: true
+    });
 })();
 
