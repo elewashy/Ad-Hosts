@@ -1504,45 +1504,38 @@
 })();
 (function () {
 
-    function normalizeDownloadLinks() {
-        document.querySelectorAll('a.smart-external-link[data-real-url]').forEach(oldLink => {
+    function fixLinks() {
+        document.querySelectorAll('a.smart-external-link').forEach(a => {
 
-            // لو اتعدل قبل كده
-            if (oldLink.dataset.fixed === "1") return;
+            const realUrl = a.getAttribute("href");
+            if (!realUrl || a.dataset.fixed === "1") return;
 
-            const realUrl = oldLink.getAttribute("data-real-url");
-            if (!realUrl) return;
+            // نسمح بالكليك
+            a.style.pointerEvents = "auto";
+            a.style.cursor = "pointer";
 
-            // نعمل clone علشان نشيل أي event listeners
-            const newLink = oldLink.cloneNode(true);
-
-            // نحول اللينك ل لينك حقيقي
-            newLink.href = realUrl;
-            newLink.removeAttribute("onclick");
-            newLink.removeAttribute("data-real-url");
-            newLink.removeAttribute("target");
-
-            // نخلي العنصر قابل للضغط
-            newLink.style.pointerEvents = "auto";
-
-            // كمان نصلح العنصر الداخلي
-            const inner = newLink.querySelector(".download--item");
+            const inner = a.querySelector(".download--item");
             if (inner) {
                 inner.style.pointerEvents = "auto";
                 inner.style.cursor = "pointer";
             }
 
-            newLink.dataset.fixed = "1";
+            // نمسك الكليك غصب (capture phase)
+            a.addEventListener("click", function (e) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
 
-            // نستبدل القديم بالجديد
-            oldLink.replaceWith(newLink);
+                // فتح إجباري
+                window.location.assign(realUrl);
+            }, true);
+
+            a.dataset.fixed = "1";
         });
     }
 
-    normalizeDownloadLinks();
+    fixLinks();
 
-    // لو الصفحة ديناميك
-    new MutationObserver(normalizeDownloadLinks).observe(document.documentElement, {
+    new MutationObserver(fixLinks).observe(document.documentElement, {
         childList: true,
         subtree: true
     });
