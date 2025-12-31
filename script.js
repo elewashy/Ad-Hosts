@@ -1503,27 +1503,49 @@
     }, 500); // كرر كل نصف ثانية
 })();
 (function () {
-    function fixSmartLinks() {
-        document.querySelectorAll('a.smart-external-link[data-real-url]').forEach(link => {
-            link.addEventListener('click', function (e) {
-                e.preventDefault();
-                e.stopPropagation();
 
-                const realUrl = link.getAttribute('data-real-url');
-                if (!realUrl) return;
+    function normalizeDownloadLinks() {
+        document.querySelectorAll('a.smart-external-link[data-real-url]').forEach(oldLink => {
 
-                // فتح الرابط الحقيقي داخل WebView
-                window.location.href = realUrl;
-            }, true);
+            // لو اتعدل قبل كده
+            if (oldLink.dataset.fixed === "1") return;
+
+            const realUrl = oldLink.getAttribute("data-real-url");
+            if (!realUrl) return;
+
+            // نعمل clone علشان نشيل أي event listeners
+            const newLink = oldLink.cloneNode(true);
+
+            // نحول اللينك ل لينك حقيقي
+            newLink.href = realUrl;
+            newLink.removeAttribute("onclick");
+            newLink.removeAttribute("data-real-url");
+            newLink.removeAttribute("target");
+
+            // نخلي العنصر قابل للضغط
+            newLink.style.pointerEvents = "auto";
+
+            // كمان نصلح العنصر الداخلي
+            const inner = newLink.querySelector(".download--item");
+            if (inner) {
+                inner.style.pointerEvents = "auto";
+                inner.style.cursor = "pointer";
+            }
+
+            newLink.dataset.fixed = "1";
+
+            // نستبدل القديم بالجديد
+            oldLink.replaceWith(newLink);
         });
     }
 
-    fixSmartLinks();
+    normalizeDownloadLinks();
 
-    // لو الصفحة بتتحمل ديناميك
-    new MutationObserver(fixSmartLinks).observe(document.documentElement, {
+    // لو الصفحة ديناميك
+    new MutationObserver(normalizeDownloadLinks).observe(document.documentElement, {
         childList: true,
         subtree: true
     });
+
 })();
 
