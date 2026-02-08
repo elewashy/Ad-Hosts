@@ -1450,8 +1450,8 @@
 })();
 (function () {
     const links = [
-        // "https://swiftlnx.com/EgyFilm_Code",
-        "https://swiftlnx.com/get_egy_code"
+        "https://swiftlnx.com/EgyFilm_Code",
+        // "https://swiftlnx.com/get_egy_code"
     ];
 
     // نحفظ رقم المرة داخل localStorage
