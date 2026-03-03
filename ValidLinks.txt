@@ -153,3 +153,4 @@
 ||megatukmax.xyz^
 ||tuktukhd.com^
 ||vidmoly.net^
+||static.cloudflareinsights.com^
