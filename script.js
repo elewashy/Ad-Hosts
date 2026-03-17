@@ -59,7 +59,7 @@
             .banner, .ad, #lm-slideup, #popup, #ad-popup, #ad-container, #fixedban5, 
             #popupOverlay, #w3c5, #Advert1, #ad-unit-1, #adContainer, #adsLionz,
             .live-ad-container, .afcceb-bebeea, .fjojw-ihdwiiwd, .swal2-container,
-            a[href="https://tinyurl.com/lionzlink"]
+            a[href="https://tinyurl.com/lionzlink"], #appStickyBanner, .app-install-promo
         `);
         ads.forEach(function(el) { el.remove(); });
         

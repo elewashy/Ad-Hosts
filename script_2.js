@@ -22,7 +22,8 @@
             '#tme-alert', '#lm-slideup', '#popup', '#ad-popup', '#ad-container', 
             '#fixedban5', '#popupOverlay', '#w3c5', '#Advert1', '#ad-unit-1', 
             '#adContainer', '#adsLionz', '#xqeqjp', '#xqeqjp1', '#xqeqjp3',
-            'div[id^="div-gpt-ad"]', '#fixedban7', '#downloadButton', '#normal-box'
+            'div[id^="div-gpt-ad"]', '#fixedban7', '#downloadButton', '#normal-box',
+            '#appStickyBanner', '.app-install-promo'
         ];
         
         // Ensure standard overflow for sweetalert overlays
