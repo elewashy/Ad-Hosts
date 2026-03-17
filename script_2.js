@@ -88,5 +88,68 @@
         })();
     }
     
+    // 3. 1cloudfile.com Anti-Adblock Bypass
+    // Decodes the hex string embedded in the page's inline script using brute-force XOR
+    // avoiding the need to load release.wasm which may be blocked by adblockers.
+    if (window.location.hostname.includes('1cloudfile.com')) {
+        document.addEventListener('DOMContentLoaded', function() {
+            const scripts = document.querySelectorAll('script');
+            let hexString = null;
+            let label = null;
+            
+            for (let script of scripts) {
+                if (!script.src && script.innerHTML.includes('uk-button')) {
+                    // Match the l("HEX", "LABEL") pattern used in 1cloudfile's inline script
+                    const match = script.innerHTML.match(/(["'])([0-9a-f]{100,})\1\s*,\s*(["'])(.+?)\3/i);
+                    if (match) {
+                        hexString = match[2];
+                        label = match[4];
+                        break;
+                    }
+                }
+            }
+
+            if (hexString) {
+                let decodedUrl = null;
+                const buf = new Uint8Array(hexString.length / 2);
+                for(let i=0; i < hexString.length; i += 2) {
+                    buf[i/2] = parseInt(hexString.substr(i, 2), 16);
+                }
+                
+                // Brute force the XOR key (usually 122)
+                for (let key = 0; key < 256; key++) {
+                    let text = "";
+                    for (let i = 0; i < buf.length; i++) {
+                        text += String.fromCharCode(buf[i] ^ key);
+                    }
+                    if (text.startsWith("http")) {
+                        decodedUrl = text;
+                        break;
+                    }
+                }
+                
+                if (decodedUrl) {
+                    // Forcefully inject the button and prevent the anti-adblock message from replacing it
+                    const observer = new MutationObserver(function(mutations) {
+                        const dlContainers = document.querySelectorAll('.download-timer');
+                        dlContainers.forEach(function(container) {
+                            if (!container.hasAttribute('data-bypassed') || container.innerHTML.includes('Disable adblock')) {
+                                container.setAttribute('data-bypassed', 'true');
+                                container.innerHTML = "";
+                                const a = document.createElement("a");
+                                a.className = "uk-button uk-button-secondary uk-text-truncate uk-width-1-1";
+                                a.href = decodedUrl;
+                                a.innerHTML = '<span uk-icon="icon: cloud-download" class="uk-icon"></span> ' + (label || "DOWNLOAD FILE");
+                                container.appendChild(a);
+                            }
+                        });
+                    });
+                    
+                    observer.observe(document.body, { childList: true, subtree: true, characterData: true });
+                }
+            }
+        });
+    }
+    
     // (Optional) WebAssembly or window properties intercepts can be placed here
 })();
