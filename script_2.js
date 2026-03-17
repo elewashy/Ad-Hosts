@@ -23,7 +23,9 @@
             '#fixedban5', '#popupOverlay', '#w3c5', '#Advert1', '#ad-unit-1', 
             '#adContainer', '#adsLionz', '#xqeqjp', '#xqeqjp1', '#xqeqjp3',
             'div[id^="div-gpt-ad"]', '#fixedban7', '#downloadButton', '#normal-box',
-            '#appStickyBanner', '.app-install-promo'
+            '#appStickyBanner', '.app-install-promo',
+            // Button presses ad networks
+            '.buttonPress-1077', 'a[class^="buttonPress-"]'
         ];
         
         // Ensure standard overflow for sweetalert overlays
@@ -88,68 +90,73 @@
         })();
     }
     
-    // 3. 1cloudfile.com Anti-Adblock Bypass
+    // 3. WebAssembly Anti-Adblock Bypass (1cloudfile, bowfile, etc.)
     // Decodes the hex string embedded in the page's inline script using brute-force XOR
     // avoiding the need to load release.wasm which may be blocked by adblockers.
-    if (window.location.hostname.includes('1cloudfile.com')) {
-        document.addEventListener('DOMContentLoaded', function() {
-            const scripts = document.querySelectorAll('script');
-            let hexString = null;
-            let label = null;
-            
-            for (let script of scripts) {
-                if (!script.src && script.innerHTML.includes('uk-button')) {
-                    // Match the l("HEX", "LABEL") pattern used in 1cloudfile's inline script
-                    const match = script.innerHTML.match(/(["'])([0-9a-f]{100,})\1\s*,\s*(["'])(.+?)\3/i);
-                    if (match) {
-                        hexString = match[2];
-                        label = match[4];
-                        break;
-                    }
+    document.addEventListener('DOMContentLoaded', function() {
+        const scripts = document.querySelectorAll('script');
+        let hexString = null;
+        let label = null;
+        
+        for (let script of scripts) {
+            if (!script.src && script.innerHTML.includes('.download-timer') && script.innerHTML.includes('release.wasm')) {
+                // Match the l("HEX", "LABEL") pattern used in the inline script
+                const match = script.innerHTML.match(/(["'])([0-9a-f]{100,})\1\s*,\s*(["'])(.+?)\3/i);
+                if (match) {
+                    hexString = match[2];
+                    label = match[4];
+                    break;
                 }
             }
+        }
 
-            if (hexString) {
-                let decodedUrl = null;
-                const buf = new Uint8Array(hexString.length / 2);
-                for(let i=0; i < hexString.length; i += 2) {
-                    buf[i/2] = parseInt(hexString.substr(i, 2), 16);
+        if (hexString) {
+            let decodedUrl = null;
+            const buf = new Uint8Array(hexString.length / 2);
+            for(let i=0; i < hexString.length; i += 2) {
+                buf[i/2] = parseInt(hexString.substr(i, 2), 16);
+            }
+            
+            // Brute force the XOR key (varies per domain, e.g., 122 or 57)
+            for (let key = 0; key < 256; key++) {
+                let text = "";
+                for (let i = 0; i < buf.length; i++) {
+                    text += String.fromCharCode(buf[i] ^ key);
                 }
-                
-                // Brute force the XOR key (usually 122)
-                for (let key = 0; key < 256; key++) {
-                    let text = "";
-                    for (let i = 0; i < buf.length; i++) {
-                        text += String.fromCharCode(buf[i] ^ key);
-                    }
-                    if (text.startsWith("http")) {
-                        decodedUrl = text;
-                        break;
-                    }
-                }
-                
-                if (decodedUrl) {
-                    // Forcefully inject the button and prevent the anti-adblock message from replacing it
-                    const observer = new MutationObserver(function(mutations) {
-                        const dlContainers = document.querySelectorAll('.download-timer');
-                        dlContainers.forEach(function(container) {
-                            if (!container.hasAttribute('data-bypassed') || container.innerHTML.includes('Disable adblock')) {
-                                container.setAttribute('data-bypassed', 'true');
-                                container.innerHTML = "";
-                                const a = document.createElement("a");
-                                a.className = "uk-button uk-button-secondary uk-text-truncate uk-width-1-1";
-                                a.href = decodedUrl;
-                                a.innerHTML = '<span uk-icon="icon: cloud-download" class="uk-icon"></span> ' + (label || "DOWNLOAD FILE");
-                                container.appendChild(a);
-                            }
-                        });
-                    });
-                    
-                    observer.observe(document.body, { childList: true, subtree: true, characterData: true });
+                if (text.startsWith("http")) {
+                    decodedUrl = text;
+                    break;
                 }
             }
-        });
-    }
+            
+            if (decodedUrl) {
+                // Forcefully inject the button and prevent the anti-adblock message from replacing it
+                const observer = new MutationObserver(function(mutations) {
+                    const dlContainers = document.querySelectorAll('.download-timer');
+                    dlContainers.forEach(function(container) {
+                        if (!container.hasAttribute('data-bypassed') || container.innerHTML.includes('Disable adblock')) {
+                            container.setAttribute('data-bypassed', 'true');
+                            container.innerHTML = "";
+                            const a = document.createElement("a");
+                            // Add generic classes to cover both uk-button (1cloudfile) and btn--primary (bowfile, etc.)
+                            a.className = "uk-button uk-button-secondary uk-text-truncate uk-width-1-1 btn btn--primary";
+                            a.style.display = "block";
+                            a.style.textAlign = "center";
+                            a.href = decodedUrl;
+                            a.innerHTML = '<span uk-icon="icon: cloud-download" class="uk-icon"></span> ' + (label || "DOWNLOAD FILE");
+                            
+                            // To bypass the 2-click ad requirement in the bowfile variant, setting _blank ensures it reliably opens
+                            a.target = "_blank";
+                            
+                            container.appendChild(a);
+                        }
+                    });
+                });
+                
+                observer.observe(document.body, { childList: true, subtree: true, characterData: true });
+            }
+        }
+    });
     
     // (Optional) WebAssembly or window properties intercepts can be placed here
 })();
