@@ -1,0 +1,22 @@
+Required format for regex.txt
+# Lines starting with '#' are comments (ignored)
+# Blank lines are ignored
+# One regex pattern per line
+# Patterns should be anchored with ^…$ for full-URL matching
+# Use possessive quantifiers (*+, ++, {n,m}+) to prevent backtracking
+# Example:
+# Block tag.min.js ad scripts
+^https?://[a-z]{8,15}\.(com|net)/(?:\d{1,3}/)?tag\.min\.js$
+# Block UUID-path campaign trackers
+^https?://[^/]+/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\?[^#]*+(?:campaign|advertiser|zone|ban)=[^#]*+$
+# Block /go/[digits] ad redirects
+^https?://[^/]+/go/\d{5,}$
+Rules:
+1. One pattern per line
+2. Lines starting with # are comments (skipped)
+3. Blank lines are skipped
+4. Each pattern must be a valid Java/Kotlin regex
+5. Anchor with ^ and $ for full-URL matching
+6. Use possessive quantifiers (*+, ++, {n,m}+) instead of greedy (*, +) to prevent catastrophic backtracking
+7. Use raw character classes like [^/]*+, [^?]*+, [^#]*+ instead of .*
+8. Invalid patterns are silently skipped — they won't break the app
