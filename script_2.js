@@ -25,7 +25,9 @@
             'div[id^="div-gpt-ad"]', '#fixedban7', '#downloadButton', '#normal-box',
             '#appStickyBanner', '.app-install-promo',
             // Button presses ad networks
-            '.buttonPress-1077', 'a[class^="buttonPress-"]'
+            '.buttonPress-1077', 'a[class^="buttonPress-"]',
+            // Anti Adblock detectors
+            '.anti-adblock-message'
         ];
         
         // Ensure standard overflow for sweetalert overlays
@@ -158,5 +160,26 @@
         }
     });
     
+    // 4. Site-specific anti-adblock element unhider (downloads__tabs, watch__area)
+    // Runs periodically to overcome intervals from the anti-adblock script overriding the DOM
+    document.addEventListener('DOMContentLoaded', function() {
+        setInterval(function() {
+            var protectElements = ['.downloads__tabs', '.watch__area'];
+            protectElements.forEach(function(selector) {
+                var el = document.querySelector(selector);
+                if (el) {
+                    var style = el.getAttribute('style') || '';
+                    if (style.includes('display: none') || style.includes('display:none')) {
+                        el.style.setProperty('display', 'block', 'important');
+                    }
+                }
+            });
+            
+            // Clean up the detector message
+            var adblockMsg = document.querySelector('.anti-adblock-message');
+            if (adblockMsg) adblockMsg.remove();
+        }, 500);
+    });
+
     // (Optional) WebAssembly or window properties intercepts can be placed here
 })();
