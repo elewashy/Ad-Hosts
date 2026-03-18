@@ -27,7 +27,7 @@
             // Button presses ad networks
             '.buttonPress-1077', 'a[class^="buttonPress-"]',
             // Anti Adblock detectors
-            '.anti-adblock-message',
+            '.anti-adblock-message'
             // Popups and Toast Notifications
         ];
         
