@@ -1,2 +1,5 @@
 # EgyFilm App Multi Main Page
 ^https?://egyfilm-app-multi\.vercel\.app/main(?:\?[^#]*+)?$
+
+# Any .com domain
+^https?://[^/?#]++\.com(?:/[^?#]*+)?(?:\?[^#]*+)?$
