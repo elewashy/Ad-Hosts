@@ -405,22 +405,19 @@
         return;
     }
 
-    // Isolate DownloadMainContent countdown bypass
+    // DownloadMainContent countdown bypass (in-place)
     var dlMainContent = document.querySelector(".DownloadMainContent");
     if (dlMainContent) {
-        isolateElement(dlMainContent, function(el) {
-            var countDown = el.querySelector("#countdown");
-            var clickMe = el.querySelector("#clickme");
-            var finalBtn = el.querySelector("#btn");
-            
-            if (countDown) countDown.style.display = "none";
-            if (clickMe) clickMe.style.display = "none";
-            
-            if (finalBtn) {
-                finalBtn.style.setProperty("display", "inline-block", "important");
-            }
-        });
-        return;
+        var countDown = dlMainContent.querySelector("#countdown");
+        var clickMe = dlMainContent.querySelector("#clickme");
+        var finalBtn = dlMainContent.querySelector("#btn");
+        
+        if (countDown) countDown.style.display = "none";
+        if (clickMe) clickMe.style.display = "none";
+        
+        if (finalBtn) {
+            finalBtn.style.setProperty("display", "inline-block", "important");
+        }
     }
 
 })();
