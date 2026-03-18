@@ -29,14 +29,6 @@
             // Anti Adblock detectors
             '.anti-adblock-message',
             // Popups and Toast Notifications
-            '.swal-overlay', '.swal-modal', '.swal2-overlay', '.swal2-popup',
-            '.modal-backdrop', '.modal-open', '.modal-content-ads',
-            '.popup-wrapper', '.popup-container', '.pop-ads',
-            '.toast', '.toast-container', '.toast-message',
-            '.notification', '.notification-container',
-            '.overlay-ads', '.ads-modal', '.ads-popup',
-            '[class*="popup-ad"]', '[id*="popup-ad"]',
-            '[class*="modal-ad"]', '[id*="modal-ad"]'
         ];
         
         // Ensure standard overflow for sweetalert overlays

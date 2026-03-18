@@ -61,9 +61,7 @@
             .live-ad-container, .afcceb-bebeea, .fjojw-ihdwiiwd, .swal2-container,
             a[href="https://tinyurl.com/lionzlink"], #appStickyBanner, .app-install-promo,
             .buttonPress-1077, a[class^="buttonPress-"], script[src*="tfnvuckb.pro"],
-            .swal-overlay, .swal-modal, .swal2-overlay, .swal2-popup, .modal-backdrop,
-            .popup-wrapper, .popup-container, .pop-ads, .toast, .toast-container,
-            .notification, .overlay-ads, .ads-modal, .ads-popup, .anti-adblock-message
+
         `);
         ads.forEach(function(el) { if (el) el.remove(); });
 
