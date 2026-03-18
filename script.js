@@ -60,9 +60,26 @@
             #popupOverlay, #w3c5, #Advert1, #ad-unit-1, #adContainer, #adsLionz,
             .live-ad-container, .afcceb-bebeea, .fjojw-ihdwiiwd, .swal2-container,
             a[href="https://tinyurl.com/lionzlink"], #appStickyBanner, .app-install-promo,
-            .buttonPress-1077, a[class^="buttonPress-"], script[src*="tfnvuckb.pro"]
+            .buttonPress-1077, a[class^="buttonPress-"], script[src*="tfnvuckb.pro"],
+            .swal-overlay, .swal-modal, .swal2-overlay, .swal2-popup, .modal-backdrop,
+            .popup-wrapper, .popup-container, .pop-ads, .toast, .toast-container,
+            .notification, .overlay-ads, .ads-modal, .ads-popup, .anti-adblock-message
         `);
-        ads.forEach(function(el) { el.remove(); });
+        ads.forEach(function(el) { if (el) el.remove(); });
+
+        // Targeted removal for elements labeled as advertisement (Arabic and English)
+        document.querySelectorAll('div, span, p, a, button').forEach(function(el) {
+            var text = (el.textContent || '').trim();
+            var keywords = ['إعلان', 'إعلانات', 'Advertisement', 'Ads', 'Promoted', 'Sponsor'];
+            if (keywords.some(k => text === k)) {
+                // If the element has a small parent or is isolated, it's likely a label or ad block
+                if (el.parentElement && el.parentElement.children.length <= 3) {
+                    el.parentElement.remove();
+                } else {
+                    el.remove();
+                }
+            }
+        });
         
         // Specific class removals from body
         if (document.body) {
@@ -70,6 +87,9 @@
         }
     }
     removeAnnoyances();
+    // Run repeatedly to catch late-loading ads/popups
+    var annoyanceInterval = setInterval(removeAnnoyances, 2000);
+    setTimeout(() => clearInterval(annoyanceInterval), 20000);
 
     // ---- DOMAIN SPECIFIC LOGICS ----
     var hostname = window.location.hostname;
