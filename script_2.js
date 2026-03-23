@@ -166,7 +166,7 @@
     // Runs periodically to overcome intervals from the anti-adblock script overriding the DOM
     document.addEventListener('DOMContentLoaded', function() {
         setInterval(function() {
-            var protectElements = ['.downloads__tabs', '.watch__area', '.download-sec'];
+            var protectElements = ['.downloads__tabs', '.watch__area'];
             protectElements.forEach(function(selector) {
                 var el = document.querySelector(selector);
                 if (el) {
