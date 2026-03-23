@@ -134,6 +134,25 @@
         });
     }
 
+    // TukTukHD / TukTukCinema theme link fix (Smart External Links)
+    // Fixes links traps in data-real-url or Chrome Intent protocols
+    document.querySelectorAll('a.smart-external-link[data-real-url]').forEach(function(link) {
+        var realUrl = link.getAttribute('data-real-url');
+        if (realUrl) {
+            // Force normal URL behavior and remove intent traps
+            link.href = realUrl;
+            link.classList.remove('smart-external-link'); // Remove the target for their internal JS
+            link.removeAttribute('onclick');
+            
+            // Re-enable clicks on child elements if the site disabled them
+            var innerItem = link.querySelector('.download--item');
+            if (innerItem) {
+                innerItem.style.pointerEvents = 'auto';
+                innerItem.style.cursor = 'pointer';
+            }
+        }
+    });
+
     // Ugeen live codes (relies on window.__ugeenCodesPromise set in script_2.js)
     if (hostname === 'ugeen.live' && window.__ugeenCodesPromise) {
         window.__ugeenCodesPromise.then(uniqueCodesMap => {
