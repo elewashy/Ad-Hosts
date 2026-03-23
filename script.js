@@ -303,6 +303,12 @@
             var progressBar = link.querySelector('.progress-container, .progress-bar');
             if (progressBar) progressBar.style.display = 'none';
         });
+
+        // Ensure all download-links are clickable
+        document.querySelectorAll('.download-link').forEach(function(link) {
+            link.style.setProperty("pointer-events", "auto", "important");
+            link.style.setProperty("cursor", "pointer", "important");
+        });
     }
     bypassDownloadButtons();
     var bypassInterval = setInterval(bypassDownloadButtons, 1000);
@@ -336,6 +342,19 @@
             styleButton(btn);
             btn.click();
         }
+    })) return;
+
+    // Isolate download-sec
+    if (isolateElement(".container-fluid.download-sec", function(el) {
+        el.style.backgroundColor = "white";
+        el.style.padding = "20px";
+        el.style.borderRadius = "10px";
+        el.querySelectorAll('.download-link').forEach(link => {
+            link.style.display = "block";
+            link.style.marginBottom = "10px";
+            var btn = link.querySelector('.download-button');
+            if(btn) styleButton(btn);
+        });
     })) return;
 
     // Isolate downloadContainer10
