@@ -286,6 +286,23 @@
                 catch(e) { dBtn.href = dDataHref; }
             }
         }
+
+        // Generic download-section bypass (for sites with countdowns)
+        document.querySelectorAll('.download-link[data-countdown-active="true"]').forEach(function(link) {
+            link.style.setProperty("pointer-events", "auto", "important");
+            link.setAttribute('data-countdown-active', 'false');
+            
+            var btn = link.querySelector('.download-button');
+            if (btn) {
+                btn.disabled = false;
+                btn.style.setProperty("cursor", "pointer", "important");
+                btn.style.setProperty("background-color", "#007bff", "important"); // Active blue
+                btn.textContent = "تحميل الآن";
+            }
+            
+            var progressBar = link.querySelector('.progress-container, .progress-bar');
+            if (progressBar) progressBar.style.display = 'none';
+        });
     }
     bypassDownloadButtons();
     var bypassInterval = setInterval(bypassDownloadButtons, 1000);
