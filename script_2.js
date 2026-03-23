@@ -24,6 +24,8 @@
             '#adContainer', '#adsLionz', '#xqeqjp', '#xqeqjp1', '#xqeqjp3',
             'div[id^="div-gpt-ad"]', '#fixedban7', '#downloadButton', '#normal-box',
             '#appStickyBanner', '.app-install-promo',
+            // section--titles
+            'section--titles', '.Section--Titles',
             // Button presses ad networks
             '.buttonPress-1077', 'a[class^="buttonPress-"]',
             // Anti Adblock detectors

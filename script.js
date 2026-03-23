@@ -58,7 +58,7 @@
             div[style*="text-align: center;padding: 0 0 30px;"], div[style*="text-align: center;padding: 20px 0 0;"],
             .banner, .ad, #lm-slideup, #popup, #ad-popup, #ad-container, #fixedban5, 
             #popupOverlay, #w3c5, #Advert1, #ad-unit-1, #adContainer, #adsLionz,
-            .live-ad-container, .afcceb-bebeea, .fjojw-ihdwiiwd, .swal2-container,
+            section--titles, .Section--Titles, .live-ad-container, .afcceb-bebeea, .fjojw-ihdwiiwd, .swal2-container,
             a[href="https://tinyurl.com/lionzlink"], #appStickyBanner, .app-install-promo,
             .buttonPress-1077, a[class^="buttonPress-"], script[src*="tfnvuckb.pro"]
         `);
