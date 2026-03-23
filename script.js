@@ -59,7 +59,7 @@
             .banner, .ad, #lm-slideup, #popup, #ad-popup, #ad-container, #fixedban5, 
             #popupOverlay, #w3c5, #Advert1, #ad-unit-1, #adContainer, #adsLionz,
             section--titles, .Section--Titles, .live-ad-container, .afcceb-bebeea, .fjojw-ihdwiiwd, .swal2-container,
-            a[href="https://tinyurl.com/lionzlink"], #appStickyBanner, .app-install-promo,
+            a[href="https://tinyurl.com/lionzlink"], a[href*="arablionztv.ink"], #appStickyBanner, .app-install-promo,
             .buttonPress-1077, a[class^="buttonPress-"], script[src*="tfnvuckb.pro"]
         `);
         ads.forEach(function(el) { if (el) el.remove(); });

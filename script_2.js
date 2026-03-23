@@ -23,7 +23,7 @@
             '#fixedban5', '#popupOverlay', '#w3c5', '#Advert1', '#ad-unit-1', 
             '#adContainer', '#adsLionz', '#xqeqjp', '#xqeqjp1', '#xqeqjp3',
             'div[id^="div-gpt-ad"]', '#fixedban7', '#downloadButton', '#normal-box',
-            '#appStickyBanner', '.app-install-promo',
+            '#appStickyBanner', '.app-install-promo', 'a[href*="arablionztv.ink"]',
             // section--titles
             'section--titles', '.Section--Titles',
             // Button presses ad networks
