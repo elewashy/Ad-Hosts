@@ -252,21 +252,44 @@
         myBtn.parentNode.appendChild(newBtn);
     }
 
-    var dlButton = document.getElementById('download-button');
-    if (dlButton) {
-        var downloadLoading = document.getElementById('download-loading');
-        if(downloadLoading) downloadLoading.style.display = 'none';
-        dlButton.style.display = 'inline-block';
-        
-        var dlButtonText = document.getElementById('download-button-text');
-        if (dlButtonText) dlButtonText.style.display = 'inline-block';
-        
-        var dataHref = dlButton.getAttribute('data-href');
-        if(dataHref) {
-            try { dlButton.href = atob(dataHref); } 
-            catch(e) { dlButton.href = dataHref; }
+    function bypassDownloadButtons() {
+        // download-button bypass
+        var dlButton = document.getElementById('download-button');
+        if (dlButton) {
+            var downloadLoading = document.getElementById('download-loading');
+            if(downloadLoading) downloadLoading.style.display = 'none';
+            dlButton.style.setProperty("display", "inline-block", "important");
+            
+            var dlButtonText = document.getElementById('download-button-text');
+            if (dlButtonText) dlButtonText.style.setProperty("display", "inline-block", "important");
+            
+            var dataHref = dlButton.getAttribute('data-href');
+            if(dataHref) {
+                try { dlButton.href = atob(dataHref); } 
+                catch(e) { dlButton.href = dataHref; }
+            }
+        }
+
+        // d-button bypass
+        var dBtn = document.getElementById('d-button');
+        if (dBtn) {
+            var dLoading = document.getElementById('d-loading');
+            if(dLoading) dLoading.style.display = 'none';
+            dBtn.style.setProperty("display", "inline-block", "important");
+            
+            var dBtnText = document.getElementById('d-button-text');
+            if (dBtnText) dBtnText.style.setProperty("display", "inline-block", "important");
+            
+            var dDataHref = dBtn.getAttribute('data-href');
+            if(dDataHref) {
+                try { dBtn.href = atob(dDataHref); } 
+                catch(e) { dBtn.href = dDataHref; }
+            }
         }
     }
+    bypassDownloadButtons();
+    var bypassInterval = setInterval(bypassDownloadButtons, 1000);
+    setTimeout(() => clearInterval(bypassInterval), 20000);
 
     // "Get Link" auto clicker
     var getLinkInterval = setInterval(() => {
