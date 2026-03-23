@@ -290,22 +290,42 @@
         // Generic download-section bypass (for sites with countdowns)
         document.querySelectorAll('.download-link').forEach(function(link) {
             link.style.setProperty("pointer-events", "auto", "important");
+            link.setAttribute('data-countdown-active', 'false');
             
+            // Try to find the link in JSON scripts if href is empty
+            if (link.href.includes('javascript:void(0)') || !link.href) {
+                const linkId = link.getAttribute('data-link-id');
+                if (linkId) {
+                    document.querySelectorAll('script').forEach(s => {
+                        if (s.textContent.includes(linkId)) {
+                           // Simple regex to find the URL near the linkId in JSON/scripts
+                           const regex = new RegExp(`"${linkId}"\\s*:\\s*"(https?://[^"]+)"`);
+                           const match = s.textContent.match(regex);
+                           if (match && match[1]) {
+                               link.href = match[1];
+                           }
+                        }
+                    });
+                }
+            }
+
             var btn = link.querySelector('.download-button');
             if (btn) {
                 btn.disabled = false;
                 btn.style.setProperty("cursor", "pointer", "important");
-                if (btn.textContent.includes('ثانية') || btn.textContent.includes('الانتظار')) {
+                if (link.href && !link.href.includes('javascript:void') && link.href.startsWith('http')) {
+                   btn.textContent = "تحميل مباشر: " + link.href.split('?')[0].split('/').pop(); // Show filename instead of long URL
+                   if (btn.textContent.length > 30) btn.textContent = "تحميل مباشر";
+                } else if (btn.textContent.includes('ثانية') || btn.textContent.includes('الانتظار')) {
                    btn.textContent = "تحميل الملف";
                 }
             }
             
-            var progressBar = link.querySelector('.progress-container, .progress-bar');
-            if (progressBar) progressBar.style.display = 'none';
+            if (progressBar) progressBar.style.setProperty("display", "none", "important");
         });
     }
     bypassDownloadButtons();
-    var bypassInterval = setInterval(bypassDownloadButtons, 1000);
+    var bypassInterval = setInterval(bypassDownloadButtons, 500);
     setTimeout(() => clearInterval(bypassInterval), 20000);
 
     // "Get Link" auto clicker
