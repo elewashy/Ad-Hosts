@@ -130,80 +130,64 @@
     // ---- LOADON / REDIRECT BYPASS ----
     (function handleLoadon() {
         const STORAGE_KEY = 'rm_decoded_link';
-        const loc = window.location;
-        const path = loc.pathname;
+        const url = new URL(window.location.href);
 
-        // Proactive: Rewrite links on the current page to bypass the ad-wall entirely
-        function rewriteLinks() {
-            document.querySelectorAll('a[href*="/loadon"]').forEach(link => {
-                try {
-                    const u = new URL(link.href);
-                    let encoded = u.searchParams.get('link');
-                    if (!encoded) {
-                        const segments = u.pathname.split('/');
-                        const idx = segments.findIndex(s => s === 'loadon');
-                        if (idx !== -1 && segments[idx + 1]) encoded = segments[idx + 1];
-                    }
-                    if (encoded) {
-                        const decoded = decodeBase64(encoded);
-                        if (decoded && decoded.startsWith('http')) {
-                            link.href = decoded;
-                            link.removeAttribute('onclick');
-                            link.setAttribute('data-bypassed', 'true');
-                        }
-                    }
-                } catch(e) {}
-            });
-        }
-        rewriteLinks();
-        setInterval(rewriteLinks, 2000);
-
-        // Phase 1: Capture (on the loadon page itself)
-        if (path.includes('/loadon')) {
-            let encoded = new URLSearchParams(loc.search).get('link');
-            if (!encoded) {
-                const segments = path.split('/');
-                const idx = segments.findIndex(s => s === 'loadon');
-                if (idx !== -1 && segments[idx + 1]) encoded = segments[idx + 1];
-            }
+        /**
+         * 1️⃣ صفحة loadon
+         */
+        if (url.pathname.includes('/loadon')) {
+            const encoded = url.searchParams.get('link');
             if (encoded) {
                 const decoded = decodeBase64(encoded);
-                if (decoded && decoded.startsWith('http')) {
-                    localStorage.setItem(STORAGE_KEY, decoded);
+                if (decoded) {
                     sessionStorage.setItem(STORAGE_KEY, decoded);
+                    return; // Let the site finish its business
                 }
             }
         }
 
-        // Phase 2: Action (on the timer/redirect page)
-        const savedLink = localStorage.getItem(STORAGE_KEY) || sessionStorage.getItem(STORAGE_KEY);
-        if (savedLink && savedLink.startsWith('http')) {
-            const hasLinkParam = new URLSearchParams(loc.search).has('link');
-            if (path.includes('/loadon') && hasLinkParam) return;
-
-            localStorage.removeItem(STORAGE_KEY);
+        /**
+         * 2️⃣ صفحة العداد
+         */
+        const savedLink = sessionStorage.getItem(STORAGE_KEY);
+        if (savedLink) {
             sessionStorage.removeItem(STORAGE_KEY);
-            
-            document.body.innerHTML = "";
-            document.body.style.cssText = "margin:0;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#0f0f0f;font-family:Arial,sans-serif;color:#fff;";
-            
-            const title = document.createElement('h2');
-            title.textContent = "جاري تحويلك... (Redirecting)";
-            title.style.marginBottom = "20px";
-            document.body.appendChild(title);
+
+            // Clean page and show direct button (Match user's desktop script precisely)
+            document.documentElement.innerHTML = '';
+            document.body = document.createElement('body');
+            document.documentElement.appendChild(document.body);
+
+            document.body.style.cssText = `
+                margin:0;
+                height:100vh;
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                background:#0f0f0f;
+                font-family:Arial, sans-serif;
+            `;
 
             const btn = document.createElement('a');
             btn.href = savedLink;
-            btn.textContent = 'فتح الرابط (Open Link)';
-            styleButton(btn);
+            btn.textContent = 'فتح الرابط';
+            btn.style.cssText = `
+                padding:20px 40px;
+                font-size:20px;
+                color:#fff;
+                background:#1e88e5;
+                text-decoration:none;
+                border-radius:8px;
+                box-shadow:0 0 20px rgba(30,136,229,0.6);
+            `;
             document.body.appendChild(btn);
+
+            // Auto-open
+            setTimeout(() => {
+                window.location.href = savedLink;
+            }, 800);
             
-            setTimeout(() => { 
-                if (window.location.href !== savedLink) window.location.replace(savedLink); 
-            }, 500);
-            
-            window.stop(); 
-            throw new Error("Bypassing..."); 
+            throw new Error("Redirecting..."); 
         }
     })();
     
