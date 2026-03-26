@@ -24,21 +24,30 @@
         return false;
     }
 
+    function decodeBase64(str) {
+        try {
+            return decodeURIComponent(escape(atob(str)));
+        } catch (e) {
+            try { return atob(str); } catch (err) { return null; }
+        }
+    }
+
     function styleButton(btn) {
-        btn.style.backgroundColor = "#007bff";
+        btn.style.backgroundColor = "#1e88e5";
         btn.style.color = "#fff";
-        btn.style.padding = "15px 30px";
-        btn.style.fontSize = "18px";
+        btn.style.padding = "20px 40px";
+        btn.style.fontSize = "20px";
         btn.style.border = "none";
         btn.style.borderRadius = "8px";
         btn.style.cursor = "pointer";
-        btn.style.boxShadow = "0 4px 6px rgba(0,0,0,0.1)";
+        btn.style.boxShadow = "0 0 20px rgba(30,136,229,0.6)";
         btn.style.textAlign = "center";
         btn.style.display = "inline-block";
         btn.style.textDecoration = "none";
+        btn.style.fontFamily = "Arial, sans-serif";
         
-        btn.onmouseover = function() { btn.style.backgroundColor = "#0056b3"; };
-        btn.onmouseout = function() { btn.style.backgroundColor = "#007bff"; };
+        btn.onmouseover = function() { btn.style.backgroundColor = "#1565c0"; };
+        btn.onmouseout = function() { btn.style.backgroundColor = "#1e88e5"; };
     }
 
     function clickWhenReady(selector, intervalMs = 500) {
@@ -108,6 +117,35 @@
         var adblockInterval = setInterval(removeAdblockElementsSmart, 1500);
         setTimeout(() => clearInterval(adblockInterval), 30000);
         removeAdblockElementsSmart();
+    }
+    
+    // Loadon / Redirect logic
+    const STORAGE_KEY = 'rm_decoded_link';
+    if (window.location.pathname.startsWith('/loadon/')) {
+        const urlParams = new URL(window.location.href).searchParams;
+        const encoded = urlParams.get('link');
+        if (encoded) {
+            const decoded = decodeBase64(encoded);
+            if (decoded) sessionStorage.setItem(STORAGE_KEY, decoded);
+        }
+    }
+
+    const savedLink = sessionStorage.getItem(STORAGE_KEY);
+    if (savedLink && !window.location.pathname.startsWith('/loadon/')) {
+        sessionStorage.removeItem(STORAGE_KEY);
+        document.documentElement.innerHTML = '';
+        document.body = document.createElement('body');
+        document.documentElement.appendChild(document.body);
+        document.body.style.cssText = "margin:0;height:100vh;display:flex;align-items:center;justify-content:center;background:#0f0f0f;";
+        
+        const btn = document.createElement('a');
+        btn.href = savedLink;
+        btn.textContent = 'فتح الرابط';
+        styleButton(btn);
+        document.body.appendChild(btn);
+
+        setTimeout(() => { window.location.href = savedLink; }, 800);
+        return;
     }
     
     // Khabrnew redirect
