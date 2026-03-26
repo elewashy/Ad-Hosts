@@ -261,7 +261,7 @@
             document.querySelectorAll('#watch li[data-id]').forEach(li => li.classList.remove('active'));
             this.classList.add('active');
             
-            fetch(`https://cimanowinc.com/wp-content/themes/Cima%20Now%20New/core.php?action=switch&index=00&id=${dataId}`)
+            fetch(`https://cimanow.cc/wp-content/themes/Cima%20Now%20New/core.php?action=switch&index=00&id=${dataId}`)
                 .then(res => res.text())
                 .then(response => {
                     const doc = new DOMParser().parseFromString(response, 'text/html');
