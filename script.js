@@ -121,22 +121,23 @@
     
     // Loadon / Redirect logic
     const STORAGE_KEY = 'rm_decoded_link';
-    if (window.location.pathname.startsWith('/loadon/')) {
-        const urlParams = new URL(window.location.href).searchParams;
-        const encoded = urlParams.get('link');
+    const loc = window.location;
+    if (loc.pathname.includes('/loadon')) {
+        const encoded = new URLSearchParams(loc.search).get('link');
         if (encoded) {
             const decoded = decodeBase64(encoded);
-            if (decoded) sessionStorage.setItem(STORAGE_KEY, decoded);
+            if (decoded) {
+                localStorage.setItem(STORAGE_KEY, decoded);
+                return; // Captured, now let the site redirect or load the next stage
+            }
         }
     }
 
-    const savedLink = sessionStorage.getItem(STORAGE_KEY);
-    if (savedLink && !window.location.pathname.startsWith('/loadon/')) {
-        sessionStorage.removeItem(STORAGE_KEY);
-        document.documentElement.innerHTML = '';
-        document.body = document.createElement('body');
-        document.documentElement.appendChild(document.body);
-        document.body.style.cssText = "margin:0;height:100vh;display:flex;align-items:center;justify-content:center;background:#0f0f0f;";
+    const savedLink = localStorage.getItem(STORAGE_KEY);
+    if (savedLink) {
+        localStorage.removeItem(STORAGE_KEY);
+        // Wipe page and show the direct link button
+        document.documentElement.innerHTML = '<html><head><title>Redirecting...</title></head><body style="margin:0;height:100vh;display:flex;align-items:center;justify-content:center;background:#0f0f0f;font-family:Arial,sans-serif;"></body></html>';
         
         const btn = document.createElement('a');
         btn.href = savedLink;
@@ -145,7 +146,7 @@
         document.body.appendChild(btn);
 
         setTimeout(() => { window.location.href = savedLink; }, 800);
-        return;
+        return; // Stop further execution and isolation
     }
     
     // Khabrnew redirect
