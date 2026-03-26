@@ -315,34 +315,65 @@
                                     }
 
                                     if (directLinks.length > 0) {
-                                        // Inject into the download section
-                                        const injectDownload = () => {
-                                            const downloadTab = document.querySelector('#download');
-                                            if (downloadTab) {
-                                                if (downloadTab.querySelector('li[aria-label="cimanow-direct"]')) return;
-                                                
-                                                const dlLi = document.createElement('li');
-                                                dlLi.className = 'box';
-                                                dlLi.setAttribute('aria-label', 'cimanow-direct');
-                                                
-                                                let inner = `<span><i class="fal fa-cloud-download-alt"></i>CimaNow (Direct) :</span>`;
-                                                // Sort by quality descending (1080p -> 360p)
-                                                directLinks.sort((a, b) => parseInt(b.quality) - parseInt(a.quality)).forEach(dl => {
-                                                    inner += `
-                                                        <a rel="nofollow" href="${dl.link}" target="_blank">
-                                                            <i class="fas fa-cloud-download-alt"></i>
-                                                            ${dl.quality}
-                                                            <p>CimaNow</p>
-                                                        </a>`;
-                                                });
-                                                dlLi.innerHTML = inner;
-                                                downloadTab.insertBefore(dlLi, downloadTab.firstChild);
-                                            } else {
-                                                // Retry if tab not found yet
-                                                setTimeout(injectDownload, 1000);
-                                            }
+                                        // Sort by quality descending
+                                        directLinks.sort((a, b) => parseInt(b.quality) - parseInt(a.quality));
+                                        
+                                        // Inject a standalone download button
+                                        let dlBtn = document.getElementById('cimanow-dl-shortcut');
+                                        if (!dlBtn) {
+                                            dlBtn = document.createElement('button');
+                                            dlBtn.id = 'cimanow-dl-shortcut';
+                                            dlBtn.innerHTML = '<i class="fal fa-cloud-download-alt" style="margin-left:8px;"></i>تحميل CimaNow';
+                                            dlBtn.style.cssText = `
+                                                display: block;
+                                                width: 100%;
+                                                background: #1e88e5;
+                                                color: #fff;
+                                                border: none;
+                                                padding: 15px;
+                                                border-radius: 8px;
+                                                cursor: pointer;
+                                                margin-top: 15px;
+                                                font-weight: bold;
+                                                font-size: 16px;
+                                                box-shadow: 0 4px 15px rgba(30,136,229,0.3);
+                                                transition: transform 0.2s;
+                                            `;
+                                            dlBtn.onmousedown = () => dlBtn.style.transform = "scale(0.98)";
+                                            dlBtn.onmouseup = () => dlBtn.style.transform = "scale(1)";
+                                            
+                                            const watch = document.querySelector('#watch');
+                                            if (watch) watch.parentNode.insertBefore(dlBtn, watch.nextSibling);
+                                        }
+
+                                        // Modal handler
+                                        dlBtn.onclick = () => {
+                                            const overlay = document.createElement('div');
+                                            overlay.style.cssText = "position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);z-index:999999;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(5px);";
+                                            
+                                            const modal = document.createElement('div');
+                                            modal.style.cssText = "background:#1a1a1a;padding:30px;border-radius:15px;width:90%;max-width:400px;box-shadow:0 0 30px rgba(30,136,229,0.3);border:1px solid #333;color:#fff;font-family:Arial,sans-serif;direction:rtl;";
+                                            
+                                            let html = `<h3 style="margin-top:0;text-align:center;color:#1e88e5;margin-bottom:20px;">تحميل مباشر - CimaNow</h3>`;
+                                            directLinks.forEach(dl => {
+                                                html += `
+                                                    <a href="${dl.link}" target="_blank" style="display:flex;align-items:center;justify-content:space-between;background:#252525;color:#fff;padding:15px;margin:10px 0;text-decoration:none;border-radius:8px;font-weight:bold;border:1px solid #333;">
+                                                        <span><i class="fas fa-download" style="margin-left:10px;color:#1e88e5;"></i>تحميل بجودة ${dl.quality}</span>
+                                                        <span style="font-size:12px;opacity:0.6;">Direct Link</span>
+                                                    </a>`;
+                                            });
+                                            
+                                            const closeBtn = document.createElement('button');
+                                            closeBtn.textContent = 'إغلاق';
+                                            closeBtn.style.cssText = "width:100%;padding:10px;margin-top:15px;background:transparent;color:#888;border:none;cursor:pointer;font-size:14px;";
+                                            closeBtn.onclick = () => overlay.remove();
+                                            
+                                            modal.innerHTML = html;
+                                            modal.appendChild(closeBtn);
+                                            overlay.appendChild(modal);
+                                            overlay.onclick = (e) => { if(e.target === overlay) overlay.remove(); };
+                                            document.body.appendChild(overlay);
                                         };
-                                        injectDownload();
                                     }
                                 }).catch(e => {});
                         }
