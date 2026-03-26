@@ -25,10 +25,18 @@
     }
 
     function decodeBase64(str) {
+        if (!str) return null;
         try {
-            return decodeURIComponent(escape(atob(str)));
+            // Standardize URL-safe Base64 and add padding
+            var b64 = str.replace(/-/g, '+').replace(/_/g, '/');
+            while (b64.length % 4) b64 += '=';
+            return decodeURIComponent(escape(atob(b64)));
         } catch (e) {
-            try { return atob(str); } catch (err) { return null; }
+            try { 
+                var b64_2 = str.replace(/-/g, '+').replace(/_/g, '/');
+                while (b64_2.length % 4) b64_2 += '=';
+                return atob(b64_2); 
+            } catch (err) { return null; }
         }
     }
 
@@ -54,6 +62,66 @@
         var btn = document.querySelector(selector);
         if (btn) btn.click();
     }
+
+    // ---- LOADON / REDIRECT BYPASS ----
+    (function handleLoadon() {
+        const STORAGE_KEY = 'rm_decoded_link';
+        const loc = window.location;
+        const path = loc.pathname;
+        
+        // Phase 1: Capture
+        if (path.includes('/loadon')) {
+            let encoded = new URLSearchParams(loc.search).get('link');
+            if (!encoded) {
+                // Try to extract from path like /loadon/aHR0c...
+                const segments = path.split('/');
+                const idx = segments.findIndex(s => s === 'loadon');
+                if (idx !== -1 && segments[idx + 1]) encoded = segments[idx + 1];
+            }
+            
+            if (encoded) {
+                const decoded = decodeBase64(encoded);
+                if (decoded && decoded.startsWith('http')) {
+                    localStorage.setItem(STORAGE_KEY, decoded);
+                    // On many sites, we can try to redirect immediately or wait for the site's logic
+                }
+            }
+        }
+
+        // Phase 2: Action
+        const savedLink = localStorage.getItem(STORAGE_KEY);
+        if (savedLink && savedLink.startsWith('http')) {
+            // Only trigger if we are NOT on the capture page WITH a link (to avoid loops)
+            const hasLinkParam = new URLSearchParams(loc.search).has('link');
+            if (path.includes('/loadon') && hasLinkParam) return;
+
+            localStorage.removeItem(STORAGE_KEY);
+            
+            // Clean UI
+            document.body.innerHTML = "";
+            document.body.style.cssText = "margin:0;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#0f0f0f;font-family:Arial,sans-serif;color:#fff;";
+            
+            const title = document.createElement('h2');
+            title.textContent = "جاري تحويلك... (Redirecting)";
+            title.style.marginBottom = "20px";
+            document.body.appendChild(title);
+
+            const btn = document.createElement('a');
+            btn.href = savedLink;
+            btn.textContent = 'فتح الرابط (Open Link)';
+            styleButton(btn);
+            document.body.appendChild(btn);
+            
+            // Auto redirect
+            setTimeout(() => { 
+                if (window.location.href !== savedLink) window.location.replace(savedLink); 
+            }, 800);
+            
+            // Stop other blocking scripts
+            window.stop(); 
+            throw new Error("Bypassing..."); 
+        }
+    })();
 
     // ---- AD BLOCKING & CLEANUP ----
     
@@ -117,36 +185,6 @@
         var adblockInterval = setInterval(removeAdblockElementsSmart, 1500);
         setTimeout(() => clearInterval(adblockInterval), 30000);
         removeAdblockElementsSmart();
-    }
-    
-    // Loadon / Redirect logic
-    const STORAGE_KEY = 'rm_decoded_link';
-    const loc = window.location;
-    if (loc.pathname.includes('/loadon')) {
-        const encoded = new URLSearchParams(loc.search).get('link');
-        if (encoded) {
-            const decoded = decodeBase64(encoded);
-            if (decoded) {
-                localStorage.setItem(STORAGE_KEY, decoded);
-                return; // Captured, now let the site redirect or load the next stage
-            }
-        }
-    }
-
-    const savedLink = localStorage.getItem(STORAGE_KEY);
-    if (savedLink) {
-        localStorage.removeItem(STORAGE_KEY);
-        // Wipe page and show the direct link button
-        document.documentElement.innerHTML = '<html><head><title>Redirecting...</title></head><body style="margin:0;height:100vh;display:flex;align-items:center;justify-content:center;background:#0f0f0f;font-family:Arial,sans-serif;"></body></html>';
-        
-        const btn = document.createElement('a');
-        btn.href = savedLink;
-        btn.textContent = 'فتح الرابط';
-        styleButton(btn);
-        document.body.appendChild(btn);
-
-        setTimeout(() => { window.location.href = savedLink; }, 800);
-        return; // Stop further execution and isolation
     }
     
     // Khabrnew redirect
