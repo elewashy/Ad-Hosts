@@ -130,46 +130,15 @@
     // ---- LOADON / REDIRECT BYPASS ----
     (function handleLoadon() {
         const STORAGE_KEY = 'rm_decoded_link';
-        const url = new URL(window.location.href);
-
-        /**
-         * 1️⃣ Capture Phase (on /loadon/ pages)
-         */
-        if (url.pathname.includes('/loadon')) {
-            const encoded = url.searchParams.get('link');
-            if (encoded) {
-                const decoded = decodeBase64(encoded);
-                if (decoded && decoded.startsWith('http')) {
-                    localStorage.setItem(STORAGE_KEY, decoded);
-                    sessionStorage.setItem(STORAGE_KEY, decoded);
-                    return; // Link captured, let the site proceed
-                }
-            }
-        }
-
-        /**
-         * 2️⃣ Action Phase (on the final timer/redirect page)
-         */
-        // Check BOTH localStorage and sessionStorage for redundancy
         const savedLink = localStorage.getItem(STORAGE_KEY) || sessionStorage.getItem(STORAGE_KEY);
+        
         if (savedLink && savedLink.startsWith('http')) {
-            // Clean up both to avoid loops
             localStorage.removeItem(STORAGE_KEY);
             sessionStorage.removeItem(STORAGE_KEY);
 
-            // Wipe page content (Match user's desktop script precisely)
+            // Clean page and show direct button
             document.documentElement.innerHTML = '<html><head><title>فتح الرابط</title></head><body></body></html>';
-            document.body.style.cssText = `
-                margin:0;
-                height:100vh;
-                display:flex;
-                flex-direction:column;
-                align-items:center;
-                justify-content:center;
-                background:#0f0f0f;
-                font-family:Arial, sans-serif;
-                color:#fff;
-            `;
+            document.body.style.cssText = "margin:0;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#0f0f0f;font-family:Arial,sans-serif;color:#fff;";
 
             const msg = document.createElement('div');
             msg.textContent = "جاري تحويلك... (Redirecting)";
@@ -180,26 +149,14 @@
             const btn = document.createElement('a');
             btn.href = savedLink;
             btn.textContent = 'فتح الرابط';
-            btn.style.cssText = `
-                padding:20px 40px;
-                font-size:24px;
-                color:#fff;
-                background:#1e88e5;
-                text-decoration:none;
-                border-radius:8px;
-                box-shadow:0 0 20px rgba(30,136,229,0.6);
-            `;
+            btn.style.cssText = "padding:20px 40px;font-size:24px;color:#fff;background:#1e88e5;text-decoration:none;border-radius:8px;box-shadow:0 0 20px rgba(30,136,229,0.6);";
             document.body.appendChild(btn);
 
-            // Auto-click / Redirect (Try multiple methods for reliability)
-            setTimeout(() => {
-                if (window.location.href !== savedLink) {
-                    btn.click();
-                    window.location.href = savedLink;
-                }
+            setTimeout(() => { 
+                if (window.location.href !== savedLink) window.location.href = savedLink; 
             }, 800);
             
-            throw new Error("Redirecting..."); // Stop other scripts
+            throw new Error("Redirecting...");
         }
     })();
     
