@@ -282,6 +282,70 @@
                     if (embedLi && newIframe) {
                         embedLi.innerHTML = '';
                         embedLi.appendChild(newIframe);
+                        
+                        // Extract direct download links from the server source
+                        const iframeSrc = newIframe.src;
+                        if (iframeSrc) {
+                            fetch(iframeSrc)
+                                .then(r => r.text())
+                                .then(serverHtml => {
+                                    const baseUrl = new URL(iframeSrc).origin;
+                                    
+                                    // Extract the "file" part from Playerjs config
+                                    const fileMatch = serverHtml.match(/"file"\s*:\s*\[(.*?)\]/s);
+                                    const directLinks = [];
+                                    
+                                    if (fileMatch) {
+                                        const segments = fileMatch[1].split('",');
+                                        segments.forEach(seg => {
+                                            const cleanSeg = seg.replace(/^[ "'\[]+|[ "'\]]+$/g, '').trim();
+                                            const qMatch = cleanSeg.match(/\[?(\d+p)\]?/);
+                                            const quality = qMatch ? qMatch[1] : null;
+                                            let link = cleanSeg.replace(/\[.*?\]\s*/, '').trim();
+                                            
+                                            if (link && quality) {
+                                                const fullLink = link.startsWith('http') ? link : baseUrl + link;
+                                                // Correctly encode spaces in the URL
+                                                const finalLink = encodeURI(fullLink);
+                                                if (!directLinks.some(dl => dl.quality === quality)) {
+                                                    directLinks.push({ quality, link: finalLink });
+                                                }
+                                            }
+                                        });
+                                    }
+
+                                    if (directLinks.length > 0) {
+                                        // Inject into the download section
+                                        const injectDownload = () => {
+                                            const downloadTab = document.querySelector('#download');
+                                            if (downloadTab) {
+                                                if (downloadTab.querySelector('li[aria-label="cimanow-direct"]')) return;
+                                                
+                                                const dlLi = document.createElement('li');
+                                                dlLi.className = 'box';
+                                                dlLi.setAttribute('aria-label', 'cimanow-direct');
+                                                
+                                                let inner = `<span><i class="fal fa-cloud-download-alt"></i>CimaNow (Direct) :</span>`;
+                                                // Sort by quality descending (1080p -> 360p)
+                                                directLinks.sort((a, b) => parseInt(b.quality) - parseInt(a.quality)).forEach(dl => {
+                                                    inner += `
+                                                        <a rel="nofollow" href="${dl.link}" target="_blank">
+                                                            <i class="fas fa-cloud-download-alt"></i>
+                                                            ${dl.quality}
+                                                            <p>CimaNow</p>
+                                                        </a>`;
+                                                });
+                                                dlLi.innerHTML = inner;
+                                                downloadTab.insertBefore(dlLi, downloadTab.firstChild);
+                                            } else {
+                                                // Retry if tab not found yet
+                                                setTimeout(injectDownload, 1000);
+                                            }
+                                        };
+                                        injectDownload();
+                                    }
+                                }).catch(e => {});
+                        }
                     }
                 });
         });
