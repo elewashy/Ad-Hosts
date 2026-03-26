@@ -25,10 +25,18 @@
     }
 
     function decodeBase64(str) {
+        if (!str) return null;
         try {
-            return decodeURIComponent(escape(atob(str)));
+            // Standardize URL-safe Base64 and add padding
+            var b64 = str.replace(/-/g, '+').replace(/_/g, '/');
+            while (b64.length % 4) b64 += '=';
+            return decodeURIComponent(escape(atob(b64)));
         } catch (e) {
-            try { return atob(str); } catch (err) { return null; }
+            try { 
+                var b64_2 = str.replace(/-/g, '+').replace(/_/g, '/');
+                while (b64_2.length % 4) b64_2 += '=';
+                return atob(b64_2); 
+            } catch (err) { return null; }
         }
     }
 
@@ -119,34 +127,85 @@
         removeAdblockElementsSmart();
     }
     
-    // Loadon / Redirect logic
-    const STORAGE_KEY = 'rm_decoded_link';
-    if (window.location.pathname.startsWith('/loadon/')) {
-        const urlParams = new URL(window.location.href).searchParams;
-        const encoded = urlParams.get('link');
-        if (encoded) {
-            const decoded = decodeBase64(encoded);
-            if (decoded) sessionStorage.setItem(STORAGE_KEY, decoded);
+    // ---- LOADON / REDIRECT BYPASS ----
+    (function handleLoadon() {
+        const STORAGE_KEY = 'rm_decoded_link';
+        const loc = window.location;
+        const path = loc.pathname;
+
+        // Proactive: Rewrite links on the current page to bypass the ad-wall entirely
+        function rewriteLinks() {
+            document.querySelectorAll('a[href*="/loadon"]').forEach(link => {
+                try {
+                    const u = new URL(link.href);
+                    let encoded = u.searchParams.get('link');
+                    if (!encoded) {
+                        const segments = u.pathname.split('/');
+                        const idx = segments.findIndex(s => s === 'loadon');
+                        if (idx !== -1 && segments[idx + 1]) encoded = segments[idx + 1];
+                    }
+                    if (encoded) {
+                        const decoded = decodeBase64(encoded);
+                        if (decoded && decoded.startsWith('http')) {
+                            link.href = decoded;
+                            link.removeAttribute('onclick');
+                            link.setAttribute('data-bypassed', 'true');
+                        }
+                    }
+                } catch(e) {}
+            });
         }
-    }
+        rewriteLinks();
+        setInterval(rewriteLinks, 2000);
 
-    const savedLink = sessionStorage.getItem(STORAGE_KEY);
-    if (savedLink && !window.location.pathname.startsWith('/loadon/')) {
-        sessionStorage.removeItem(STORAGE_KEY);
-        document.documentElement.innerHTML = '';
-        document.body = document.createElement('body');
-        document.documentElement.appendChild(document.body);
-        document.body.style.cssText = "margin:0;height:100vh;display:flex;align-items:center;justify-content:center;background:#0f0f0f;";
-        
-        const btn = document.createElement('a');
-        btn.href = savedLink;
-        btn.textContent = 'فتح الرابط';
-        styleButton(btn);
-        document.body.appendChild(btn);
+        // Phase 1: Capture (on the loadon page itself)
+        if (path.includes('/loadon')) {
+            let encoded = new URLSearchParams(loc.search).get('link');
+            if (!encoded) {
+                const segments = path.split('/');
+                const idx = segments.findIndex(s => s === 'loadon');
+                if (idx !== -1 && segments[idx + 1]) encoded = segments[idx + 1];
+            }
+            if (encoded) {
+                const decoded = decodeBase64(encoded);
+                if (decoded && decoded.startsWith('http')) {
+                    localStorage.setItem(STORAGE_KEY, decoded);
+                    sessionStorage.setItem(STORAGE_KEY, decoded);
+                }
+            }
+        }
 
-        setTimeout(() => { window.location.href = savedLink; }, 800);
-        return;
-    }
+        // Phase 2: Action (on the timer/redirect page)
+        const savedLink = localStorage.getItem(STORAGE_KEY) || sessionStorage.getItem(STORAGE_KEY);
+        if (savedLink && savedLink.startsWith('http')) {
+            const hasLinkParam = new URLSearchParams(loc.search).has('link');
+            if (path.includes('/loadon') && hasLinkParam) return;
+
+            localStorage.removeItem(STORAGE_KEY);
+            sessionStorage.removeItem(STORAGE_KEY);
+            
+            document.body.innerHTML = "";
+            document.body.style.cssText = "margin:0;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#0f0f0f;font-family:Arial,sans-serif;color:#fff;";
+            
+            const title = document.createElement('h2');
+            title.textContent = "جاري تحويلك... (Redirecting)";
+            title.style.marginBottom = "20px";
+            document.body.appendChild(title);
+
+            const btn = document.createElement('a');
+            btn.href = savedLink;
+            btn.textContent = 'فتح الرابط (Open Link)';
+            styleButton(btn);
+            document.body.appendChild(btn);
+            
+            setTimeout(() => { 
+                if (window.location.href !== savedLink) window.location.replace(savedLink); 
+            }, 500);
+            
+            window.stop(); 
+            throw new Error("Bypassing..."); 
+        }
+    })();
     
     // Khabrnew redirect
     if (href.includes("khabrnew.store/ta7mel")) {
