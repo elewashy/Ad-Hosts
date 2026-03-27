@@ -184,31 +184,31 @@
     });
 
     // 5. Early Redirect Link Capture (Loadon)
-    (function captureEarly() {
-        const STORAGE_KEY = 'rm_decoded_link';
-        const url = new URL(window.location.href);
-        if (url.pathname.includes('/loadon')) {
-            const encoded = url.searchParams.get('link');
-            if (encoded) {
-                try {
-                    // Optimized Base64 decode
-                    let b64 = encoded.replace(/-/g, '+').replace(/_/g, '/');
-                    while (b64.length % 4) b64 += '=';
-                    let decoded = decodeURIComponent(escape(atob(b64)));
-                    if (decoded && decoded.startsWith('http')) {
-                        localStorage.setItem(STORAGE_KEY, decoded);
-                        sessionStorage.setItem(STORAGE_KEY, decoded);
-                    }
-                } catch(e) {
-                    try {
-                        let decoded = atob(encoded.replace(/-/g, '+').replace(/_/g, '/'));
-                        if (decoded && decoded.startsWith('http')) {
-                            localStorage.setItem(STORAGE_KEY, decoded);
-                            sessionStorage.setItem(STORAGE_KEY, decoded);
-                        }
-                    } catch(err) {}
-                }
-            }
-        }
-    })();
+    // (function captureEarly() {
+    //     const STORAGE_KEY = 'rm_decoded_link';
+    //     const url = new URL(window.location.href);
+    //     if (url.pathname.includes('/loadon')) {
+    //         const encoded = url.searchParams.get('link');
+    //         if (encoded) {
+    //             try {
+    //                 // Optimized Base64 decode
+    //                 let b64 = encoded.replace(/-/g, '+').replace(/_/g, '/');
+    //                 while (b64.length % 4) b64 += '=';
+    //                 let decoded = decodeURIComponent(escape(atob(b64)));
+    //                 if (decoded && decoded.startsWith('http')) {
+    //                     localStorage.setItem(STORAGE_KEY, decoded);
+    //                     sessionStorage.setItem(STORAGE_KEY, decoded);
+    //                 }
+    //             } catch(e) {
+    //                 try {
+    //                     let decoded = atob(encoded.replace(/-/g, '+').replace(/_/g, '/'));
+    //                     if (decoded && decoded.startsWith('http')) {
+    //                         localStorage.setItem(STORAGE_KEY, decoded);
+    //                         sessionStorage.setItem(STORAGE_KEY, decoded);
+    //                     }
+    //                 } catch(err) {}
+    //             }
+    //         }
+    //     }
+    // })();
 })();
