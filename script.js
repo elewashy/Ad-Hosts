@@ -154,17 +154,21 @@
     if (redirectedUrl) window.location.href = decodeURIComponent(redirectedUrl);
   }
 
-  // freex2line logic to isolate and center the download button
+  // freex2line logic to center the download button in the viewport
   if (hostname.includes("freex2line.online")) {
     var checkDownloadBtn = setInterval(function () {
-      if (
-        isolateElement("#downloadbtn, .downloadbtn", function (el) {
-          styleButton(el);
-          // Make it slightly bigger for better visibility
-          el.style.fontSize = "26px";
-          el.style.padding = "25px 50px";
-        })
-      ) {
+      var btn = document.querySelector("#downloadbtn, .downloadbtn");
+      if (btn) {
+        styleButton(btn);
+        // Center the button in the middle of the viewport without clearing the body
+        btn.style.position = "fixed";
+        btn.style.top = "50%";
+        btn.style.left = "50%";
+        btn.style.transform = "translate(-50%, -50%)";
+        btn.style.zIndex = "9999";
+        btn.style.fontSize = "26px";
+        btn.style.padding = "25px 50px";
+        btn.style.display = "inline-block"; // Ensure it's visible
         clearInterval(checkDownloadBtn);
       }
     }, 1000);
