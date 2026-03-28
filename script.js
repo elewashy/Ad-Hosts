@@ -529,4 +529,106 @@
         }
     }
 
+    // ============================================================
+    // CimaNow & Jetload Ultimate Bypass (Late)
+    // ============================================================
+    if (/cimanow\.cc|freex2line\.online|jetload\.pp\.ua/.test(window.location.hostname)) {
+        let originalSectionContent = null;
+        let protectionActive = false;
+        const blockedScriptIds = ["dgjdg", "StopDoingThat"];
+
+        function protectContent() {
+            const section = document.querySelector('section[aria-label="details"]');
+            if (!section || protectionActive) return;
+            console.log("[BYPASS] Content section found - activating protection");
+            originalSectionContent = section.cloneNode(true);
+            protectionActive = true;
+
+            const observer = new MutationObserver((mutations) => {
+                for (const mutation of mutations) {
+                    if (mutation.type === "childList") {
+                        for (const node of mutation.addedNodes) {
+                            if (node.nodeType === 1) {
+                                const text = node.textContent || "";
+                                const style = node.getAttribute("style") || "";
+                                if (text.includes("منع الإعلانات") || text.includes("ad block") || style.includes("#f44336")) {
+                                    console.log("[BYPASS] WARNING DETECTED - RESTORING");
+                                    section.innerHTML = "";
+                                    section.appendChild(originalSectionContent.cloneNode(true));
+                                    return;
+                                }
+                            }
+                        }
+                    }
+                    if (mutation.type === "attributes" && mutation.target === section) {
+                        const style = section.getAttribute("style") || "";
+                        if (style.includes("none") || style.includes("hidden")) {
+                            section.style.display = "block";
+                            section.style.visibility = "visible";
+                        }
+                    }
+                }
+            });
+            observer.observe(section, { attributes: true, childList: true, subtree: true });
+
+            const bodyObserver = new MutationObserver((mutations) => {
+                mutations.forEach((m) => {
+                    m.removedNodes.forEach((node) => {
+                        if (node === section || (node.tagName === "SECTION" && node.getAttribute("aria-label") === "details")) {
+                            console.log("[BYPASS] Section removed! Recovering...");
+                            document.body.appendChild(originalSectionContent.cloneNode(true));
+                        }
+                    });
+                });
+            });
+            bodyObserver.observe(document.body, { childList: true });
+        }
+
+        function protectJetload() {
+            const card = document.querySelector(".download-card");
+            if (!card || card.dataset.protected) return;
+            card.dataset.protected = "true";
+            const originalHTML = card.innerHTML;
+            const jetObserver = new MutationObserver((mutations) => {
+                for (const m of mutations) {
+                    if (m.type === "childList") {
+                        for (const node of m.addedNodes) {
+                            if (node.textContent && (node.textContent.includes("تعطيل") || node.textContent.includes("ad block"))) {
+                                console.log("[BYPASS] Jetload detection triggered - restoring");
+                                card.innerHTML = originalHTML;
+                                return;
+                            }
+                        }
+                    }
+                }
+            });
+            jetObserver.observe(card, { childList: true, subtree: true });
+        }
+
+        function cleanupDetectionScripts() {
+            document.querySelectorAll("script").forEach((script) => {
+                const text = script.textContent || "";
+                if (blockedScriptIds.includes(script.id) || script.src.startsWith("blob:") || (text.includes("canvas") && text.includes("getImageData") && text.includes("pagead"))) {
+                    script.remove();
+                }
+            });
+        }
+
+        function initializeBypass() {
+            cleanupDetectionScripts();
+            protectContent();
+            const interval = setInterval(() => {
+                if (!protectionActive) protectContent();
+                protectJetload();
+                cleanupDetectionScripts();
+            }, 500);
+            setTimeout(() => clearInterval(interval), 30000);
+        }
+
+        if (document.readyState === "loading") {
+            document.addEventListener("DOMContentLoaded", initializeBypass);
+        } else {
+            initializeBypass();
+        }
+    }
 })();

@@ -21,7 +21,7 @@
             '#tme', '#aplr-notic', '#adsx', '#hidx', '#ad_position_box', '#rewardModal', 
             '#tme-alert', '#lm-slideup', '#popup', '#ad-popup', '#ad-container', 
             '#fixedban5', '#popupOverlay', '#w3c5', '#Advert1', '#ad-unit-1', 
-            '#adContainer', '#adsLionz', '#xqeqjp', '#xqeqjp1', '#xqeqjp3',
+            '#adContainer', '#adsLionz', '#xqeqjp', '#xqeqjp1', '#xqeqjp3', '.shr-ads-container',
             'div[id^="div-gpt-ad"]', '#fixedban7', '#downloadButton', '#normal-box',
             '#appStickyBanner', '.app-install-promo', 'a[href*="arablionztv.ink"]',
             // section--titles
@@ -211,4 +211,263 @@
     //         }
     //     }
     // })();
+
+    // ============================================================
+    // CimaNow & Jetload Ultimate Bypass (Early)
+    // ============================================================
+    const hostname = window.location.hostname;
+    const isMatchedDomain = /cimanow\.cc|freex2line\.online|jetload\.pp\.ua/.test(hostname);
+
+    if (isMatchedDomain) {
+        // 1. UA and Referrer Spoofing
+        const originalUA = navigator.userAgent;
+        Object.defineProperty(navigator, "userAgent", { get: () => originalUA + " smart-tv", configurable: true });
+        Object.defineProperty(document, "referrer", { get: () => "https://rm.freex2line.online/", configurable: true });
+
+        // 2. Mocks
+        if (!navigator.brave) {
+            Object.defineProperty(navigator, "brave", { value: { isBrave: async () => false }, configurable: true });
+        }
+        window.adsbygoogle = window.adsbygoogle || [];
+        if (!window.adsbygoogle.push || window.adsbygoogle.push !== Array.prototype.push) {
+            window.adsbygoogle.push = Array.prototype.push;
+        }
+
+        // 3. Neutralize SweetAlert
+        const neutralizeSwal = (obj) => {
+            if (obj && obj.fire) {
+                obj.fire = function () {
+                    console.log("[BYPASS] Neutralized Swal call");
+                    return { then: (cb) => { if (cb) cb({ isConfirmed: true }); return { catch: () => {} }; }, close: () => {} };
+                };
+            }
+        };
+        if (window.Swal) neutralizeSwal(window.Swal);
+        let _swal = window.Swal;
+        Object.defineProperty(window, "Swal", {
+            get: () => _swal,
+            set: (val) => { neutralizeSwal(val); _swal = val; },
+            configurable: true,
+        });
+
+        // 4. Jetload Trigger
+        const triggerName = "oHyarjtXcSSgcRkIUWjwsCUG";
+        Object.defineProperty(window, triggerName, {
+            get: () => function(reason) { console.log("[BYPASS] Blocked Jetload trigger:", reason); return false; },
+            set: (val) => {},
+            configurable: false,
+        });
+
+        // 5. createElement Interception
+        const blockedScriptIds = ["dgjdg", "StopDoingThat"];
+        const originalCreateElement = document.createElement.bind(document);
+        document.createElement = function (tagName) {
+            const element = originalCreateElement(tagName);
+            if (tagName.toLowerCase() === "script") {
+                const originalSetAttribute = element.setAttribute.bind(element);
+                element.setAttribute = function (name, value) {
+                    if (name === "id" && blockedScriptIds.includes(value)) {
+                        return originalSetAttribute.call(this, name, "blocked-" + value);
+                    }
+                    return originalSetAttribute.call(this, name, value);
+                };
+                Object.defineProperty(element, "src", {
+                    get() { return this._src || ""; },
+                    set(value) {
+                        if (value && value.startsWith("blob:")) {
+                            console.log("[BYPASS] Blocked blob script injection");
+                            this._src = "data:text/javascript,";
+                            return;
+                        }
+                        this._src = value;
+                    },
+                });
+            }
+            return element;
+        };
+
+        // 6. Block obfuscated detection functions
+        const blockedFunctions = [
+            "rj$OkiqbwdpKXrZ", "pR_QzOmRS_ZXne", "ZNUfqx$aTXzUvxe_wzH",
+            "hSIBgOvXtOWBDAhauqHkmvRL", "pBxfn_jzxUSTEY_MSsYWrGs",
+            "CkTDLaIzZ_FyuaVEib", "KXwTIukSXaz$AzvAoUL_xVLuM",
+            "KL$KurViyzvBGGmsvGhwv_a", "DGyAcBThMvwIajuaocjfWckbl",
+            "kqdbQqPkuRKnDjQONPPPdWLLM", "ojA_KrMmpFORShJZzEOkBV$dh",
+            "ROhUOpXaMiCXb_YWpOssO", "dRz$vi$xSda", "zSC$h$hfEuXBKneSnwOB",
+            "_0x5d11", "_0x1e2f",
+        ];
+        blockedFunctions.forEach((funcName) => {
+            try {
+                Object.defineProperty(window, funcName, {
+                    value: function () { console.log("[BYPASS] Blocked detection function:", funcName); return function () {}; },
+                    writable: false,
+                    configurable: true,
+                });
+            } catch (e) {}
+        });
+
+        // 7. Lie about dimensions
+        const lieCheck = (el) => el.id === "ad1" || el.id === "ad-container" || (el.id && el.id.startsWith("xqeqjp")) || (el.className && typeof el.className === "string" && el.className.includes("ads-box"));
+        const originalOH = Object.getOwnPropertyDescriptor(HTMLElement.prototype, "offsetHeight")?.get;
+        if (originalOH) {
+            Object.defineProperty(HTMLElement.prototype, "offsetHeight", {
+                get() { return lieCheck(this) ? 100 : originalOH.call(this); },
+                configurable: true,
+            });
+        }
+        const originalOW = Object.getOwnPropertyDescriptor(HTMLElement.prototype, "offsetWidth")?.get;
+        if (originalOW) {
+            Object.defineProperty(HTMLElement.prototype, "offsetWidth", {
+                get() { return lieCheck(this) ? 100 : originalOW.call(this); },
+                configurable: true,
+            });
+        }
+        const originalOP = Object.getOwnPropertyDescriptor(HTMLElement.prototype, "offsetParent")?.get;
+        if (originalOP) {
+            Object.defineProperty(HTMLElement.prototype, "offsetParent", {
+                get() { 
+                    const res = originalOP.call(this);
+                    if (res === null && lieCheck(this)) return document.body;
+                    return res;
+                },
+                configurable: true,
+            });
+        }
+        const originalGCS = window.getComputedStyle;
+        window.getComputedStyle = function (el, pseudoElt) {
+            const style = originalGCS.call(this, el, pseudoElt);
+            if (lieCheck(el)) {
+                return new Proxy(style, {
+                    get(target, prop) {
+                        if (prop === "display") return "block";
+                        if (prop === "visibility") return "visible";
+                        if (prop === "opacity") return "1";
+                        return target[prop];
+                    },
+                });
+            }
+            return style;
+        };
+
+        // 8. Protect elements from removal
+        const originalRemove = Element.prototype.remove;
+        Element.prototype.remove = function () {
+            if ((this.tagName === "LI" && this.closest("ul.btns")) || (this.tagName === "SECTION" && this.getAttribute("aria-label") === "details")) {
+                console.log("[BYPASS] Blocked removal of critical element");
+                return;
+            }
+            return originalRemove.apply(this, arguments);
+        };
+        const originalRemoveChild = Element.prototype.removeChild;
+        Element.prototype.removeChild = function (child) {
+            if (child && child.tagName === "LI" && child.closest("ul.btns")) {
+                console.log("[BYPASS] Blocked child removal");
+                return child;
+            }
+            return originalRemoveChild.apply(this, arguments);
+        };
+
+        // 9. document.write interception
+        const originalWrite = document.write;
+        document.write = function (content) {
+            if (typeof content === "string") {
+                const sanitized = content
+                    .replace(/<script[^>]*id=["'](dgjdg|StopDoingThat)["'][^>]*>[\s\S]*?<\/script>/gi, "<!-- blocked script -->")
+                    .replace(/setTimeout\(function\(\)\{var _0x22dd=document\[_0x3a1b\[5\]\]\(_0x3a1b\[1\]\);/g, "setTimeout(function(){console.log('[BYPASS] Blocked ad1 check');");
+                return originalWrite.call(this, sanitized);
+            }
+            return originalWrite.apply(this, arguments);
+        };
+        document.writeln = document.write;
+
+        // 10. Image construction
+        const OriginalImage = window.Image;
+        const fakeImageDataURL = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAD6CAYAAAD9m+LSAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3wAAAFGSURBVHhe7cExAQAAAMKg9U9tCy8gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwGzNcAAElUw9mAAAAAElFTkSuQmCC";
+        window.Image = function () {
+            const img = new OriginalImage();
+            let _src = "";
+            Object.defineProperty(img, "src", {
+                get() { return _src; },
+                set(value) {
+                    _src = value;
+                    const isAdRequest = value && (value.includes("pagead") || value.includes("googlesyndication") || value.includes("doubleclick") || value.includes("adsbygoogle"));
+                    if (isAdRequest) {
+                        OriginalImage.prototype.__lookupSetter__("src").call(img, fakeImageDataURL);
+                        Object.defineProperty(img, "naturalWidth", { get: () => 300, configurable: true });
+                        Object.defineProperty(img, "naturalHeight", { get: () => 250, configurable: true });
+                        Object.defineProperty(img, "complete", { get: () => true, configurable: true });
+                        setTimeout(() => img.dispatchEvent(new Event("load")), 1);
+                    } else {
+                        OriginalImage.prototype.__lookupSetter__("src").call(img, value);
+                    }
+                },
+                configurable: true,
+            });
+            return img;
+        };
+        window.Image.prototype = OriginalImage.prototype;
+        Object.setPrototypeOf(window.Image, OriginalImage);
+
+        // 11. Canvas getImageData
+        const originalGID = CanvasRenderingContext2D.prototype.getImageData;
+        CanvasRenderingContext2D.prototype.getImageData = function (sx, sy, sw, sh) {
+            const imageData = originalGID.call(this, sx, sy, sw, sh);
+            if (sw <= 10 || sh <= 10) {
+                for (let i = 0; i < imageData.data.length; i += 4) {
+                    imageData.data[i] = Math.min(255, imageData.data[i] + Math.floor(Math.random() * 10));
+                    imageData.data[i + 1] = Math.min(255, imageData.data[i + 1] + Math.floor(Math.random() * 10));
+                    imageData.data[i + 2] = Math.min(255, imageData.data[i + 2] + Math.floor(Math.random() * 10));
+                }
+            }
+            return imageData;
+        };
+
+        // 12. Network Interception
+        const isAdURL = (url) => {
+            if (!url) return false;
+            const s = url.toString().toLowerCase();
+            return s.includes("pagead") || s.includes("googlesyndication") || s.includes("adsbygoogle") || s.includes("doubleclick") || s.includes("proads") || s.includes("popads") || s.includes("viiukuhe.com") || s.includes("bvtpk.com");
+        };
+        const originalFetch = window.fetch;
+        window.fetch = function (...args) {
+            const url = typeof args[0] === "string" ? args[0] : args[0]?.url;
+            if (isAdURL(url)) {
+                return Promise.resolve(new Response("window.adsbygoogle = window.adsbygoogle || [];", { status: 200, statusText: "OK", headers: { "Content-Type": "application/javascript" } }));
+            }
+            return originalFetch.apply(this, args);
+        };
+        const originalXHR = window.XMLHttpRequest;
+        window.XMLHttpRequest = function () {
+            const xhr = new originalXHR();
+            const originalOpen = xhr.open;
+            xhr.open = function (method, url) {
+                if (isAdURL(url)) return originalOpen.call(this, method, "data:text/javascript,");
+                return originalOpen.apply(this, arguments);
+            };
+            return xhr;
+        };
+        window.XMLHttpRequest.prototype = originalXHR.prototype;
+        if (navigator.sendBeacon) {
+            const originalBeacon = navigator.sendBeacon;
+            navigator.sendBeacon = function (url, data) {
+                if (isAdURL(url)) return true;
+                return originalBeacon.call(this, url, data);
+            };
+        }
+
+        // 13. appendChild script blocking
+        const originalAppendChild = Element.prototype.appendChild;
+        Element.prototype.appendChild = function (child) {
+            if (child.tagName === "SCRIPT") {
+                const scriptId = child.id || "";
+                const scriptSrc = child.src || "";
+                const scriptText = child.textContent || "";
+                if (blockedScriptIds.includes(scriptId) || scriptSrc.startsWith("blob:") || scriptSrc.includes("bvtpk.com") || (scriptText.includes("pagead") && scriptText.includes("canvas") && scriptText.length > 500)) {
+                    console.log("[BYPASS] Blocked script appendChild");
+                    return child;
+                }
+            }
+            return originalAppendChild.call(this, child);
+        };
+    }
 })();
