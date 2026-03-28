@@ -2,6 +2,9 @@
 (function () {
   // 1. Inject CSS early to hide ads and annoyances and prevent flickering
   function injectAdblockCSS() {
+    if (window.location.hostname === "www.freex2line.online") {
+      return;
+    }
     var style = document.createElement("style");
     style.id = "egyfilm-adblock-css";
 
