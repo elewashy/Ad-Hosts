@@ -1,99 +1,172 @@
 // script_2.js - Injected on onPageStarted
 (function () {
   // 1. Inject CSS early to hide ads and annoyances and prevent flickering
-//   function injectAdblockCSS() {
-//     var style = document.createElement("style");
-//     style.id = "egyfilm-adblock-css";
+  function injectAdblockCSS() {
+    var selectorsToHide = [
+      // Classes
+      ".pm-ads-banner",
+      ".ad-container",
+      ".singular--bg",
+      ".telegram_themexCom",
+      ".comp-hide.AlbaE3lan.table_top",
+      ".separator",
+      ".banner-inner",
+      ".ad-unit",
+      ".hydratv",
+      ".blog-item",
+      ".arlionz--slider",
+      ".live-ad-container",
+      ".afcceb-bebeea",
+      ".fjojw-ihdwiiwd",
+      ".faded-in.nindo-popup-content-wrapper",
+      ".faded-in.nindo-popup-overlay",
+      ".afcceb-afdacf",
+      ".swal2-container",
+      ".Switcher--Watch",
+      ".alert.alert-info",
+      ".card.my-4",
+      "#free-captcha",
+      // Specific styles used for ads
+      'div[style*="text-align: center;padding: 20px 0 10px;"]',
+      'div[style*="text-align: center;padding: 0 0 30px;"]',
+      'div[style*="text-align: center;padding: 20px 0 0;"]',
+      // IDs
+      "#tme",
+      "#aplr-notic",
+      "#adsx",
+      "#hidx",
+      "#ad_position_box",
+      "#rewardModal",
+      "#tme-alert",
+      "#lm-slideup",
+      "#popup",
+      "#ad-popup",
+      "#ad-container",
+      "#fixedban5",
+      "#popupOverlay",
+      "#w3c5",
+      "#Advert1",
+      "#ad-unit-1",
+      "#adContainer",
+      "#adsLionz",
+      "#xqeqjp",
+      "#xqeqjp1",
+      "#xqeqjp3",
+      'div[id^="div-gpt-ad"]',
+      "#fixedban7",
+      "#downloadButton",
+      "#normal-box",
+      "#appStickyBanner",
+      ".app-install-promo",
+      'a[href*="arablionztv.ink"]',
+      // section--titles
+      "section--titles",
+      ".Section--Titles",
+      // Button presses ad networks
+      ".buttonPress-1077",
+      'a[class^="buttonPress-"]',
+      // Anti Adblock detectors
+      ".anti-adblock-message",
+    ];
 
-//     var selectorsToHide = [
-//       // Classes
-//       ".pm-ads-banner",
-//       ".ad-container",
-//       ".singular--bg",
-//       ".telegram_themexCom",
-//       ".comp-hide.AlbaE3lan.table_top",
-//       ".separator",
-//       ".banner-inner",
-//       ".ad-unit",
-//       ".hydratv",
-//       ".blog-item",
-//       "arlionz--slider",
-//       ".live-ad-container",
-//       ".afcceb-bebeea",
-//       ".fjojw-ihdwiiwd",
-//       ".faded-in.nindo-popup-content-wrapper",
-//       ".faded-in.nindo-popup-overlay",
-//       ".afcceb-afdacf",
-//       ".swal2-container",
-//       ".Switcher--Watch",
-//       ".alert.alert-info",
-//       ".card.my-4",
-//       "#free-captcha",
-//       // Specific styles used for ads
-//       'div[style*="text-align: center;padding: 20px 0 10px;"]',
-//       'div[style*="text-align: center;padding: 0 0 30px;"]',
-//       'div[style*="text-align: center;padding: 20px 0 0;"]',
-//       // IDs
-//       "#tme",
-//       "#aplr-notic",
-//       "#adsx",
-//       "#hidx",
-//       "#ad_position_box",
-//       "#rewardModal",
-//       "#tme-alert",
-//       "#lm-slideup",
-//       "#popup",
-//       "#ad-popup",
-//       "#ad-container",
-//       "#fixedban5",
-//       "#popupOverlay",
-//       "#w3c5",
-//       "#Advert1",
-//       "#ad-unit-1",
-//       "#adContainer",
-//       "#adsLionz",
-//       "#xqeqjp",
-//       "#xqeqjp1",
-//       "#xqeqjp3",
-//       'div[id^="div-gpt-ad"]',
-//       "#fixedban7",
-//       "#downloadButton",
-//       "#normal-box",
-//       "#appStickyBanner",
-//       ".app-install-promo",
-//       'a[href*="arablionztv.ink"]',
-//       // section--titles
-//       "section--titles",
-//       ".Section--Titles",
-//       // Button presses ad networks
-//       ".buttonPress-1077",
-//       'a[class^="buttonPress-"]',
-//       // Anti Adblock detectors
-//       ".anti-adblock-message",
-//     ];
+    // 1. Create a style element with a random ID or no ID to avoid detection
+    var style = document.createElement("style");
+    // No static ID, maybe a random one if we need to reference it
+    style.dataset.type = "app-styles"; 
 
-//     // Ensure standard overflow for sweetalert overlays
-//     style.innerHTML =
-//       selectorsToHide.join(", ") +
-//       " { display: none !important; opacity: 0 !important; pointer-events: none !important; } " +
-//       "body { overflow: auto !important; }";
+    // 2. Use a variety of hiding techniques. 
+    // display:none is easily detected by checking offsetHeight.
+    // Combinations of opacity, pointer-events, and positioning are harder to detect automatically.
+    var cssRules = [
+      // Primary stealth rule: invisible but still has dimensions in some cases
+      selectorsToHide.join(", ") + " { " +
+      "display: none !important; " + // Still the most effective, but we add fallbacks
+      "opacity: 0 !important; " +
+      "pointer-events: none !important; " +
+      "visibility: hidden !important; " +
+      "position: absolute !important; " +
+      "left: -9999px !important; " +
+      "height: 0 !important; " +
+      "z-index: -1 !important; " +
+      "} ",
+      
+      // Fix potential body lock issues caused by ad-detectors
+      "html, body { overflow: auto !important; height: auto !important; position: static !important; } "
+    ];
 
-//     // Attempt to inject immediately
-//     var head =
-//       document.head ||
-//       document.getElementsByTagName("head")[0] ||
-//       document.documentElement;
-//     if (head) {
-//       head.appendChild(style);
-//     } else {
-//       // Document is not ready at all yet, use DOMContentLoaded
-//       document.addEventListener("DOMContentLoaded", function () {
-//         (document.head || document.documentElement).appendChild(style);
-//       });
-//     }
-//   }
+    style.textContent = cssRules.join("\n");
 
-//   injectAdblockCSS();
+    // Attempt to inject as early as possible
+    var target = document.head || document.documentElement;
+    if (target) {
+      target.appendChild(style);
+    } else {
+      document.addEventListener("DOMContentLoaded", function () {
+        (document.head || document.documentElement).appendChild(style);
+      });
+    }
+
+    // 3. Persistent removal via MutationObserver
+    // This catches elements that are dynamically added and bypasses some "is it hidden" checks
+    // that only run once during page load.
+    var observer = new MutationObserver(function(mutations) {
+      selectorsToHide.forEach(function(selector) {
+        try {
+          var elements = document.querySelectorAll(selector);
+          elements.forEach(function(el) {
+            if (el && el.parentNode) {
+              // Instead of just hiding, we can remove it entirely if it's not a detector bait
+              // For detectors, sometimes it's better to just leave it hidden
+              if (!selector.includes("anti-adblock")) {
+                el.style.setProperty("display", "none", "important");
+                el.style.setProperty("visibility", "hidden", "important");
+                el.style.setProperty("pointer-events", "none", "important");
+              } else {
+                el.remove(); // Remove detector messages immediately
+              }
+            }
+          });
+        } catch (e) {}
+      });
+    });
+
+    observer.observe(document.documentElement, {
+      childList: true,
+      subtree: true
+    });
+  }
+  injectAdblockCSS();
+
+  // 1.1 Global Anti-Adblock Variable Spoofing
+  // Many sites check for these to decide if they should show an "AdBlock Detected" message.
+  (function spoofAntiAdblock() {
+    const properties = [
+      'canRunAds', 'isAdBlockActive', 'no_adblock', 'adblock', 'ad_blocked',
+      'is_adblock', 'ads_blocked', 'blockAdblock', 'FuckAdBlock', 'SniffAdBlock'
+    ];
+    
+    properties.forEach(prop => {
+      try {
+        // Define as true (or existing) to signal that ads ARE "working" (or at least blocker is "not" active)
+        // Note: For some it should be false, for some true. Usually "canRunAds" = true.
+        const val = prop.toLowerCase().includes('active') || prop.toLowerCase().includes('blocked') ? false : true;
+        
+        Object.defineProperty(window, prop, {
+          get: () => val,
+          set: () => {},
+          enumerable: true,
+          configurable: true
+        });
+      } catch (e) {}
+    });
+
+    // Mock Google AdSense/ad-networks presence
+    window.adsbygoogle = window.adsbygoogle || [];
+    window.adsbygoogle.loaded = true;
+    
+    // Some sites check if certain functions exist
+    window.ga = window.ga || function(){};
+  })();
 
   // 2. Pre-fetch setup for domains that need to do background network requests early
   if (window.location.hostname === "ugeen.live") {
