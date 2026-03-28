@@ -69,6 +69,7 @@
       ".buttonPress-1077",
       'a[class^="buttonPress-"]',
       // Anti Adblock detectors
+      ".anti-adblock-message",
     ];
 
     // Ensure standard overflow for sweetalert overlays
@@ -91,50 +92,8 @@
       });
     }
   }
+
   injectAdblockCSS();
-
-  // 1.1 Global Anti-Adblock Variable Spoofing
-  // Many sites check for these to decide if they should show an "AdBlock Detected" message.
-  (function spoofAntiAdblock() {
-    const properties = [
-      "canRunAds",
-      "isAdBlockActive",
-      "no_adblock",
-      "adblock",
-      "ad_blocked",
-      "is_adblock",
-      "ads_blocked",
-      "blockAdblock",
-      "FuckAdBlock",
-      "SniffAdBlock",
-    ];
-
-    properties.forEach((prop) => {
-      try {
-        // Define as true (or existing) to signal that ads ARE "working" (or at least blocker is "not" active)
-        // Note: For some it should be false, for some true. Usually "canRunAds" = true.
-        const val =
-          prop.toLowerCase().includes("active") ||
-          prop.toLowerCase().includes("blocked")
-            ? false
-            : true;
-
-        Object.defineProperty(window, prop, {
-          get: () => val,
-          set: () => {},
-          enumerable: true,
-          configurable: true,
-        });
-      } catch (e) {}
-    });
-
-    // Mock Google AdSense/ad-networks presence
-    window.adsbygoogle = window.adsbygoogle || [];
-    window.adsbygoogle.loaded = true;
-
-    // Some sites check if certain functions exist
-    window.ga = window.ga || function () {};
-  })();
 
   // 2. Pre-fetch setup for domains that need to do background network requests early
   if (window.location.hostname === "ugeen.live") {
@@ -287,4 +246,5 @@
       if (adblockMsg) adblockMsg.remove();
     }, 500);
   });
+
 })();
