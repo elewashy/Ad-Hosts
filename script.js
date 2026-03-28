@@ -156,14 +156,19 @@
 
   // freex2line logic to isolate and center the download button
   if (hostname.includes("freex2line.online")) {
-    if (isolateElement("#downloadbtn", function (el) {
-      styleButton(el);
-      // Make it slightly bigger for better visibility
-      el.style.fontSize = "26px";
-      el.style.padding = "25px 50px";
-    })) {
-      return;
-    }
+    var checkDownloadBtn = setInterval(function () {
+      if (
+        isolateElement("#downloadbtn, .downloadbtn", function (el) {
+          styleButton(el);
+          // Make it slightly bigger for better visibility
+          el.style.fontSize = "26px";
+          el.style.padding = "25px 50px";
+        })
+      ) {
+        clearInterval(checkDownloadBtn);
+      }
+    }, 1000);
+    setTimeout(() => clearInterval(checkDownloadBtn), 20000);
   }
 
   // Cimanow links
