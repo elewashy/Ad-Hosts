@@ -154,6 +154,18 @@
     if (redirectedUrl) window.location.href = decodeURIComponent(redirectedUrl);
   }
 
+  // freex2line logic to isolate and center the download button
+  if (hostname.includes("freex2line.online")) {
+    if (isolateElement("#downloadbtn", function (el) {
+      styleButton(el);
+      // Make it slightly bigger for better visibility
+      el.style.fontSize = "26px";
+      el.style.padding = "25px 50px";
+    })) {
+      return;
+    }
+  }
+
   // Cimanow links
   document.querySelectorAll(".btns a").forEach((link) => {
     if (
