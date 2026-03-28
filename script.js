@@ -1,5 +1,75 @@
 // script.js - Injected on onPageFinished
 (function () {
+  // ---- ANTI-ADBLOCK BYPASS (STEALTH) ----
+  (function stealthBypass() {
+    // 1. Mock Global Ad Objects
+    window.adsbygoogle = window.adsbygoogle || [];
+    window.adsbygoogle.loaded = true;
+    if (typeof window.adsbygoogle.push !== "function") {
+        window.adsbygoogle.push = function(obj) { console.log("Mocked ad push", obj); };
+    }
+
+    window.google = window.google || {};
+    window.google.ima = {
+      AdDisplayContainer: function() {
+        return { initialize: function() {}, destroy: function() {} };
+      },
+      AdsLoader: function() {},
+      AdsRequest: function() {},
+      apiReady: true
+    };
+    
+    window.pubadsReady = true;
+    window.canRunAds = true;
+    window.google_ad_client = "ca-pub-1234567890123456";
+
+    // 2. Intercept Redirects to Google/Sinkholes
+    const originalReplace = window.location.replace;
+    window.location.replace = function(url) {
+      if (typeof url === 'string' && (url.includes("google.com") || (url === "/" && window.location.pathname !== "/"))) {
+        console.warn("Blocked Anti-Adblock redirect to:", url);
+        return;
+      }
+      try {
+        return originalReplace.call(window.location, url);
+      } catch (e) {
+        window.location.href = url;
+      }
+    };
+
+    // 3. Create Invisible Decoy Elements
+    const decoy = document.createElement('div');
+    decoy.id = 'ad-slot';
+    decoy.className = 'ads-box adsbygoogle';
+    decoy.style.cssText = 'position: absolute; top: -1000px; left: -1000px; width: 1px; height: 1px; opacity: 0.01; pointer-events: none;';
+    document.documentElement.appendChild(decoy);
+
+    // 4. Fool Canvas Pixel Detection
+    if (typeof HTMLCanvasElement !== "undefined" && HTMLCanvasElement.prototype.getContext) {
+      const originalGetContext = HTMLCanvasElement.prototype.getContext;
+      HTMLCanvasElement.prototype.getContext = function(type, options) {
+        const context = originalGetContext.apply(this, arguments);
+        if (type === '2d' && context) {
+          const originalGetImageData = context.getImageData;
+          context.getImageData = function() {
+            try {
+               const data = originalGetImageData.apply(this, arguments);
+               if (data.data[3] === 0) {
+                 for (let i = 0; i < data.data.length; i += 4) {
+                   data.data[i] = 1; data.data[i+1] = 1; data.data[i+2] = 1; data.data[i+3] = 255;
+                 }
+               }
+               return data;
+            } catch(e) {
+               return new ImageData(new Uint8ClampedArray(arguments[2] * arguments[3] * 4), arguments[2], arguments[3]);
+            }
+          };
+        }
+        return context;
+      };
+    }
+  })();
+
   // ---- HELPER FUNCTIONS ----
 
   // Helper to completely isolate an element, center it, and optionally process it
