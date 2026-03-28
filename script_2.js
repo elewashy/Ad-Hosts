@@ -2,7 +2,7 @@
 (function () {
   // --- ANTI-ADBLOCK DETECTION BYPASS (PRE-LOAD) ---
   (function() {
-    const noop = () => {};
+    const noop = function() {};
     const trueProp = { get: () => true, enumerable: true };
     const oneProp = { get: () => 1, enumerable: true };
     const emptyObjProp = { get: () => ({}), enumerable: true };
@@ -18,16 +18,17 @@
           AdsRenderingSettings: noop,
           ViewMode: {},
           AdEvent: { Type: {} },
-          AdErrorEvent: { Type: {} }
+          AdErrorEvent: { Type: {} },
+          loaded: true
         },
         tag: { apiReady: true },
         afc: { loaded: true }
       },
-      adsbygoogle: [],
+      adsbygoogle: Object.assign([], { loaded: true }),
       googletag: {
         apiReady: true,
         pubadsReady: true,
-        cmd: [],
+        cmd: Object.assign([], { push: (fn) => { if (typeof fn === 'function') fn(); return 1; } }),
         pubads: () => ({
           addEventListener: noop,
           setTargeting: noop,
@@ -40,18 +41,28 @@
         enableServices: noop,
         display: noop,
         defineSlot: () => ({ addService: () => ({ setTargeting: noop }) })
+      },
+      canRunAds: true,
+      psuperat: true,
+      blockAdBlock: {
+        on: noop,
+        onDetected: noop,
+        onNotDetected: (fn) => { if (typeof fn === 'function') fn(); },
+        check: noop
       }
     };
 
     // Safely apply mocks
     for (const [key, value] of Object.entries(mockObjects)) {
       if (!(key in window)) {
-        Object.defineProperty(window, key, {
-          value: value,
-          writable: true,
-          configurable: true,
-          enumerable: true
-        });
+        try {
+          Object.defineProperty(window, key, {
+            value: value,
+            writable: true,
+            configurable: true,
+            enumerable: true
+          });
+        } catch (e) {}
       }
     }
 
@@ -60,6 +71,16 @@
       if (!window.google.ima) window.google.ima = mockObjects.google.ima;
       window.google.ima.loaded = true;
     }
+    
+    // 1.5 'Native Code' spoofing for bypassed functions (for Snippet 2/5 detection)
+    const nativeCodeStr = 'function () { [native code] }';
+    const originalToString = Function.prototype.toString;
+    Function.prototype.toString = function() {
+        if (this === window.fetch || this === window.location.replace || this === MutationObserver.prototype.observe) {
+            return nativeCodeStr.replace('()', ' ' + this.name + '()');
+        }
+        return originalToString.apply(this, arguments);
+    };
 
     // 2. Prevent common detection redirection methods
     const originalReplace = window.location.replace;
@@ -82,11 +103,36 @@
           clientHeight: { get: () => 10, configurable: true },
           clientWidth: { get: () => 10, configurable: true }
         });
+        el.getBoundingClientRect = function() {
+           return { top: 10, left: 10, bottom: 20, right: 20, width: 10, height: 10, x: 10, y: 10 };
+        };
       }
       return el;
     };
 
-    // 4. Mock Fetch/XHR to spoof successful ad-loading
+    // 4. Mock getComputedStyle for ad-related elements
+    const originalGCS = window.getComputedStyle;
+    window.getComputedStyle = function(el) {
+       const style = originalGCS.apply(this, arguments);
+       if (el && el.nodeType === 1) {
+          const id = el.id || '';
+          const className = (typeof el.className === 'string' ? el.className : '');
+          const isProbablyBait = id.toLowerCase().includes('ad') || className.toLowerCase().includes('ad') || el.style.display === 'none';
+          if (isProbablyBait) {
+             return new Proxy(style, {
+                get(target, prop) {
+                   if (prop === 'display') return target.display === 'none' ? 'block' : target.display;
+                   if (prop === 'visibility') return 'visible';
+                   if (prop === 'opacity') return '1';
+                   return target[prop];
+                }
+             });
+          }
+       }
+       return style;
+    };
+
+    // 5. Mock Fetch/XHR to spoof successful ad-loading
     const adPattern = /ads|google-analytics|doubleclick|googlesyndication|iva-ads/i;
     
     const originalFetch = window.fetch;
@@ -126,7 +172,7 @@
       return;
     }
     var style = document.createElement("style");
-    style.id = "egyfilm-adblock-css";
+    style.id = "s" + Math.random().toString(36).substr(2, 9);
 
     var selectorsToHide = [
       // Classes

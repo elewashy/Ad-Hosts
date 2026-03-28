@@ -1,5 +1,84 @@
 // script.js - Injected on onPageFinished
 (function () {
+  // --- ANTI-ADBLOCK RUNTIME BYPASS (POST-LOAD) ---
+  (function () {
+    // 1. Mock Image properties to bypass image-based detectors (like Snippet 4)
+    const originalImage = window.Image;
+    window.Image = function () {
+      const img = new originalImage();
+      Object.defineProperties(img, {
+        complete: { get: () => true, configurable: true },
+        naturalWidth: { get: () => 1, configurable: true },
+        naturalHeight: { get: () => 1, configurable: true },
+      });
+      // Simulate successful load event for scripts that wait for it
+      setTimeout(() => {
+        if (img.onload) img.onload();
+        img.dispatchEvent(new Event("load"));
+      }, 50);
+      return img;
+    };
+
+    // 2. Disconnect/Neutralize MutationObservers that might be ad-detectors
+    // We'll wrap the observe method to keep track of observers and prevent them from seeing removals
+    const originalObserve = MutationObserver.prototype.observe;
+    MutationObserver.prototype.observe = function (target, options) {
+      // Check if they are watching for removals or style changes on the WHOLE document or body
+      if (
+        target === document ||
+        target === document.body ||
+        target === document.documentElement
+      ) {
+        console.warn("Potential anti-adblock observer intercepted.");
+        // Optionally suppress if it's too aggressive, but for now we just allow and monitor
+      }
+      return originalObserve.apply(this, arguments);
+    };
+
+    // 3. Force-show content hidden by detectors
+    const forceShow = () => {
+      const selectors = [
+        ".downloads__tabs",
+        ".watch__area",
+        "#download-timer",
+        ".container-video",
+        ".video-player",
+        "#player-embed",
+        "#video-area",
+        ".video-wrap",
+        "iframe",
+      ];
+      selectors.forEach((sel) => {
+        const el = document.querySelector(sel);
+        if (
+          el &&
+          (getComputedStyle(el).display === "none" ||
+            getComputedStyle(el).visibility === "hidden")
+        ) {
+          el.style.setProperty("display", "block", "important");
+          el.style.setProperty("visibility", "visible", "important");
+          el.style.setProperty("opacity", "1", "important");
+        }
+      });
+
+      // Remove specifically malicious looking overlays
+      document
+        .querySelectorAll('div[style*="z-index"][style*="fixed"]')
+        .forEach((el) => {
+          const text = el.textContent.toLowerCase();
+          if (
+            text.includes("adblock") ||
+            text.includes("disable ad block") ||
+            text.includes("أدر بلك")
+          ) {
+            el.remove();
+          }
+        });
+    };
+    setInterval(forceShow, 500);
+    forceShow();
+  })();
+
   // ---- HELPER FUNCTIONS ----
 
   // Helper to completely isolate an element, center it, and optionally process it
