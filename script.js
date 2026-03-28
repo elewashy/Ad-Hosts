@@ -27,24 +27,6 @@
     return false;
   }
 
-  function decodeBase64(str) {
-    if (!str) return null;
-    try {
-      // Standardize URL-safe Base64 and add padding
-      var b64 = str.replace(/-/g, "+").replace(/_/g, "/");
-      while (b64.length % 4) b64 += "=";
-      return decodeURIComponent(escape(atob(b64)));
-    } catch (e) {
-      try {
-        var b64_2 = str.replace(/-/g, "+").replace(/_/g, "/");
-        while (b64_2.length % 4) b64_2 += "=";
-        return atob(b64_2);
-      } catch (err) {
-        return null;
-      }
-    }
-  }
-
   function styleButton(btn) {
     btn.style.backgroundColor = "#1e88e5";
     btn.style.color = "#fff";
@@ -165,39 +147,6 @@
     removeAdblockElementsSmart();
   }
 
-  // ---- LOADON / REDIRECT BYPASS ----
-  // (function handleLoadon() {
-  //     const STORAGE_KEY = 'rm_decoded_link';
-  //     const savedLink = localStorage.getItem(STORAGE_KEY) || sessionStorage.getItem(STORAGE_KEY);
-
-  //     if (savedLink && savedLink.startsWith('http')) {
-  //         localStorage.removeItem(STORAGE_KEY);
-  //         sessionStorage.removeItem(STORAGE_KEY);
-
-  //         // Clean page and show direct button
-  //         document.documentElement.innerHTML = '<html><head><title>فتح الرابط</title></head><body></body></html>';
-  //         document.body.style.cssText = "margin:0;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#0f0f0f;font-family:Arial,sans-serif;color:#fff;";
-
-  //         const msg = document.createElement('div');
-  //         msg.textContent = "جاري تحويلك... (Redirecting)";
-  //         msg.style.marginBottom = "30px";
-  //         msg.style.fontSize = "18px";
-  //         document.body.appendChild(msg);
-
-  //         const btn = document.createElement('a');
-  //         btn.href = savedLink;
-  //         btn.textContent = 'فتح الرابط';
-  //         btn.style.cssText = "padding:20px 40px;font-size:24px;color:#fff;background:#1e88e5;text-decoration:none;border-radius:8px;box-shadow:0 0 20px rgba(30,136,229,0.6);";
-  //         document.body.appendChild(btn);
-
-  //         setTimeout(() => {
-  //             if (window.location.href !== savedLink) window.location.href = savedLink;
-  //         }, 800);
-
-  //         throw new Error("Redirecting...");
-  //     }
-  // })();
-
   // Khabrnew redirect
   if (href.includes("khabrnew.store/ta7mel")) {
     const urlParams = new URLSearchParams(window.location.search);
@@ -282,7 +231,7 @@
   }
 
   // Telegram FAQ link toggle
-  if (href === "https://telegram.org/faq") {
+  if (href === "https://telegram.org/apps") {
     const links = ["https://swiftlnx.com/EgyFilm_Code"];
     let currentIndex = parseInt(localStorage.getItem("linkToggleIndex") || "0");
     const currentLink = links[currentIndex % links.length];
