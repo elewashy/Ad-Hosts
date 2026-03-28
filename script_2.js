@@ -63,6 +63,7 @@
       "#downloadButton",
       "#normal-box",
       "#appStickyBanner",
+      "#sylive-banner",
       ".app-install-promo",
       'a[href*="arablionztv.ink"]',
       // section--titles
