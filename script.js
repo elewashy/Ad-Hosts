@@ -579,19 +579,4 @@
     document.body.appendChild(newBtn);
     return;
   }
-
-  // DownloadMainContent countdown bypass (in-place)
-//   var dlMainContent = document.querySelector(".DownloadMainContent");
-//   if (dlMainContent) {
-//     var countDown = dlMainContent.querySelector("#countdown");
-//     var clickMe = dlMainContent.querySelector("#clickme");
-//     var finalBtn = dlMainContent.querySelector("#btn");
-
-//     if (countDown) countDown.style.display = "none";
-//     if (clickMe) clickMe.style.display = "none";
-
-//     if (finalBtn) {
-//       finalBtn.style.setProperty("display", "inline-block", "important");
-//     }
-//   }
 })();
