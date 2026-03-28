@@ -309,6 +309,9 @@
     };
 
     // ── 1. REDIRECT PROTECTION ────────────────────────────────
+    // Multi-layer: prototype + instance + window.location.href property.
+    // safeDefine can fail silently if a descriptor is non-configurable in certain
+    // WebView builds. We try EVERY possible intercept path.
     (function () {
       var CURRENT_HOST = location.hostname;
 
@@ -316,84 +319,62 @@
         if (!url || typeof url !== 'string') return true;
         try {
           var u = new URL(url, location.href);
-          // Always allow same-origin navigation
           if (u.hostname === CURRENT_HOST) return true;
-          // On freex2line.online: block ALL JS-initiated cross-origin redirects.
-          // The anti-adblock script redirects to cimanow.cc (and possibly google.com).
-          // User clicks on <a> tags are not affected — those bypass our JS overrides.
-          if (CURRENT_HOST.includes('freex2line.online')) {
-            console.warn('[bypass] Blocked cross-origin redirect from freex2line.online →', u.href);
-            return false;
-          }
-          // On other domains (cimanow.cc): only block known bad destinations
+          // On freex2line.online block ALL cross-origin JS redirects (to cimanow, google, etc.)
+          if (CURRENT_HOST.includes('freex2line.online')) return false;
           if (u.hostname.includes('google.') && u.pathname === '/') return false;
           if (isBlockedSrc(u.href)) return false;
           return true;
         } catch (e) { return true; }
       }
 
-
-      safeDefine(Location.prototype, 'replace', {
-        value: function replace(url) {
+      function makeBlockedFn(original, name) {
+        var fn = function () {
+          var url = arguments[0];
           if (!isSafeDestination(url)) {
-            console.warn('[bypass] Blocked location.replace →', url);
+            console.warn('[bypass] Blocked', name, '→', url);
             return;
           }
-          _orig.locReplace(url);
-        },
-        configurable: true, writable: true,
-      });
-
-      safeDefine(Location.prototype, 'assign', {
-        value: function assign(url) {
-          if (!isSafeDestination(url)) {
-            console.warn('[bypass] Blocked location.assign →', url);
-            return;
-          }
-          _orig.locAssign(url);
-        },
-        configurable: true, writable: true,
-      });
-
-      var locDesc = Object.getOwnPropertyDescriptor(Location.prototype, 'href');
-      if (locDesc && locDesc.configurable) {
-        safeDefine(Location.prototype, 'href', {
-          get: locDesc.get,
-          set: function (url) {
-            if (!isSafeDestination(url)) {
-              console.warn('[bypass] Blocked location.href =', url);
-              return;
-            }
-            locDesc.set.call(this, url);
-          },
-          configurable: true,
-        });
+          return original.apply(this, arguments);
+        };
+        fn._bypassNativeName = 'function ' + name + '() { [native code] }';
+        return fn;
       }
 
-      window.open = function open(url, target, features) {
-        if (isBlockedSrc(url)) {
-          console.warn('[bypass] Blocked window.open →', url);
-          return null;
-        }
-        return _orig.winOpen(url, target, features);
-      };
+      var replaceFn = makeBlockedFn(_orig.locReplace, 'replace');
+      var assignFn  = makeBlockedFn(_orig.locAssign,  'assign');
 
-      // ── Native toString spoof ─────────────────────────────────
-      // Script 3 checks: location.replace.toString().includes('native code')
-      // Our wrappers expose their real source. We fix this by intercepting
-      // Function.prototype.toString and returning a native-looking string
-      // for any function we have tagged with ._nativeName.
+      // Layer 1: Location.prototype (catches prototype-chain lookups)
+      try { Object.defineProperty(Location.prototype, 'replace', { value: replaceFn, configurable: true, writable: true }); } catch(e) {}
+      try { Object.defineProperty(Location.prototype, 'assign',  { value: assignFn,  configurable: true, writable: true }); } catch(e) {}
+
+      // Layer 2: location instance own property (catches scripts that cache the object)
+      try { Object.defineProperty(location, 'replace', { value: replaceFn, configurable: true, writable: true }); } catch(e) {}
+      try { Object.defineProperty(location, 'assign',  { value: assignFn,  configurable: true, writable: true }); } catch(e) {}
+
+      // Layer 3: href accessor — prototype then instance
+      var hrefDesc = Object.getOwnPropertyDescriptor(Location.prototype, 'href')
+                  || Object.getOwnPropertyDescriptor(location, 'href');
+      if (hrefDesc) {
+        var hrefSet = function (url) {
+          if (!isSafeDestination(url)) { console.warn('[bypass] Blocked href =', url); return; }
+          hrefDesc.set.call(location, url);
+        };
+        try { Object.defineProperty(Location.prototype, 'href', { get: hrefDesc.get, set: hrefSet, configurable: true }); } catch(e) {}
+        try { Object.defineProperty(location, 'href',           { get: hrefDesc.get, set: hrefSet, configurable: true }); } catch(e) {}
+      }
+
+      // Layer 4: window.open
+      window.open = makeBlockedFn(_orig.winOpen, 'open');
+
+      // ── Native toString spoof ──────────────────────────────────
       var _origFnToString = Function.prototype.toString;
       Function.prototype.toString = function toString() {
         if (this._bypassNativeName) return this._bypassNativeName;
         return _origFnToString.call(this);
       };
-
-      // Tag each of our wrapper functions
-      Location.prototype.replace._bypassNativeName = 'function replace() { [native code] }';
-      Location.prototype.assign._bypassNativeName  = 'function assign() { [native code] }';
-      window.open._bypassNativeName                = 'function open() { [native code] }';
     })();
+
 
     // ── 2. SCRIPT INJECTION CONTROL ──────────────────────────
     (function () {
