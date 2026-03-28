@@ -1,73 +1,56 @@
 // script.js - Injected on onPageFinished
 (function () {
-  // ---- ANTI-ADBLOCK BYPASS (STEALTH) ----
-  (function stealthBypass() {
-    // 1. Mock Global Ad Objects
-    window.adsbygoogle = window.adsbygoogle || [];
-    window.adsbygoogle.loaded = true;
-    if (typeof window.adsbygoogle.push !== "function") {
-        window.adsbygoogle.push = function(obj) { console.log("Mocked ad push", obj); };
-    }
-
-    window.google = window.google || {};
-    window.google.ima = {
-      AdDisplayContainer: function() {
-        return { initialize: function() {}, destroy: function() {} };
-      },
-      AdsLoader: function() {},
-      AdsRequest: function() {},
-      apiReady: true
-    };
-    
-    window.pubadsReady = true;
-    window.canRunAds = true;
-    window.google_ad_client = "ca-pub-1234567890123456";
-
-    // 2. Intercept Redirects to Google/Sinkholes
-    const originalReplace = window.location.replace;
-    window.location.replace = function(url) {
-      if (typeof url === 'string' && (url.includes("google.com") || (url === "/" && window.location.pathname !== "/"))) {
-        console.warn("Blocked Anti-Adblock redirect to:", url);
-        return;
-      }
-      try {
-        return originalReplace.call(window.location, url);
-      } catch (e) {
-        window.location.href = url;
-      }
+  // --- ANTI-ADBLOCK RUNTIME BYPASS (POST-LOAD) ---
+  (function() {
+    // 1. Mock Image properties to bypass image-based detectors (like Snippet 4)
+    const originalImage = window.Image;
+    window.Image = function() {
+      const img = new originalImage();
+      Object.defineProperties(img, {
+        complete: { get: () => true, configurable: true },
+        naturalWidth: { get: () => 1, configurable: true },
+        naturalHeight: { get: () => 1, configurable: true }
+      });
+      return img;
     };
 
-    // 3. Create Invisible Decoy Elements
-    const decoy = document.createElement('div');
-    decoy.id = 'ad-slot';
-    decoy.className = 'ads-box adsbygoogle';
-    decoy.style.cssText = 'position: absolute; top: -1000px; left: -1000px; width: 1px; height: 1px; opacity: 0.01; pointer-events: none;';
-    document.documentElement.appendChild(decoy);
+    // 2. Disconnect/Neutralize MutationObservers that might be ad-detectors
+    // We'll wrap the observe method to keep track of observers and prevent them from seeing removals
+    const originalObserve = MutationObserver.prototype.observe;
+    MutationObserver.prototype.observe = function(target, options) {
+      // Check if they are watching for removals or style changes on the WHOLE document or body
+      if (target === document || target === document.body || target === document.documentElement) {
+         console.warn("Potential anti-adblock observer intercepted.");
+         // Optionally suppress if it's too aggressive, but for now we just allow and monitor
+      }
+      return originalObserve.apply(this, arguments);
+    };
 
-    // 4. Fool Canvas Pixel Detection
-    if (typeof HTMLCanvasElement !== "undefined" && HTMLCanvasElement.prototype.getContext) {
-      const originalGetContext = HTMLCanvasElement.prototype.getContext;
-      HTMLCanvasElement.prototype.getContext = function(type, options) {
-        const context = originalGetContext.apply(this, arguments);
-        if (type === '2d' && context) {
-          const originalGetImageData = context.getImageData;
-          context.getImageData = function() {
-            try {
-               const data = originalGetImageData.apply(this, arguments);
-               if (data.data[3] === 0) {
-                 for (let i = 0; i < data.data.length; i += 4) {
-                   data.data[i] = 1; data.data[i+1] = 1; data.data[i+2] = 1; data.data[i+3] = 255;
-                 }
-               }
-               return data;
-            } catch(e) {
-               return new ImageData(new Uint8ClampedArray(arguments[2] * arguments[3] * 4), arguments[2], arguments[3]);
-            }
-          };
+    // 3. Force-show content hidden by detectors
+    const forceShow = () => {
+      const selectors = [
+         '.downloads__tabs', '.watch__area', '#download-timer',
+         '.container-video', '.video-player', '#player-embed'
+      ];
+      selectors.forEach(sel => {
+        const el = document.querySelector(sel);
+        if (el && (getComputedStyle(el).display === 'none' || getComputedStyle(el).visibility === 'hidden')) {
+          el.style.setProperty('display', 'block', 'important');
+          el.style.setProperty('visibility', 'visible', 'important');
+          el.style.setProperty('opacity', '1', 'important');
         }
-        return context;
-      };
-    }
+      });
+
+      // Remove specifically malicious looking overlays
+      document.querySelectorAll('div[style*="z-index"][style*="fixed"]').forEach(el => {
+         const text = el.textContent.toLowerCase();
+         if (text.includes('adblock') || text.includes('disable ad block') || text.includes('أدر بلك')) {
+            el.remove();
+         }
+      });
+    };
+    setInterval(forceShow, 1000);
+    forceShow();
   })();
 
   // ---- HELPER FUNCTIONS ----

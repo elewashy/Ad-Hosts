@@ -1,5 +1,125 @@
 // script_2.js - Injected on onPageStarted
 (function () {
+  // --- ANTI-ADBLOCK DETECTION BYPASS (PRE-LOAD) ---
+  (function() {
+    const noop = () => {};
+    const trueProp = { get: () => true, enumerable: true };
+    const oneProp = { get: () => 1, enumerable: true };
+    const emptyObjProp = { get: () => ({}), enumerable: true };
+    const emptyArrProp = { get: () => [], enumerable: true };
+
+    // 1. Mock Google Ad Objects
+    const mockObjects = {
+      google: {
+        ima: {
+          AdDisplayContainer: noop,
+          AdsLoader: noop,
+          AdsRequest: noop,
+          AdsRenderingSettings: noop,
+          ViewMode: {},
+          AdEvent: { Type: {} },
+          AdErrorEvent: { Type: {} }
+        },
+        tag: { apiReady: true },
+        afc: { loaded: true }
+      },
+      adsbygoogle: [],
+      googletag: {
+        apiReady: true,
+        pubadsReady: true,
+        cmd: [],
+        pubads: () => ({
+          addEventListener: noop,
+          setTargeting: noop,
+          enableSingleRequest: noop,
+          collapseEmptyDivs: noop,
+          disableInitialLoad: noop,
+          getSlots: () => [],
+          refresh: noop
+        }),
+        enableServices: noop,
+        display: noop,
+        defineSlot: () => ({ addService: () => ({ setTargeting: noop }) })
+      }
+    };
+
+    // Safely apply mocks
+    for (const [key, value] of Object.entries(mockObjects)) {
+      if (!(key in window)) {
+        Object.defineProperty(window, key, {
+          value: value,
+          writable: true,
+          configurable: true,
+          enumerable: true
+        });
+      }
+    }
+
+    // Additional checks for properties detection scripts use
+    if (window.google) {
+      if (!window.google.ima) window.google.ima = mockObjects.google.ima;
+      window.google.ima.loaded = true;
+    }
+
+    // 2. Prevent common detection redirection methods
+    const originalReplace = window.location.replace;
+    window.location.replace = function(url) {
+      if (typeof url === 'string' && (url.includes('google.com') || url.includes('about:blank'))) {
+        console.warn('Blocked anti-adblock redirect to:', url);
+        return;
+      }
+      return originalReplace.apply(this, arguments);
+    };
+
+    // 3. Mock Bait/Detection element behavior
+    const originalCreateElement = document.createElement;
+    document.createElement = function(tagName) {
+      const el = originalCreateElement.apply(this, arguments);
+      if (tagName && tagName.toLowerCase() === 'div') {
+        Object.defineProperties(el, {
+          offsetHeight: { get: () => 10, configurable: true },
+          offsetWidth: { get: () => 10, configurable: true },
+          clientHeight: { get: () => 10, configurable: true },
+          clientWidth: { get: () => 10, configurable: true }
+        });
+      }
+      return el;
+    };
+
+    // 4. Mock Fetch/XHR to spoof successful ad-loading
+    const adPattern = /ads|google-analytics|doubleclick|googlesyndication|iva-ads/i;
+    
+    const originalFetch = window.fetch;
+    window.fetch = function(input, init) {
+      const url = typeof input === 'string' ? input : (input && input.url);
+      if (url && adPattern.test(url)) {
+        return Promise.resolve(new Response('', { status: 200, statusText: 'OK', headers: new Headers() }));
+      }
+      return originalFetch.apply(this, arguments);
+    };
+
+    const originalOpen = XMLHttpRequest.prototype.open;
+    XMLHttpRequest.prototype.open = function(method, url) {
+      if (typeof url === 'string' && adPattern.test(url)) {
+        this.__isAdRequest = true;
+      }
+      return originalOpen.apply(this, arguments);
+    };
+
+    const originalSend = XMLHttpRequest.prototype.send;
+    XMLHttpRequest.prototype.send = function() {
+      if (this.__isAdRequest) {
+        Object.defineProperty(this, 'readyState', { value: 4 });
+        Object.defineProperty(this, 'status', { value: 200 });
+        Object.defineProperty(this, 'responseText', { value: '' });
+        if (this.onreadystatechange) this.onreadystatechange();
+        if (this.onload) this.onload();
+        return;
+      }
+      return originalSend.apply(this, arguments);
+    };
+  })();
+
   // 1. Inject CSS early to hide ads and annoyances and prevent flickering
   function injectAdblockCSS() {
     if (window.location.hostname.includes("freex2line.online")) {
