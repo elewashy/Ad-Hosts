@@ -154,25 +154,21 @@
     if (redirectedUrl) window.location.href = decodeURIComponent(redirectedUrl);
   }
 
-  // freex2line logic to center the download button in the viewport
+  // freex2line logic to center the download button when it naturally appears
   if (hostname.includes("freex2line.online")) {
     var checkDownloadBtn = setInterval(function () {
       var btn = document.querySelector("#downloadbtn, .downloadbtn");
-      if (btn) {
-        styleButton(btn);
-        // Center the button in the middle of the viewport without clearing the body
-        btn.style.position = "fixed";
-        btn.style.top = "50%";
-        btn.style.left = "50%";
-        btn.style.transform = "translate(-50%, -50%)";
-        btn.style.zIndex = "9999";
-        btn.style.fontSize = "26px";
-        btn.style.padding = "25px 50px";
-        btn.style.display = "inline-block"; // Ensure it's visible
+      if (btn && getComputedStyle(btn).display !== "none") {
+        // Only apply centering styles, let the original site styling remain
+        btn.style.setProperty("position", "fixed", "important");
+        btn.style.setProperty("top", "50%", "important");
+        btn.style.setProperty("left", "50%", "important");
+        btn.style.setProperty("transform", "translate(-50%, -50%)", "important");
+        btn.style.setProperty("z-index", "9999", "important");
         clearInterval(checkDownloadBtn);
       }
     }, 1000);
-    setTimeout(() => clearInterval(checkDownloadBtn), 20000);
+    setTimeout(() => clearInterval(checkDownloadBtn), 30000);
   }
 
   // Cimanow links
