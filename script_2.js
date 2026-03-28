@@ -69,7 +69,6 @@
       ".buttonPress-1077",
       'a[class^="buttonPress-"]',
       // Anti Adblock detectors
-      ".anti-adblock-message",
     ];
 
     // Ensure standard overflow for sweetalert overlays
