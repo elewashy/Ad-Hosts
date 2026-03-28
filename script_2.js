@@ -555,26 +555,64 @@
     })();
 
     // ── 4b. Node.prototype.contains SPOOF ──────────────────────
-    // Script 2 uses: setInterval(function(){ if(!document.body.contains(baitEl)) redirect; }, 200)
-    // Our MutationObserver wrapper stops the observer callback but NOT this polling check.
-    // We override Node.prototype.contains so it always returns true for ad-class bait elements,
-    // preventing the detection function from ever seeing the bait as removed.
+    // Script 2 uses:
+    //   setInterval(function(){ if(!document.body.contains(baitEl)) redirect; }, 200)
+    // The bait element may have any class name (obfuscated), so matching by class is
+    // unreliable. Instead we use a document-position approach:
+    //   if body.contains(el) returns false BUT the element IS still somewhere in the
+    //   document (e.g. appended to <head>), return true.
+    // This foils any bait-in-head trick without being fully nuclear.
+    // We ALSO neutralize setInterval-based polling by tracking and clearing intervals
+    // whose callback source references detection patterns.
     (function () {
       var _origContains = Node.prototype.contains;
-      var BAIT_CLASS_RE = /\b(ads?|ad-?box|adsbygoogle|doubleclick|adsense|bannerads?|gpt-ad)\b/i;
 
-      function isBaitNode(node) {
-        if (!node || node.nodeType !== 1) return false;
-        var combined = (node.id || '') + ' ' + (node.className || '');
-        return BAIT_CLASS_RE.test(combined);
+      // Robust: if body.contains(el) is false but the element is still somewhere
+      // in the document (e.g. bait appended to <head>), return true.
+      // Works regardless of the bait element's class name.
+      Node.prototype.contains = function contains(other) {
+        var result = _origContains.call(this, other);
+        if (!result && other && other.nodeType === 1) {
+          try {
+            if (_origContains.call(document.documentElement, other)) return true;
+          } catch (e) {}
+        }
+        return result;
+      };
+
+      // ── setInterval / setTimeout neutralizer ──────────────────
+      // Script 2's 200ms polling loop directly calls contains() and redirects.
+      // Script 3's 500ms setTimeout also fires the redirect check.
+      // Intercept both and nullify callbacks whose source contains redirect patterns.
+      var _origSI = window.setInterval;
+      var _origST = window.setTimeout;
+
+      function isDetectionCb(fn) {
+        if (typeof fn !== 'function') return false;
+        try {
+          var src = fn.toString();
+          return /location\s*[\[.]?\s*(replace|assign|href)/.test(src) ||
+                 /freex2line/i.test(src);
+        } catch (e) { return false; }
       }
 
-      Node.prototype.contains = function contains(other) {
-        // If the element being checked looks like an ad bait, pretend it's always present.
-        if (isBaitNode(other)) return true;
-        return _origContains.call(this, other);
+      window.setInterval = function setInterval(fn, delay) {
+        if (isDetectionCb(fn)) {
+          console.warn('[bypass] Neutralized detection setInterval');
+          return _origSI(function () {}, delay);
+        }
+        return _origSI.apply(this, arguments);
+      };
+
+      window.setTimeout = function setTimeout(fn, delay) {
+        if (isDetectionCb(fn)) {
+          console.warn('[bypass] Neutralized detection setTimeout');
+          return _origST(function () {}, delay);
+        }
+        return _origST.apply(this, arguments);
       };
     })();
+
 
     // ── 5. DOM-BAIT & offsetHeight SPOOFING ──────────────────
     (function () {
