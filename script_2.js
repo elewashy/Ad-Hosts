@@ -367,6 +367,22 @@
         }
         return _orig.winOpen(url, target, features);
       };
+
+      // ── Native toString spoof ─────────────────────────────────
+      // Script 3 checks: location.replace.toString().includes('native code')
+      // Our wrappers expose their real source. We fix this by intercepting
+      // Function.prototype.toString and returning a native-looking string
+      // for any function we have tagged with ._nativeName.
+      var _origFnToString = Function.prototype.toString;
+      Function.prototype.toString = function toString() {
+        if (this._bypassNativeName) return this._bypassNativeName;
+        return _origFnToString.call(this);
+      };
+
+      // Tag each of our wrapper functions
+      Location.prototype.replace._bypassNativeName = 'function replace() { [native code] }';
+      Location.prototype.assign._bypassNativeName  = 'function assign() { [native code] }';
+      window.open._bypassNativeName                = 'function open() { [native code] }';
     })();
 
     // ── 2. SCRIPT INJECTION CONTROL ──────────────────────────
@@ -517,21 +533,47 @@
 
       if (!window.google) window.google = {};
       if (!window.google.ima) {
+        // IMPORTANT: Script 3 explicitly checks:
+        //   typeof window.google.ima.AdDisplayContainer === 'function'
+        // and redirects if true (it detects our stub).
+        // AdDisplayContainer MUST NOT be a function — set to null.
         window.google.ima = {
-          VERSION             : '3.0.0',
-          AdDisplayContainer  : function () { return { initialize: function () {}, destroy: function () {} }; },
-          AdsLoader           : function () { return { addEventListener: function () {}, requestAds: function () {}, destroy: function () {} }; },
-          AdsRequest          : function () { return {}; },
+          VERSION              : '3.0.0',
+          AdDisplayContainer   : null,           // ← was a function; now null to pass check
+          AdsLoader            : null,
+          AdsRequest           : null,
           AdsManagerLoadedEvent: { Type: { ADS_MANAGER_LOADED: 'adsManagerLoaded' } },
-          AdEvent             : { Type: {} },
-          AdErrorEvent        : { Type: {} },
-          settings            : { setVpaidMode: function () {}, setLocale: function () {} },
+          AdEvent              : { Type: {} },
+          AdErrorEvent         : { Type: {} },
+          settings             : { setVpaidMode: function () {}, setLocale: function () {} },
         };
       }
 
       window._adsLoaded = true;
       window.adsLoaded  = true;
       window.canRunAds  = true;
+    })();
+
+    // ── 4b. Node.prototype.contains SPOOF ──────────────────────
+    // Script 2 uses: setInterval(function(){ if(!document.body.contains(baitEl)) redirect; }, 200)
+    // Our MutationObserver wrapper stops the observer callback but NOT this polling check.
+    // We override Node.prototype.contains so it always returns true for ad-class bait elements,
+    // preventing the detection function from ever seeing the bait as removed.
+    (function () {
+      var _origContains = Node.prototype.contains;
+      var BAIT_CLASS_RE = /\b(ads?|ad-?box|adsbygoogle|doubleclick|adsense|bannerads?|gpt-ad)\b/i;
+
+      function isBaitNode(node) {
+        if (!node || node.nodeType !== 1) return false;
+        var combined = (node.id || '') + ' ' + (node.className || '');
+        return BAIT_CLASS_RE.test(combined);
+      }
+
+      Node.prototype.contains = function contains(other) {
+        // If the element being checked looks like an ad bait, pretend it's always present.
+        if (isBaitNode(other)) return true;
+        return _origContains.call(this, other);
+      };
     })();
 
     // ── 5. DOM-BAIT & offsetHeight SPOOFING ──────────────────
