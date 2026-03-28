@@ -154,17 +154,28 @@
     if (redirectedUrl) window.location.href = decodeURIComponent(redirectedUrl);
   }
 
-  // freex2line logic to center the download button when it naturally appears
+  // freex2line logic to center the download button and auto-click it
   if (hostname.includes("freex2line.online")) {
     var checkDownloadBtn = setInterval(function () {
-      var btn = document.querySelector("#downloadbtn, .downloadbtn");
+      var btn = document.querySelector("#downloadbtn, .downloadbtn, #downloadbtn1, #downloadbtn2");
       if (btn && getComputedStyle(btn).display !== "none") {
-        // Only apply centering styles, let the original site styling remain
+        // Center the button and make it prominent
         btn.style.setProperty("position", "fixed", "important");
         btn.style.setProperty("top", "50%", "important");
         btn.style.setProperty("left", "50%", "important");
         btn.style.setProperty("transform", "translate(-50%, -50%)", "important");
         btn.style.setProperty("z-index", "9999", "important");
+        btn.style.setProperty("padding", "20px 40px", "important");
+        btn.style.setProperty("font-size", "24px", "important");
+        
+        // Auto-click it after a short delay
+        setTimeout(() => {
+            if (btn && !btn.hasAttribute('data-clicked')) {
+                btn.setAttribute('data-clicked', 'true');
+                btn.click();
+            }
+        }, 1000);
+        
         clearInterval(checkDownloadBtn);
       }
     }, 1000);
