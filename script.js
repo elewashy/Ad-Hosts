@@ -71,19 +71,7 @@
             .buttonPress-1077, a[class^="buttonPress-"], script[src*="tfnvuckb.pro"]
         `);
     ads.forEach(function (el) {
-      if (el) {
-          // Instead of removing everything immediately, 
-          // we use a stealthier approach for common ad containers
-          // that might be checked by detectors.
-          if (el.getAttribute('id') && (el.getAttribute('id').includes('ad') || el.getAttribute('id').includes('Advert'))) {
-              el.style.setProperty("display", "none", "important");
-              el.style.setProperty("visibility", "hidden", "important");
-              el.style.setProperty("pointer-events", "none", "important");
-              el.style.setProperty("opacity", "0", "important");
-          } else {
-            el.remove();
-          }
-      }
+      if (el) el.remove();
     });
 
     // Targeted removal for elements labeled as advertisement (Arabic and English)
