@@ -581,17 +581,17 @@
   }
 
   // DownloadMainContent countdown bypass (in-place)
-  var dlMainContent = document.querySelector(".DownloadMainContent");
-  if (dlMainContent) {
-    var countDown = dlMainContent.querySelector("#countdown");
-    var clickMe = dlMainContent.querySelector("#clickme");
-    var finalBtn = dlMainContent.querySelector("#btn");
+//   var dlMainContent = document.querySelector(".DownloadMainContent");
+//   if (dlMainContent) {
+//     var countDown = dlMainContent.querySelector("#countdown");
+//     var clickMe = dlMainContent.querySelector("#clickme");
+//     var finalBtn = dlMainContent.querySelector("#btn");
 
-    if (countDown) countDown.style.display = "none";
-    if (clickMe) clickMe.style.display = "none";
+//     if (countDown) countDown.style.display = "none";
+//     if (clickMe) clickMe.style.display = "none";
 
-    if (finalBtn) {
-      finalBtn.style.setProperty("display", "inline-block", "important");
-    }
-  }
+//     if (finalBtn) {
+//       finalBtn.style.setProperty("display", "inline-block", "important");
+//     }
+//   }
 })();
