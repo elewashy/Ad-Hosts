@@ -316,12 +316,22 @@
         if (!url || typeof url !== 'string') return true;
         try {
           var u = new URL(url, location.href);
+          // Always allow same-origin navigation
           if (u.hostname === CURRENT_HOST) return true;
+          // On freex2line.online: block ALL JS-initiated cross-origin redirects.
+          // The anti-adblock script redirects to cimanow.cc (and possibly google.com).
+          // User clicks on <a> tags are not affected — those bypass our JS overrides.
+          if (CURRENT_HOST.includes('freex2line.online')) {
+            console.warn('[bypass] Blocked cross-origin redirect from freex2line.online →', u.href);
+            return false;
+          }
+          // On other domains (cimanow.cc): only block known bad destinations
           if (u.hostname.includes('google.') && u.pathname === '/') return false;
           if (isBlockedSrc(u.href)) return false;
           return true;
         } catch (e) { return true; }
       }
+
 
       safeDefine(Location.prototype, 'replace', {
         value: function replace(url) {
