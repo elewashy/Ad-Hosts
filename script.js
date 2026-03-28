@@ -1,5 +1,62 @@
 // script.js - Injected on onPageFinished
 (function () {
+  // ---- ANTI-ADBLOCK DEFEATER ----
+  (function() {
+    try {
+      // 1. Mock common ad network variables checked by detection scripts
+      Object.defineProperty(window, 'adsbygoogle', {
+        get: () => {
+          const fake = [];
+          fake.loaded = true;
+          return fake;
+        },
+        set: () => {}
+      });
+      
+      Object.defineProperty(window, 'adthrive', {
+        get: () => ({ apiReady: true, pubadsReady: true }),
+        set: () => {}
+      });
+      
+      window.google = window.google || {};
+      window.google.ima = window.google.ima || {};
+      window.google.ima.AdDisplayContainer = function() {};
+
+      // 2. Fix `fetch` toString check in case it was intercepted
+      if (window.fetch && !window.fetch.toString().includes('native code')) {
+        const _origToString = window.fetch.toString;
+        window.fetch.toString = function() {
+          return "function fetch() { [native code] }";
+        };
+      }
+
+      // 3. Spoof `getElementById` to always return a fake element for Honeypots
+      const origGetElementById = Document.prototype.getElementById;
+      Document.prototype.getElementById = function(id) {
+        if (id === 'ads' || id === 'ad-container' || id === 'adsbox') {
+          const fake = document.createElement('div');
+          fake.id = id;
+          fake.style.display = 'block';
+          fake.style.height = '10px';
+          fake.style.width = '10px';
+          return fake;
+        }
+        return origGetElementById.apply(this, arguments);
+      };
+
+      // 4. Prevent redirect via 'window.location.replace' if possible (catch-all)
+      const targetReplace = window.location.replace;
+      window.location.replace = function(url) {
+        if (typeof url === 'string' && (url.includes('google.com') || url.includes('about:blank'))) {
+          console.log('[Anti-AdBlock Bypass] Blocked redirect to:', url);
+          return;
+        }
+        return targetReplace.apply(window.location, arguments);
+      };
+    } catch (e) {
+      console.error('[Anti-AdBlock Bypass] Error initializing', e);
+    }
+  })();
   // ---- HELPER FUNCTIONS ----
 
   // Helper to completely isolate an element, center it, and optionally process it
